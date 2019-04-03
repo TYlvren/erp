@@ -21,7 +21,7 @@
 	            <td>
 	            	<input class="easyui-combobox" name="productId"  panelHeight="auto"
     					data-options="valueField:'productId',textField:'productName',url:'product/get_data',
-    						required:true, editable:false" />  
+    						required:true, editable:false" value="22"/>
 	            </td>
 	        </tr>
 	        <tr>
@@ -47,14 +47,14 @@
 	            <td>
 	            	<input class="easyui-combobox" name="empId" panelHeight="auto" 
     					data-options="required:true,editable:false,valueField:'empId',textField:'empName',
-    						url:'employee/get_data'" />
+    						url:'employee/get_data'" value="22"/>
     			</td>  
 	        </tr>
 	        <tr>
 	            <td>申请时间:</td>
 	             <td>
 					 <input class="easyui-datetimebox" name="applyDate" data-options="required:true,showSeconds:true"
-							value="5/5/2016 00:00:00" style="width:150px">
+							value="date.format('yyyy-MM-dd hh:mm:ss')" style="width:150px">
 				 </td>
 				
 	        </tr>
