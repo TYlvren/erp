@@ -1,7 +1,9 @@
 package com.cskaoyan.erp.service.impl;
 
 import com.cskaoyan.erp.dao.COrderDao;
+import com.cskaoyan.erp.dao.DeviceTypeDao;
 import com.cskaoyan.erp.model.COrder;
+import com.cskaoyan.erp.model.DeviceType;
 import com.cskaoyan.erp.service.ErpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ public class ErpServiceImpl implements ErpService {
     /*****************计划进度接口实现*************************************/
     @Autowired
     private COrderDao cOrderDao;
+    @Autowired
+    private DeviceTypeDao deviceTypeDao;
     /**
      * 查询订单API的实现
      * @see { ErpService }
@@ -27,8 +31,13 @@ public class ErpServiceImpl implements ErpService {
     }
 
 
-    /*****************设备管理接口实现*************************************/
 
+
+    /*****************设备管理接口实现*************************************/
+    @Override
+    public List<DeviceType> findDeviceTypeByPage() {
+        return  deviceTypeDao.findAllDeviceType();
+    }
 
     /*****************工艺监控接口实现*************************************/
 

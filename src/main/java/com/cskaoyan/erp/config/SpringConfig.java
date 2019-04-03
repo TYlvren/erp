@@ -1,6 +1,8 @@
 package com.cskaoyan.erp.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.github.pagehelper.PageInterceptor;
+import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,6 +13,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 //配置Spring扫描器，且设置@EnableWebMvc注解的不进行扫描
@@ -38,6 +41,18 @@ public class SpringConfig {
         sqlSessionFactoryBean.setDataSource(dataSource);
         //设置bean的别名（model层，数据库输入输出的类型）
         sqlSessionFactoryBean.setTypeAliasesPackage("com.cskaoyan.erp.model");
+
+        PageInterceptor pageInterceptor = new PageInterceptor();
+        //创建插件需要的参数集合
+        Properties properties = new Properties();
+        //配置数据库方言 为oracle
+        properties.setProperty("helperDialect", "mysql");
+        //配置分页的合理化数据
+        properties.setProperty("reasonable", "true");
+        pageInterceptor.setProperties(properties);
+        //将拦截器设置到sqlSessionFactroy中
+        sqlSessionFactoryBean.setPlugins(new Interceptor[] {pageInterceptor});
+
         return sqlSessionFactoryBean;
     }
 
