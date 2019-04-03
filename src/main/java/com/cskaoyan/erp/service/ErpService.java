@@ -1,6 +1,7 @@
 package com.cskaoyan.erp.service;
 
 import com.cskaoyan.erp.model.COrder;
+import com.cskaoyan.erp.model.UnQualifyApply;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface ErpService {
      * 查询订单API
      * @return
      */
-    List<COrder> findCOrder();
+   // List<COrder> findCOrder();
 
     /*****************设备管理接口实现*************************************/
 
@@ -28,7 +29,7 @@ public interface ErpService {
 
 
     /*****************质量监控接口实现*************************************/
-
+    List<UnQualifyApply> findUnqualifyList();
 
     /*****************人员监控接口实现*************************************/
 
