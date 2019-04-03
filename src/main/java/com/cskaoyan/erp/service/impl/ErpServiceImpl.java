@@ -31,8 +31,10 @@ public class ErpServiceImpl implements ErpService {
 
     @Autowired
     private DeviceTypeDao deviceTypeDao;
+
     @Autowired
     DeviceMaintainDao deviceMaintainDao;
+
 
     private UnQualifyApplyDao  unQualifyApplyDao;
 
