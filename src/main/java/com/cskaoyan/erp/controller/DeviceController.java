@@ -57,10 +57,16 @@ public class DeviceController {
         return deviceTypeByPage;
     }
 
+    @RequestMapping("deviceType/add_judge")
+    public String add1DeviceType() {
+        //System.out.println("dddddd");
+        return "deviceType_add";
+    }
+
     @RequestMapping("deviceType/add")
-    public String addDeviceType() {
-        System.out.println("dddddd");
-        return "deviceList_add";
+    public String add2DeviceType() {
+        //System.out.println("dddddd");
+        return "deviceType_add";
     }
 
     @RequestMapping("deviceType/insert")
