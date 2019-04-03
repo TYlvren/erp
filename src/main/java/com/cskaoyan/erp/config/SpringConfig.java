@@ -25,7 +25,7 @@ public class SpringConfig {
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/production_ssm?serverTimezone=GMT");
         dataSource.setUsername("root");
-        dataSource.setPassword("123456");
+        dataSource.setPassword("1995");
         return dataSource;
     }
 
