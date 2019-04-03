@@ -34,6 +34,7 @@ import java.util.List;
 @RequestMapping("unqualify")
 public class UnqualifyController {
     @Autowired
+    @Qualifier("erpService")
     private ErpService erpService;//注入service容器
 
 
