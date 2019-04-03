@@ -87,7 +87,7 @@
 
 <!-- deviceTypeAddWindow -->
 <div id="deviceTypeAddWindow" class="easyui-window" title="添加设备种类" data-options="modal:true,
-	closed:true,resizable:true,iconCls:'icon-save',href:'${pageContext.request.contextPath}/deviceType/add'" style="width:40%;height:55%;padding:10px;">
+	closed:true,resizable:true,iconCls:'icon-save',href:'deviceType/add'" style="width:40%;height:55%;padding:10px;">
 </div>
 
 <!-- deviceTypeEditWindow -->
