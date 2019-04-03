@@ -12,17 +12,24 @@ package com.cskaoyan.erp.controller;
 
 import com.cskaoyan.erp.model.UnQualifyApply;
 import com.cskaoyan.erp.service.ErpService;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import sun.security.x509.UniqueIdentity;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -41,19 +48,18 @@ public class UnqualifyController {
     private ErpService erpService;//注入service容器
 
 
-    @RequestMapping("/find")//进入情况1.home.jsp中点击不合格品管理
+    @RequestMapping("find")//进入情况1.home.jsp中点击不合格品管理
     public String turnToUnqualify(ModelAndView mv, HttpSession session){
         List<String> sysPermissionList=new ArrayList<>();
-        sysPermissionList.add("unqualify:add");
+        sysPermissionList.add("unqualify:add");//设置新建编辑删除按钮的显示
         sysPermissionList.add("unqualify:edit");
         sysPermissionList.add("unqualify:delete");
         session.setAttribute("sysPermissionList",sysPermissionList);
         return "unqualify_list";
     }
-    @RequestMapping("/list")//进入情况1.home.jsp中点击不合格品管理
-    public void findUnqualify(HttpServletRequest request){
+    @RequestMapping("list")//自动查询数据
+    public  @ResponseBody List<UnQualifyApply> findUnqualify(int page, int rows){
         List<UnQualifyApply> unqualifyList = erpService.findUnqualifyList();
-        request.setAttribute("unqualifyList",unqualifyList);
-        return ;
+        return unqualifyList;
     }
 }

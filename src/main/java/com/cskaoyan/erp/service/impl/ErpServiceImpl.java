@@ -29,7 +29,7 @@ public class ErpServiceImpl implements ErpService {
     @Autowired
 
     private DeviceTypeDao deviceTypeDao;
-
+    @Autowired
     private UnQualifyApplyDao  unQualifyApplyDao;
 
     /**
