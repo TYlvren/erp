@@ -5,3 +5,4 @@ output/
 target/
 *.iml
 test/
+out/
