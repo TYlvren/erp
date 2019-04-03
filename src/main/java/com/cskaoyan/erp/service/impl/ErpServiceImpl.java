@@ -25,42 +25,59 @@ public class ErpServiceImpl implements ErpService {
     private COrderDao cOrderDao;
 
 
-
     @Autowired
     private CustomDao customDao;
 
     @Autowired
     private ProductDao productDao;
 
-
-
-
-    @Autowired
-    DeviceMaintainDao deviceMaintainDao;
-
-
-
+    /**------------------------------order--------------------------------*/
     /**
      * 查询订单API的实现
-     * @see { ErpService }
+     *
      * @return
+     * @see { ErpService }
      */
     @Override
     public List<COrder> findCOrder() {
         return cOrderDao.selectALLCOder();
     }
 
+    /**
+     * ------------------------------custom--------------------------------
+     */
     @Override
-    public List<Custom> findCustom(){
+    public List<Custom> findCustom() {
         return customDao.selectAllCustom();
     }
 
+    @Override
+    public Custom findCustomById(String id) {
+        return customDao.selectCustomById(id);
+    }
+
+
+    /**
+     * ------------------------------product--------------------------------
+     */
     @Override
     public List<Product> findProduct() {
         return productDao.selectAllProduct();
     }
 
+    @Override
+    public Product findProductByid(String id) {
+        return productDao.selectProductById(id);
+    }
+
+    @Override
+    public int addProduct(Product product) {
+        return productDao.insertProduct(product);
+    }
+
     /*****************设备管理接口实现*************************************/
+    @Autowired
+    DeviceMaintainDao deviceMaintainDao;
 
     @Autowired
     private DeviceTypeDao deviceTypeDao;
@@ -70,7 +87,7 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public List<DeviceType> findDeviceTypeByPage() {
-        return  deviceTypeDao.findAllDeviceType();
+        return deviceTypeDao.findAllDeviceType();
     }
 
     @Override
@@ -91,7 +108,6 @@ public class ErpServiceImpl implements ErpService {
     }
 
 
-
     /*****************工艺监控接口实现*************************************/
 
 
@@ -100,7 +116,8 @@ public class ErpServiceImpl implements ErpService {
 
     /*****************质量监控接口实现*************************************/
     @Autowired
-    private UnQualifyApplyDao  unQualifyApplyDao;
+    private UnQualifyApplyDao unQualifyApplyDao;
+
     @Override
     public List<UnQualifyApply> findUnqualifyList() {
 
@@ -113,8 +130,6 @@ public class ErpServiceImpl implements ErpService {
         return ;
     }
     /*****************人员监控接口实现*************************************/
-
-
 
 
     /*****************系统管理接口实现*************************************/
