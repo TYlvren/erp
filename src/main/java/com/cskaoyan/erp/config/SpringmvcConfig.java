@@ -51,7 +51,6 @@ public class SpringmvcConfig implements WebMvcConfigurer {
         commonsMultipartResolver.setMaxUploadSize(5 * 1024 * 1024);
         return commonsMultipartResolver;
     }
-
     @Override
     //利用父接口的方法配置资源解析器
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
