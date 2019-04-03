@@ -1,7 +1,9 @@
 package com.cskaoyan.erp.model;
 
-import java.util.Date;
+import org.springframework.stereotype.Component;
 
+import java.util.Date;
+@Component
 public class DeviceType {
     private String deviceTypeId;
 
@@ -18,6 +20,20 @@ public class DeviceType {
     private Integer deviceTypeQuantity;
 
     private Date deviceTypeWarranty;
+
+    public DeviceType() {
+    }
+
+    public DeviceType(String deviceTypeId, String deviceTypeName, String deviceTypeModel, String deviceTypeSpec, String deviceTypeSupplier, String deviceTypeProducer, Integer deviceTypeQuantity, Date deviceTypeWarranty) {
+        this.deviceTypeId = deviceTypeId;
+        this.deviceTypeName = deviceTypeName;
+        this.deviceTypeModel = deviceTypeModel;
+        this.deviceTypeSpec = deviceTypeSpec;
+        this.deviceTypeSupplier = deviceTypeSupplier;
+        this.deviceTypeProducer = deviceTypeProducer;
+        this.deviceTypeQuantity = deviceTypeQuantity;
+        this.deviceTypeWarranty = deviceTypeWarranty;
+    }
 
     public String getDeviceTypeId() {
         return deviceTypeId;

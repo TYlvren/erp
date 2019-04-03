@@ -1,5 +1,6 @@
 package com.cskaoyan.erp.controller;
 
+import com.cskaoyan.erp.model.DeviceMaintain;
 import com.cskaoyan.erp.model.DeviceType;
 import com.cskaoyan.erp.service.ErpService;
 import com.github.pagehelper.PageHelper;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,10 +37,13 @@ public class DeviceController {
 
     /*---------设备种类模块------------------------------------------------------------------------*/
     @RequestMapping("device/deviceType")
-    public String findAllDeviceTypeByPage(Model model) {
-
+    public String findAllDeviceTypeByPage(Model model, HttpSession session) {
+        List<String> list = new ArrayList();
+        list.add("deviceType:add");
+        list.add("deviceType:edit");
+        list.add("deviceType:delete");
+        session.setAttribute("sysPermissionList", list);
         List<DeviceType> deviceTypeByPage = erpService.findDeviceTypeByPage();
-
         return "deviceType";
     }
 
@@ -50,6 +56,27 @@ public class DeviceController {
         System.out.println(pageInfo);*/
         return deviceTypeByPage;
     }
+
+    @RequestMapping("deviceType/add_judge")
+    public String add1DeviceType() {
+        //System.out.println("dddddd");
+        return "deviceType_add";
+    }
+
+    @RequestMapping("deviceType/add")
+    public String add2DeviceType() {
+        //System.out.println("dddddd");
+        return "deviceType_add";
+    }
+
+    @RequestMapping("deviceType/insert")
+    public String insertDeviceType(DeviceType deviceType) {
+        erpService.insertDeviceType(deviceType);
+        return "forward:/device/deviceType";
+    }
+
+
+
 
     /*---------设备例检模块------------------------------------------------------------------------*/
     @RequestMapping("device/deviceCheck")
@@ -75,6 +102,16 @@ public class DeviceController {
 
 
         return "deviceMaintain";
+    }
+
+    @RequestMapping("/deviceMaintain/list")
+    public @ResponseBody  List<DeviceMaintain> findAllDeviceMaintainByPageData(@RequestParam(defaultValue = "1") int page, int rows) {
+        /*System.out.println(page + "-------" + rows);
+        PageHelper.startPage(page, rows);*/
+        List<DeviceMaintain> deviceMaintainByPage = erpService.findDeviceMaintainByPage();
+       /* PageInfo pageInfo = new PageInfo(deviceTypeByPage);
+        System.out.println(pageInfo);*/
+        return deviceMaintainByPage;
     }
 
 }

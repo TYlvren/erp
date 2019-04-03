@@ -1,7 +1,10 @@
 package com.cskaoyan.erp.service;
 
-import com.cskaoyan.erp.model.COrder;
+import com.cskaoyan.erp.model.*;
 
+
+
+import com.cskaoyan.erp.model.DeviceMaintain;
 import com.cskaoyan.erp.model.DeviceType;
 
 import com.cskaoyan.erp.model.UnQualifyApply;
@@ -25,9 +28,26 @@ public interface ErpService {
      */
     List<COrder> findCOrder();
 
+    List<Product> findProduct();
+    /**
+     * 查询客户
+     */
+    List<Custom> findCustom();
 
     /*****************设备管理接口实现*************************************/
+    /*-------------设备分类模块------------------------------------------------*/
     List<DeviceType> findDeviceTypeByPage();
+
+    int insertDeviceType(DeviceType deviceType);
+
+    /*-------------设备模块------------------------------------------------*/
+
+    /*-------------设备例检模块------------------------------------------------*/
+
+    /*-------------设备故障模块------------------------------------------------*/
+
+    /*-------------设备维修模块------------------------------------------------*/
+    List<DeviceMaintain> findDeviceMaintainByPage();
 
     /*****************工艺监控接口实现*************************************/
 
@@ -38,6 +58,8 @@ public interface ErpService {
     /*****************质量监控接口实现*************************************/
     List<UnQualifyApply> findUnqualifyList();
     void  addUnqualifyService(UnQualifyApply unQualifyApply);
+
+
 
     /*****************人员监控接口实现*************************************/
 

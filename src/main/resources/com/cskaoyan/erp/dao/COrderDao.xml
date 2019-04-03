@@ -10,8 +10,26 @@
          unit as unit,image as image,file as file,status as status
     </sql>
 
-    <select id="selectALLCOder" resultType="corder">
-        select <include refid="COrderColumns"/>
+    <resultMap id="corderMap" type="corder">
+        <id property="orderId" column="order_id"/>
+        <result column="order_date" property="orderDate"/>
+        <result column="request_date" property="requestDate"/>
+        <result column="note" property="note"/>
+        <result column="quantity" property="quantity"/>
+        <result column="unit_price" property="unitPrice"/>
+        <result column="unit" property="unit"/>
+        <result column="image" property="image"/>
+        <result column="file" property="file"/>
+        <result column="status" property="status"/>
+        <association property="custom" column="custom_id" javaType="custom"
+                     select="com.cskaoyan.erp.dao.CustomDao.selectCustomById"/>
+        <association property="product" column="product_id" javaType="product"
+                     select="com.cskaoyan.erp.dao.ProductDao.selectProductById"/>
+    </resultMap>
+    <select id="selectALLCOder" resultMap="corderMap">
+        select
+        order_id ,custom_id,product_id ,order_date,request_date,
+        note,quantity ,unit_price,unit ,image,file ,status
         from c_order;
     </select>
 
