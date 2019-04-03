@@ -1,25 +1,20 @@
 package com.cskaoyan.erp.service.impl;
 
 
+import com.cskaoyan.erp.dao.*;
+import com.cskaoyan.erp.model.*;
+
 import com.cskaoyan.erp.dao.DeviceMaintainDao;
 import com.cskaoyan.erp.dao.UnQualifyApplyDao;
 import com.cskaoyan.erp.model.DeviceMaintain;
 import com.cskaoyan.erp.model.UnQualifyApply;
+
 import com.cskaoyan.erp.service.ErpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import com.cskaoyan.erp.dao.COrderDao;
-import com.cskaoyan.erp.dao.DeviceTypeDao;
-import com.cskaoyan.erp.model.COrder;
-import com.cskaoyan.erp.model.DeviceType;
-import com.cskaoyan.erp.service.ErpService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
 
 @Service("erpService")
 public class ErpServiceImpl implements ErpService {
@@ -29,14 +24,21 @@ public class ErpServiceImpl implements ErpService {
     @Autowired
     private COrderDao cOrderDao;
 
+
+
     @Autowired
-    private DeviceTypeDao deviceTypeDao;
+    private CustomDao customDao;
+
+    @Autowired
+    private ProductDao productDao;
+
+
+
 
     @Autowired
     DeviceMaintainDao deviceMaintainDao;
 
 
-    private UnQualifyApplyDao  unQualifyApplyDao;
 
     /**
      * 查询订单API的实现
@@ -48,11 +50,24 @@ public class ErpServiceImpl implements ErpService {
         return cOrderDao.selectALLCOder();
     }
 
+    @Override
+    public List<Custom> findCustom(){
+        return customDao.selectAllCustom();
+    }
 
+    @Override
+    public List<Product> findProduct() {
+        return productDao.selectAllProduct();
+    }
 
     /*****************设备管理接口实现*************************************/
 
+    @Autowired
+    private DeviceTypeDao deviceTypeDao;
+
+
     /*-------------设备分类模块------------------------------------------------*/
+
     @Override
     public List<DeviceType> findDeviceTypeByPage() {
         return  deviceTypeDao.findAllDeviceType();
@@ -84,6 +99,8 @@ public class ErpServiceImpl implements ErpService {
 
 
     /*****************质量监控接口实现*************************************/
+    @Autowired
+    private UnQualifyApplyDao  unQualifyApplyDao;
     @Override
     public List<UnQualifyApply> findUnqualifyList() {
 

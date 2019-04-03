@@ -6,9 +6,9 @@ import java.util.Date;
 public class COrder {
     private String orderId;
 
-    private String customId;
+    private Custom custom;
 
-    private String productId;
+    private Product product;
 
     private Date orderDate;
 
@@ -36,20 +36,20 @@ public class COrder {
         this.orderId = orderId == null ? null : orderId.trim();
     }
 
-    public String getCustomId() {
-        return customId;
+    public Custom getCustom() {
+        return custom;
     }
 
-    public void setCustomId(String customId) {
-        this.customId = customId == null ? null : customId.trim();
+    public void setCustom(Custom custom) {
+        this.custom = custom;
     }
 
-    public String getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId == null ? null : productId.trim();
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Date getOrderDate() {
@@ -128,8 +128,8 @@ public class COrder {
     public String toString() {
         return "COrder{" +
                 "orderId='" + orderId + '\'' +
-                ", customId='" + customId + '\'' +
-                ", productId='" + productId + '\'' +
+                ", custom=" + custom +
+                ", product=" + product +
                 ", orderDate=" + orderDate +
                 ", requestDate=" + requestDate +
                 ", note='" + note + '\'' +

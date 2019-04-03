@@ -1,83 +1,76 @@
 package com.cskaoyan.erp.model;
 
 public class Product {
-    private String pid;
+    private String productId;
 
-    private String pname;
+    private String productName;
 
-    private Double estoreprice;
+    private String productType;
 
-    private Double markprice;
+    private String image;
 
-    private Integer pnum;
+    private String note;
 
-    private Integer cid;
+    private String status;
 
-    private String imgurl;
 
-    private String desc;
-
-    public String getPid() {
-        return pid;
+    public String getProductId() {
+        return productId;
     }
 
-    public void setPid(String pid) {
-        this.pid = pid == null ? null : pid.trim();
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
-    public String getPname() {
-        return pname;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setPname(String pname) {
-        this.pname = pname == null ? null : pname.trim();
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public Double getEstoreprice() {
-        return estoreprice;
+    public String getProductType() {
+        return productType;
     }
 
-    public void setEstoreprice(Double estoreprice) {
-        this.estoreprice = estoreprice;
+    public void setProductType(String productType) {
+        this.productType = productType;
     }
 
-    public Double getMarkprice() {
-        return markprice;
+    public String getImage() {
+        return image;
     }
 
-    public void setMarkprice(Double markprice) {
-        this.markprice = markprice;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public Integer getPnum() {
-        return pnum;
+    public String getNote() {
+        return note;
     }
 
-    public void setPnum(Integer pnum) {
-        this.pnum = pnum;
+    public void setNote(String note) {
+        this.note = note;
     }
 
-    public Integer getCid() {
-        return cid;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCid(Integer cid) {
-        this.cid = cid;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getImgurl() {
-        return imgurl;
-    }
-
-    public void setImgurl(String imgurl) {
-        this.imgurl = imgurl == null ? null : imgurl.trim();
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId='" + productId + '\'' +
+                ", productName='" + productName + '\'' +
+                ", productType='" + productType + '\'' +
+                ", image='" + image + '\'' +
+                ", note='" + note + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

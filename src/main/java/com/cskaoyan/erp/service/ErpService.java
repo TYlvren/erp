@@ -1,6 +1,8 @@
 package com.cskaoyan.erp.service;
 
-import com.cskaoyan.erp.model.COrder;
+import com.cskaoyan.erp.model.*;
+
+
 
 import com.cskaoyan.erp.model.DeviceMaintain;
 import com.cskaoyan.erp.model.DeviceType;
@@ -26,6 +28,11 @@ public interface ErpService {
      */
     List<COrder> findCOrder();
 
+    List<Product> findProduct();
+    /**
+     * 查询客户
+     */
+    List<Custom> findCustom();
 
     /*****************设备管理接口实现*************************************/
     /*-------------设备分类模块------------------------------------------------*/

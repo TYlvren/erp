@@ -2,4 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.ProductDao">
 
+    <sql id="productColumns">
+        product_id as productId,product_name as productName,
+        product_type as productType,image,note,status
+    </sql>
+
+    <select id="selectAllProduct" resultType="product">
+        select <include refid="productColumns"/>
+        from product;
+    </select>
+
+    <select id="selectProductById" resultType="product">
+        select <include refid="productColumns"/>
+        from product
+        where product_id=#{id};
+    </select>
 </mapper>
