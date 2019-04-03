@@ -1,5 +1,13 @@
 package com.cskaoyan.erp.service.impl;
 
+
+import com.cskaoyan.erp.dao.UnQualifyApplyDao;
+import com.cskaoyan.erp.model.UnQualifyApply;
+import com.cskaoyan.erp.service.ErpService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 import com.cskaoyan.erp.dao.COrderDao;
 import com.cskaoyan.erp.dao.DeviceTypeDao;
 import com.cskaoyan.erp.model.COrder;
@@ -19,7 +27,11 @@ public class ErpServiceImpl implements ErpService {
     @Autowired
     private COrderDao cOrderDao;
     @Autowired
+
     private DeviceTypeDao deviceTypeDao;
+
+    private UnQualifyApplyDao  unQualifyApplyDao;
+
     /**
      * 查询订单API的实现
      * @see { ErpService }
@@ -29,7 +41,6 @@ public class ErpServiceImpl implements ErpService {
     public List<COrder> findCOrder() {
         return cOrderDao.selectALLCOder();
     }
-
 
 
 
@@ -46,7 +57,11 @@ public class ErpServiceImpl implements ErpService {
 
 
     /*****************质量监控接口实现*************************************/
+    @Override
+    public List<UnQualifyApply> findUnqualifyList() {
 
+        return unQualifyApplyDao.findUnqualifyListDao();
+    }
 
     /*****************人员监控接口实现*************************************/
 
@@ -54,5 +69,6 @@ public class ErpServiceImpl implements ErpService {
 
 
     /*****************系统管理接口实现*************************************/
+
 
 }

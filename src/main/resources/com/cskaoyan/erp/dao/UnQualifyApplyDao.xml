@@ -2,4 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.UnQualifyApplyDao">
 
+
+    <sql id="unqualifyColumns">
+        unqualify_apply_id as unqualifyApplyId,product_id as productId,unqualify_item as unqualifyItem,unqualify_count as unqualifyCount,
+        assembly_date as assemblyDate,emp_id as empId,apply_date as applyDate,note
+    </sql>
+
+
+    <!--查询全部不合格产品-->
+    <select id="findUnqualifyListDao" resultType="unQualifyApply">
+        select
+        <include refid="unqualifyColumns"/>
+        from unqualify_apply;
+    </select>
 </mapper>
