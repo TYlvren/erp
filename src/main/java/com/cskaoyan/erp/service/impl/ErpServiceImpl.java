@@ -57,6 +57,11 @@ public class ErpServiceImpl implements ErpService {
     public List<DeviceType> findDeviceTypeByPage() {
         return  deviceTypeDao.findAllDeviceType();
     }
+
+    @Override
+    public int insertDeviceType(DeviceType deviceType) {
+        return deviceTypeDao.insertDeviceType(deviceType);
+    }
     /*-------------设备模块----------------------------------------------------*/
 
 

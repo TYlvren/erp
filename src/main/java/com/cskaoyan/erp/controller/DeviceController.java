@@ -63,6 +63,11 @@ public class DeviceController {
         return "deviceList_add";
     }
 
+    @RequestMapping("deviceType/insert")
+    public String insertDeviceType(DeviceType deviceType) {
+        erpService.insertDeviceType(deviceType);
+        return "forward:/device/deviceType";
+    }
 
 
 

@@ -21,4 +21,18 @@
 
     </update>
 
+    <insert id="insertDeviceType">
+        INSERT INTO
+        `device_type`
+        VALUES
+        (#{deviceType.deviceTypeId},
+        #{deviceType.deviceTypeName},
+        #{deviceType.deviceTypeModel},
+        #{deviceType.deviceTypeSpec},
+        #{deviceType.deviceTypeSupplier},
+        #{deviceType.deviceTypeProducer},
+        #{deviceType.deviceTypeQuantity},
+        #{deviceType.deviceTypeWarranty})
+    </insert>
+
 </mapper>
