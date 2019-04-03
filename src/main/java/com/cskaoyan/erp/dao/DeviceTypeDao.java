@@ -9,4 +9,6 @@ public interface DeviceTypeDao {
 
     List<DeviceType> findAllDeviceType();
 
+    int modifyDeviceTypeById(DeviceType deviceType);
+
 }

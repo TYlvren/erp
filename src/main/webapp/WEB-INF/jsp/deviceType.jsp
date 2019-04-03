@@ -59,7 +59,7 @@
 		</c:if>
 		<c:if test="${per=='deviceType:delete'}">
 		    <div style="float: left;">  
-		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="deviceType_delete()">
+		        <a href="${pageContext.request.contextPath}/device/delete" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="deviceType_delete()">
 					删除
 				</a>
 		    </div>  
@@ -87,7 +87,7 @@
 
 <!-- deviceTypeAddWindow -->
 <div id="deviceTypeAddWindow" class="easyui-window" title="添加设备种类" data-options="modal:true,
-	closed:true,resizable:true,iconCls:'icon-save',href:'deviceType/add'" style="width:40%;height:55%;padding:10px;">
+	closed:true,resizable:true,iconCls:'icon-save',href:'${pageContext.request.contextPath}/deviceType/add'" style="width:40%;height:55%;padding:10px;">
 </div>
 
 <!-- deviceTypeEditWindow -->

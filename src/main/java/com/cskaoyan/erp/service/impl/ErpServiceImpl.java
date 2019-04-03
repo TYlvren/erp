@@ -1,7 +1,9 @@
 package com.cskaoyan.erp.service.impl;
 
 
+import com.cskaoyan.erp.dao.DeviceMaintainDao;
 import com.cskaoyan.erp.dao.UnQualifyApplyDao;
+import com.cskaoyan.erp.model.DeviceMaintain;
 import com.cskaoyan.erp.model.UnQualifyApply;
 import com.cskaoyan.erp.service.ErpService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +28,11 @@ public class ErpServiceImpl implements ErpService {
     /*****************计划进度接口实现*************************************/
     @Autowired
     private COrderDao cOrderDao;
-    @Autowired
 
+    @Autowired
     private DeviceTypeDao deviceTypeDao;
+    @Autowired
+    DeviceMaintainDao deviceMaintainDao;
 
     private UnQualifyApplyDao  unQualifyApplyDao;
 
@@ -45,10 +49,26 @@ public class ErpServiceImpl implements ErpService {
 
 
     /*****************设备管理接口实现*************************************/
+
+    /*-------------设备分类模块------------------------------------------------*/
     @Override
     public List<DeviceType> findDeviceTypeByPage() {
         return  deviceTypeDao.findAllDeviceType();
     }
+    /*-------------设备模块----------------------------------------------------*/
+
+
+    /*-------------设备例检模块------------------------------------------------*/
+
+    /*-------------设备故障模块------------------------------------------------*/
+
+    /*-------------设备维修模块------------------------------------------------*/
+    @Override
+    public List<DeviceMaintain> findDeviceMaintainByPage() {
+        return deviceMaintainDao.findAllDeviceMaintain();
+    }
+
+
 
     /*****************工艺监控接口实现*************************************/
 

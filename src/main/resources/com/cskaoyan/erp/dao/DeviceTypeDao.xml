@@ -16,4 +16,9 @@
             device_type
     </select>
 
+    <update id="modifyDeviceTypeById" >
+
+
+    </update>
+
 </mapper>
