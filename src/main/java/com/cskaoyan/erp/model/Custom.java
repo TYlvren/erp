@@ -100,4 +100,20 @@ public class Custom {
     public void setNote(String note) {
         this.note = note == null ? null : note.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Custom{" +
+                "customId='" + customId + '\'' +
+                ", customName='" + customName + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", address='" + address + '\'' +
+                ", fax='" + fax + '\'' +
+                ", email='" + email + '\'' +
+                ", ownerName='" + ownerName + '\'' +
+                ", ownerTel='" + ownerTel + '\'' +
+                ", status=" + status +
+                ", note='" + note + '\'' +
+                '}';
+    }
 }

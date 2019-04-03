@@ -2,4 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.CustomDao">
 
+    <sql id="customColumns">
+        custom_id as customId,custom_name as customName,full_name as fullName
+        ,address,fax,email,owner_name as ownerName,owner_tel as ownerTel,
+        status,note
+    </sql>
+
+    <select id="selectAllCustom" resultType="custom">
+        select <include refid="customColumns"/>
+        from custom;
+    </select>
+
+    <select id="selectCustomById" resultType="custom">
+        select <include refid="customColumns"/>
+        from custom
+        where custom_id=#{id};
+    </select>
 </mapper>
