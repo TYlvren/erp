@@ -2,4 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.DeviceMaintainDao">
 
+    <select id="findAllDeviceMaintain" resultType="deviceMaintain">
+        SELECT
+            device_maintain.device_maintain_id AS deviceMaintainId,
+            device_maintain.device_fault_id AS deviceFaultId,
+            device_maintain.device_maintain_emp_id AS deviceMaintainEmpId,
+            device_maintain.device_maintain_date AS deviceMaintainDate,
+            device_maintain.device_maintain_result AS deviceMaintainResult,
+            device_maintain.device_maintain_cost AS deviceMaintainCost,
+            device_maintain.note
+        FROM
+            device_maintain
+    </select>
+
 </mapper>
