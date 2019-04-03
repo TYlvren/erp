@@ -6,6 +6,8 @@ import com.cskaoyan.erp.model.Product;
 import com.cskaoyan.erp.service.ErpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -39,14 +41,11 @@ public class PlanProgressController {
     @RequestMapping("order/list")
     public List<COrder> findOrder(){
         List<COrder> cOrder = erpService.findCOrder();
-        System.out.println(cOrder);
         return cOrder;
     }
 
 
     /*****************客户curd控制层*************************************/
-
-
     @RequestMapping("custom/find")
     public String toCustomList(HttpSession session){
         List<String> sysPermissionList = new ArrayList<>();
@@ -55,6 +54,12 @@ public class PlanProgressController {
         sysPermissionList.add("custom:delete");
         session.setAttribute("sysPermissionList",sysPermissionList);
         return "custom_list";
+    }
+
+    @RequestMapping("custom/get/{id}")
+    @ResponseBody
+    public Custom getCustom(@PathVariable("id") String id){
+        return erpService.findCustomById(id);
     }
 
     @ResponseBody
@@ -68,15 +73,39 @@ public class PlanProgressController {
     @RequestMapping("product/find")
     public String toProductList(HttpSession session){
         List<String> sysPermissionList = new ArrayList<>();
-        sysPermissionList.add("product=:add");
+        sysPermissionList.add("product:add");
         sysPermissionList.add("product:edit");
         sysPermissionList.add("product:delete");
         session.setAttribute("sysPermissionList",sysPermissionList);
         return "product_list";
     }
 
-    @RequestMapping("/product/list")
-    protected @ResponseBody List<Product> findProduct(){
+    @RequestMapping("product/get/{id}")
+    @ResponseBody
+    public Product getProduct(@PathVariable("id") String id){
+
+        return erpService.findProductByid(id);
+    }
+
+    @RequestMapping("product/list")
+    @ResponseBody
+    public List<Product> findProduct(){
         return erpService.findProduct();
+    }
+
+    @RequestMapping("product/add_judge")
+    public String addProductJudge(){
+        return "product_add";
+    }
+
+    @RequestMapping("product/add")
+    public String addProduct(){
+        return "product_add";
+    }
+
+    @RequestMapping("product/insert")
+    public String insertProduct(){
+
+        return "forward:list";
     }
 }
