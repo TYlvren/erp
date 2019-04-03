@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
 <mapper namespace="com.cskaoyan.erp.dao.COrderDao">
+
+    <sql id="COrderColumns">
+         order_id as orderId,custom_id as customId,product_id as productId,order_date as orderDate,
+         request_date as requestDate,note as note,quantity as quantity,unit_price as unitPrice,
+         unit as unit,image as image,file as file,status as status
+    </sql>
+
+    <select id="selectALLCOder" resultType="corder">
+        select <include refid="COrderColumns"/>
+        from c_order;
+    </select>
 
 </mapper>

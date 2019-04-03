@@ -4,11 +4,12 @@ import com.cskaoyan.erp.dao.COrderDao;
 import com.cskaoyan.erp.model.COrder;
 import com.cskaoyan.erp.service.ErpService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@RequestMapping("erpService")
+@Service("erpService")
 public class ErpServiceImpl implements ErpService {
 
 
@@ -22,7 +23,7 @@ public class ErpServiceImpl implements ErpService {
      */
     @Override
     public List<COrder> findCOrder() {
-        return null;
+        return cOrderDao.selectALLCOder();
     }
 
 

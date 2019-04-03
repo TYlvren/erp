@@ -8,9 +8,9 @@
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <RollingFile name="RollingFileDebug" fileName="${web:rootDir}/logs/debug.log"
+       <!-- <RollingFile name="RollingFileDebug" fileName="${web:rootDir}/logs/debug.log"
                      filePattern="${web:rootDir}/logs/$${date:yyyy-MM}/debug-%d{yyyy-MM-dd}-%i.log">
-            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            &lt;!&ndash;控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）&ndash;&gt;
             <Filters>
                 <ThresholdFilter level="DEBUG"/>
                 <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL"/>
@@ -20,7 +20,7 @@
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
             </Policies>
-            <!--最多保留20个日志文件-->
+            &lt;!&ndash;最多保留20个日志文件&ndash;&gt;
             <DefaultRolloverStrategy max="20" min="0" />
         </RollingFile>
 
@@ -35,7 +35,7 @@
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
             </Policies>
-            <!--最多保留20个日志文件-->
+            &lt;!&ndash;最多保留20个日志文件&ndash;&gt;
             <DefaultRolloverStrategy max="20" min="0" />
         </RollingFile>
 
@@ -50,7 +50,7 @@
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
             </Policies>
-            <!--最多保留20个日志文件-->
+            &lt;!&ndash;最多保留20个日志文件&ndash;&gt;
             <DefaultRolloverStrategy max="20" min="0" />
         </RollingFile>
 
@@ -62,7 +62,7 @@
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
             </Policies>
-            <!--最多保留20个日志文件-->
+            &lt;!&ndash;最多保留20个日志文件&ndash;&gt;
             <DefaultRolloverStrategy max="20" min="0" />
         </RollingFile>
 
@@ -74,11 +74,11 @@
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
             </Policies>
-            <!--最多保留20个日志文件-->
+            &lt;!&ndash;最多保留20个日志文件&ndash;&gt;
             <DefaultRolloverStrategy max="20" min="0" />
-        </RollingFile>
+        </RollingFile>-->
     </Appenders>
-    <!--<Loggers>
+   <!-- <Loggers>
         &lt;!&ndash;过滤掉simm.spring.restapi一些无用的DEBUG信息&ndash;&gt;
         <logger name="simm.spring.restapi" level="INFO"></logger>
         <Root level="all">
@@ -92,6 +92,9 @@
     </Loggers>-->
 
     <loggers>
+        <!--过滤掉simm.spring.restapi一些无用的DEBUG信息-->
+        <logger name="simm.spring.restapi" level="INFO"/>
+
     <!-- 将业务dao接口填写进去,并用控制台输出即可 -->
     <logger name="com.cskaoyan.erp.dao" level="DEBUG" additivity="false">
         <appender-ref ref="Console"/>
