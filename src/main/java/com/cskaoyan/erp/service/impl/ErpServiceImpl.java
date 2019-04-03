@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import com.cskaoyan.erp.dao.COrderDao;
+import com.cskaoyan.erp.dao.DeviceTypeDao;
 import com.cskaoyan.erp.model.COrder;
+import com.cskaoyan.erp.model.DeviceType;
 import com.cskaoyan.erp.service.ErpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,9 @@ public class ErpServiceImpl implements ErpService {
     @Autowired
     private COrderDao cOrderDao;
     @Autowired
+
+    private DeviceTypeDao deviceTypeDao;
+
     private UnQualifyApplyDao  unQualifyApplyDao;
 
     /**
@@ -36,8 +41,14 @@ public class ErpServiceImpl implements ErpService {
     public List<COrder> findCOrder() {
         return cOrderDao.selectALLCOder();
     }
-    /*****************设备管理接口实现*************************************/
 
+
+
+    /*****************设备管理接口实现*************************************/
+    @Override
+    public List<DeviceType> findDeviceTypeByPage() {
+        return  deviceTypeDao.findAllDeviceType();
+    }
 
     /*****************工艺监控接口实现*************************************/
 

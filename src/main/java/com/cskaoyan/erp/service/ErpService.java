@@ -1,6 +1,9 @@
 package com.cskaoyan.erp.service;
 
 import com.cskaoyan.erp.model.COrder;
+
+import com.cskaoyan.erp.model.DeviceType;
+
 import com.cskaoyan.erp.model.UnQualifyApply;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +27,7 @@ public interface ErpService {
 
 
     /*****************设备管理接口实现*************************************/
-
+    List<DeviceType> findDeviceTypeByPage();
 
     /*****************工艺监控接口实现*************************************/
 
