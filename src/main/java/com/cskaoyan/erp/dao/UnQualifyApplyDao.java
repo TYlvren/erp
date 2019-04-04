@@ -8,4 +8,5 @@ public interface UnQualifyApplyDao {
     void addUnqualifyDao(UnQualifyApply unQualifyApply);
     int updateUnqualifyDao(UnQualifyApply unQualifyApply);
     int deleteUnqualifyDao(String[] ids);
+    int updateNoteByUnqualifyApplyIdDao(@Param("id") String unqualifyApplyId,@Param("note") String note);
 }
