@@ -15,4 +15,8 @@ public interface DeviceTypeDao {
     int insertDeviceType(@Param("deviceType") DeviceType deviceType);
 
     int deleteDeviceTypeById(String id);
+
+    List<DeviceType> findDeviceTypeById(@Param("id")String searchValue);
+
+    List<DeviceType> findDeviceTypeByName(@Param("name")String searchValue);
 }

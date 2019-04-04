@@ -12,7 +12,6 @@
   <name>erp Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -200,6 +199,12 @@
       <version>2.2.2</version>
     </dependency>
 
+    <!--校验器 -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>6.0.13.Final</version>
+    </dependency>
     <!-- 其他 -->
     <dependency>
       <groupId>org.aspectj</groupId>

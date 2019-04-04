@@ -7,9 +7,7 @@ import com.cskaoyan.erp.service.ErpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,7 +25,7 @@ import java.util.Map;
 public class PlanProgressController {
 
 
-    /*****************订单curd控制层*************************************/
+    /*****************Order控制层*************************************/
     @Autowired
     private ErpService erpService;
 
@@ -44,12 +42,11 @@ public class PlanProgressController {
     @ResponseBody
     @RequestMapping("order/list")
     public List<COrder> findOrder(){
-        List<COrder> cOrder = erpService.findCOrder();
-        return cOrder;
+        return erpService.findCOrder();
     }
 
 
-    /*****************客户curd控制层*************************************/
+    /*****************Custom控制层*************************************/
     @RequestMapping("custom/find")
     public String toCustomList(HttpSession session){
         List<String> sysPermissionList = new ArrayList<>();
@@ -72,7 +69,7 @@ public class PlanProgressController {
         return erpService.findCustom();
     }
 
-    /*****************产品curd控制层*************************************/
+    /*****************Product控制层*************************************/
 
     @RequestMapping("product/find")
     public String toProductList(HttpSession session){
@@ -183,4 +180,12 @@ public class PlanProgressController {
     public List<Product> getProductData(){
         return erpService.findProduct();
     }
+
+    /*****************Work控制层*************************************/
+
+
+
+    /*****************Manufacture控制层*************************************/
+
+    /*****************Task控制层*************************************/
 }

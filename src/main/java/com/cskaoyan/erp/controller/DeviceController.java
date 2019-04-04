@@ -152,7 +152,7 @@ public class DeviceController {
      */
     @RequestMapping("deviceType/update")
     public @ResponseBody Map<String, String> update(DeviceType deviceType) {
-        System.out.println(deviceType);
+        //System.out.println(deviceType);
         Map<String, String> map = new HashMap<>();
         int i = erpService.updateDeviceType(deviceType);
         if (i > 0) {
@@ -163,9 +163,24 @@ public class DeviceController {
         return map;
     }
 
+    /**
+     * 对前端的请求进行映射，批量删除设备类别信息
+     * @return
+     */
+    @RequestMapping("deviceType/delete_judge")
+    public String delete1DeviceType() {
+        //System.out.println("dddddddddddd");
+        return "deviceType";
+    }
+
+    /**
+     * 这是一个批量删除设备类别的方法
+     * @param ids
+     * @return 删除成功则返回200状态码，失败则返回提示信息，删除失败
+     */
     @RequestMapping("deviceType/delete_batch")
     public @ResponseBody Map<String, String> delete(String ids) {
-        System.out.println(ids);
+        //System.out.println(ids);
         Map<String, String> map = new HashMap<>();
         String[] split = ids.split(",");
         int i = 0;
@@ -175,8 +190,52 @@ public class DeviceController {
         if (i > 0) {
             map.put("status", "200");
         } else {
-            map.put("msg", "修改失败");
+            map.put("msg", "删除失败");
         }
+        return map;
+    }
+
+    /**
+     * 这是一个设备分类根据id模糊搜索的方法
+     * @param page
+     * @param rows
+     * @param searchValue
+     * @return
+     */
+    @RequestMapping("deviceType/search_deviceType_by_deviceTypeId")
+    public @ResponseBody Map<String, Object> searchDeviceTypeByIdData(@RequestParam int page, int rows, String searchValue) {
+        //System.out.println(page + "-------" + rows);
+        PageHelper.startPage(page, rows, true);
+        List<DeviceType> list = erpService.findDeviceTypeById(searchValue);
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        //System.out.println(pageInfo);
+        return map;
+    }
+
+    /**
+     * 这是一个设备分类根据id模糊搜索的方法
+     * @param page
+     * @param rows
+     * @param searchValue
+     * @return
+     */
+    @RequestMapping("deviceType/search_deviceType_by_deviceTypeName")
+    public @ResponseBody Map<String, Object> searchDeviceTypeByNameData(@RequestParam int page, int rows, String searchValue) {
+        //System.out.println(page + "-------" + rows);
+        PageHelper.startPage(page, rows, true);
+        List<DeviceType> list = erpService.findDeviceTypeByName(searchValue);
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        //System.out.println(pageInfo);
         return map;
     }
 

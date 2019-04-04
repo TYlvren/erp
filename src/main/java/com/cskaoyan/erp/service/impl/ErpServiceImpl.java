@@ -124,6 +124,16 @@ public class ErpServiceImpl implements ErpService {
         return deviceTypeDao.deleteDeviceTypeById(id);
     }
 
+    @Override
+    public List<DeviceType> findDeviceTypeById(String searchValue) {
+        return deviceTypeDao.findDeviceTypeById(searchValue);
+    }
+
+    @Override
+    public List<DeviceType> findDeviceTypeByName(String searchValue) {
+        return deviceTypeDao.findDeviceTypeByName(searchValue);
+    }
+
 
     /*-------------设备模块----------------------------------------------------*/
     @Override

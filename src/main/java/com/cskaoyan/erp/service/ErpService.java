@@ -42,6 +42,8 @@ public interface ErpService {
     int insertDeviceType(DeviceType deviceType);
     int updateDeviceType(DeviceType deviceType);
     int deleteDeviceType(String id);
+    List<DeviceType> findDeviceTypeById(String searchValue);
+    List<DeviceType> findDeviceTypeByName(String searchValue);
     /*-------------设备模块------------------------------------------------*/
     List<Device> findDeviceByPage();
     /*-------------设备例检模块------------------------------------------------*/
