@@ -11,6 +11,7 @@ import com.cskaoyan.erp.model.UnQualifyApply;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description: 生产管理平台Service层接口
@@ -23,7 +24,24 @@ public interface ErpService {
 
 
     /**------------------------------Order----------------------------------*/
+    /**
+     * 查找所有的COrder
+     * @return
+     */
     List<COrder> findCOrder();
+
+    /**
+     * 通过id 查找COrder
+     * @param id
+     * @return
+     */
+    COrder findCOrderById(String id);
+
+    int addOrder(COrder cOrder);
+
+    int editOrder(COrder cOrder);
+
+    int deleteOrder(String[] ids);
 
     /**------------------------------Custom--------------------------------*/
     List<Custom> findCustom();
@@ -45,6 +63,22 @@ public interface ErpService {
 
     /**------------------------------Manufacture--------------------------------*/
     List<Manufacture> findManufacture();
+    Manufacture findManufactureById(String id);
+
+    /**------------------------------Work--------------------------------*/
+    List<Work> findWork();
+    Work findWorkById(String id);
+
+    /**------------------------------Task--------------------------------*/
+    List<Task> findTask();
+
+    Task findTaskById(String id);
+
+    int addTask(Task task);
+
+    int editTask(Task task);
+
+    int deleteTask(String[] ids);
 
     /*****************设备管理接口实现*************************************/
     /*-------------设备分类模块------------------------------------------------*/
@@ -56,8 +90,15 @@ public interface ErpService {
     List<DeviceType> findDeviceTypeByName(String searchValue);
     /*-------------设备模块------------------------------------------------*/
     List<Device> findDeviceByPage();
+    int insertDevice(Device device);
+    int updateDevice(Device device);
+    int deleteDevice(String id);
+    List<DeviceType> findDeviceById(String searchValue);
+    List<DeviceType> findServiceDeviceById(String id);
+    List<DeviceType> findDeviceByName(String searchValue);
+    int updateDeviceNote(Device device);
     /*-------------设备例检模块------------------------------------------------*/
-
+    List<DeviceCheck> findDeviceeCheckByPage();
     /*-------------设备故障模块------------------------------------------------*/
     List<DeviceFault> findAllDeviceFaultByPage();
     /*-------------设备维修模块------------------------------------------------*/
@@ -67,49 +108,55 @@ public interface ErpService {
 
 
     /*****************物料监控接口实现*************************************/
-    /**
-     * 获得所有物料信息
-     * @return Material对象的List集合
-     * */
+    /*-------------物料信息模块------------------------------------------------*/
     List<Material> selectMaterial();
     int selectCountOfMaterial();
-
-    /**
-     * 根据material_id删除物料信息
-     * @param id
-     * */
     int removeMaterialById(String id);
-
-    /**
-     * 修改物料信息
-     * @param material 物料对象
-     * */
     int modifyMaterial(Material material);
-
-    /**
-     * 添加物料信息
-     *
-     * @param material 物料对象
-     */
     int addMaterial(Material material) ;
-    Material findMaterialById(String id);
-
-
+    List<Material> selectMaterialById(String searchValue);
+    List<Material> selectMaterialByType(String searchValue);
+    int modifyNote(Material material);
+    /*-------------物料收入模块------------------------------------------------*/
+    List<MaterialReceive> selectMaterialReceive();
+    int selectCountOfMaterialReceive();
     /*****************质量监控接口实现*************************************/
+    //不合格品管理相关方法
     List<UnQualifyApply> findUnqualifyList();
-    void  addUnqualifyService(UnQualifyApply unQualifyApply);
+    int  addUnqualifyService(UnQualifyApply unQualifyApply);
     int updateUnqualifyService(UnQualifyApply unQualifyApply);
     int deleteUnqualifyService(String[] ids);
     int updateNoteUnqualifyService(String unqualifyApplyId,String note);
+    //成品计量质检模块相关方法
+    //成品计数质检模块相关方法
 
+
+    //工序计量质检模块相关方法
+    List<ProcessMeasureCheck>findPMeasureCheck();
+    int  addPMeasureCheckService(ProcessMeasureCheck processMeasureCheck);
+    int  updatePMeasureCheckService(ProcessMeasureCheck processMeasureCheck);
+    int deletePMeasureCheckService(String[] ids);
+    int updateNotePMeasureCheckService(String pMeasureCheckId,String note);
+
+    //工序计数质检模块相关方法
 
 
     /*****************人员监控接口实现*************************************/
-    List<Department> selectDepartment();
+    //部门管理模块
+    List<Department> findDepartment();
+    Department findDepartmentById(String id);
+    int addDepartment( Department department);
+    int editDepartment(Department department);
+    int deleteDepartment(String[] ids);
 
-    List<Work> findWork();
+
+<<<<<<< HEAD
+=======
 
 
+
+
+>>>>>>> d9d02af615541e783433b4164baf1852a42977fe
     /*****************系统管理接口实现*************************************/
 
 }

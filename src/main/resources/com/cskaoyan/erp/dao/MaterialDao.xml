@@ -18,6 +18,13 @@
         </set>
         where material_id=#{material.materialId}
     </update>
+    <update id="updateNote" parameterType="material">
+        update material
+        <set>
+            note=#{material.note}
+        </set>
+        where material_id=#{material.materialId}
+    </update>
     <select id="count" resultType="_int">
       select count(*) FROM material
    </select>
@@ -29,11 +36,23 @@
               note
          from material
     </select>
-    <select id="findMaterialById" resultType="material">
-        select material_id from material
+    <select id="selectByID" resultType="material">
+        select material_id As materialID,
+              material_type As materialType,
+              status,
+              remaining,
+              note from material where material_id=#{materialId}
+    </select>
+    <select id="selectByType" resultType="material">
+        select material_id As materialID,
+              material_type As materialType,
+              status,
+              remaining,
+              note from material where material_type=#{materialType}
     </select>
     <insert id="addMaterial" parameterType="material">
         insert into material ( material_id,material_type,status,remaining,note)
         value(#{material.materialId},#{material.materialType},#{material.status},#{material.remaining},#{material.note});
     </insert>
+
 </mapper>
