@@ -3,15 +3,15 @@
 <mapper namespace="com.cskaoyan.erp.dao.ProcessMeasureCheckDao">
 
     <sql id="PMeasureCheckColumns">
-          p_measure_check_id as pMeasureCheckId,process_id as processId,check_item as checkItem,cdate,
-          measure_data as measureData,emp_id as empId,result,note
+          pmc.p_measure_check_id as pMeasureCheckId,pmc.process_id as processId,pmc.check_item as checkItem,pmc.cdate,
+          pmc.measure_data as measureData,pmc.emp_id as empId,pmc.result,pmc.note,e.emp_name as empName
     </sql>
 
 
     <select id="findPMeasureCheckDao" resultType="ProcessMeasureCheck">
         select
         <include refid="PMeasureCheckColumns"/>
-        from process_measure_check
+        from process_measure_check as pmc left join employee as e on pmc.emp_id=e.emp_id
     </select>
     <!--parameterType="ProcessMeasureCheck"-->
     <insert id="insertPMeasureCheckDao" parameterType="ProcessMeasureCheck">
