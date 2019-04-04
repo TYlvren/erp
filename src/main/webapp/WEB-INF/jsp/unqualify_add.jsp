@@ -21,7 +21,7 @@
 	            <td>
 	            	<input class="easyui-combobox" name="productId"  panelHeight="auto"
     					data-options="valueField:'productId',textField:'productName',url:'product/get_data',
-    						required:true, editable:false" value="22"/>
+    						required:true, editable:false" value="00006"/>
 	            </td>
 	        </tr>
 	        <tr>
@@ -47,7 +47,7 @@
 	            <td>
 	            	<input class="easyui-combobox" name="empId" panelHeight="auto" 
     					data-options="required:true,editable:false,valueField:'empId',textField:'empName',
-    						url:'employee/get_data'" value="22"/>
+    						url:'employee/get_data'" value="001"/>
     			</td>  
 	        </tr>
 	        <tr>

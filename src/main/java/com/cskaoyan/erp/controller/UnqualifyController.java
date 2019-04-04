@@ -82,8 +82,11 @@ public class UnqualifyController {
 
     @RequestMapping("insert")//新建不合格品记录
     @ResponseBody
-    public String insertUnQualifyApply(@RequestBody UnQualifyApply unQualifyApply)  {
-        erpService.addUnqualifyService(unQualifyApply);
-        return "{}";
+    public Map<String,String > insertUnQualifyApply(UnQualifyApply unQualifyApply)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        erpService.addUnqualifyService(unQualifyApply);//添加商品没有返回值
+        return map;
     }
 }
