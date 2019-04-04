@@ -74,7 +74,7 @@ public interface ErpService {
     List<DeviceType> findDeviceByName(String searchValue);
     int updateDeviceNote(Device device);
     /*-------------设备例检模块------------------------------------------------*/
-
+    List<DeviceCheck> findDeviceeCheckByPage();
     /*-------------设备故障模块------------------------------------------------*/
     List<DeviceFault> findAllDeviceFaultByPage();
     /*-------------设备维修模块------------------------------------------------*/
@@ -131,6 +131,7 @@ public interface ErpService {
 
     /*****************人员监控接口实现*************************************/
     List<Department> selectDepartment();
+
 
 
 

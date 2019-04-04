@@ -221,8 +221,13 @@ public class ErpServiceImpl implements ErpService {
         return deviceDao.updateDeviceNote(device);
     }
 
-    /*-------------设备例检模块------------------------------------------------*/
 
+
+    /*-------------设备例检模块------------------------------------------------*/
+    @Override
+    public List<DeviceCheck> findDeviceeCheckByPage() {
+        return deviceCheckDao.findAllDeviceCheck();
+    }
     /*-------------设备故障模块------------------------------------------------*/
     @Override
     public List<DeviceFault> findAllDeviceFaultByPage() {

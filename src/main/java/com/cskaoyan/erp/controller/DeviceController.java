@@ -1,9 +1,6 @@
 package com.cskaoyan.erp.controller;
 
-import com.cskaoyan.erp.model.Device;
-import com.cskaoyan.erp.model.DeviceFault;
-import com.cskaoyan.erp.model.DeviceMaintain;
-import com.cskaoyan.erp.model.DeviceType;
+import com.cskaoyan.erp.model.*;
 import com.cskaoyan.erp.service.ErpService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -383,10 +380,26 @@ public class DeviceController {
 
     /*---------设备例检模块------------------------------------------------------------------------*/
     @RequestMapping("device/deviceCheck")
-    public String findAllDeviceCheckByPage() {
-
-
+    public String findAllDeviceCheckByPage(HttpSession session) {
+        List<String> list = new ArrayList();
+        list.add("deviceCheck:add");
+        list.add("deviceCheck:edit");
+        list.add("deviceCheck:delete");
+        session.setAttribute("sysPermissionList", list);
         return "deviceCheck";
+    }
+
+    @RequestMapping("/deviceCheck/list")
+    public @ResponseBody Map<String, Object> findAllDeviceCheckByPageData(int page, int rows) {
+        PageHelper.startPage(page, rows, true);
+        List<DeviceCheck> list = erpService.findDeviceeCheckByPage();
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
     }
 
 
