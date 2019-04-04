@@ -327,6 +327,9 @@ public class PlanProgressController {
 
     /*****************Work控制层*************************************/
 
+    /**
+     * 查找Work的controller
+     */
     @RequestMapping("work/find")
     public String toWorkList(HttpSession session) {
         List<String> sysPermissionList = new ArrayList<>();
@@ -348,6 +351,70 @@ public class PlanProgressController {
     public Work getWork(@PathVariable("id") String id) {
 
         return erpService.findWorkById(id);
+    }
+
+    /**
+     * 添加Work的controller
+     */
+    @RequestMapping("work/add_judge")
+    @ResponseBody
+    public Map<String, String> addWorkJudge(Work work) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("work/add")
+    public String addWork() {
+        return "work_add";
+    }
+
+    @RequestMapping("work/insert")
+    @ResponseBody
+    public Map<String, String> insertWork(Work work) {
+        int i = erpService.addWork(work);
+        return getStatusMap(i);
+    }
+
+    /**
+     * 编辑Work的controller
+     */
+    @RequestMapping("work/edit_judge")
+    @ResponseBody
+    public Map<String, String> editWorkJudge(Work work) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("work/edit")
+    public String editWork() {
+        return "work_edit";
+    }
+
+    @RequestMapping("work/update_all")
+    @ResponseBody
+    public Map<String, String> updateWork(Work work) {
+        int i = erpService.editWork(work);
+        return getStatusMap(i);
+    }
+
+
+    /**
+     * 删除Work的controller
+     */
+    @RequestMapping("work/delete_judge")
+    @ResponseBody
+    public Map<String, String> deleteWorkJudge(Work work) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("work/delete_batch")
+    @ResponseBody
+    public Map<String, String> deleteWorkBatch(String[] ids) {
+        Map<String, String> map = new HashMap<>();
+        map.put("status", "200");
+        int i = erpService.deleteWork(ids);
+        if (i != ids.length) {
+            map.put("msg", "异常");
+        }
+        return map;
     }
 
     /*****************Manufacture控制层*************************************/

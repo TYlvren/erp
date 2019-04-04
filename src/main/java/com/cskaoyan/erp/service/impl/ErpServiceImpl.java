@@ -139,6 +139,21 @@ public class ErpServiceImpl implements ErpService {
         return workDao.selectWorkById(id);
     }
 
+    @Override
+    public int addWork(Work work) {
+        return workDao.insertWork(work);
+    }
+
+    @Override
+    public int editWork(Work work) {
+        return workDao.updateWork(work);
+    }
+
+    @Override
+    public int deleteWork(String[] ids) {
+        return workDao.deleteWorkByIds(ids);
+    }
+
     /**------------------------------Manufacture--------------------------------*/
 
     @Override

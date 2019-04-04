@@ -20,7 +20,7 @@
 	        <tr>
 	            <td>产品:</td>
 	            <td>
-	            	<input class="easyui-combobox" name="productId"   panelHeight="auto"
+	            	<input class="easyui-combobox" name="product.productId"   panelHeight="auto"
     					data-options="valueField:'productId',textField:'productName',url:'product/get_data', 
     						editable:false, required:true" />
     			</td>  
@@ -28,7 +28,7 @@
 	        <tr>
 	            <td>工序:</td>
 	            <td>
-	            	<input class="easyui-combobox" name="processId"   panelHeight="auto"
+	            	<input class="easyui-combobox" name="process.processId"   panelHeight="auto"
     					data-options="valueField:'processId',textField:'processId',url:'process/get_data',
     						 editable:false, required:true" />
     			</td>  
@@ -36,7 +36,7 @@
 	        <tr>
 	            <td>设备:</td>
 	            <td>
-	            	<input class="easyui-combobox" name="deviceId"   panelHeight="auto"
+	            	<input class="easyui-combobox" name="device.deviceId"   panelHeight="auto"
     					data-options="valueField:'deviceId',textField:'deviceName',url:'deviceList/get_data',
     						 editable:false, required:true" />
     			</td>  
