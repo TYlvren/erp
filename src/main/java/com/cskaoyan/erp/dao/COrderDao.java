@@ -14,4 +14,11 @@ public interface COrderDao {
     List<COrder> selectALLCOder();
 
 
+    COrder selectCOrderById(String id);
+
+    int insertOrder(COrder cOrder);
+
+    int updateOrder(COrder cOrder);
+
+    int deleteOrderByIds(String[] ids);
 }

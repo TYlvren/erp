@@ -53,6 +53,26 @@ public class ErpServiceImpl implements ErpService {
         return cOrderDao.selectALLCOder();
     }
 
+    @Override
+    public COrder findCOrderById(String id) {
+        return cOrderDao.selectCOrderById(id);
+    }
+
+    @Override
+    public int addOrder(COrder cOrder) {
+        return cOrderDao.insertOrder(cOrder);
+    }
+
+    @Override
+    public int editOrder(COrder cOrder) {
+        return cOrderDao.updateOrder(cOrder);
+    }
+
+    @Override
+    public int deleteOrder(String[] ids) {
+        return cOrderDao.deleteOrderByIds(ids);
+    }
+
     /**
      * ------------------------------Custom--------------------------------
      */
