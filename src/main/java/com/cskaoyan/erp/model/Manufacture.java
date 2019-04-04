@@ -5,9 +5,9 @@ import java.util.Date;
 public class Manufacture {
     private String manufactureSn;
 
-    private String orderId;
+    private COrder cOrder;
 
-    private String technologyId;
+    private Technology technology;
 
     private Integer launchQuantity;
 
@@ -23,20 +23,20 @@ public class Manufacture {
         this.manufactureSn = manufactureSn == null ? null : manufactureSn.trim();
     }
 
-    public String getOrderId() {
-        return orderId;
+    public COrder getcOrder() {
+        return cOrder;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId == null ? null : orderId.trim();
+    public void setcOrder(COrder cOrder) {
+        this.cOrder = cOrder;
     }
 
-    public String getTechnologyId() {
-        return technologyId;
+    public Technology getTechnology() {
+        return technology;
     }
 
-    public void setTechnologyId(String technologyId) {
-        this.technologyId = technologyId == null ? null : technologyId.trim();
+    public void setTechnology(Technology technology) {
+        this.technology = technology;
     }
 
     public Integer getLaunchQuantity() {
