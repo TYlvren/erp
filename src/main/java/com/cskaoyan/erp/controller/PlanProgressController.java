@@ -97,10 +97,12 @@ public class PlanProgressController {
         return erpService.findProduct();
     }
 
+
+    /**  添加商品的controller */
     @RequestMapping("product/add_judge")
-    public String addProductJudge(Product product){
-        //System.out.println(product);
-        return "product_add";
+    @ResponseBody
+    public Map<String,String> addProductJudge(Product product){
+        return new HashMap<>();
     }
 
     @RequestMapping("product/add")
@@ -114,9 +116,39 @@ public class PlanProgressController {
         int i = erpService.addProduct(product);
         Map<String,String> map = new HashMap<>();
         map.put("status","200");
-        map.put("msg","ok");
+        if(i != 1) {
+            map.put("msg", "添加异常");
+        }
         return map;
     }
+
+    /** 编辑商品的controller */
+    @RequestMapping("product/edit_judge")
+    @ResponseBody
+    public Map<String,String> editProductJudge(Product product){
+        return new HashMap<>();
+         /*  if(product == null || product.getProductId() == null) {
+            map.put("msg", "产品信息异常");
+        }*/
+    }
+
+    @RequestMapping("product/edit")
+    public String editProduct(){
+        return "product_edit";
+    }
+
+    @RequestMapping("product/update_all")
+    @ResponseBody
+    public Map<String,String> updateProduct(Product product){
+        int i = erpService.editProduct(product);
+        Map<String,String> map = new HashMap<>();
+        map.put("status","200");
+        if(i != 1) {
+            map.put("msg", "更新异常");
+        }
+        return map;
+    }
+
 
     /**
      * 质量监控需要的查询全部product的接口

@@ -33,6 +33,7 @@ public interface ErpService {
     List<Product> findProduct();
     Product findProductByid(String id);
     int addProduct(Product product);
+    int editProduct(Product product);
 
     /*****************设备管理接口实现*************************************/
     /*-------------设备分类模块------------------------------------------------*/
