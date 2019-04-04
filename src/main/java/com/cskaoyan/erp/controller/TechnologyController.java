@@ -1,8 +1,10 @@
 package com.cskaoyan.erp.controller;
 
+import com.cskaoyan.erp.dao.ProcessDao;
 import com.cskaoyan.erp.dao.TechnologyDao;
 import com.cskaoyan.erp.dao.TechnologyRequirementDao;
 import com.cskaoyan.erp.model.Custom;
+import com.cskaoyan.erp.model.Process;
 import com.cskaoyan.erp.model.Technology;
 import com.cskaoyan.erp.model.TechnologyRequirement;
 import com.github.pagehelper.PageHelper;
@@ -22,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class TechnologyController {
@@ -71,22 +74,24 @@ public class TechnologyController {
     }
 
     @RequestMapping("technology/insert")
-    public String testcase05(Technology technology, HttpServletResponse response, HttpServletRequest request){
+    @ResponseBody
+    public Map<String,String> testcase05(Technology technology, HttpServletResponse response, HttpServletRequest request){
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         System.out.println(technology);
         //检查工艺名或工艺号是否已存在
         List<Technology> technologyList = technologyDao.selectTechnologyNameAndIDisExist(
                 technology.getTechnologyId(),technology.getTechnologyName());
         System.out.println("technologyList:"+technologyList);
+        Map<String,String> map = new HashMap<>();
         if (technologyList.isEmpty()){
             System.out.println("可以添加");
             System.out.println(technology);
             technologyDao.insertTechnology(technology);
-            return "redirect:find";
+            map.put("status", "200");
         }else {
-            System.out.println("no");
-            return null;
+            map.put("msg", "添加异常");
         }
+        return map;
     }
 
     //工艺的删除操作
@@ -195,6 +200,28 @@ public class TechnologyController {
     public String testcase17(TechnologyRequirement technologyRequirement){
         System.out.println("新添加信息");
         System.out.println("technologyRequirement:"+technologyRequirement);
-        return "redirect:find";
+        return "technologyRequirement_list";
     }
+
+
+    /******************工序模块*******************/
+
+    @Autowired
+    ProcessDao processDao;
+
+    //process/find
+    @RequestMapping("process/find")
+    public String testcase18(HttpServletResponse response){
+        return "process_list";
+    }
+
+    @RequestMapping("process/list")
+    @ResponseBody
+    public List<Process> testcase19(HttpServletResponse response){
+        response.setHeader("Content-type", "text/html;charset=UTF-8");
+        List<Process> list = processDao.selectProcess();
+        return list;
+    }
+
+
 }

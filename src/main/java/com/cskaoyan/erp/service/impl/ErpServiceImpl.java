@@ -189,6 +189,37 @@ public class ErpServiceImpl implements ErpService {
 
 
     /*****************物料监控接口实现*************************************/
+    @Autowired
+    private MaterialDao materialDao;
+    @Override
+    public List<Material> selectMaterial() {
+        return materialDao.selectMaterial();
+    }
+
+    @Override
+    public int selectCountOfMaterial() {
+        return materialDao.count();
+    }
+
+    @Override
+    public int removeMaterialById(String id) {
+        return  materialDao.deleteById(id);
+    }
+
+    @Override
+    public int modifyMaterial(Material material) {
+        return materialDao.update(material);
+    }
+
+    @Override
+    public int addMaterial(Material material) {
+        return  materialDao.addMaterial(material);
+    }
+
+    @Override
+    public Material findMaterialById(String id) {
+        return  materialDao.selectMaterialById(id);
+    }
 
 
     /*****************质量监控接口实现*************************************/
@@ -200,7 +231,8 @@ public class ErpServiceImpl implements ErpService {
     @Override
     public List<UnQualifyApply> findUnqualifyList() {
 
-        return unQualifyApplyDao.findUnqualifyListDao();
+        List<UnQualifyApply> unqualifyListDao = unQualifyApplyDao.findUnqualifyListDao();
+        return unqualifyListDao;
     }
         //************新建不合格品
     @Override
