@@ -89,4 +89,29 @@ public class UnqualifyController {
         erpService.addUnqualifyService(unQualifyApply);//添加商品没有返回值
         return map;
     }
+
+
+    @RequestMapping("edit_judge")//新建不合格品记录
+    @ResponseBody
+    public String editUnqualifyJudge()  {
+        return "{}";
+    }
+
+
+
+    @RequestMapping("edit")//编辑不合格品
+    public String editUniqualify(){
+        return "unqualify_edit";
+    }
+
+    @RequestMapping("update_all")//修改不合格品记录
+    @ResponseBody
+    public Map<String,String > updateUnQualifyApply(UnQualifyApply unQualifyApply)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        erpService.updateUnqualifyService(unQualifyApply);//修改商品没有返回值
+        return map;
+    }
+
 }

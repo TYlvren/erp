@@ -41,7 +41,7 @@
 	            <td>申请人:</td>
 	            <td>
 	            	<input class="easyui-combobox" name="empId" panelHeight="auto" data-options="required:true,
-	            		editable:false,valueField:'empId',textField:'empName',url:'employee/get_data'"/>
+	            		editable:false,valueField:'empId',textField:'empName',url:'employee/get_data'" value="001"/>
     			</td>  
 	        </tr>
 	        <tr>

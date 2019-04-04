@@ -33,6 +33,8 @@ public interface ErpService {
     List<Product> findProduct();
     Product findProductByid(String id);
     int addProduct(Product product);
+    int editProduct(Product product);
+    int deleteProduct(String id);
 
     /*****************设备管理接口实现*************************************/
     /*-------------设备分类模块------------------------------------------------*/
@@ -58,7 +60,7 @@ public interface ErpService {
     /*****************质量监控接口实现*************************************/
     List<UnQualifyApply> findUnqualifyList();
     void  addUnqualifyService(UnQualifyApply unQualifyApply);
-
+    int updateUnqualifyService(UnQualifyApply unQualifyApply);
 
 
 
