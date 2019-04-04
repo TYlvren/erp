@@ -17,4 +17,9 @@
         from product
         where product_id=#{id};
     </select>
+
+    <insert id="insertProduct">
+        insert into product (<include refid="productColumns"/>)
+        value(#{productId},#{productName},#{productType},#{image},#{note},#{status});
+    </insert>
 </mapper>

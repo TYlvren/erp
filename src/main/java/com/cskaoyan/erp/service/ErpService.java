@@ -22,17 +22,17 @@ public interface ErpService {
     /*****************计划进度接口实现*************************************/
 
 
-    /**
-     * 查询订单API
-     * @return
-     */
+    /**------------------------------order----------------------------------*/
     List<COrder> findCOrder();
 
-    List<Product> findProduct();
-    /**
-     * 查询客户
-     */
+    /**------------------------------custom--------------------------------*/
     List<Custom> findCustom();
+    Custom findCustomById(String id);
+
+    /**------------------------------product--------------------------------*/
+    List<Product> findProduct();
+    Product findProductByid(String id);
+    int addProduct(Product product);
 
     /*****************设备管理接口实现*************************************/
     /*-------------设备分类模块------------------------------------------------*/
@@ -55,6 +55,7 @@ public interface ErpService {
 
     /*****************质量监控接口实现*************************************/
     List<UnQualifyApply> findUnqualifyList();
+    void  addUnqualifyService(UnQualifyApply unQualifyApply);
 
 
 
