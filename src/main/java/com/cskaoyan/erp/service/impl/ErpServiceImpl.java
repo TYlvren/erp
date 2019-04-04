@@ -25,8 +25,6 @@ public class ErpServiceImpl implements ErpService {
     @Autowired
     private COrderDao cOrderDao;
 
-    @Autowired
-    private DepartmentDao departmentDao;
 
     @Autowired
     private CustomDao customDao;
@@ -54,6 +52,26 @@ public class ErpServiceImpl implements ErpService {
         return cOrderDao.selectALLCOder();
     }
 
+    @Override
+    public COrder findCOrderById(String id) {
+        return cOrderDao.selectCOrderById(id);
+    }
+
+    @Override
+    public int addOrder(COrder cOrder) {
+        return cOrderDao.insertOrder(cOrder);
+    }
+
+    @Override
+    public int editOrder(COrder cOrder) {
+        return cOrderDao.updateOrder(cOrder);
+    }
+
+    @Override
+    public int deleteOrder(String[] ids) {
+        return cOrderDao.deleteOrderByIds(ids);
+    }
+
     /**
      * ------------------------------Custom--------------------------------
      */
@@ -67,6 +85,20 @@ public class ErpServiceImpl implements ErpService {
         return customDao.selectCustomById(id);
     }
 
+    @Override
+    public int addCustom(Custom custom) {
+        return customDao.insertCustom(custom);
+    }
+
+    @Override
+    public int editCustom(Custom custom) {
+        return customDao.updateCustom(custom);
+    }
+
+    @Override
+    public int deleteCustom(String[] ids) {
+        return customDao.deleteCustomByIds(ids);
+    }
 
     /** ------------------------------Product--------------------------------*/
     @Override
@@ -75,7 +107,7 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
-    public Product findProductByid(String id) {
+    public Product findProductById(String id) {
         return productDao.selectProductById(id);
     }
 
@@ -90,8 +122,8 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
-    public int deleteProduct(String id) {
-        return productDao.deleteProductById(id);
+    public int deleteProduct(String[] ids) {
+        return productDao.deleteProductById(ids);
     }
 
     /** ------------------------------Work--------------------------------*/
@@ -125,27 +157,22 @@ public class ErpServiceImpl implements ErpService {
     public List<DeviceType> findDeviceTypeByPage() {
         return deviceTypeDao.findAllDeviceType();
     }
-
     @Override
     public int insertDeviceType(DeviceType deviceType) {
         return deviceTypeDao.insertDeviceType(deviceType);
     }
-
     @Override
     public int updateDeviceType(DeviceType deviceType) {
         return deviceTypeDao.modifyDeviceTypeById(deviceType);
     }
-
     @Override
     public int deleteDeviceType(String id) {
         return deviceTypeDao.deleteDeviceTypeById(id);
     }
-
     @Override
     public List<DeviceType> findDeviceTypeById(String searchValue) {
         return deviceTypeDao.findDeviceTypeById(searchValue);
     }
-
     @Override
     public List<DeviceType> findDeviceTypeByName(String searchValue) {
         return deviceTypeDao.findDeviceTypeByName(searchValue);
@@ -156,6 +183,41 @@ public class ErpServiceImpl implements ErpService {
     @Override
     public List<Device> findDeviceByPage() {
         return deviceDao.findAllDevice();
+    }
+
+    @Override
+    public int insertDevice(Device device) {
+        return deviceDao.insertDevice(device);
+    }
+
+    @Override
+    public int updateDevice(Device device) {
+        return deviceDao.updateDeviceById(device);
+    }
+
+    @Override
+    public int deleteDevice(String id) {
+        return deviceDao.deleteDeviceById(id);
+    }
+
+    @Override
+    public List<DeviceType> findDeviceById(String searchValue) {
+        return deviceDao.findDeviceById(searchValue);
+    }
+
+    @Override
+    public List<DeviceType> findServiceDeviceById(String id) {
+        return deviceDao.findServiceDeviceById(id);
+    }
+
+    @Override
+    public List<DeviceType> findDeviceByName(String searchValue) {
+        return deviceDao.findDeviceByName(searchValue);
+    }
+
+    @Override
+    public int updateDeviceNote(Device device) {
+        return deviceDao.updateDeviceNote(device);
     }
 
     /*-------------设备例检模块------------------------------------------------*/
@@ -247,9 +309,8 @@ public class ErpServiceImpl implements ErpService {
     }
         //************新建不合格品
     @Override
-    public void addUnqualifyService(UnQualifyApply unQualifyApply) {
-         unQualifyApplyDao.addUnqualifyDao(unQualifyApply);
-        return ;
+    public int addUnqualifyService(UnQualifyApply unQualifyApply) {
+        return unQualifyApplyDao.addUnqualifyDao(unQualifyApply);
     }
         //***********修改不合格品
 
@@ -263,17 +324,57 @@ public class ErpServiceImpl implements ErpService {
         return unQualifyApplyDao.deleteUnqualifyDao(ids);
     }
     //*************修改不合格品备注功能
-
-
     @Override
     public int updateNoteUnqualifyService(String unqualifyApplyId, String note) {
         return unQualifyApplyDao.updateNoteByUnqualifyApplyIdDao(unqualifyApplyId,note);
     }
+//-------------------------成品计量质检--------------------------------------
+//-------------------------成品计数质检--------------------------------------
+//-------------------------工序计量质检--------------------------------------
+    //************注入Dao
+    @Autowired
+    private ProcessMeasureCheckDao processMeasureCheckDao;
+    //***********查询工序计量质检列表
+    @Override
+    public List<ProcessMeasureCheck> findPMeasureCheck() {
+        List<ProcessMeasureCheck> list = processMeasureCheckDao.findPMeasureCheckDao();
+        return list;
+    }
+    //**********添加工序计量质检记录
+    @Override
+    public int addPMeasureCheckService(ProcessMeasureCheck processMeasureCheck) {
+        return processMeasureCheckDao.insertPMeasureCheckDao(processMeasureCheck);
+    }
+
+    //-------------------------工序计数质检--------------------------------------
+
+
+
+
+
 
     /*****************人员监控接口实现*************************************/
+    @Autowired
+    private DepartmentDao departmentDao;
     @Override
-    public  List<Department> selectDepartment(){
-       return departmentDao.selectDepartment();
+    public  List<Department> findDepartment(){
+        return departmentDao.selectDepartment();
+    }
+    @Override
+    public Department findDepartmentById(String id){
+        return departmentDao.selectDepartmentById(id);
+    }
+    @Override
+    public int addDepartment(Department department){
+        return departmentDao.insertDepartment(department);
+    }
+    @Override
+    public int editDepartment(Department department){
+        return departmentDao.updateDepartment(department);
+    }
+    @Override
+    public int deleteDepartment(String[] ids ){
+        return departmentDao.deleteDepartmentById(ids);
     }
 
     /*****************系统管理接口实现*************************************/

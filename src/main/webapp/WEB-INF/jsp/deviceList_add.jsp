@@ -69,7 +69,7 @@
 	            <td>
 		            <input id="deviceKeeper" class="easyui-combobox" name="deviceKeeperId" panelHeight="auto" 
     					data-options="required:true,editable:false,valueField:'empId',textField:'empName',
-    					url:'employee/get_data'" />
+    					url:'employee/get_data'" value="aa"/>
 				</td>
 	        </tr>
 	        <tr>
@@ -79,7 +79,7 @@
 	            </td>
 	        </tr>
 	    </table>
-	    <input type="hidden" name="deviceParams"/>
+	    <%--<input type="hidden" name="deviceParams"/>--%>
 	</form>
 	<div style="padding:5px">
 	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitAddForm_device()">提交</a>

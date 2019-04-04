@@ -2,4 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.ProcessMeasureCheckDao">
 
+    <sql id="PMeasureCheckColumns">
+          p_measure_check_id as pMeasureCheckId,process_id as processId,check_item as checkItem,cdate,
+          measure_data as measureData,emp_id as empId,result,note
+    </sql>
+
+
+    <select id="findPMeasureCheckDao" resultType="ProcessMeasureCheck">
+        select
+        <include refid="PMeasureCheckColumns"/>
+        from process_measure_check
+    </select>
+    <!--parameterType="ProcessMeasureCheck"-->
+    <insert id="insertPMeasureCheckDao" parameterType="ProcessMeasureCheck">
+        insert into process_measure_check (p_measure_check_id,process_id,check_item,cdate,
+          measure_data,emp_id,result,note) values(#{pMeasureCheckId},#{processId},#{checkItem},#{cdate},#{measureData},#{empId},#{result},#{note})
+    </insert>
+
 </mapper>

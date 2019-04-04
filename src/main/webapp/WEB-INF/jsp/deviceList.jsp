@@ -34,7 +34,7 @@
             <th data-options="field:'deviceServiceLife',width:130,align:'center',formatter:TAOTAO.formatDate">
 				使用年限
 			</th>
-            <th data-options="field:'deviceKeeper',width:100,align:'center',formatter:formatDeviceKeeper_deviceList">
+            <th data-options="field:'deviceKeeper',width:100,align:'center',formatter:formatDeviceKeeper_deviceList" >
 				保管人
 			</th>
             <th data-options="field:'note',width:100,align:'center',formatter:formatDeviceNote">备注</th>

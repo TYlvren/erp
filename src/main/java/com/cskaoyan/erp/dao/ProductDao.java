@@ -16,5 +16,5 @@ public interface ProductDao {
 
     int updateProduct(Product product);
 
-    int deleteProductById(String id);
+    int deleteProductById(String[] ids);
 }

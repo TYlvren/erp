@@ -33,13 +33,17 @@ public class DeviceController {
 
     /*---------设备模块------------------------------------------------------------------------*/
     @RequestMapping("device/deviceList")
-    public String findAllDeviceByPage() {
+    public String findAllDeviceByPage(HttpSession session) {
+        List<String> list = new ArrayList();
+        list.add("device:add");
+        list.add("device:edit");
+        list.add("device:delete");
+        session.setAttribute("sysPermissionList", list);
         return "deviceList";
     }
 
     @RequestMapping("/deviceList/list")
     public @ResponseBody   Map<String, Object> findAllDeviceByPageData(@RequestParam int page, int rows) {
-        //System.out.println(page + "-------" + rows);
         PageHelper.startPage(page, rows, true);
         List<Device> list = erpService.findDeviceByPage();
         PageInfo pageInfo = new PageInfo(list);
@@ -48,12 +52,145 @@ public class DeviceController {
         Map<String, Object> map = new HashMap<>();
         map.put("total", total);
         map.put("rows", list);
-        //System.out.println(pageInfo);
+        return map;
+    }
+
+    /**
+     * 对前端的请求进行映射，添加设备信息
+     * @return
+     */
+    @RequestMapping("deviceList/add_judge")
+    public String add1Device() {
+        return "deviceList_add";
+    }
+
+    @RequestMapping("deviceList/add")
+    public String add2Device() {
+        return "deviceList_add";
+    }
+
+    /**
+     * 这是一个添加设备的方法
+     * @param device
+     * @return 添加成功则返回200状态码，失败则返回提示信息，添加失败
+     */
+    @RequestMapping("deviceList/insert")
+    public @ResponseBody Map<String, String> insertDevice(Device device) {
+        System.out.println(device);
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.insertDevice(device);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "添加失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("deviceList/edit_judge")
+    public String edit1Device() {
+        return "deviceList_add";
+    }
+
+    @RequestMapping("deviceList/edit")
+    public String edit2Device() {
+        return "deviceList_add";
+    }
+
+    @RequestMapping("deviceList/update")
+    public @ResponseBody Map<String, String> updateDevice(Device device) {
+
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.updateDevice(device);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("deviceList/update_note")
+    public @ResponseBody Map<String, String> updateDeviceNote(Device device) {
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.updateDeviceNote(device);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("deviceList/delete_judge")
+    public String delete1Device() {
+        //System.out.println("dddddddddddd");
+        return "deviceList";
+    }
+
+    @RequestMapping("deviceList/delete_batch")
+    public @ResponseBody Map<String, String> deleteDevice(String ids) {
+        //System.out.println(ids);
+        Map<String, String> map = new HashMap<>();
+        String[] split = ids.split(",");
+        int i = 0;
+        for (String id : split) {
+            i = erpService.deleteDevice(id);
+        }
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "删除失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("deviceList/search_device_by_deviceId")
+    public @ResponseBody Map<String, Object> searchDeviceById(@RequestParam int page, int rows, String searchValue) {
+        PageHelper.startPage(page, rows, true);
+        List<DeviceType> list = erpService.findDeviceById(searchValue);
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
+    }
+
+    @RequestMapping("deviceList/search_device_by_deviceName")
+    public @ResponseBody Map<String, Object> searchDeviceByName(@RequestParam int page, int rows, String searchValue) {
+        PageHelper.startPage(page, rows, true);
+        List<DeviceType> list = erpService.findDeviceByName(searchValue);
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
+    }
+    @RequestMapping("deviceList/search_device_by_deviceTypeName")
+    public @ResponseBody Map<String, Object> searchDeviceByTypeName(@RequestParam int page, int rows, String searchValue) {
+        PageHelper.startPage(page, rows, true);
+        List<DeviceType> list = erpService.findDeviceById(searchValue);
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
         return map;
     }
 
 
     /*---------设备种类模块------------------------------------------------------------------------*/
+
+    @RequestMapping("deviceType/get_data")
+    public @ResponseBody List<DeviceType> findAllDeviceType() {
+        List<DeviceType> deviceTypeByPage = erpService.findDeviceTypeByPage();
+        return deviceTypeByPage;
+    }
 
     /**
      * 这是一个用来页面映射查找所有设备分类信息的方法
@@ -68,7 +205,7 @@ public class DeviceController {
         list.add("deviceType:edit");
         list.add("deviceType:delete");
         session.setAttribute("sysPermissionList", list);
-        List<DeviceType> deviceTypeByPage = erpService.findDeviceTypeByPage();
+        //List<DeviceType> deviceTypeByPage = erpService.findDeviceTypeByPage();
         return "deviceType";
     }
 
@@ -292,5 +429,17 @@ public class DeviceController {
         map.put("rows", list);
         return map;
     }
+
+
+    /*---------通用代码-----------------------------------------------------------------------*/
+    /*public static void authorityUtils(HttpSession session) {
+        List<String> list = new ArrayList();
+        list.add("deviceType:add");
+        list.add("deviceType:edit");
+        list.add("deviceType:delete");
+        session.setAttribute("sysPermissionList", list);
+    }*/
+
+
 
 }

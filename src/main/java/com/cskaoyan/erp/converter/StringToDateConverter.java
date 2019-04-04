@@ -13,7 +13,7 @@ public class StringToDateConverter implements Converter<String, Date> {
      * 将字符串输入的日期按照定义的格式转换为Date型
      */
     public Date convert(String s) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Date date = null;
         try {
             date = simpleDateFormat.parse(s);

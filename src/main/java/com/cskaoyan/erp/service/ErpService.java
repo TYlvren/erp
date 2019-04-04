@@ -25,20 +25,37 @@ public interface ErpService {
 
     /**------------------------------Order----------------------------------*/
     List<COrder> findCOrder();
+    COrder findCOrderById(String id);
+
+    int addOrder(COrder cOrder);
+
+    int editOrder(COrder cOrder);
+
+    int deleteOrder(String[] ids);
 
     /**------------------------------Custom--------------------------------*/
     List<Custom> findCustom();
     Custom findCustomById(String id);
 
+    int addCustom(Custom custom);
+
+    int editCustom(Custom custom);
+
+    int deleteCustom(String[] ids);
+
     /**------------------------------Product--------------------------------*/
     List<Product> findProduct();
-    Product findProductByid(String id);
+    Product findProductById(String id);
     int addProduct(Product product);
     int editProduct(Product product);
-    int deleteProduct(String id);
+    int deleteProduct(String[] ids);
+
 
     /**------------------------------Manufacture--------------------------------*/
     List<Manufacture> findManufacture();
+
+    /**------------------------------Work--------------------------------*/
+    List<Work> findWork();
 
     /*****************设备管理接口实现*************************************/
     /*-------------设备分类模块------------------------------------------------*/
@@ -50,6 +67,13 @@ public interface ErpService {
     List<DeviceType> findDeviceTypeByName(String searchValue);
     /*-------------设备模块------------------------------------------------*/
     List<Device> findDeviceByPage();
+    int insertDevice(Device device);
+    int updateDevice(Device device);
+    int deleteDevice(String id);
+    List<DeviceType> findDeviceById(String searchValue);
+    List<DeviceType> findServiceDeviceById(String id);
+    List<DeviceType> findDeviceByName(String searchValue);
+    int updateDeviceNote(Device device);
     /*-------------设备例检模块------------------------------------------------*/
 
     /*-------------设备故障模块------------------------------------------------*/
@@ -74,18 +98,30 @@ public interface ErpService {
     List<MaterialReceive> selectMaterialReceive();
     int selectCountOfMaterialReceive();
     /*****************质量监控接口实现*************************************/
+    //不合格品管理相关方法
     List<UnQualifyApply> findUnqualifyList();
-    void  addUnqualifyService(UnQualifyApply unQualifyApply);
+    int  addUnqualifyService(UnQualifyApply unQualifyApply);
     int updateUnqualifyService(UnQualifyApply unQualifyApply);
     int deleteUnqualifyService(String[] ids);
     int updateNoteUnqualifyService(String unqualifyApplyId,String note);
+    //成品计量质检模块相关方法
+    //成品计数质检模块相关方法
 
+
+    //工序计量质检模块相关方法
+    List<ProcessMeasureCheck>findPMeasureCheck();
+    int  addPMeasureCheckService(ProcessMeasureCheck processMeasureCheck);
+    //工序计数质检模块相关方法
 
 
     /*****************人员监控接口实现*************************************/
-    List<Department> selectDepartment();
+    //部门管理模块
+    List<Department> findDepartment();
+    Department findDepartmentById(String id);
+    int addDepartment( Department department);
+    int editDepartment(Department department);
+    int deleteDepartment(String[] ids);
 
-    List<Work> findWork();
 
 
 
