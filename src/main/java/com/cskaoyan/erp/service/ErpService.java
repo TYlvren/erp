@@ -34,6 +34,7 @@ public interface ErpService {
     Product findProductByid(String id);
     int addProduct(Product product);
     int editProduct(Product product);
+    int deleteProduct(String id);
 
     /*****************设备管理接口实现*************************************/
     /*-------------设备分类模块------------------------------------------------*/

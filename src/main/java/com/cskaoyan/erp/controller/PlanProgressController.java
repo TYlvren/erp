@@ -150,6 +150,31 @@ public class PlanProgressController {
     }
 
 
+    /** 删除商品的controller */
+    @RequestMapping("product/delete_judge")
+    @ResponseBody
+    public Map<String,String> deleteProductJudge(Product product){
+        return new HashMap<>();
+         /*  if(product == null || product.getProductId() == null) {
+            map.put("msg", "产品信息异常");
+        }*/
+    }
+
+    @RequestMapping("product/delete_batch")
+    @ResponseBody
+    public Map<String,String> deleteProductBatch(String[] ids){
+        Map<String,String> map = new HashMap<>();
+        map.put("status","200");
+
+        for (String id : ids) {
+            int i = erpService.deleteProduct(id);
+            if(i != 1) {
+                map.put("msg", "删除异常");
+            }
+        }
+        return map;
+    }
+
     /**
      * 质量监控需要的查询全部product的接口
      */

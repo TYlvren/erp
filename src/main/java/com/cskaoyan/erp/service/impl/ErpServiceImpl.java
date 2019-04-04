@@ -33,6 +33,8 @@ public class ErpServiceImpl implements ErpService {
     @Autowired
     private ProductDao productDao;
 
+
+
     /**------------------------------order--------------------------------*/
 
     /**
@@ -81,6 +83,11 @@ public class ErpServiceImpl implements ErpService {
     @Override
     public int editProduct(Product product) {
         return productDao.updateProduct(product);
+    }
+
+    @Override
+    public int deleteProduct(String id) {
+        return productDao.deleteProductById(id);
     }
 
     /*****************设备管理接口实现*************************************/
