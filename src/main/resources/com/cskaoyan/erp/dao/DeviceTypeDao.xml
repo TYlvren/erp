@@ -17,8 +17,19 @@
     </select>
 
     <update id="modifyDeviceTypeById" >
+          UPDATE `device_type`
+          <set>
+              device_type_name=#{deviceType.deviceTypeName},
+              device_type_model=#{deviceType.deviceTypeModel},
+              device_type_spec=#{deviceType.deviceTypeSpec},
+              device_type_supplier=#{deviceType.deviceTypeSupplier},
+              device_type_producer=#{deviceType.deviceTypeProducer},
+              device_type_quantity=#{deviceType.deviceTypeQuantity},
+              device_type_warranty=#{deviceType.deviceTypeWarranty}
+          </set>
 
-
+          WHERE
+                device_type_id = #{deviceType.deviceTypeId}
     </update>
 
     <insert id="insertDeviceType">
@@ -34,5 +45,9 @@
         #{deviceType.deviceTypeQuantity},
         #{deviceType.deviceTypeWarranty})
     </insert>
+
+    <delete id="deleteDeviceTypeById">
+        DELETE FROM  `device_type` WHERE device_type_id = #{id}
+    </delete>
 
 </mapper>

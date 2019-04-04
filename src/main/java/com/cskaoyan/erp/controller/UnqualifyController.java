@@ -110,8 +110,28 @@ public class UnqualifyController {
         Map<String,String > map = new HashMap<>();
         map.put("status","200");
         map.put("msg","OK");
-        erpService.updateUnqualifyService(unQualifyApply);//修改商品没有返回值
+        int i = erpService.updateUnqualifyService(unQualifyApply);//修改商品没有返回值
         return map;
     }
+
+
+    @RequestMapping("delete_judge")//新建不合格品记录
+    @ResponseBody
+    public String deleteJudgeUnqualifyJudge()  {
+        return "{}";
+    }
+
+    @RequestMapping("delete_batch")//删除不合格品记录(可为多条)
+    @ResponseBody
+    public Map<String,String > deleteUnQualifyApply(String[] ids)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.deleteUnqualifyService(ids);//删除商品
+        return map;
+    }
+
+
+
 
 }

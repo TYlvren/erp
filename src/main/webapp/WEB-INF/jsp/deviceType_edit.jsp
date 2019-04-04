@@ -66,12 +66,12 @@
     				return ;
     			}
     			console.log($("#deviceTypeEditForm").serialize());
-    			$.post("deviceType/update",$("#deviceTypeEditForm").serialize(), function(data){
-    				if(data.status == 200){
-    					$.messager.alert('提示','修改设备种类成功!','info',function(){
-    						$("#deviceTypeEditWindow").window('close');
-    						$("#deviceType").datagrid("reload");
-    					});
+						$.post("deviceType/update",$("#deviceTypeEditForm").serialize(), function(data){
+							if(data.status == 200){
+								$.messager.alert('提示','修改设备种类成功!','info',function(){
+									$("#deviceTypeEditWindow").window('close');
+									$("#deviceType").datagrid("reload");
+								});
     				}else{
     					$.messager.alert('提示', data.msg);
     				}

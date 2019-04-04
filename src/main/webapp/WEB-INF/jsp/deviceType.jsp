@@ -59,7 +59,7 @@
 		</c:if>
 		<c:if test="${per=='deviceType:delete'}">
 		    <div style="float: left;">  
-		        <a href="${pageContext.request.contextPath}/device/delete" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="deviceType_delete()">
+		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="deviceType_delete()">
 					删除
 				</a>
 		    </div>  

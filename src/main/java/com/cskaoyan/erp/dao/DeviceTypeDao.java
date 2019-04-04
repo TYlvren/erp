@@ -10,7 +10,9 @@ public interface DeviceTypeDao {
 
     List<DeviceType> findAllDeviceType();
 
-    int modifyDeviceTypeById(DeviceType deviceType);
+    int modifyDeviceTypeById(@Param("deviceType")DeviceType deviceType);
 
     int insertDeviceType(@Param("deviceType") DeviceType deviceType);
+
+    int deleteDeviceTypeById(String id);
 }

@@ -40,6 +40,8 @@ public interface ErpService {
     /*-------------设备分类模块------------------------------------------------*/
     List<DeviceType> findDeviceTypeByPage();
     int insertDeviceType(DeviceType deviceType);
+    int updateDeviceType(DeviceType deviceType);
+    int deleteDeviceType(String id);
     /*-------------设备模块------------------------------------------------*/
     List<Device> findDeviceByPage();
     /*-------------设备例检模块------------------------------------------------*/
@@ -59,11 +61,13 @@ public interface ErpService {
     List<UnQualifyApply> findUnqualifyList();
     void  addUnqualifyService(UnQualifyApply unQualifyApply);
     int updateUnqualifyService(UnQualifyApply unQualifyApply);
+    int deleteUnqualifyService(String[] ids);
 
 
 
     /*****************人员监控接口实现*************************************/
     List<Department> selectDepartment();
+
 
 
 
