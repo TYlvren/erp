@@ -37,15 +37,13 @@ public interface ErpService {
     /*****************设备管理接口实现*************************************/
     /*-------------设备分类模块------------------------------------------------*/
     List<DeviceType> findDeviceTypeByPage();
-
     int insertDeviceType(DeviceType deviceType);
-
     /*-------------设备模块------------------------------------------------*/
-
+    List<Device> findDeviceByPage();
     /*-------------设备例检模块------------------------------------------------*/
 
     /*-------------设备故障模块------------------------------------------------*/
-
+    List<DeviceFault> findAllDeviceFaultByPage();
     /*-------------设备维修模块------------------------------------------------*/
     List<DeviceMaintain> findDeviceMaintainByPage();
 
@@ -58,6 +56,7 @@ public interface ErpService {
     /*****************质量监控接口实现*************************************/
     List<UnQualifyApply> findUnqualifyList();
     void  addUnqualifyService(UnQualifyApply unQualifyApply);
+
 
 
 
