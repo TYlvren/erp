@@ -23,7 +23,17 @@ public interface ErpService {
 
 
     /**------------------------------Order----------------------------------*/
+    /**
+     * 查找所有的COrder
+     * @return
+     */
     List<COrder> findCOrder();
+
+    /**
+     * 通过id 查找COrder
+     * @param id
+     * @return
+     */
     COrder findCOrderById(String id);
 
     int addOrder(COrder cOrder);
@@ -55,6 +65,18 @@ public interface ErpService {
 
     /**------------------------------Work--------------------------------*/
     List<Work> findWork();
+    Product findWorkById(String id);
+
+    /**------------------------------Task--------------------------------*/
+    List<Task> findTask();
+
+    Task findTaskById(String id);
+
+    int addTask(Task task);
+
+    int editTask(Task task);
+
+    int deleteTask(String[] ids);
 
     /*****************设备管理接口实现*************************************/
     /*-------------设备分类模块------------------------------------------------*/
@@ -121,6 +143,7 @@ public interface ErpService {
 
     /*****************人员监控接口实现*************************************/
     List<Department> selectDepartment();
+
 
 
 

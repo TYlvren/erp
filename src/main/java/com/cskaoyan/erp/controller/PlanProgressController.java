@@ -22,11 +22,11 @@ import java.util.Map;
  */
 @Controller
 public class PlanProgressController {
-
-
-    /*****************Order控制层*************************************/
     @Autowired
     private ErpService erpService;
+
+    /*****************Order控制层*************************************/
+
 
     @RequestMapping("order/find")
     public String toOrderList(HttpSession session) {
@@ -346,6 +346,12 @@ public class PlanProgressController {
         return erpService.findWork();
     }
 
+    @RequestMapping("work/get/{id}")
+    @ResponseBody
+    public Product getWork(@PathVariable("id") String id) {
+
+        return erpService.findWorkById(id);
+    }
 
     /*****************Manufacture控制层*************************************/
     @RequestMapping("manufacture/find")
@@ -366,4 +372,95 @@ public class PlanProgressController {
 
 
     /*****************Task控制层*************************************/
+    /**
+     * 查找Task的controller
+     */
+    @RequestMapping("task/find")
+    public String toTaskList(HttpSession session) {
+        List<String> sysPermissionList = new ArrayList<>();
+        sysPermissionList.add("task:add");
+        sysPermissionList.add("task:edit");
+        sysPermissionList.add("task:delete");
+        session.setAttribute("sysPermissionList", sysPermissionList);
+        return "task_list";
+    }
+
+    @ResponseBody
+    @RequestMapping("task/list")
+    public List<Task> findTask() {
+        return erpService.findTask();
+    }
+
+    @RequestMapping("task/get/{id}")
+    @ResponseBody
+    public Task getTask(@PathVariable("id") String id) {
+        return erpService.findTaskById(id);
+    }
+
+    /**
+     * 添加Task的controller
+     */
+    @RequestMapping("task/add_judge")
+    @ResponseBody
+    public Map<String, String> addTaskJudge(Task task) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("task/add")
+    public String addTask() {
+        return "task_add";
+    }
+
+    @RequestMapping("task/insert")
+    @ResponseBody
+    public Map<String, String> insertOrder(Task task) {
+        int i = erpService.addTask(task);
+        return getStatusMap(i);
+    }
+
+
+    /**
+     * 编辑Task的controller
+     */
+    @RequestMapping("task/edit_judge")
+    @ResponseBody
+    public Map<String, String> editOrderJudge(Task task) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("task/edit")
+    public String editTask() {
+        return "task_edit";
+    }
+
+    @RequestMapping("task/update_all")
+    @ResponseBody
+    public Map<String, String> updateTask(Task task) {
+        int i = erpService.editTask(task);
+        return getStatusMap(i);
+    }
+
+
+    /**
+     * 删除Task的controller
+     */
+    @RequestMapping("task/delete_judge")
+    @ResponseBody
+    public Map<String, String> deleteTaskJudge(Task task) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("task/delete_batch")
+    @ResponseBody
+    public Map<String, String> deleteTaskBatch(String[] ids) {
+        Map<String, String> map = new HashMap<>();
+        map.put("status", "200");
+        int i = erpService.deleteTask(ids);
+
+        if (i != ids.length) {
+            map.put("msg", "异常");
+        }
+        return map;
+    }
+
 }
