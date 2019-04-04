@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -23,7 +25,7 @@ import java.util.List;
 public class PlanProgressController {
 
 
-    /*****************订单curd控制层*************************************/
+    /*****************Order控制层*************************************/
     @Autowired
     private ErpService erpService;
 
@@ -40,12 +42,11 @@ public class PlanProgressController {
     @ResponseBody
     @RequestMapping("order/list")
     public List<COrder> findOrder(){
-        List<COrder> cOrder = erpService.findCOrder();
-        return cOrder;
+        return erpService.findCOrder();
     }
 
 
-    /*****************客户curd控制层*************************************/
+    /*****************Custom控制层*************************************/
     @RequestMapping("custom/find")
     public String toCustomList(HttpSession session){
         List<String> sysPermissionList = new ArrayList<>();
@@ -68,7 +69,7 @@ public class PlanProgressController {
         return erpService.findCustom();
     }
 
-    /*****************产品curd控制层*************************************/
+    /*****************Product控制层*************************************/
 
     @RequestMapping("product/find")
     public String toProductList(HttpSession session){
@@ -93,9 +94,12 @@ public class PlanProgressController {
         return erpService.findProduct();
     }
 
+
+    /**  添加商品的controller */
     @RequestMapping("product/add_judge")
-    public String addProductJudge(){
-        return "product_add";
+    @ResponseBody
+    public Map<String,String> addProductJudge(Product product){
+        return new HashMap<>();
     }
 
     @RequestMapping("product/add")
@@ -104,8 +108,84 @@ public class PlanProgressController {
     }
 
     @RequestMapping("product/insert")
-    public String insertProduct(){
-
-        return "forward:list";
+    @ResponseBody
+    public Map<String,String> insertProduct(Product product){
+        int i = erpService.addProduct(product);
+        Map<String,String> map = new HashMap<>();
+        map.put("status","200");
+        if(i != 1) {
+            map.put("msg", "添加异常");
+        }
+        return map;
     }
+
+    /** 编辑商品的controller */
+    @RequestMapping("product/edit_judge")
+    @ResponseBody
+    public Map<String,String> editProductJudge(Product product){
+        return new HashMap<>();
+         /*  if(product == null || product.getProductId() == null) {
+            map.put("msg", "产品信息异常");
+        }*/
+    }
+
+    @RequestMapping("product/edit")
+    public String editProduct(){
+        return "product_edit";
+    }
+
+    @RequestMapping("product/update_all")
+    @ResponseBody
+    public Map<String,String> updateProduct(Product product){
+        int i = erpService.editProduct(product);
+        Map<String,String> map = new HashMap<>();
+        map.put("status","200");
+        if(i != 1) {
+            map.put("msg", "更新异常");
+        }
+        return map;
+    }
+
+
+    /** 删除商品的controller */
+    @RequestMapping("product/delete_judge")
+    @ResponseBody
+    public Map<String,String> deleteProductJudge(Product product){
+        return new HashMap<>();
+         /*  if(product == null || product.getProductId() == null) {
+            map.put("msg", "产品信息异常");
+        }*/
+    }
+
+    @RequestMapping("product/delete_batch")
+    @ResponseBody
+    public Map<String,String> deleteProductBatch(String[] ids){
+        Map<String,String> map = new HashMap<>();
+        map.put("status","200");
+
+        for (String id : ids) {
+            int i = erpService.deleteProduct(id);
+            if(i != 1) {
+                map.put("msg", "删除异常");
+            }
+        }
+        return map;
+    }
+
+    /**
+     * 质量监控需要的查询全部product的接口
+     */
+    @RequestMapping("product/get_data")
+    @ResponseBody
+    public List<Product> getProductData(){
+        return erpService.findProduct();
+    }
+
+    /*****************Work控制层*************************************/
+
+
+
+    /*****************Manufacture控制层*************************************/
+
+    /*****************Task控制层*************************************/
 }

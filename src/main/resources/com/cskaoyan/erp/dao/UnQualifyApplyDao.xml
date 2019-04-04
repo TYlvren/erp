@@ -7,6 +7,10 @@
         unqualify_apply_id as unqualifyApplyId,product_id as productId,unqualify_item as unqualifyItem,unqualify_count as unqualifyCount,
         assembly_date as assemblyDate,emp_id as empId,apply_date as applyDate,note
     </sql>
+    <sql id="unqualifyBaseColumns">
+        unqualify_apply_id ,product_id ,unqualify_item ,unqualify_count ,
+        assembly_date,emp_id ,apply_date,note
+    </sql>
 
 
     <!--查询全部不合格产品-->
@@ -19,4 +23,23 @@
         insert into unqualify_apply (unqualify_apply_id ,product_id ,unqualify_item ,unqualify_count ,
         assembly_date,emp_id ,apply_date,note) values(#{unqualifyApplyId},#{productId},#{unqualifyItem},#{unqualifyCount},#{assemblyDate},#{empId},#{applyDate},#{note})
     </insert>
+    <!--修改不合格产品-->
+    <update id="updateUnqualifyDao" parameterType="unQualifyApply">
+        update  unqualify_apply set  product_id =#{productId},unqualify_item =#{unqualifyItem},
+        unqualify_count =#{unqualifyCount},assembly_date=#{assemblyDate},emp_id =#{empId},apply_date=#{applyDate},note=#{note} where unqualify_apply_id= #{unqualifyApplyId}
+    </update>
+
+    <!--删除多条记录-->
+    <delete id="deleteUnqualifyDao" >
+        delete from unqualify_apply where unqualify_apply_id in
+        (
+        <foreach collection="array" item="idss" separator="," >
+            #{idss}
+        </foreach>
+        )
+    </delete>
+    <!--修改不合格品备注信息-->
+    <update id="updateNoteByUnqualifyApplyIdDao" parameterType="string">
+                update  unqualify_apply set  note=#{note} where unqualify_apply_id= #{id}
+    </update>
 </mapper>

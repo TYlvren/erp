@@ -17,8 +17,19 @@
     </select>
 
     <update id="modifyDeviceTypeById" >
+          UPDATE `device_type`
+          <set>
+              device_type_name=#{deviceType.deviceTypeName},
+              device_type_model=#{deviceType.deviceTypeModel},
+              device_type_spec=#{deviceType.deviceTypeSpec},
+              device_type_supplier=#{deviceType.deviceTypeSupplier},
+              device_type_producer=#{deviceType.deviceTypeProducer},
+              device_type_quantity=#{deviceType.deviceTypeQuantity},
+              device_type_warranty=#{deviceType.deviceTypeWarranty}
+          </set>
 
-
+          WHERE
+                device_type_id = #{deviceType.deviceTypeId}
     </update>
 
     <insert id="insertDeviceType">
@@ -34,5 +45,41 @@
         #{deviceType.deviceTypeQuantity},
         #{deviceType.deviceTypeWarranty})
     </insert>
+
+    <delete id="deleteDeviceTypeById">
+        DELETE FROM  `device_type` WHERE device_type_id = #{id}
+    </delete>
+
+    <select id="findDeviceTypeById" resultType="deviceType">
+        SELECT
+            device_type_id AS deviceTypeId,
+            device_type_name AS deviceTypeName,
+            device_type_model AS deviceTypeModel,
+            device_type_spec AS deviceTypeSpec,
+            device_type_supplier AS deviceTypeSupplier,
+            device_type_producer AS deviceTypeProducer,
+            device_type_quantity AS deviceTypeQuantity,
+            device_type_warranty AS deviceTypeWarranty
+        FROM
+            device_type
+        WHERE
+            device_type_id like '%${id}%'
+    </select>
+
+    <select id="findDeviceTypeByName" resultType="deviceType">
+        SELECT
+            device_type_id AS deviceTypeId,
+            device_type_name AS deviceTypeName,
+            device_type_model AS deviceTypeModel,
+            device_type_spec AS deviceTypeSpec,
+            device_type_supplier AS deviceTypeSupplier,
+            device_type_producer AS deviceTypeProducer,
+            device_type_quantity AS deviceTypeQuantity,
+            device_type_warranty AS deviceTypeWarranty
+        FROM
+            device_type
+        WHERE
+            device_type_name like '%${name}%'
+    </select>
 
 </mapper>

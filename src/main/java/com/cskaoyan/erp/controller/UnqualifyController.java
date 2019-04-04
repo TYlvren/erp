@@ -82,8 +82,66 @@ public class UnqualifyController {
 
     @RequestMapping("insert")//新建不合格品记录
     @ResponseBody
-    public String insertUnQualifyApply(@RequestBody UnQualifyApply unQualifyApply)  {
-        erpService.addUnqualifyService(unQualifyApply);
+    public Map<String,String > insertUnQualifyApply(UnQualifyApply unQualifyApply)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        erpService.addUnqualifyService(unQualifyApply);//添加商品没有返回值
+        return map;
+    }
+
+
+    @RequestMapping("edit_judge")//新建不合格品记录
+    @ResponseBody
+    public String editUnqualifyJudge()  {
         return "{}";
     }
+
+
+
+    @RequestMapping("edit")//编辑不合格品
+    public String editUniqualify(){
+        return "unqualify_edit";
+    }
+
+    @RequestMapping("update_all")//修改不合格品记录
+    @ResponseBody
+    public Map<String,String > updateUnQualifyApply(UnQualifyApply unQualifyApply)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.updateUnqualifyService(unQualifyApply);//修改商品没有返回值
+        return map;
+    }
+
+
+    @RequestMapping("delete_judge")//新建不合格品记录
+    @ResponseBody
+    public String deleteJudgeUnqualifyJudge()  {
+        return "{}";
+    }
+
+    @RequestMapping("delete_batch")//删除不合格品记录(可为多条)
+    @ResponseBody
+    public Map<String,String > deleteUnQualifyApply(String[] ids)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.deleteUnqualifyService(ids);//删除商品
+        return map;
+    }
+    @RequestMapping("update_note")//更新不合格品记录备注属性
+    @ResponseBody
+    public Map<String,String > updateNoteUnQualifyApply(String unqualifyApplyId,String note)  {
+        System.out.println(unqualifyApplyId+note);
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.updateNoteUnqualifyService(unqualifyApplyId,note);//删除商品
+        return map;
+    }
+
+
+
+
 }

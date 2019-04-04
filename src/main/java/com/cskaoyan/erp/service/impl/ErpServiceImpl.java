@@ -24,6 +24,8 @@ public class ErpServiceImpl implements ErpService {
     @Autowired
     private COrderDao cOrderDao;
 
+    @Autowired
+    private DepartmentDao departmentDao;
 
     @Autowired
     private CustomDao customDao;
@@ -31,7 +33,10 @@ public class ErpServiceImpl implements ErpService {
     @Autowired
     private ProductDao productDao;
 
+
+
     /**------------------------------order--------------------------------*/
+
     /**
      * 查询订单API的实现
      *
@@ -75,13 +80,27 @@ public class ErpServiceImpl implements ErpService {
         return productDao.insertProduct(product);
     }
 
+    @Override
+    public int editProduct(Product product) {
+        return productDao.updateProduct(product);
+    }
+
+    @Override
+    public int deleteProduct(String id) {
+        return productDao.deleteProductById(id);
+    }
+
     /*****************设备管理接口实现*************************************/
     @Autowired
     DeviceMaintainDao deviceMaintainDao;
-
     @Autowired
-    private DeviceTypeDao deviceTypeDao;
-
+    DeviceTypeDao deviceTypeDao;
+    @Autowired
+    DeviceFaultDao deviceFaultDao;
+    @Autowired
+    DeviceDao deviceDao;
+    @Autowired
+    DeviceCheckDao deviceCheckDao;
 
     /*-------------设备分类模块------------------------------------------------*/
 
@@ -94,13 +113,41 @@ public class ErpServiceImpl implements ErpService {
     public int insertDeviceType(DeviceType deviceType) {
         return deviceTypeDao.insertDeviceType(deviceType);
     }
-    /*-------------设备模块----------------------------------------------------*/
 
+    @Override
+    public int updateDeviceType(DeviceType deviceType) {
+        return deviceTypeDao.modifyDeviceTypeById(deviceType);
+    }
+
+    @Override
+    public int deleteDeviceType(String id) {
+        return deviceTypeDao.deleteDeviceTypeById(id);
+    }
+
+    @Override
+    public List<DeviceType> findDeviceTypeById(String searchValue) {
+        return deviceTypeDao.findDeviceTypeById(searchValue);
+    }
+
+    @Override
+    public List<DeviceType> findDeviceTypeByName(String searchValue) {
+        return deviceTypeDao.findDeviceTypeByName(searchValue);
+    }
+
+
+    /*-------------设备模块----------------------------------------------------*/
+    @Override
+    public List<Device> findDeviceByPage() {
+        return deviceDao.findAllDevice();
+    }
 
     /*-------------设备例检模块------------------------------------------------*/
 
     /*-------------设备故障模块------------------------------------------------*/
-
+    @Override
+    public List<DeviceFault> findAllDeviceFaultByPage() {
+        return  deviceFaultDao.findAllDeviceFault();
+    }
     /*-------------设备维修模块------------------------------------------------*/
     @Override
     public List<DeviceMaintain> findDeviceMaintainByPage() {
@@ -115,22 +162,46 @@ public class ErpServiceImpl implements ErpService {
 
 
     /*****************质量监控接口实现*************************************/
+//    ------------------不合格品管理-------------------
+        //**********注入Dao
     @Autowired
     private UnQualifyApplyDao unQualifyApplyDao;
-
+        //***********查询不合格品
     @Override
     public List<UnQualifyApply> findUnqualifyList() {
 
         return unQualifyApplyDao.findUnqualifyListDao();
     }
-
+        //************新建不合格品
     @Override
     public void addUnqualifyService(UnQualifyApply unQualifyApply) {
          unQualifyApplyDao.addUnqualifyDao(unQualifyApply);
         return ;
     }
-    /*****************人员监控接口实现*************************************/
+        //***********修改不合格品
 
+    @Override
+    public int updateUnqualifyService(UnQualifyApply unQualifyApply) {
+        return  unQualifyApplyDao.updateUnqualifyDao(unQualifyApply);
+    }
+        //**********删除不合格品(可为多条)
+    @Override
+    public int deleteUnqualifyService(String[] ids) {
+        return unQualifyApplyDao.deleteUnqualifyDao(ids);
+    }
+    //*************修改不合格品备注功能
+
+
+    @Override
+    public int updateNoteUnqualifyService(String unqualifyApplyId, String note) {
+        return unQualifyApplyDao.updateNoteByUnqualifyApplyIdDao(unqualifyApplyId,note);
+    }
+
+    /*****************人员监控接口实现*************************************/
+    @Override
+    public  List<Department> selectDepartment(){
+       return departmentDao.selectDepartment();
+    }
 
     /*****************系统管理接口实现*************************************/
 
