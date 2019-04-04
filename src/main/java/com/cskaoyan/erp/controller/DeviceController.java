@@ -110,6 +110,18 @@ public class DeviceController {
         return map;
     }
 
+    @RequestMapping("deviceList/update_note")
+    public @ResponseBody Map<String, String> updateDeviceNote(Device device) {
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.updateDeviceNote(device);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
+    }
+
     @RequestMapping("deviceList/delete_judge")
     public String delete1Device() {
         //System.out.println("dddddddddddd");

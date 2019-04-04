@@ -207,8 +207,18 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
+    public List<DeviceType> findServiceDeviceById(String id) {
+        return deviceDao.findServiceDeviceById(id);
+    }
+
+    @Override
     public List<DeviceType> findDeviceByName(String searchValue) {
         return deviceDao.findDeviceByName(searchValue);
+    }
+
+    @Override
+    public int updateDeviceNote(Device device) {
+        return deviceDao.updateDeviceNote(device);
     }
 
     /*-------------设备例检模块------------------------------------------------*/
