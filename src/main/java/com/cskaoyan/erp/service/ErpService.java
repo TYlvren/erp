@@ -29,12 +29,19 @@ public interface ErpService {
     List<Custom> findCustom();
     Custom findCustomById(String id);
 
+    int addCustom(Custom custom);
+
+    int editCustom(Custom custom);
+
+    int deleteCustom(String[] ids);
+
     /**------------------------------Product--------------------------------*/
     List<Product> findProduct();
-    Product findProductByid(String id);
+    Product findProductById(String id);
     int addProduct(Product product);
     int editProduct(Product product);
-    int deleteProduct(String id);
+    int deleteProduct(String[] ids);
+
 
     /**------------------------------Manufacture--------------------------------*/
     List<Manufacture> findManufacture();

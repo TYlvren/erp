@@ -7,9 +7,22 @@
         process_id as processId,device_id as deviceId,rating as rating
     </sql>
 
-    <select id="selectAllWork" resultType="work">
-        select <include refid="workColumns"/>
+    <resultMap id="workMap" type="work">
+        <id property="workId" column="work_id"/>
+        <result property="processNumber" column="process_number"/>
+        <result property="rating" column="rating"/>
+        <association property="product" column="product_id" javaType="product"
+                     select="com.cskaoyan.erp.dao.ProductDao.selectProductById"/>
+        <association property="process" column="process_id" javaType="process"
+                     select=""/>
+        <association property="device" column="device_id" javaType="device"
+                     select=""/>
+    </resultMap>
+    <select id="selectAllWork" resultMap="workMap">
+        select
+        work_id,process_number,product_id,process_id ,device_id,rating
         from work;
     </select>
+
 
 </mapper>
