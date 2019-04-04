@@ -2,4 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.WorkDao">
 
+    <sql id="workColumns">
+        work_id as workId,process_number as processNumber,product_id as productId,
+        process_id as processId,device_id as deviceId,rating as rating
+    </sql>
+
+    <select id="selectAllWork" resultType="work">
+        select <include refid="workColumns"/>
+        from work;
+    </select>
+
 </mapper>

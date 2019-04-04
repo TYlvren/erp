@@ -2,4 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.ManufactureDao">
 
+    <sql id="manufactureColumns">
+        manufacture_sn as manufactureSn,order_id as orderId,
+        technology_id as technologyId,launch_quantity as launchQuantity,
+        begin_date as beginDate,end_date as endDate
+    </sql>
+
+    <resultMap id="manufactureMap" type="manufacture">
+        <id property="manufactureSn" column="manufacture_sn"/>
+        <result column="launch_quantity" property="launchQuantity"/>
+        <result column="beginDate" property="begin_date"/>
+        <result column="end_date" property="endDate"/>
+        <association property="cOrder" column="order_id" javaType="corder"
+                     select="com.cskaoyan.erp.dao.COrderDao.selectCOrderById"/>
+        <association property="technology" column="technology_id" javaType="technology"
+                     select="com.cskaoyan.erp.dao.TechnologyDao"/>
+    </resultMap>
+    <select id="selectAllManufacture" resultMap="manufactureMap">
+      select 
+      manufacture_sn,order_id,technology_id,
+      launch_quantity,begin_date,end_date
+      from manufacture;
+    </select>
+
 </mapper>
