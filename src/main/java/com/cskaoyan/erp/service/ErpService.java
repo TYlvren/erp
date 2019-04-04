@@ -61,6 +61,7 @@ public interface ErpService {
     List<UnQualifyApply> findUnqualifyList();
     void  addUnqualifyService(UnQualifyApply unQualifyApply);
     int updateUnqualifyService(UnQualifyApply unQualifyApply);
+    int deleteUnqualifyService(String[] ids);
 
 
 

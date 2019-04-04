@@ -26,8 +26,16 @@
     <!--修改不合格产品-->
     <update id="updateUnqualifyDao" parameterType="unQualifyApply">
         update  unqualify_apply set  product_id =#{productId},unqualify_item =#{unqualifyItem},
-        unqualify_count =#{unqualifyCount},
-        assembly_date=#{assemblyDate},emp_id =#{empId},apply_date=#{applyDate},note=#{note} where unqualify_apply_id= #{unqualifyApplyId}
-
+        unqualify_count =#{unqualifyCount},assembly_date=#{assemblyDate},emp_id =#{empId},apply_date=#{applyDate},note=#{note} where unqualify_apply_id= #{unqualifyApplyId}
     </update>
+
+    <!--删除多条记录-->
+    <delete id="deleteUnqualifyDao" >
+        delete from unqualify_apply where unqualify_apply_id in
+        (
+        <foreach collection="array" item="idss" separator="," >
+            #{idss}
+        </foreach>
+        )
+    </delete>
 </mapper>
