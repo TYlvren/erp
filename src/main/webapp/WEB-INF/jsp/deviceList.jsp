@@ -101,7 +101,7 @@
 	    <table cellpadding="5">
 	        <tr>
 	           	<td>设备种类:</td>
-	           	<td><input class="easyui-textbox" name="deviceType.deviceTypeName" data-options="editable:false"/></td>
+	           	<td><input class="easyui-textbox" name="deviceTypeName" data-options="editable:false"/></td>
 	        </tr>
 	        <tr>
 	            <td>设备型号:</td>

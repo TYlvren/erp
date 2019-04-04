@@ -70,7 +70,9 @@ public interface ErpService {
     int updateDevice(Device device);
     int deleteDevice(String id);
     List<DeviceType> findDeviceById(String searchValue);
+    List<DeviceType> findServiceDeviceById(String id);
     List<DeviceType> findDeviceByName(String searchValue);
+    int updateDeviceNote(Device device);
     /*-------------设备例检模块------------------------------------------------*/
 
     /*-------------设备故障模块------------------------------------------------*/
@@ -111,12 +113,20 @@ public interface ErpService {
 
 
     /*****************质量监控接口实现*************************************/
+    //不合格品管理相关方法
     List<UnQualifyApply> findUnqualifyList();
-    void  addUnqualifyService(UnQualifyApply unQualifyApply);
+    int  addUnqualifyService(UnQualifyApply unQualifyApply);
     int updateUnqualifyService(UnQualifyApply unQualifyApply);
     int deleteUnqualifyService(String[] ids);
     int updateNoteUnqualifyService(String unqualifyApplyId,String note);
+    //成品计量质检模块相关方法
+    //成品计数质检模块相关方法
 
+
+    //工序计量质检模块相关方法
+    List<ProcessMeasureCheck>findPMeasureCheck();
+    int  addPMeasureCheckService(ProcessMeasureCheck processMeasureCheck);
+    //工序计数质检模块相关方法
 
 
     /*****************人员监控接口实现*************************************/
@@ -126,6 +136,7 @@ public interface ErpService {
     int addDepartment( Department department);
     int editDepartment(Department department);
     int deleteDepartment(String[] ids);
+
 
 
     /*****************系统管理接口实现*************************************/
