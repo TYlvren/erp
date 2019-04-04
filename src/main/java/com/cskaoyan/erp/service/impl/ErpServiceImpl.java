@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Service("erpService")
@@ -175,8 +176,11 @@ public class ErpServiceImpl implements ErpService {
 
 
     /*****************物料监控接口实现*************************************/
+    /*-------------物料信息模块------------------------------------------------*/
     @Autowired
     private MaterialDao materialDao;
+    @Autowired
+    private MaterialReceiveDao materialReceiveDao;
     @Override
     public List<Material> selectMaterial() {
         return materialDao.selectMaterial();
@@ -203,11 +207,32 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
-    public Material findMaterialById(String id) {
-        return  materialDao.selectMaterialById(id);
+    public List<Material> selectMaterialById(String searchValue) {
+        return materialDao.selectByID(searchValue);
+    }
+
+    @Override
+    public List<Material> selectMaterialByType(String searchValue) {
+        return materialDao.selectByType(searchValue);
     }
 
 
+    @Override
+    public int modifyNote(Material material) {
+         return materialDao.updateNote(material);
+    }
+
+
+    /*-------------物料收入模块------------------------------------------------*/
+    @Override
+    public List<MaterialReceive> selectMaterialReceive() {
+        return materialReceiveDao.selectMaterialReceive();
+    }
+
+    @Override
+    public int selectCountOfMaterialReceive() {
+        return materialReceiveDao.CountOfMaterialReceive();
+    }
     /*****************质量监控接口实现*************************************/
 //    ------------------不合格品管理-------------------
         //**********注入Dao
