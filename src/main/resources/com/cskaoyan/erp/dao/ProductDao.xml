@@ -14,12 +14,13 @@
 
     <select id="selectProductById" resultType="product">
         select <include refid="productColumns"/>
-        from product
+        from productgit
         where product_id=#{id};
     </select>
 
     <insert id="insertProduct">
-        insert into product (<include refid="productColumns"/>)
+        insert into product
+        (product_id,product_name,product_type,image,note,status)
         value(#{productId},#{productName},#{productType},#{image},#{note},#{status});
     </insert>
 </mapper>
