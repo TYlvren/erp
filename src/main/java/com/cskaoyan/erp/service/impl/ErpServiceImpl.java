@@ -132,20 +132,29 @@ public class ErpServiceImpl implements ErpService {
 
 
     /*****************质量监控接口实现*************************************/
+//    ------------------不合格品管理-------------------
+        //**********注入Dao
     @Autowired
     private UnQualifyApplyDao unQualifyApplyDao;
-
+        //***********查询不合格品
     @Override
     public List<UnQualifyApply> findUnqualifyList() {
 
         return unQualifyApplyDao.findUnqualifyListDao();
     }
-
+        //************新建不合格品
     @Override
     public void addUnqualifyService(UnQualifyApply unQualifyApply) {
          unQualifyApplyDao.addUnqualifyDao(unQualifyApply);
         return ;
     }
+        //***********修改不合格品
+
+    @Override
+    public int updateUnqualifyService(UnQualifyApply unQualifyApply) {
+        return  unQualifyApplyDao.updateUnqualifyDao(unQualifyApply);
+    }
+
     /*****************人员监控接口实现*************************************/
     @Override
     public  List<Department> selectDepartment(){
