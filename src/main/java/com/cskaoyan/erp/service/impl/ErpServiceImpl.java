@@ -124,6 +124,11 @@ public class ErpServiceImpl implements ErpService {
         return unQualifyApplyDao.findUnqualifyListDao();
     }
 
+    @Override
+    public void addUnqualifyService(UnQualifyApply unQualifyApply) {
+         unQualifyApplyDao.addUnqualifyDao(unQualifyApply);
+        return ;
+    }
     /*****************人员监控接口实现*************************************/
 
 

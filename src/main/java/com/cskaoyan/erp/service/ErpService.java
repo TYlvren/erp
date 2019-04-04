@@ -57,6 +57,7 @@ public interface ErpService {
 
     /*****************质量监控接口实现*************************************/
     List<UnQualifyApply> findUnqualifyList();
+    void  addUnqualifyService(UnQualifyApply unQualifyApply);
 
 
 
