@@ -8,4 +8,7 @@ import java.util.List;
 public interface ManufactureDao {
 
     List<Manufacture> selectAllManufacture();
+
+
+    Manufacture selectManufactureById(String id);
 }

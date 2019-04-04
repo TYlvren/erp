@@ -11,6 +11,7 @@ import com.cskaoyan.erp.model.UnQualifyApply;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description: 生产管理平台Service层接口
@@ -62,6 +63,7 @@ public interface ErpService {
 
     /**------------------------------Manufacture--------------------------------*/
     List<Manufacture> findManufacture();
+    Manufacture findManufactureById(String id);
 
     /**------------------------------Work--------------------------------*/
     List<Work> findWork();
@@ -106,34 +108,18 @@ public interface ErpService {
 
 
     /*****************物料监控接口实现*************************************/
-    /**
-     * 获得所有物料信息
-     * @return Material对象的List集合
-     * */
+    /*-------------物料信息模块------------------------------------------------*/
     List<Material> selectMaterial();
     int selectCountOfMaterial();
-
-    /**
-     * 根据material_id删除物料信息
-     * @param id
-     * */
     int removeMaterialById(String id);
-
-    /**
-     * 修改物料信息
-     * @param material 物料对象
-     * */
     int modifyMaterial(Material material);
-
-    /**
-     * 添加物料信息
-     *
-     * @param material 物料对象
-     */
     int addMaterial(Material material) ;
-    Material findMaterialById(String id);
-
-
+    List<Material> selectMaterialById(String searchValue);
+    List<Material> selectMaterialByType(String searchValue);
+    int modifyNote(Material material);
+    /*-------------物料收入模块------------------------------------------------*/
+    List<MaterialReceive> selectMaterialReceive();
+    int selectCountOfMaterialReceive();
     /*****************质量监控接口实现*************************************/
     //不合格品管理相关方法
     List<UnQualifyApply> findUnqualifyList();
@@ -158,8 +144,6 @@ public interface ErpService {
     int addDepartment( Department department);
     int editDepartment(Department department);
     int deleteDepartment(String[] ids);
-
-
 
 
     /*****************系统管理接口实现*************************************/

@@ -369,6 +369,12 @@ public class PlanProgressController {
     }
 
 
+    @RequestMapping("manufacture/get/{id}")
+    @ResponseBody
+    public Manufacture getManufacture(@PathVariable("id") String id) {
+        return erpService.findManufactureById(id);
+    }
+
     /*****************Task控制层*************************************/
     /**
      * 查找Task的controller
