@@ -62,7 +62,7 @@ public interface ErpService {
 
 
     /*****************人员监控接口实现*************************************/
-
+    List<Department> selectDepartment();
 
 
 
