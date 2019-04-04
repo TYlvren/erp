@@ -124,6 +124,10 @@ public interface ErpService {
     //工序计量质检模块相关方法
     List<ProcessMeasureCheck>findPMeasureCheck();
     int  addPMeasureCheckService(ProcessMeasureCheck processMeasureCheck);
+    int  updatePMeasureCheckService(ProcessMeasureCheck processMeasureCheck);
+    int deletePMeasureCheckService(String[] ids);
+    int updateNotePMeasureCheckService(String pMeasureCheckId,String note);
+
     //工序计数质检模块相关方法
 
 

@@ -312,6 +312,25 @@ public class ErpServiceImpl implements ErpService {
     public int addPMeasureCheckService(ProcessMeasureCheck processMeasureCheck) {
         return processMeasureCheckDao.insertPMeasureCheckDao(processMeasureCheck);
     }
+    //**********修改工序计量质检记录
+
+    @Override
+    public int updatePMeasureCheckService(ProcessMeasureCheck processMeasureCheck) {
+        return processMeasureCheckDao.updatePMeasureCheckDao(processMeasureCheck);
+    }
+    //*********删除工序计量质检记录
+
+    @Override
+    public int deletePMeasureCheckService(String[] ids) {
+        return processMeasureCheckDao.deletePMeasureCheckDao(ids);
+    }
+    //***********修改备注工序计量质检记录
+
+    @Override
+    public int updateNotePMeasureCheckService(String pMeasureCheckId, String note) {
+        return processMeasureCheckDao.updateNotePMeasureCheckDao(pMeasureCheckId,note);
+    }
+
 
     //-------------------------工序计数质检--------------------------------------
 

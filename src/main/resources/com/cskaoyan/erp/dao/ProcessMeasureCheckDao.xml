@@ -18,5 +18,22 @@
         insert into process_measure_check (p_measure_check_id,process_id,check_item,cdate,
           measure_data,emp_id,result,note) values(#{pMeasureCheckId},#{processId},#{checkItem},#{cdate},#{measureData},#{empId},#{result},#{note})
     </insert>
-
+    <!--修改工序计量质检-->
+    <update id="updatePMeasureCheckDao" parameterType="ProcessMeasureCheck">
+        update  process_measure_check set  process_id =#{processId},check_item =#{checkItem},
+        cdate =#{cdate},measure_data=#{measureData},emp_id =#{empId},result=#{result},note=#{note} where p_measure_check_id= #{pMeasureCheckId}
+    </update>
+    <!--删除工序计量质检条数-->
+    <delete id="deletePMeasureCheckDao" >
+            delete from process_measure_check where p_measure_check_id in
+            (
+            <foreach collection="array" item="idss" separator="," >
+                #{idss}
+            </foreach>
+            )
+    </delete>
+    <!--修改工序计量质检备注信息-->
+    <update id="updateNotePMeasureCheckDao" parameterType="string">
+                update  process_measure_check set  note=#{note} where p_measure_check_id= #{id}
+    </update>
 </mapper>
