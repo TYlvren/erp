@@ -9,14 +9,6 @@ public class MaterialReceive {
 
     private Integer amount;
 
-    private Date receiveDate;
-
-    private String sender;
-
-    private String receiver;
-
-    private String note;
-
     public String getReceiveId() {
         return receiveId;
     }
