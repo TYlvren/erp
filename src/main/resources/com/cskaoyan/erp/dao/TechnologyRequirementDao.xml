@@ -8,16 +8,16 @@
         <result column="add_time" property="addTime"/>
         <result column="revise_time" property="reviseTime"/>
         <association property="technology" javaType="technology">
-            <result column="t_name" property="technologyName"/>
-            <result column="t_id" property="technologyId"/>
+            <result column="technology_name" property="technologyName"/>
+            <result column="technology_id" property="technologyId"/>
         </association>
     </resultMap>
 
     <select id="selectTechnologyRequirement" resultMap="tRequirementLeft">
     SELECT
     te.technology_requirement_id ,
-    t.technology_name AS t_name,
-    t.technology_id AS t_id,
+    t.technology_name,
+    t.technology_id,
     te.requirement,
     te.add_time,
     te.revise_time
