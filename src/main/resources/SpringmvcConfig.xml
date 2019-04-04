@@ -28,7 +28,6 @@
 
     <!--文件上传-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
-
     <!--资源解析器-->
     <mvc:resources mapping="/*" location="/"/>
 </beans>

@@ -92,4 +92,23 @@ public class Technology {
     public void setOverfulfilCapacity(Integer overfulfilCapacity) {
         this.overfulfilCapacity = overfulfilCapacity;
     }
+
+
+    public Technology() {
+    }
+
+    @Override
+    public String toString() {
+        return "Technology{" +
+                "technologyId='" + technologyId + '\'' +
+                ", technologyName='" + technologyName + '\'' +
+                ", price=" + price +
+                ", vitalProcessPeriod='" + vitalProcessPeriod + '\'' +
+                ", standardCapacity=" + standardCapacity +
+                ", overtimeStandardCapacity=" + overtimeStandardCapacity +
+                ", overtimeOverfulfilCapacity=" + overtimeOverfulfilCapacity +
+                ", doubleCapacity=" + doubleCapacity +
+                ", overfulfilCapacity=" + overfulfilCapacity +
+                '}';
+    }
 }
