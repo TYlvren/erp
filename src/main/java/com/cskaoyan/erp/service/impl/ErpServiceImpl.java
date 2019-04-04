@@ -24,8 +24,6 @@ public class ErpServiceImpl implements ErpService {
     @Autowired
     private COrderDao cOrderDao;
 
-    @Autowired
-    private DepartmentDao departmentDao;
 
     @Autowired
     private CustomDao customDao;
@@ -300,9 +298,27 @@ public class ErpServiceImpl implements ErpService {
     }
 
     /*****************人员监控接口实现*************************************/
+    @Autowired
+    private DepartmentDao departmentDao;
     @Override
-    public  List<Department> selectDepartment(){
-       return departmentDao.selectDepartment();
+    public  List<Department> findDepartment(){
+        return departmentDao.selectDepartment();
+    }
+    @Override
+    public Department findDepartmentById(String id){
+        return departmentDao.selectDepartmentById(id);
+    }
+    @Override
+    public int addDepartment(Department department){
+        return departmentDao.insertDepartment(department);
+    }
+    @Override
+    public int editDepartment(Department department){
+        return departmentDao.updateDepartment(department);
+    }
+    @Override
+    public int deleteDepartment(String[] ids ){
+        return departmentDao.deleteDepartmentById(ids);
     }
 
     /*****************系统管理接口实现*************************************/

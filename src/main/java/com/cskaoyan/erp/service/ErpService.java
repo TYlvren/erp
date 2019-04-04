@@ -120,8 +120,12 @@ public interface ErpService {
 
 
     /*****************人员监控接口实现*************************************/
-    List<Department> selectDepartment();
-
+    //部门管理模块
+    List<Department> findDepartment();
+    Department findDepartmentById(String id);
+    int addDepartment( Department department);
+    int editDepartment(Department department);
+    int deleteDepartment(String[] ids);
 
 
     /*****************系统管理接口实现*************************************/
