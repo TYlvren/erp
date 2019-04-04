@@ -66,6 +66,20 @@ public class ErpServiceImpl implements ErpService {
         return customDao.selectCustomById(id);
     }
 
+    @Override
+    public int addCustom(Custom custom) {
+        return customDao.insertCustom(custom);
+    }
+
+    @Override
+    public int editCustom(Custom custom) {
+        return customDao.updateCustom(custom);
+    }
+
+    @Override
+    public int deleteCustom(String[] ids) {
+        return customDao.deleteCustomByIds(ids);
+    }
 
     /** ------------------------------Product--------------------------------*/
     @Override
@@ -74,7 +88,7 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
-    public Product findProductByid(String id) {
+    public Product findProductById(String id) {
         return productDao.selectProductById(id);
     }
 
@@ -89,8 +103,8 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
-    public int deleteProduct(String id) {
-        return productDao.deleteProductById(id);
+    public int deleteProduct(String[] ids) {
+        return productDao.deleteProductById(ids);
     }
 
     /** ------------------------------Work--------------------------------*/

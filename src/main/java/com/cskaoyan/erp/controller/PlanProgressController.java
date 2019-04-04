@@ -28,105 +28,183 @@ public class PlanProgressController {
     private ErpService erpService;
 
     @RequestMapping("order/find")
-    public String toOrderList(HttpSession session){
+    public String toOrderList(HttpSession session) {
         List<String> sysPermissionList = new ArrayList<>();
         sysPermissionList.add("order:add");
         sysPermissionList.add("order:edit");
         sysPermissionList.add("order:delete");
-        session.setAttribute("sysPermissionList",sysPermissionList);
+        session.setAttribute("sysPermissionList", sysPermissionList);
         return "order_list";
     }
 
     @ResponseBody
     @RequestMapping("order/list")
-    public List<COrder> findOrder(){
+    public List<COrder> findOrder() {
         return erpService.findCOrder();
     }
 
 
     /*****************Custom控制层*************************************/
+    /**
+     * 查找Custom的controller
+     */
     @RequestMapping("custom/find")
-    public String toCustomList(HttpSession session){
+    public String toCustomList(HttpSession session) {
         List<String> sysPermissionList = new ArrayList<>();
         sysPermissionList.add("custom:add");
         sysPermissionList.add("custom:edit");
         sysPermissionList.add("custom:delete");
-        session.setAttribute("sysPermissionList",sysPermissionList);
+        session.setAttribute("sysPermissionList", sysPermissionList);
         return "custom_list";
     }
 
     @RequestMapping("custom/get/{id}")
     @ResponseBody
-    public Custom getCustom(@PathVariable("id") String id){
+    public Custom getCustom(@PathVariable("id") String id) {
         return erpService.findCustomById(id);
     }
 
     @ResponseBody
     @RequestMapping("custom/list")
-    public List<Custom> findCustom(){
+    public List<Custom> findCustom() {
         return erpService.findCustom();
     }
 
     @RequestMapping("custom/get_data")
     @ResponseBody
-    public List<Custom> getCustomData(){
+    public List<Custom> getCustomData() {
         return erpService.findCustom();
+    }
+
+
+    /**
+     * 添加Custom的controller
+     */
+    @RequestMapping("custom/add_judge")
+    @ResponseBody
+    public Map<String, String> addCustomJudge(Custom custom) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("custom/add")
+    public String addCustom() {
+        return "custom_add";
+    }
+
+    @RequestMapping("custom/insert")
+    @ResponseBody
+    public Map<String, String> insertCustom(Custom custom) {
+        int i = erpService.addCustom(custom);
+        return getStatusMap(i);
+    }
+
+    private Map<String, String> getStatusMap(int i) {
+        Map<String, String> map = new HashMap<>();
+        map.put("status", "200");
+        if (i != 1) {
+            map.put("msg", "异常");
+        }
+        return map;
+    }
+
+    /**
+     * 编辑Custom的controller
+     */
+    @RequestMapping("custom/edit_judge")
+    @ResponseBody
+    public Map<String, String> editCustomJudge(Custom custom) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("custom/edit")
+    public String editCustom() {
+        return "custom_edit";
+    }
+
+    @RequestMapping("custom/update_all")
+    @ResponseBody
+    public Map<String, String> updateCustom(Custom custom) {
+        int i = erpService.editCustom(custom);
+        return getStatusMap(i);
+    }
+
+
+    /**
+     * 删除商品的controller
+     */
+    @RequestMapping("custom/delete_judge")
+    @ResponseBody
+    public Map<String, String> deleteCustomJudge(Custom custom) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("custom/delete_batch")
+    @ResponseBody
+    public Map<String, String> deleteCustomBatch(String[] ids) {
+        Map<String, String> map = new HashMap<>();
+        map.put("status", "200");
+        int i = erpService.deleteCustom(ids);
+
+        if (i != ids.length) {
+            map.put("msg", "异常");
+        }
+        return map;
     }
 
     /*****************Product控制层*************************************/
 
     @RequestMapping("product/find")
-    public String toProductList(HttpSession session){
+    public String toProductList(HttpSession session) {
         List<String> sysPermissionList = new ArrayList<>();
         sysPermissionList.add("product:add");
         sysPermissionList.add("product:edit");
         sysPermissionList.add("product:delete");
-        session.setAttribute("sysPermissionList",sysPermissionList);
+        session.setAttribute("sysPermissionList", sysPermissionList);
         return "product_list";
     }
 
     @RequestMapping("product/get/{id}")
     @ResponseBody
-    public Product getProduct(@PathVariable("id") String id){
+    public Product getProduct(@PathVariable("id") String id) {
 
-        return erpService.findProductByid(id);
+        return erpService.findProductById(id);
     }
 
     @RequestMapping("product/list")
     @ResponseBody
-    public List<Product> findProduct(){
+    public List<Product> findProduct() {
         return erpService.findProduct();
     }
 
 
-    /**  添加商品的controller */
+    /**
+     * 添加商品的controller
+     */
     @RequestMapping("product/add_judge")
     @ResponseBody
-    public Map<String,String> addProductJudge(Product product){
+    public Map<String, String> addProductJudge(Product product) {
         return new HashMap<>();
     }
 
     @RequestMapping("product/add")
-    public String addProduct(){
+    public String addProduct() {
         return "product_add";
     }
 
     @RequestMapping("product/insert")
     @ResponseBody
-    public Map<String,String> insertProduct(Product product){
+    public Map<String, String> insertProduct(Product product) {
         int i = erpService.addProduct(product);
-        Map<String,String> map = new HashMap<>();
-        map.put("status","200");
-        if(i != 1) {
-            map.put("msg", "添加异常");
-        }
+        Map<String, String> map = getStatusMap(i);
         return map;
     }
 
-    /** 编辑商品的controller */
+    /**
+     * 编辑商品的controller
+     */
     @RequestMapping("product/edit_judge")
     @ResponseBody
-    public Map<String,String> editProductJudge(Product product){
+    public Map<String, String> editProductJudge(Product product) {
         return new HashMap<>();
          /*  if(product == null || product.getProductId() == null) {
             map.put("msg", "产品信息异常");
@@ -134,27 +212,25 @@ public class PlanProgressController {
     }
 
     @RequestMapping("product/edit")
-    public String editProduct(){
+    public String editProduct() {
         return "product_edit";
     }
 
     @RequestMapping("product/update_all")
     @ResponseBody
-    public Map<String,String> updateProduct(Product product){
+    public Map<String, String> updateProduct(Product product) {
         int i = erpService.editProduct(product);
-        Map<String,String> map = new HashMap<>();
-        map.put("status","200");
-        if(i != 1) {
-            map.put("msg", "更新异常");
-        }
+        Map<String, String> map = getStatusMap(i );
         return map;
     }
 
 
-    /** 删除商品的controller */
+    /**
+     * 删除商品的controller
+     */
     @RequestMapping("product/delete_judge")
     @ResponseBody
-    public Map<String,String> deleteProductJudge(Product product){
+    public Map<String, String> deleteProductJudge(Product product) {
         return new HashMap<>();
          /*  if(product == null || product.getProductId() == null) {
             map.put("msg", "产品信息异常");
@@ -163,58 +239,55 @@ public class PlanProgressController {
 
     @RequestMapping("product/delete_batch")
     @ResponseBody
-    public Map<String,String> deleteProductBatch(String[] ids){
-        Map<String,String> map = new HashMap<>();
-        map.put("status","200");
-
-        for (String id : ids) {
-            int i = erpService.deleteProduct(id);
-            if(i != 1) {
-                map.put("msg", "删除异常");
-            }
+    public Map<String, String> deleteProductBatch(String[] ids) {
+        Map<String, String> map = new HashMap<>();
+        map.put("status", "200");
+        int i = erpService.deleteProduct(ids);
+        if(i != ids.length) {
+            map.put("msg", "删除异常");
         }
         return map;
     }
 
     @RequestMapping("product/get_data")
     @ResponseBody
-    public List<Product> getProductData(){
+    public List<Product> getProductData() {
         return erpService.findProduct();
     }
 
     /*****************Work控制层*************************************/
 
     @RequestMapping("work/find")
-    public String toWorkList(HttpSession session){
+    public String toWorkList(HttpSession session) {
         List<String> sysPermissionList = new ArrayList<>();
         sysPermissionList.add("work:add");
         sysPermissionList.add("work:edit");
         sysPermissionList.add("work:delete");
-        session.setAttribute("sysPermissionList",sysPermissionList);
+        session.setAttribute("sysPermissionList", sysPermissionList);
         return "work_list";
     }
 
     @RequestMapping("work/list")
     @ResponseBody
-    public List<Work> findWork(){
+    public List<Work> findWork() {
         return erpService.findWork();
     }
 
 
     /*****************Manufacture控制层*************************************/
     @RequestMapping("manufacture/find")
-    public String toManufactureList(HttpSession session){
+    public String toManufactureList(HttpSession session) {
         List<String> sysPermissionList = new ArrayList<>();
         sysPermissionList.add("manufacture:add");
         sysPermissionList.add("manufacture:edit");
         sysPermissionList.add("manufacture:delete");
-        session.setAttribute("sysPermissionList",sysPermissionList);
+        session.setAttribute("sysPermissionList", sysPermissionList);
         return "manufacture_list";
     }
 
     @RequestMapping("manufacture/list")
     @ResponseBody
-    public List<Manufacture> findManufacture(){
+    public List<Manufacture> findManufacture() {
         return erpService.findManufacture();
     }
 

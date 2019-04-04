@@ -46,14 +46,15 @@ import java.util.Map;
  */
 
 @Controller
-@RequestMapping("unqualify")
-public class UnqualifyController {
+public class QualityController {
     @Autowired
     @Qualifier("erpService")
     private ErpService erpService;//注入service容器
 
 
-    @RequestMapping("find")//进入情况1.home.jsp中点击不合格品管理
+    /**********************不合格品质量管理模块********************************************/
+
+    @RequestMapping("unqualify/find")//进入情况1.home.jsp中点击不合格品管理
     public String turnToUnqualify(ModelAndView mv, HttpSession session){
         List<String> sysPermissionList=new ArrayList<>();
         sysPermissionList.add("unqualify:add");//设置新建编辑删除按钮的显示
@@ -62,7 +63,7 @@ public class UnqualifyController {
         session.setAttribute("sysPermissionList",sysPermissionList);
         return "unqualify_list";
     }
-    @RequestMapping("list")//自动查询数据  实现分页
+    @RequestMapping("unqualify/list")//自动查询数据  实现分页
     public  @ResponseBody Map<String, Object> findUnqualify(@RequestParam int page, int rows){
         PageHelper.startPage(page, rows, true);
         List<UnQualifyApply> list = erpService.findUnqualifyList();
@@ -74,17 +75,16 @@ public class UnqualifyController {
         map.put("rows", list);
         return map;
     }
-    @RequestMapping("add")//新建不合格品记录
+    @RequestMapping("unqualify/add")//新建不合格品记录
     public String addUniqualify(){
        return "unqualify_add";
     }
-    @RequestMapping("add_judge")//新建不合格品记录
+    @RequestMapping("unqualify/add_judge")//新建不合格品记录
     @ResponseBody
     public String addJudgeUniqualify()  {
         return "{}";
     }
-
-    @RequestMapping("insert")//新建不合格品记录
+    @RequestMapping("unqualify/insert")//新建不合格品记录
     @ResponseBody
     public Map<String,String > insertUnQualifyApply(UnQualifyApply unQualifyApply)  {
         Map<String,String > map = new HashMap<>();
@@ -93,19 +93,16 @@ public class UnqualifyController {
         erpService.addUnqualifyService(unQualifyApply);//添加商品没有返回值
         return map;
     }
-
-    @RequestMapping("edit_judge")//新建不合格品记录
+    @RequestMapping("unqualify/edit_judge")//新建不合格品记录
     @ResponseBody
     public String editUnqualifyJudge()  {
         return "{}";
     }
-
-    @RequestMapping("edit")//编辑不合格品
+    @RequestMapping("unqualify/edit")//编辑不合格品
     public String editUniqualify(){
         return "unqualify_edit";
     }
-
-    @RequestMapping("update_all")//修改不合格品记录
+    @RequestMapping("unqualify/update_all")//修改不合格品记录
     @ResponseBody
     public Map<String,String > updateUnQualifyApply(UnQualifyApply unQualifyApply)  {
         Map<String,String > map = new HashMap<>();
@@ -114,14 +111,12 @@ public class UnqualifyController {
         int i = erpService.updateUnqualifyService(unQualifyApply);//修改商品没有返回值
         return map;
     }
-
-    @RequestMapping("delete_judge")//新建不合格品记录
+    @RequestMapping("unqualify/delete_judge")//新建不合格品记录
     @ResponseBody
     public String deleteJudgeUnqualifyJudge()  {
         return "{}";
     }
-
-    @RequestMapping("delete_batch")//删除不合格品记录(可为多条)
+    @RequestMapping("unqualify/delete_batch")//删除不合格品记录(可为多条)
     @ResponseBody
     public Map<String,String > deleteUnQualifyApply(String[] ids)  {
         Map<String,String > map = new HashMap<>();
@@ -130,7 +125,7 @@ public class UnqualifyController {
         int i = erpService.deleteUnqualifyService(ids);//删除商品
         return map;
     }
-    @RequestMapping("update_note")//更新不合格品记录备注属性
+    @RequestMapping("unqualify/update_note")//更新不合格品记录备注属性
     @ResponseBody
     public Map<String,String > updateNoteUnQualifyApply(String unqualifyApplyId,String note)  {
         System.out.println(unqualifyApplyId+note);
@@ -141,7 +136,7 @@ public class UnqualifyController {
         return map;
     }
 
-
+    /********************************成品计量模块******************************************************************/
 
 
 }
