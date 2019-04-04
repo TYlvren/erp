@@ -38,6 +38,8 @@ public class ErpServiceImpl implements ErpService {
     @Autowired
     private ManufactureDao manufactureDao;
 
+    @Autowired
+    private TaskDao taskDao;
 
     /**------------------------------Order--------------------------------*/
 
@@ -132,11 +134,62 @@ public class ErpServiceImpl implements ErpService {
         return workDao.selectAllWork();
     }
 
+    @Override
+    public Work findWorkById(String id) {
+        return workDao.selectWorkById(id);
+    }
+
+    @Override
+    public int addWork(Work work) {
+        return workDao.insertWork(work);
+    }
+
+    @Override
+    public int editWork(Work work) {
+        return workDao.updateWork(work);
+    }
+
+    @Override
+    public int deleteWork(String[] ids) {
+        return workDao.deleteWorkByIds(ids);
+    }
+
     /**------------------------------Manufacture--------------------------------*/
 
     @Override
     public List<Manufacture> findManufacture() {
         return manufactureDao.selectAllManufacture();
+    }
+
+    @Override
+    public Manufacture findManufactureById(String id) {
+        return manufactureDao.selectManufactureById(id);
+    }
+
+    /**------------------------------Task--------------------------------*/
+    @Override
+    public List<Task> findTask() {
+        return taskDao.selectAllTask();
+    }
+
+    @Override
+    public Task findTaskById(String id) {
+        return taskDao.selectTaskById(id);
+    }
+
+    @Override
+    public int addTask(Task task) {
+        return taskDao.insertTask(task);
+    }
+
+    @Override
+    public int editTask(Task task) {
+        return taskDao.updateTask(task);
+    }
+
+    @Override
+    public int deleteTask(String[] ids) {
+        return taskDao.deleteTaskByIds(ids);
     }
 
     /*****************设备管理接口实现*************************************/
@@ -220,8 +273,13 @@ public class ErpServiceImpl implements ErpService {
         return deviceDao.updateDeviceNote(device);
     }
 
-    /*-------------设备例检模块------------------------------------------------*/
 
+
+    /*-------------设备例检模块------------------------------------------------*/
+    @Override
+    public List<DeviceCheck> findDeviceeCheckByPage() {
+        return deviceCheckDao.findAllDeviceCheck();
+    }
     /*-------------设备故障模块------------------------------------------------*/
     @Override
     public List<DeviceFault> findAllDeviceFaultByPage() {
@@ -371,6 +429,25 @@ public class ErpServiceImpl implements ErpService {
     public int addPMeasureCheckService(ProcessMeasureCheck processMeasureCheck) {
         return processMeasureCheckDao.insertPMeasureCheckDao(processMeasureCheck);
     }
+    //**********修改工序计量质检记录
+
+    @Override
+    public int updatePMeasureCheckService(ProcessMeasureCheck processMeasureCheck) {
+        return processMeasureCheckDao.updatePMeasureCheckDao(processMeasureCheck);
+    }
+    //*********删除工序计量质检记录
+
+    @Override
+    public int deletePMeasureCheckService(String[] ids) {
+        return processMeasureCheckDao.deletePMeasureCheckDao(ids);
+    }
+    //***********修改备注工序计量质检记录
+
+    @Override
+    public int updateNotePMeasureCheckService(String pMeasureCheckId, String note) {
+        return processMeasureCheckDao.updateNotePMeasureCheckDao(pMeasureCheckId,note);
+    }
+
 
     //-------------------------工序计数质检--------------------------------------
 

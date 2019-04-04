@@ -8,16 +8,16 @@
         <result column="add_time" property="addTime"/>
         <result column="revise_time" property="reviseTime"/>
         <association property="technology" javaType="technology">
-            <result column="t_name" property="technologyName"/>
-            <result column="t_id" property="technologyId"/>
+            <result column="technology_name" property="technologyName"/>
+            <result column="technology_id" property="technologyId"/>
         </association>
     </resultMap>
 
     <select id="selectTechnologyRequirement" resultMap="tRequirementLeft">
     SELECT
     te.technology_requirement_id ,
-    t.technology_name AS t_name,
-    t.technology_id AS t_id,
+    t.technology_name,
+    t.technology_id,
     te.requirement,
     te.add_time,
     te.revise_time
@@ -32,4 +32,44 @@
     <select id="selectCountOfTechnologyRequirement" resultType="integer">
             select count(*) from technology_requirement
     </select>
+
+    <!--判断插入的信息是否重复-->
+    <select id="technologyRequirementIdIsexist" resultType="technologyRequirement">
+        select * from technology_requirement
+        <where>
+            technology_requirement_id = #{technologyRequirementId}
+        </where>
+    </select>
+
+
+    <!--添加新的信息数据-->
+    <insert id="addTechnologyRequirement">
+        insert into technology_requirement
+        values
+        (
+        #{tRequirement.technologyRequirementId},
+        #{tRequirement.technologyId},
+        #{tRequirement.requirement},
+        #{tRequirement.addTime},
+        #{tRequirement.reviseTime}
+        )
+    </insert>
+
+    <!--删除选中的信息-->
+    <delete id="removeTechnologyRequirementById">
+         delete from technology_requirement where technology_requirement_id = #{id}
+    </delete>
+
+    <!--编辑新的信息-->
+    <update id="updateTechnology">
+        update technology_requirement
+        <set>
+            technology_id=#{tRequirement.technologyId},
+            requirement=#{tRequirement.requirement},
+            add_time=#{tRequirement.addTime},
+            revise_time=#{tRequirement.reviseTime}
+        </set>
+        <where>technology_requirement_id = #{tRequirement.technologyRequirementId}</where>
+    </update>
+
 </mapper>

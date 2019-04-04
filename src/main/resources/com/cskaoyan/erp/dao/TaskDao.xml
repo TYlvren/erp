@@ -2,4 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.TaskDao">
 
+    <sql id="taskColumns">
+         task_id as taskId,manufacture_sn as manufactureSn,work_id as workId
+         ,task_quantity as taskQuantity ,working_hours as workingHours
+    </sql>
+
+    <select id="selectAllTask" resultType="task">
+        select <include refid="taskColumns"/>
+        from task;
+    </select>
+
+    <select id="selectTaskById" resultType="task">
+        select <include refid="taskColumns"/>
+        from task
+        where task_id=#{id};
+    </select>
+
+    <insert id="insertTask">
+        insert into task
+        (task_id,manufacture_sn,work_id,task_quantity,working_hours)
+        value (#{taskId},#{manufactureSn},#{workId},#{taskQuantity},#{workingHours});
+    </insert>
+
+    <update id="updateTask">
+        update task
+        set manufacture_sn=#{manufactureSn},work_id=#{workId},task_quantity=#{taskQuantity}
+        ,working_hours = #{workingHours}
+        where task_id=#{taskId};
+    </update>
+
+    <delete id="deleteTaskByIds">
+      delete from task
+        <where>
+            <foreach collection="array" item="id" close=";">
+                or task_id = #{id}
+            </foreach>
+        </where>
+    </delete>
 </mapper>

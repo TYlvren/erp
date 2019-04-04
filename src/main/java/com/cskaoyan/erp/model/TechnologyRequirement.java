@@ -24,6 +24,7 @@ public class TechnologyRequirement {
     public void setTechnology(Technology technology) {
         this.technology = technology;
     }
+
     public TechnologyRequirement() {
     }
 
@@ -93,7 +94,7 @@ public class TechnologyRequirement {
                 ", addTime=" + addTime +
                 ", reviseTime=" + reviseTime +
                 ", technologyName='" + technologyName + '\'' +
+                ", technology=" + technology +
                 '}';
     }
-
 }
