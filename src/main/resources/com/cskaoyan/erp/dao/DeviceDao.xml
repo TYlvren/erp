@@ -18,6 +18,12 @@
         <association property="deviceType" javaType="deviceType">
             <result column="device_type_id" property="deviceTypeId"/>
             <result column="device_type_name" property="deviceTypeName"/>
+            <result column="device_type_model" property="deviceTypeModel"/>
+            <result column="device_type_spec" property="deviceTypeSpec"/>
+            <result column="device_type_supplier" property="deviceTypeSupplier"/>
+            <result column="device_type_producer" property="deviceTypeProducer"/>
+            <result column="device_type_quantity" property="deviceTypeQuantity"/>
+            <result column="device_type_warranty" property="deviceTypeWarranty"/>
         </association>
 
     </resultMap>
@@ -25,7 +31,7 @@
     <select id="findAllDevice" resultMap="deviceMap">
         SELECT
             *
-        FROM device d LEFT JOIN device_type dt on d.device_type_id = dt.device_type_id
+        FROM device d inner JOIN device_type dt on d.device_type_id = dt.device_type_id
     </select>
 
     <insert id="insertDevice">
@@ -63,6 +69,15 @@
 			device_id = #{device.deviceId}
     </update>
 
+    <update id="updateDeviceNote">
+        UPDATE device
+        <set>
+            note=#{device.note}
+        </set>
+        WHERE
+        device_id = #{device.deviceId}
+    </update>
+
     <delete id="deleteDeviceById">
         DELETE FROM device WHERE device_id = #{id}
     </delete>
@@ -84,6 +99,24 @@
             device
        WHERE device_id like '%${id}%'
 
+    </select>
+
+    <select id="findServiceDeviceById" resultType="device">
+       SELECT
+            device.device_id AS deviceId,
+            device.device_name AS deviceName,
+            device.device_type_id AS deviceTypeId,
+            device.device_status_id AS deviceStatusId,
+            device.device_status AS deviceStatus,
+            device.device_purchase_date AS devicePurchaseDate,
+            device.device_purchase_price AS devicePurchasePrice,
+            device.device_manufacture_date AS deviceManufactureDate,
+            device.device_service_life AS deviceServiceLife,
+            device.device_keeper_id AS deviceKeeperId,
+            device.note AS note
+       FROM
+            device
+       WHERE device_id = #{id}
     </select>
 
     <select id="findDeviceByName" resultType="device">
