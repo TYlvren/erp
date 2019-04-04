@@ -78,6 +78,11 @@ public class ErpServiceImpl implements ErpService {
         return productDao.insertProduct(product);
     }
 
+    @Override
+    public int editProduct(Product product) {
+        return productDao.updateProduct(product);
+    }
+
     /*****************设备管理接口实现*************************************/
     @Autowired
     DeviceMaintainDao deviceMaintainDao;

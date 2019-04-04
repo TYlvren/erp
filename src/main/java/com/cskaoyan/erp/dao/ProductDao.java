@@ -13,4 +13,6 @@ public interface ProductDao {
     Product selectProductById(String id);
 
     int insertProduct(Product product);
+
+    int updateProduct(Product product);
 }

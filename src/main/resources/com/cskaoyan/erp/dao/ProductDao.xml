@@ -14,7 +14,7 @@
 
     <select id="selectProductById" resultType="product">
         select <include refid="productColumns"/>
-        from productgit
+        from product
         where product_id=#{id};
     </select>
 
@@ -23,4 +23,11 @@
         (product_id,product_name,product_type,image,note,status)
         value(#{productId},#{productName},#{productType},#{image},#{note},#{status});
     </insert>
+
+    <update id="updateProduct">
+        update product
+        set product_name = #{productName},product_type = #{productType},image=#{image},
+        note=#{note},status=#{status}
+        where product_id =#{productId};
+    </update>
 </mapper>
