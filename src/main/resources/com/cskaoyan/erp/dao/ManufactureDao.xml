@@ -16,7 +16,7 @@
         <association property="cOrder" column="order_id" javaType="corder"
                      select="com.cskaoyan.erp.dao.COrderDao.selectCOrderById"/>
         <association property="technology" column="technology_id" javaType="technology"
-                     select="com.cskaoyan.erp.dao.TechnologyDao"/>
+                     select="com.cskaoyan.erp.dao.TechnologyDao.findTechnologyById"/>
     </resultMap>
     <select id="selectAllManufacture" resultMap="manufactureMap">
       select 
