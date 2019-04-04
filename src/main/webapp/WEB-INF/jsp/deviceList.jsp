@@ -34,7 +34,7 @@
             <th data-options="field:'deviceServiceLife',width:130,align:'center',formatter:TAOTAO.formatDate">
 				使用年限
 			</th>
-            <th data-options="field:'deviceKeeper',width:100,align:'center',formatter:formatDeviceKeeper_deviceList">
+            <th data-options="field:'deviceKeeper',width:100,align:'center',formatter:formatDeviceKeeper_deviceList" >
 				保管人
 			</th>
             <th data-options="field:'note',width:100,align:'center',formatter:formatDeviceNote">备注</th>
@@ -101,7 +101,7 @@
 	    <table cellpadding="5">
 	        <tr>
 	           	<td>设备种类:</td>
-	           	<td><input class="easyui-textbox" name="deviceTypeName" data-options="editable:false"/></td>
+	           	<td><input class="easyui-textbox" name="deviceType.deviceTypeName" data-options="editable:false"/></td>
 	        </tr>
 	        <tr>
 	            <td>设备型号:</td>

@@ -46,6 +46,11 @@ public interface ErpService {
     List<DeviceType> findDeviceTypeByName(String searchValue);
     /*-------------设备模块------------------------------------------------*/
     List<Device> findDeviceByPage();
+    int insertDevice(Device device);
+    int updateDevice(Device device);
+    int deleteDevice(String id);
+    List<DeviceType> findDeviceById(String searchValue);
+    List<DeviceType> findDeviceByName(String searchValue);
     /*-------------设备例检模块------------------------------------------------*/
 
     /*-------------设备故障模块------------------------------------------------*/

@@ -108,27 +108,22 @@ public class ErpServiceImpl implements ErpService {
     public List<DeviceType> findDeviceTypeByPage() {
         return deviceTypeDao.findAllDeviceType();
     }
-
     @Override
     public int insertDeviceType(DeviceType deviceType) {
         return deviceTypeDao.insertDeviceType(deviceType);
     }
-
     @Override
     public int updateDeviceType(DeviceType deviceType) {
         return deviceTypeDao.modifyDeviceTypeById(deviceType);
     }
-
     @Override
     public int deleteDeviceType(String id) {
         return deviceTypeDao.deleteDeviceTypeById(id);
     }
-
     @Override
     public List<DeviceType> findDeviceTypeById(String searchValue) {
         return deviceTypeDao.findDeviceTypeById(searchValue);
     }
-
     @Override
     public List<DeviceType> findDeviceTypeByName(String searchValue) {
         return deviceTypeDao.findDeviceTypeByName(searchValue);
@@ -139,6 +134,31 @@ public class ErpServiceImpl implements ErpService {
     @Override
     public List<Device> findDeviceByPage() {
         return deviceDao.findAllDevice();
+    }
+
+    @Override
+    public int insertDevice(Device device) {
+        return deviceDao.insertDevice(device);
+    }
+
+    @Override
+    public int updateDevice(Device device) {
+        return deviceDao.updateDeviceById(device);
+    }
+
+    @Override
+    public int deleteDevice(String id) {
+        return deviceDao.deleteDeviceById(id);
+    }
+
+    @Override
+    public List<DeviceType> findDeviceById(String searchValue) {
+        return deviceDao.findDeviceById(searchValue);
+    }
+
+    @Override
+    public List<DeviceType> findDeviceByName(String searchValue) {
+        return deviceDao.findDeviceByName(searchValue);
     }
 
     /*-------------设备例检模块------------------------------------------------*/
