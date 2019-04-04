@@ -2,4 +2,106 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.TechnologyPlanDao">
 
+    <select id="selectCountOfTechnologyPlan" resultType="integer">
+        select count(*) from technology_plan
+    </select>
+    <resultMap id="technologyPlan" type="technologyPlan">
+        <result column="technology_plan_id" property="technologyPlanId"/>
+        <result column="technology_id" property="technologyId"/>
+        <result column="batch_amount" property="batchAmount"/>
+        <result column="start_plan" property="startPlan"/>
+        <result column="end_plan" property="endPlan"/>
+        <result column="commit_plan" property="commitPlan"/>
+        <result column="technology_plan_start" property="technologyPlanStart"/>
+        <result column="technology_plan_end" property="technologyPlanEnd"/>
+        <association property="technology" javaType="technology">
+            <result column="technology_name" property="technologyName"/>
+            <result column="technology_id" property="technologyId"/>
+        </association>
+
+    </resultMap>
+    <select id="selectTechnologyPlan" resultMap="technologyPlan">
+        SELECT
+        tp.technology_plan_id,
+        t.`technology_name`,
+        tp.`technology_id`,
+        tp.batch_amount,
+        tp.start_plan,
+        tp.end_plan,
+        tp.commit_plan,
+        tp.technology_plan_start,
+        tp.technology_plan_end
+        FROM
+        technology_plan tp
+        LEFT JOIN
+	technology t ON
+	tp.`technology_id` = t.`technology_id`
+    </select>
+
+    <!--判断插入的信息是否重复-->
+    <select id="technologyPlanIdIsexist" resultType="technologyPlan">
+        SELECT * FROM
+        technology_plan
+        <where>
+            technology_plan_id = #{technologyPlanId}
+        </where>
+    </select>
+
+    <!--添加新的信息数据-->
+    <insert id="addTechnologyPlan">
+        insert into technology_plan
+        values
+        (
+        #{technologyplan.technologyPlanId},
+        #{technologyplan.technologyId},
+        #{technologyplan.batchAmount},
+        #{technologyplan.startPlan},
+        #{technologyplan.endPlan},
+        #{technologyplan.commitPlan},
+        #{technologyplan.technologyPlanStart},
+        #{technologyplan.technologyPlanEnd}
+        )
+    </insert>
+
+    <!--删除所选中的信息-->
+    <delete id="removeTechnologyPlanById">
+        delete from technology_plan where technology_plan_id = #{id}
+    </delete>
+
+    <!--更新所选中的信息-->
+    <update id="updateTechnologyPlan">
+        update technology_plan
+        <set>
+            technology_id = #{technologyplan.technologyId},
+            batch_amount = #{technologyplan.batchAmount},
+            start_plan = #{technologyplan.startPlan},
+            end_plan = #{technologyplan.endPlan},
+            commit_plan = #{technologyplan.commitPlan},
+            technology_plan_start = #{technologyplan.technologyPlanStart},
+            technology_plan_end = #{technologyplan.technologyPlanEnd}
+        </set>
+        <where>technology_plan_id = #{technologyplan.technologyPlanId}</where>
+    </update>
+
+
+
+
+    <resultMap id="selectPlan" type="technologyPlan">
+        <result column="technology_id" property="technologyId"/>
+        <result column="batch_amount" property="batchAmount"/>
+        <result column="start_plan" property="startPlan"/>
+        <result column="end_plan" property="endPlan"/>
+        <result column="commit_plan" property="commitPlan"/>
+        <result column="technology_plan_start" property="technologyPlanStart"/>
+        <result column="technology_plan_end" property="technologyPlanEnd"/>
+    </resultMap>
+    <select id="findTechnologyPlanById" resultMap="selectPlan">
+        select technology_id,batch_amount,start_plan,
+        end_plan,commit_plan,technology_plan_start,
+        technology_plan_end
+        from technology_plan
+        <where>
+            technology_plan_id = #{id}
+        </where>
+    </select>
 </mapper>

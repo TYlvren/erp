@@ -27,4 +27,39 @@
             process_id = #{id}
         </where>
     </select>
+
+    <select id="processIdIsexist" resultType="process">
+        SELECT * FROM
+        process
+        <where>
+            process_id = #{processid}
+        </where>
+    </select>
+
+    <insert id="addProcess">
+        insert into process
+        values
+        (
+        #{process.processId},
+        #{process.technologyPlanId},
+        #{process.sequence},
+        #{process.quota}
+        )
+    </insert>
+
+    <!--删除所选中的信息-->
+    <delete id="removeProcessById">
+        delete from process where process_id = #{id}
+    </delete>
+
+    <!--修改信息-->
+    <update id="updateProcess">
+        update process
+        <set>
+            technology_plan_id = #{process.technologyPlanId},
+            sequence = #{process.sequence},
+            quota = #{process.quota}
+        </set>
+        <where>process_id = #{process.processId}</where>
+    </update>
 </mapper>
