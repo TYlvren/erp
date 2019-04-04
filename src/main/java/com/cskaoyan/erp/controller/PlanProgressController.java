@@ -195,7 +195,7 @@ public class PlanProgressController {
     @ResponseBody
     public Map<String, String> insertProduct(Product product) {
         int i = erpService.addProduct(product);
-        Map<String, String> map = getStatusMap(i, "添加异常");
+        Map<String, String> map = getStatusMap(i);
         return map;
     }
 
@@ -220,7 +220,7 @@ public class PlanProgressController {
     @ResponseBody
     public Map<String, String> updateProduct(Product product) {
         int i = erpService.editProduct(product);
-        Map<String, String> map = getStatusMap(i, "更新异常");
+        Map<String, String> map = getStatusMap(i );
         return map;
     }
 
@@ -242,12 +242,9 @@ public class PlanProgressController {
     public Map<String, String> deleteProductBatch(String[] ids) {
         Map<String, String> map = new HashMap<>();
         map.put("status", "200");
-
-        for (String id : ids) {
-            int i = erpService.deleteProduct(id);
-            if (i != 1) {
-                map.put("msg", "删除异常");
-            }
+        int i = erpService.deleteProduct(ids);
+        if(i != ids.length) {
+            map.put("msg", "删除异常");
         }
         return map;
     }

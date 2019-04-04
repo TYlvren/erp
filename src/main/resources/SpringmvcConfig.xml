@@ -11,11 +11,8 @@
     <!--开启注解-->
     <context:component-scan base-package="com.cskaoyan.erp.controller"/>
     <!--SpringMVC注解驱动-->
-<<<<<<< HEAD
-    <mvc:annotation-driven/>
-=======
+
     <mvc:annotation-driven conversion-service="conversionService" validator="validator"/>
->>>>>>> b0d129f0ca5ba9f49ce59b759d6b22a4fbe0b45d
 
     <!--index.jsp的视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -33,11 +30,6 @@
     <!--文件上传-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
-<<<<<<< HEAD
-    <mvc:annotation-driven conversion-service="formattingConverter"/>
-    <bean id="formattingConverter" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-        <property name="converters">
-=======
     <!--资源解析器-->
     <mvc:resources mapping="/*" location="/"/>
 
@@ -45,21 +37,14 @@
     <!--converter格式转换器 StringtoDate-->
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters" >
->>>>>>> b0d129f0ca5ba9f49ce59b759d6b22a4fbe0b45d
             <set>
                 <bean class="com.cskaoyan.erp.converter.StringToDateConverter"/>
             </set>
         </property>
     </bean>
 
-<<<<<<< HEAD
-    <!--资源解析器-->
-    <mvc:resources mapping="/*" location="/"/>
-
-=======
     <!--配置校验器-->
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
         <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
     </bean>
->>>>>>> b0d129f0ca5ba9f49ce59b759d6b22a4fbe0b45d
 </beans>

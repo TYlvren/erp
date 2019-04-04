@@ -27,4 +27,18 @@
             </foreach>
         </where>
     </delete>
+
+    <insert id="insertCustom">
+        insert into custom
+        (custom_id ,custom_name,full_name,address,fax,email,owner_name,owner_tel,status,note)
+        value (#{customId},#{customName},#{fullName},
+        #{address},#{fax},#{email},#{ownerName},#{ownerTel},#{status},#{note})
+    </insert>
+
+    <update id="updateCustom">
+        update custom
+        set custom_name =#{customName} ,full_name=#{fullName},address=#{address},fax=#{fax},
+        email=#{email},owner_name=#{ownerName},owner_tel=#{ownerTel},status=#{status},note=#{note}
+        where custom_id = #{customId};
+    </update>
 </mapper>
