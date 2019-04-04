@@ -140,6 +140,16 @@ public class ErpServiceImpl implements ErpService {
         return deviceTypeDao.deleteDeviceTypeById(id);
     }
 
+    @Override
+    public List<DeviceType> findDeviceTypeById(String searchValue) {
+        return deviceTypeDao.findDeviceTypeById(searchValue);
+    }
+
+    @Override
+    public List<DeviceType> findDeviceTypeByName(String searchValue) {
+        return deviceTypeDao.findDeviceTypeByName(searchValue);
+    }
+
 
     /*-------------设备模块----------------------------------------------------*/
     @Override
@@ -194,6 +204,13 @@ public class ErpServiceImpl implements ErpService {
     @Override
     public int deleteUnqualifyService(String[] ids) {
         return unQualifyApplyDao.deleteUnqualifyDao(ids);
+    }
+    //*************修改不合格品备注功能
+
+
+    @Override
+    public int updateNoteUnqualifyService(String unqualifyApplyId, String note) {
+        return unQualifyApplyDao.updateNoteByUnqualifyApplyIdDao(unqualifyApplyId,note);
     }
 
     /*****************人员监控接口实现*************************************/

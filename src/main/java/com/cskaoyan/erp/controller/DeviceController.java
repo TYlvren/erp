@@ -195,6 +195,50 @@ public class DeviceController {
         return map;
     }
 
+    /**
+     * 这是一个设备分类根据id模糊搜索的方法
+     * @param page
+     * @param rows
+     * @param searchValue
+     * @return
+     */
+    @RequestMapping("deviceType/search_deviceType_by_deviceTypeId")
+    public @ResponseBody Map<String, Object> searchDeviceTypeByIdData(@RequestParam int page, int rows, String searchValue) {
+        //System.out.println(page + "-------" + rows);
+        PageHelper.startPage(page, rows, true);
+        List<DeviceType> list = erpService.findDeviceTypeById(searchValue);
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        //System.out.println(pageInfo);
+        return map;
+    }
+
+    /**
+     * 这是一个设备分类根据id模糊搜索的方法
+     * @param page
+     * @param rows
+     * @param searchValue
+     * @return
+     */
+    @RequestMapping("deviceType/search_deviceType_by_deviceTypeName")
+    public @ResponseBody Map<String, Object> searchDeviceTypeByNameData(@RequestParam int page, int rows, String searchValue) {
+        //System.out.println(page + "-------" + rows);
+        PageHelper.startPage(page, rows, true);
+        List<DeviceType> list = erpService.findDeviceTypeByName(searchValue);
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        //System.out.println(pageInfo);
+        return map;
+    }
+
 
 
 

@@ -38,4 +38,8 @@
         </foreach>
         )
     </delete>
+    <!--修改不合格品备注信息-->
+    <update id="updateNoteByUnqualifyApplyIdDao" parameterType="string">
+                update  unqualify_apply set  note=#{note} where unqualify_apply_id= #{id}
+    </update>
 </mapper>

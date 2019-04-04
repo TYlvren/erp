@@ -130,6 +130,16 @@ public class UnqualifyController {
         int i = erpService.deleteUnqualifyService(ids);//删除商品
         return map;
     }
+    @RequestMapping("update_note")//更新不合格品记录备注属性
+    @ResponseBody
+    public Map<String,String > updateNoteUnQualifyApply(String unqualifyApplyId,String note)  {
+        System.out.println(unqualifyApplyId+note);
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.updateNoteUnqualifyService(unqualifyApplyId,note);//删除商品
+        return map;
+    }
 
 
 
