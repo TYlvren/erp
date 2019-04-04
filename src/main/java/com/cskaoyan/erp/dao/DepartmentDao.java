@@ -2,27 +2,19 @@ package com.cskaoyan.erp.dao;
 
 
 import com.cskaoyan.erp.model.Department;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface DepartmentDao {
- //查询所有部门信息
+
  List<Department> selectDepartment();
 
+ Department selectDepartmentById(String id);
 
+ int insertDepartment(Department department);
 
- int insertDepartment(@Param("department") Department department);
+ int updateDepartment(Department product);
 
-  boolean deleteByDepartmentId(String departmentId);
-
-
- int insertSelective(Department record);
-
- Department selectByPrimaryKey(String departmentId);
-
- int updateByPrimaryKeySelective(Department record);
-
- int updateByPrimaryKey(Department record);
+ int deleteDepartmentById(String[] ids);
 
 }

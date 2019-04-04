@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Service("erpService")
@@ -24,8 +25,6 @@ public class ErpServiceImpl implements ErpService {
     @Autowired
     private COrderDao cOrderDao;
 
-    @Autowired
-    private DepartmentDao departmentDao;
 
     @Autowired
     private CustomDao customDao;
@@ -207,8 +206,18 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
+    public List<DeviceType> findServiceDeviceById(String id) {
+        return deviceDao.findServiceDeviceById(id);
+    }
+
+    @Override
     public List<DeviceType> findDeviceByName(String searchValue) {
         return deviceDao.findDeviceByName(searchValue);
+    }
+
+    @Override
+    public int updateDeviceNote(Device device) {
+        return deviceDao.updateDeviceNote(device);
     }
 
     /*-------------设备例检模块------------------------------------------------*/
@@ -229,8 +238,11 @@ public class ErpServiceImpl implements ErpService {
 
 
     /*****************物料监控接口实现*************************************/
+    /*-------------物料信息模块------------------------------------------------*/
     @Autowired
     private MaterialDao materialDao;
+    @Autowired
+    private MaterialReceiveDao materialReceiveDao;
     @Override
     public List<Material> selectMaterial() {
         return materialDao.selectMaterial();
@@ -257,11 +269,32 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
-    public Material findMaterialById(String id) {
-        return  materialDao.selectMaterialById(id);
+    public List<Material> selectMaterialById(String searchValue) {
+        return materialDao.selectByID(searchValue);
+    }
+
+    @Override
+    public List<Material> selectMaterialByType(String searchValue) {
+        return materialDao.selectByType(searchValue);
     }
 
 
+    @Override
+    public int modifyNote(Material material) {
+         return materialDao.updateNote(material);
+    }
+
+
+    /*-------------物料收入模块------------------------------------------------*/
+    @Override
+    public List<MaterialReceive> selectMaterialReceive() {
+        return materialReceiveDao.selectMaterialReceive();
+    }
+
+    @Override
+    public int selectCountOfMaterialReceive() {
+        return materialReceiveDao.CountOfMaterialReceive();
+    }
     /*****************质量监控接口实现*************************************/
 //    ------------------不合格品管理-------------------
         //**********注入Dao
@@ -340,9 +373,27 @@ public class ErpServiceImpl implements ErpService {
 
 
     /*****************人员监控接口实现*************************************/
+    @Autowired
+    private DepartmentDao departmentDao;
     @Override
-    public  List<Department> selectDepartment(){
-       return departmentDao.selectDepartment();
+    public  List<Department> findDepartment(){
+        return departmentDao.selectDepartment();
+    }
+    @Override
+    public Department findDepartmentById(String id){
+        return departmentDao.selectDepartmentById(id);
+    }
+    @Override
+    public int addDepartment(Department department){
+        return departmentDao.insertDepartment(department);
+    }
+    @Override
+    public int editDepartment(Department department){
+        return departmentDao.updateDepartment(department);
+    }
+    @Override
+    public int deleteDepartment(String[] ids ){
+        return departmentDao.deleteDepartmentById(ids);
     }
 
     /*****************系统管理接口实现*************************************/

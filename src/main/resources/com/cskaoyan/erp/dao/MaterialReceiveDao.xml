@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.MaterialReceiveDao">
+        <select id="CountOfMaterialReceive" resultType="_int">
+      select count(*) FROM material_receive
+   </select>
+        <select id="selectMaterialReceive" resultType="materialReceive">
+        select   amount,
+             material_id As materialID,
+             note,
+              receive_date As receiveDate,
+              receive_id As receiveID,
+               receiver,
+              sender
+
+
+         from material_receive
+    </select>
+
+
 
 </mapper>

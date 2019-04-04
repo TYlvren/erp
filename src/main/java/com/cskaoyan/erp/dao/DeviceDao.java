@@ -20,4 +20,8 @@ public interface DeviceDao {
     List<DeviceType> findDeviceById(@Param("id")String id);
 
     List<DeviceType> findDeviceByName(@Param("name")String name);
+
+    int updateDeviceNote(@Param("device")Device device);
+
+    List<DeviceType> findServiceDeviceById(@Param("id")String id);
 }

@@ -1,21 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.DepartmentDao">
-
-    <!--部门的增加-->
-<insert id="insertDepartment">
-    insert into department (department_id,department_name,note)
-    values {#{department.department_id},#{department.department_name},#{department.note}}
-</insert>
 <!--查询所有部门-->
     <sql id="departmentColumns">
          department_id as departmentId,
       department_name as departmentName,
         note
     </sql>
+    <!--部门的增加-->
+    <insert id="insertDepartment">
+    insert into department (department_id,department_name,note)
+    values (#{departmentId},#{departmentName},#{note})
+    </insert>
+    <!--//update更新-->
+    <update id="updateDepartment">
+        update department set department_id = #{departmentId},department_name=#{departmentName},
+        note=#{note} where department_id=#{departmentId};
+    </update>
+<!--通过ID删除department-->
+<delete id="deleteDepartmentById">
+    delete from department
+    <where>
+        <foreach collection="array" item="id" close=";">
+            or department_id = #{id}
+        </foreach>
+    </where>
+</delete>
+    <!--//查询所有department-->
     <select id="selectDepartment" resultType="department">
         select
         <include refid="departmentColumns"/>
         from department;
+    </select>
+    <!--通过id查询部门信息-->
+    <select id="selectDepartmentById" resultType="department">
+        select   <include refid="departmentColumns"/>
+        from department where department_id = #{id}
     </select>
 </mapper>
