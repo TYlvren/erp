@@ -22,4 +22,6 @@ public interface TechnologyDao {
     int selectCountOfTechnology();
 
     Technology findTechnologyById(@Param("id") String id);
+
+    List<Process> selectProcess();
 }

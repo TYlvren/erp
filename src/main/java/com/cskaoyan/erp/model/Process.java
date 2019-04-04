@@ -40,4 +40,14 @@ public class Process {
     public void setQuota(Integer quota) {
         this.quota = quota;
     }
+
+    @Override
+    public String toString() {
+        return "Process{" +
+                "processId='" + processId + '\'' +
+                ", technologyPlanId='" + technologyPlanId + '\'' +
+                ", sequence=" + sequence +
+                ", quota=" + quota +
+                '}';
+    }
 }
