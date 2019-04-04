@@ -102,7 +102,15 @@ public class ErpServiceImpl implements ErpService {
         return deviceTypeDao.insertDeviceType(deviceType);
     }
 
+    @Override
+    public int updateDeviceType(DeviceType deviceType) {
+        return deviceTypeDao.modifyDeviceTypeById(deviceType);
+    }
 
+    @Override
+    public int deleteDeviceType(String id) {
+        return deviceTypeDao.deleteDeviceTypeById(id);
+    }
 
 
     /*-------------设备模块----------------------------------------------------*/

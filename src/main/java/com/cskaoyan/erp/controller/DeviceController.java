@@ -54,6 +54,13 @@ public class DeviceController {
 
 
     /*---------设备种类模块------------------------------------------------------------------------*/
+
+    /**
+     * 这是一个用来页面映射查找所有设备分类信息的方法
+     * @param model
+     * @param session
+     * @return
+     */
     @RequestMapping("device/deviceType")
     public String findAllDeviceTypeByPage(Model model, HttpSession session) {
         List<String> list = new ArrayList();
@@ -65,8 +72,14 @@ public class DeviceController {
         return "deviceType";
     }
 
+    /**
+     * 这是一个显示所有设备种类类别并且分页的方法
+     * @param page
+     * @param rows
+     * @return
+     */
     @RequestMapping("/deviceType/list")
-    public @ResponseBody   Map<String, Object> findAllDeviceTypeByPageData(@RequestParam int page, int rows) {
+    public @ResponseBody Map<String, Object> findAllDeviceTypeByPageData(@RequestParam int page, int rows) {
         //System.out.println(page + "-------" + rows);
         PageHelper.startPage(page, rows, true);
         List<DeviceType> list = erpService.findDeviceTypeByPage();
@@ -80,21 +93,91 @@ public class DeviceController {
         return map;
     }
 
+    /**
+     * 对前端的请求进行映射，添加设备类别信息
+     * @return
+     */
     @RequestMapping("deviceType/add_judge")
     public String add1DeviceType() {
-        return "deviceType";
+        return "deviceType_add";
     }
-
+    /**
+     * 对前端的请求进行映射，添加设备类别信息
+     * @return
+     */
     @RequestMapping("deviceType/add")
     public String add2DeviceType() {
         return "deviceType_add";
     }
 
+    /**
+     * 这是一个添加设备类别的方法
+     * @param deviceType
+     * @return 添加成功则返回200状态码，失败则返回提示信息，添加失败
+     */
     @RequestMapping("deviceType/insert")
-    public String insert(DeviceType deviceType) {
-        System.out.println("iiiiiii");
-        erpService.insertDeviceType(deviceType);
-        return "deviceType";
+    public @ResponseBody Map<String, String> insert(DeviceType deviceType) {
+        //System.out.println("iiiiiii");
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.insertDeviceType(deviceType);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "添加失败");
+        }
+        return map;
+    }
+
+    /**
+     * 对前端的请求进行映射，修改设备类别信息
+     * @return
+     */
+    @RequestMapping("deviceType/edit_judge")
+    public String edit1DeviceType() {
+        return "deviceType_edit";
+    }
+    /**
+     * 对前端的请求进行映射，修改设备类别信息
+     * @return
+     */
+    @RequestMapping("deviceType/edit")
+    public String edit2DeviceType() {
+        return "deviceType_edit";
+    }
+
+    /**
+     * 这是一个修改设备类别的方法
+     * @param deviceType
+     * @return 修改成功则返回200状态码，失败则返回提示信息，修改失败
+     */
+    @RequestMapping("deviceType/update")
+    public @ResponseBody Map<String, String> update(DeviceType deviceType) {
+        System.out.println(deviceType);
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.updateDeviceType(deviceType);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("deviceType/delete_batch")
+    public @ResponseBody Map<String, String> delete(String ids) {
+        System.out.println(ids);
+        Map<String, String> map = new HashMap<>();
+        String[] split = ids.split(",");
+        int i = 0;
+        for (String id : split) {
+             i = erpService.deleteDeviceType(id);
+        }
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
     }
 
 
