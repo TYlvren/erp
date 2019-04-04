@@ -17,7 +17,7 @@
     <select id="findUnqualifyListDao" resultType="unQualifyApply">
         select
         <include refid="unqualifyColumns"/>
-        from unqualify_apply;
+        from unqualify_apply
     </select>
     <insert id="addUnqualifyDao" parameterType="unQualifyApply">
         insert into unqualify_apply (unqualify_apply_id ,product_id ,unqualify_item ,unqualify_count ,

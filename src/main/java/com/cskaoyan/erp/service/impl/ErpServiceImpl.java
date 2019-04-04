@@ -170,7 +170,8 @@ public class ErpServiceImpl implements ErpService {
     @Override
     public List<UnQualifyApply> findUnqualifyList() {
 
-        return unQualifyApplyDao.findUnqualifyListDao();
+        List<UnQualifyApply> unqualifyListDao = unQualifyApplyDao.findUnqualifyListDao();
+        return unqualifyListDao;
     }
         //************新建不合格品
     @Override

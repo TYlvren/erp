@@ -13,17 +13,17 @@ package com.cskaoyan.erp.controller;
 import com.cskaoyan.erp.model.UnQualifyApply;
 import com.cskaoyan.erp.service.ErpService;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sun.deploy.net.HttpResponse;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import sun.security.x509.UniqueIdentity;
 
@@ -62,16 +62,20 @@ public class UnqualifyController {
         session.setAttribute("sysPermissionList",sysPermissionList);
         return "unqualify_list";
     }
-    @RequestMapping("list")//自动查询数据
-    public  @ResponseBody List<UnQualifyApply> findUnqualify(int page, int rows){
-        List<UnQualifyApply> unqualifyList = erpService.findUnqualifyList();
-        return unqualifyList;
+    @RequestMapping("list")//自动查询数据  实现分页
+    public  @ResponseBody Map<String, Object> findUnqualify(@RequestParam int page, int rows){
+        PageHelper.startPage(page, rows, true);
+        List<UnQualifyApply> list = erpService.findUnqualifyList();
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
     }
     @RequestMapping("add")//新建不合格品记录
     public String addUniqualify(){
-        //erpService.addUnqualifyService(unQualifyApply);
-        //UnQualifyApply unQualifyApply
-        //return "unqualify_list";
        return "unqualify_add";
     }
     @RequestMapping("add_judge")//新建不合格品记录
@@ -90,14 +94,11 @@ public class UnqualifyController {
         return map;
     }
 
-
     @RequestMapping("edit_judge")//新建不合格品记录
     @ResponseBody
     public String editUnqualifyJudge()  {
         return "{}";
     }
-
-
 
     @RequestMapping("edit")//编辑不合格品
     public String editUniqualify(){
@@ -113,7 +114,6 @@ public class UnqualifyController {
         int i = erpService.updateUnqualifyService(unQualifyApply);//修改商品没有返回值
         return map;
     }
-
 
     @RequestMapping("delete_judge")//新建不合格品记录
     @ResponseBody
