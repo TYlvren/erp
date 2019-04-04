@@ -166,6 +166,11 @@ public class ErpServiceImpl implements ErpService {
     public int updateUnqualifyService(UnQualifyApply unQualifyApply) {
         return  unQualifyApplyDao.updateUnqualifyDao(unQualifyApply);
     }
+        //**********删除不合格品(可为多条)
+    @Override
+    public int deleteUnqualifyService(String[] ids) {
+        return unQualifyApplyDao.deleteUnqualifyDao(ids);
+    }
 
     /*****************人员监控接口实现*************************************/
     @Override

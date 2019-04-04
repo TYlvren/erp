@@ -7,4 +7,5 @@ public interface UnQualifyApplyDao {
     List<UnQualifyApply> findUnqualifyListDao();
     void addUnqualifyDao(UnQualifyApply unQualifyApply);
     int updateUnqualifyDao(UnQualifyApply unQualifyApply);
+    int deleteUnqualifyDao(String[] ids);
 }
