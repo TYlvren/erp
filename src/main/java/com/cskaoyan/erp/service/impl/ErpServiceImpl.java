@@ -258,8 +258,13 @@ public class ErpServiceImpl implements ErpService {
         return deviceDao.updateDeviceNote(device);
     }
 
-    /*-------------设备例检模块------------------------------------------------*/
 
+
+    /*-------------设备例检模块------------------------------------------------*/
+    @Override
+    public List<DeviceCheck> findDeviceeCheckByPage() {
+        return deviceCheckDao.findAllDeviceCheck();
+    }
     /*-------------设备故障模块------------------------------------------------*/
     @Override
     public List<DeviceFault> findAllDeviceFaultByPage() {
@@ -383,6 +388,25 @@ public class ErpServiceImpl implements ErpService {
     public int addPMeasureCheckService(ProcessMeasureCheck processMeasureCheck) {
         return processMeasureCheckDao.insertPMeasureCheckDao(processMeasureCheck);
     }
+    //**********修改工序计量质检记录
+
+    @Override
+    public int updatePMeasureCheckService(ProcessMeasureCheck processMeasureCheck) {
+        return processMeasureCheckDao.updatePMeasureCheckDao(processMeasureCheck);
+    }
+    //*********删除工序计量质检记录
+
+    @Override
+    public int deletePMeasureCheckService(String[] ids) {
+        return processMeasureCheckDao.deletePMeasureCheckDao(ids);
+    }
+    //***********修改备注工序计量质检记录
+
+    @Override
+    public int updateNotePMeasureCheckService(String pMeasureCheckId, String note) {
+        return processMeasureCheckDao.updateNotePMeasureCheckDao(pMeasureCheckId,note);
+    }
+
 
     //-------------------------工序计数质检--------------------------------------
 

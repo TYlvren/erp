@@ -129,7 +129,6 @@ public class QualityController {
     @RequestMapping("unqualify/update_note")//更新不合格品记录备注属性
     @ResponseBody
     public Map<String,String > updateNoteUnQualifyApply(String unqualifyApplyId,String note)  {
-        System.out.println(unqualifyApplyId+note);
         Map<String,String > map = new HashMap<>();
         map.put("status","200");
         map.put("msg","OK");
@@ -222,9 +221,61 @@ public String turnToPMeasureCheck(ModelAndView mv, HttpSession session){
         Map<String,String > map = new HashMap<>();
         map.put("status","200");
         map.put("msg","OK");
-        erpService.addPMeasureCheckService(processMeasureCheck);//添加商品没有返回值
+        erpService.addPMeasureCheckService(processMeasureCheck);//添加工序计量质检没有返回值
         return map;
     }
+
+    @RequestMapping("pMeasureCheck/edit_judge")//修改工序计量质检记录
+    @ResponseBody
+    public String editJudgePMeasureCheck()  {
+        return "{}";
+    }
+    @RequestMapping("p_measure_check/edit")//跳转修改工序计量质检页面
+    public String editPMeasureCheck(){
+        return "p_measure_check_edit";
+    }
+    @RequestMapping("p_measure_check/update_all")//修改工序计量质检记录
+    @ResponseBody
+    public Map<String,String > updatePMeasureCheck(ProcessMeasureCheck processMeasureCheck)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.updatePMeasureCheckService(processMeasureCheck);
+        return map;
+    }
+    @RequestMapping("pMeasureCheck/delete_judge")//删除工序计量质检记录
+    @ResponseBody
+    public String deleteJudgePMeasureCheck()  {
+        return "{}";
+    }
+    @RequestMapping("p_measure_check/delete_batch")//删除工序计量质检记录(可为多条)
+    @ResponseBody
+    public Map<String,String > deletePMeasureCheck(String[] ids)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.deletePMeasureCheckService(ids);//删除工序计量质检
+        return map;
+    }
+    @RequestMapping("p_measure_check/update_note")//更新工序计量质检记录备注属性
+    @ResponseBody
+    public Map<String,String > updateNotePMeasureCheck(String pMeasureCheckId,String note)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.updateNotePMeasureCheckService(pMeasureCheckId,note);//修改备注
+        return map;
+    }
+
+
+
+
+
+
+
+
+
+
 /********************************工序计数质检模块******************************************************************/
 
 
