@@ -7,9 +7,19 @@ public class Department {
 
     private String note;
 
+    @Override
+    public String toString() {
+        return "Department{" +
+         "departmentId='" + departmentId + '\'' +
+         ", departmentName='" + departmentName + '\'' +
+         ", note='" + note + '\'' +
+         '}';
+    }
+
     public String getDepartmentId() {
         return departmentId;
     }
+
 
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId == null ? null : departmentId.trim();

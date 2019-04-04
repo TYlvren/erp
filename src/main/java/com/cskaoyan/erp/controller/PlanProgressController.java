@@ -7,13 +7,17 @@ import com.cskaoyan.erp.service.ErpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -94,7 +98,8 @@ public class PlanProgressController {
     }
 
     @RequestMapping("product/add_judge")
-    public String addProductJudge(){
+    public String addProductJudge(Product product){
+        //System.out.println(product);
         return "product_add";
     }
 
@@ -104,8 +109,21 @@ public class PlanProgressController {
     }
 
     @RequestMapping("product/insert")
-    public String insertProduct(){
+    @ResponseBody
+    public Map<String,String> insertProduct(Product product){
+        int i = erpService.addProduct(product);
+        Map<String,String> map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","ok");
+        return map;
+    }
 
-        return "forward:list";
+    /**
+     * 质量监控需要的查询全部product的接口
+     */
+    @RequestMapping("product/get_data")
+    @ResponseBody
+    public List<Product> getProductData(){
+        return erpService.findProduct();
     }
 }

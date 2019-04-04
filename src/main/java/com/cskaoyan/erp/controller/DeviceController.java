@@ -1,5 +1,7 @@
 package com.cskaoyan.erp.controller;
 
+import com.cskaoyan.erp.model.Device;
+import com.cskaoyan.erp.model.DeviceFault;
 import com.cskaoyan.erp.model.DeviceMaintain;
 import com.cskaoyan.erp.model.DeviceType;
 import com.cskaoyan.erp.service.ErpService;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Flying Elephant
@@ -33,6 +37,20 @@ public class DeviceController {
         return "deviceList";
     }
 
+    @RequestMapping("/deviceList/list")
+    public @ResponseBody   Map<String, Object> findAllDeviceByPageData(@RequestParam int page, int rows) {
+        //System.out.println(page + "-------" + rows);
+        PageHelper.startPage(page, rows, true);
+        List<Device> list = erpService.findDeviceByPage();
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        //System.out.println(pageInfo);
+        return map;
+    }
 
 
     /*---------设备种类模块------------------------------------------------------------------------*/
@@ -48,32 +66,38 @@ public class DeviceController {
     }
 
     @RequestMapping("/deviceType/list")
-    public @ResponseBody  List<DeviceType> findAllDeviceByPageData(@RequestParam(defaultValue = "1") int page, int rows) {
-        /*System.out.println(page + "-------" + rows);
-        PageHelper.startPage(page, rows);*/
-        List<DeviceType> deviceTypeByPage = erpService.findDeviceTypeByPage();
-       /* PageInfo pageInfo = new PageInfo(deviceTypeByPage);
-        System.out.println(pageInfo);*/
-        return deviceTypeByPage;
+    public @ResponseBody   Map<String, Object> findAllDeviceTypeByPageData(@RequestParam int page, int rows) {
+        //System.out.println(page + "-------" + rows);
+        PageHelper.startPage(page, rows, true);
+        List<DeviceType> list = erpService.findDeviceTypeByPage();
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        //System.out.println(pageInfo);
+        return map;
     }
 
     @RequestMapping("deviceType/add_judge")
     public String add1DeviceType() {
-        //System.out.println("dddddd");
-        return "deviceType_add";
+        return "deviceType";
     }
 
     @RequestMapping("deviceType/add")
     public String add2DeviceType() {
-        //System.out.println("dddddd");
         return "deviceType_add";
     }
 
     @RequestMapping("deviceType/insert")
-    public String insertDeviceType(DeviceType deviceType) {
+    public String insert(DeviceType deviceType) {
+        System.out.println("iiiiiii");
         erpService.insertDeviceType(deviceType);
-        return "forward:/device/deviceType";
+        return "deviceType";
     }
+
+
 
 
 
@@ -90,28 +114,41 @@ public class DeviceController {
     /*---------设备故障模块------------------------------------------------------------------------*/
     @RequestMapping("device/deviceFault")
     public String findAllDeviceFaultByPage() {
-
-
         return "deviceFault";
     }
+
+    @RequestMapping("/deviceFault/list")
+    public @ResponseBody Map<String, Object> findAllDeviceFaultByPageData(@RequestParam int page, int rows) {
+        PageHelper.startPage(page, rows, true);
+        List<DeviceFault> list = erpService.findAllDeviceFaultByPage();
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
+    }
+
 
 
     /*---------设备维修模块-----------------------------------------------------------------------*/
     @RequestMapping("device/deviceMaintain")
     public String findAllDeviceMaintainByPage() {
-
-
         return "deviceMaintain";
     }
 
     @RequestMapping("/deviceMaintain/list")
-    public @ResponseBody  List<DeviceMaintain> findAllDeviceMaintainByPageData(@RequestParam(defaultValue = "1") int page, int rows) {
-        /*System.out.println(page + "-------" + rows);
-        PageHelper.startPage(page, rows);*/
-        List<DeviceMaintain> deviceMaintainByPage = erpService.findDeviceMaintainByPage();
-       /* PageInfo pageInfo = new PageInfo(deviceTypeByPage);
-        System.out.println(pageInfo);*/
-        return deviceMaintainByPage;
+    public @ResponseBody Map<String, Object> findAllDeviceMaintainByPageData(@RequestParam int page, int rows) {
+        PageHelper.startPage(page, rows, true);
+        List<DeviceMaintain> list = erpService.findDeviceMaintainByPage();
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
     }
 
 }
