@@ -46,6 +46,8 @@ public interface ErpService {
 
     /*-------------设备故障模块------------------------------------------------*/
 
+    List<DeviceFault> findAllDeviceFaultByPage();
+
     /*-------------设备维修模块------------------------------------------------*/
     List<DeviceMaintain> findDeviceMaintainByPage();
 
@@ -57,6 +59,7 @@ public interface ErpService {
 
     /*****************质量监控接口实现*************************************/
     List<UnQualifyApply> findUnqualifyList();
+
 
 
 

@@ -2,4 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.DeviceFaultDao">
 
+    <select id="findAllDeviceFault" resultType="deviceFault">
+      SELECT
+            device_fault.device_fault_id AS deviceFaultId,
+            device_fault.device_id AS deviceId,
+            device_fault.device_fault_cause AS deviceFaultCause,
+            device_fault.device_fault_detail AS deviceFaultDetail,
+            device_fault.device_fault_date AS deviceFaultDate,
+            device_fault.device_fault_maintenance AS deviceFaultMaintenance
+      FROM
+            device_fault
+    </select>
 </mapper>

@@ -35,8 +35,7 @@ public class ErpServiceImpl implements ErpService {
 
 
 
-    @Autowired
-    DeviceMaintainDao deviceMaintainDao;
+
 
 
 
@@ -63,8 +62,11 @@ public class ErpServiceImpl implements ErpService {
     /*****************设备管理接口实现*************************************/
 
     @Autowired
-    private DeviceTypeDao deviceTypeDao;
-
+    DeviceTypeDao deviceTypeDao;
+    @Autowired
+    DeviceMaintainDao deviceMaintainDao;
+    @Autowired
+    DeviceFaultDao deviceFaultDao;
 
     /*-------------设备分类模块------------------------------------------------*/
 
@@ -77,13 +79,18 @@ public class ErpServiceImpl implements ErpService {
     public int insertDeviceType(DeviceType deviceType) {
         return deviceTypeDao.insertDeviceType(deviceType);
     }
+
+
     /*-------------设备模块----------------------------------------------------*/
 
 
     /*-------------设备例检模块------------------------------------------------*/
 
     /*-------------设备故障模块------------------------------------------------*/
-
+    @Override
+    public List<DeviceFault> findAllDeviceFaultByPage() {
+        return  deviceFaultDao.findAllDeviceFault();
+    }
     /*-------------设备维修模块------------------------------------------------*/
     @Override
     public List<DeviceMaintain> findDeviceMaintainByPage() {
