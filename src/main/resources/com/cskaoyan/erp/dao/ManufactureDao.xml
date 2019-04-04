@@ -25,4 +25,12 @@
       from manufacture;
     </select>
 
+    <select id="selectManufactureById" resultMap="manufactureMap">
+         select
+      manufacture_sn,order_id,technology_id,
+      launch_quantity,begin_date,end_date
+      from manufacture
+      where manufacture_sn=#{id};
+    </select>
+
 </mapper>

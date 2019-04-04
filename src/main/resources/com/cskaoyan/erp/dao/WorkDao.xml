@@ -14,14 +14,22 @@
         <association property="product" column="product_id" javaType="product"
                      select="com.cskaoyan.erp.dao.ProductDao.selectProductById"/>
         <association property="process" column="process_id" javaType="process"
-                     select=""/>
+                     select="com.cskaoyan.erp.dao.ProcessDao.selectProcessById"/>
         <association property="device" column="device_id" javaType="device"
-                     select=""/>
+                     select="com.cskaoyan.erp.dao.DeviceDao.findServiceDeviceById"/>
     </resultMap>
+
     <select id="selectAllWork" resultMap="workMap">
         select
+        work_id,process_number,product_id,process_id,device_id,rating
+        from `work`;
+    </select>
+
+    <select id="selectWorkById" resultMap="workMap">
+        select
         work_id,process_number,product_id,process_id ,device_id,rating
-        from work;
+        from `work`
+        where work_id=#{id};
     </select>
 
 

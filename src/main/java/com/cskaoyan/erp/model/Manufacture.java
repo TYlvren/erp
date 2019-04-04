@@ -62,4 +62,16 @@ public class Manufacture {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+
+    @Override
+    public String toString() {
+        return "Manufacture{" +
+                "manufactureSn='" + manufactureSn + '\'' +
+                ", cOrder=" + cOrder +
+                ", technology=" + technology +
+                ", launchQuantity=" + launchQuantity +
+                ", beginDate=" + beginDate +
+                ", endDate=" + endDate +
+                '}';
+    }
 }

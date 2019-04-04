@@ -38,6 +38,8 @@ public class ErpServiceImpl implements ErpService {
     @Autowired
     private ManufactureDao manufactureDao;
 
+    @Autowired
+    private TaskDao taskDao;
 
     /**------------------------------Order--------------------------------*/
 
@@ -132,11 +134,47 @@ public class ErpServiceImpl implements ErpService {
         return workDao.selectAllWork();
     }
 
+    @Override
+    public Work findWorkById(String id) {
+        return workDao.selectWorkById(id);
+    }
+
     /**------------------------------Manufacture--------------------------------*/
 
     @Override
     public List<Manufacture> findManufacture() {
         return manufactureDao.selectAllManufacture();
+    }
+
+    @Override
+    public Manufacture findManufactureById(String id) {
+        return manufactureDao.selectManufactureById(id);
+    }
+
+    /**------------------------------Task--------------------------------*/
+    @Override
+    public List<Task> findTask() {
+        return taskDao.selectAllTask();
+    }
+
+    @Override
+    public Task findTaskById(String id) {
+        return taskDao.selectTaskById(id);
+    }
+
+    @Override
+    public int addTask(Task task) {
+        return taskDao.insertTask(task);
+    }
+
+    @Override
+    public int editTask(Task task) {
+        return taskDao.updateTask(task);
+    }
+
+    @Override
+    public int deleteTask(String[] ids) {
+        return taskDao.deleteTaskByIds(ids);
     }
 
     /*****************设备管理接口实现*************************************/
@@ -220,8 +258,13 @@ public class ErpServiceImpl implements ErpService {
         return deviceDao.updateDeviceNote(device);
     }
 
-    /*-------------设备例检模块------------------------------------------------*/
 
+
+    /*-------------设备例检模块------------------------------------------------*/
+    @Override
+    public List<DeviceCheck> findDeviceeCheckByPage() {
+        return deviceCheckDao.findAllDeviceCheck();
+    }
     /*-------------设备故障模块------------------------------------------------*/
     @Override
     public List<DeviceFault> findAllDeviceFaultByPage() {
