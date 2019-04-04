@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -42,6 +43,79 @@ public class PlanProgressController {
     public List<COrder> findOrder() {
         return erpService.findCOrder();
     }
+
+    @RequestMapping("order/get/{id}")
+    @ResponseBody
+    public COrder getOrder(@PathVariable("id") String id) {
+        return erpService.findCOrderById(id);
+    }
+
+    /**
+     * 添加Order的controller
+     */
+    @RequestMapping("order/add_judge")
+    @ResponseBody
+    public Map<String, String> addOrderJudge(COrder cOrder) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("order/add")
+    public String addOrder() {
+        return "order_add";
+    }
+
+    @RequestMapping("order/insert")
+    @ResponseBody
+    public Map<String, String> insertOrder(COrder cOrder) {
+        int i = erpService.addOrder(cOrder);
+        return getStatusMap(i);
+    }
+
+
+    /**
+     * 编辑Order的controller
+     */
+    @RequestMapping("order/edit_judge")
+    @ResponseBody
+    public Map<String, String> editOrderJudge(COrder cOrder) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("order/edit")
+    public String editOrder() {
+        return "order_edit";
+    }
+
+    @RequestMapping("order/update_all")
+    @ResponseBody
+    public Map<String, String> updateOrder(COrder cOrder) {
+        int i = erpService.editOrder(cOrder);
+        return getStatusMap(i);
+    }
+
+
+    /**
+     * 删除Order的controller
+     */
+    @RequestMapping("order/delete_judge")
+    @ResponseBody
+    public Map<String, String> deleteCustomJudge(COrder cOrder) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("order/delete_batch")
+    @ResponseBody
+    public Map<String, String> deleteOrderBatch(String[] ids) {
+        Map<String, String> map = new HashMap<>();
+        map.put("status", "200");
+        int i = erpService.deleteOrder(ids);
+
+        if (i != ids.length) {
+            map.put("msg", "异常");
+        }
+        return map;
+    }
+
 
 
     /*****************Custom控制层*************************************/
@@ -130,7 +204,7 @@ public class PlanProgressController {
 
 
     /**
-     * 删除商品的controller
+     * 删除Custom的controller
      */
     @RequestMapping("custom/delete_judge")
     @ResponseBody
@@ -220,8 +294,7 @@ public class PlanProgressController {
     @ResponseBody
     public Map<String, String> updateProduct(Product product) {
         int i = erpService.editProduct(product);
-        Map<String, String> map = getStatusMap(i );
-        return map;
+        return getStatusMap(i );
     }
 
 

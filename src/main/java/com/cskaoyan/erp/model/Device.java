@@ -1,8 +1,10 @@
 package com.cskaoyan.erp.model;
 
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.util.Date;
-
+@Component
 public class Device {
     private String deviceId;
 
@@ -14,24 +16,26 @@ public class Device {
 
     private String deviceStatus;
 
-    private Date devicePurchaseDate;
+    private String devicePurchaseDate;
 
-    private BigDecimal devicePurchasePrice;
+    private int devicePurchasePrice;
 
-    private Date deviceManufactureDate;
+    private String deviceManufactureDate;
 
-    private Date deviceServiceLife;
+    private String deviceServiceLife;
 
     private String deviceKeeperId;
 
     private String note;
+
+    private DeviceType deviceType;
 
     public String getDeviceId() {
         return deviceId;
     }
 
     public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId == null ? null : deviceId.trim();
+        this.deviceId = deviceId;
     }
 
     public String getDeviceName() {
@@ -39,7 +43,7 @@ public class Device {
     }
 
     public void setDeviceName(String deviceName) {
-        this.deviceName = deviceName == null ? null : deviceName.trim();
+        this.deviceName = deviceName;
     }
 
     public String getDeviceTypeId() {
@@ -47,7 +51,7 @@ public class Device {
     }
 
     public void setDeviceTypeId(String deviceTypeId) {
-        this.deviceTypeId = deviceTypeId == null ? null : deviceTypeId.trim();
+        this.deviceTypeId = deviceTypeId;
     }
 
     public String getDeviceStatusId() {
@@ -55,7 +59,7 @@ public class Device {
     }
 
     public void setDeviceStatusId(String deviceStatusId) {
-        this.deviceStatusId = deviceStatusId == null ? null : deviceStatusId.trim();
+        this.deviceStatusId = deviceStatusId;
     }
 
     public String getDeviceStatus() {
@@ -63,38 +67,38 @@ public class Device {
     }
 
     public void setDeviceStatus(String deviceStatus) {
-        this.deviceStatus = deviceStatus == null ? null : deviceStatus.trim();
+        this.deviceStatus = deviceStatus;
     }
 
-    public Date getDevicePurchaseDate() {
+    public String getDevicePurchaseDate() {
         return devicePurchaseDate;
     }
 
-    public void setDevicePurchaseDate(Date devicePurchaseDate) {
+    public void setDevicePurchaseDate(String devicePurchaseDate) {
         this.devicePurchaseDate = devicePurchaseDate;
     }
 
-    public BigDecimal getDevicePurchasePrice() {
+    public int getDevicePurchasePrice() {
         return devicePurchasePrice;
     }
 
-    public void setDevicePurchasePrice(BigDecimal devicePurchasePrice) {
+    public void setDevicePurchasePrice(int devicePurchasePrice) {
         this.devicePurchasePrice = devicePurchasePrice;
     }
 
-    public Date getDeviceManufactureDate() {
+    public String getDeviceManufactureDate() {
         return deviceManufactureDate;
     }
 
-    public void setDeviceManufactureDate(Date deviceManufactureDate) {
+    public void setDeviceManufactureDate(String deviceManufactureDate) {
         this.deviceManufactureDate = deviceManufactureDate;
     }
 
-    public Date getDeviceServiceLife() {
+    public String getDeviceServiceLife() {
         return deviceServiceLife;
     }
 
-    public void setDeviceServiceLife(Date deviceServiceLife) {
+    public void setDeviceServiceLife(String deviceServiceLife) {
         this.deviceServiceLife = deviceServiceLife;
     }
 
@@ -103,7 +107,7 @@ public class Device {
     }
 
     public void setDeviceKeeperId(String deviceKeeperId) {
-        this.deviceKeeperId = deviceKeeperId == null ? null : deviceKeeperId.trim();
+        this.deviceKeeperId = deviceKeeperId;
     }
 
     public String getNote() {
@@ -111,8 +115,35 @@ public class Device {
     }
 
     public void setNote(String note) {
-        this.note = note == null ? null : note.trim();
+        this.note = note;
     }
+
+    public DeviceType getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(DeviceType deviceType) {
+        this.deviceType = deviceType;
+    }
+
+    public Device(String deviceId, String deviceName, String deviceTypeId, String deviceStatusId, String deviceStatus, String devicePurchaseDate, int devicePurchasePrice, String deviceManufactureDate, String deviceServiceLife, String deviceKeeperId, String note, DeviceType deviceType) {
+        this.deviceId = deviceId;
+        this.deviceName = deviceName;
+        this.deviceTypeId = deviceTypeId;
+        this.deviceStatusId = deviceStatusId;
+        this.deviceStatus = deviceStatus;
+        this.devicePurchaseDate = devicePurchaseDate;
+        this.devicePurchasePrice = devicePurchasePrice;
+        this.deviceManufactureDate = deviceManufactureDate;
+        this.deviceServiceLife = deviceServiceLife;
+        this.deviceKeeperId = deviceKeeperId;
+        this.note = note;
+        this.deviceType = deviceType;
+    }
+
+    public Device() {
+    }
+
 
     @Override
     public String toString() {
@@ -128,6 +159,7 @@ public class Device {
                 ", deviceServiceLife=" + deviceServiceLife +
                 ", deviceKeeperId='" + deviceKeeperId + '\'' +
                 ", note='" + note + '\'' +
+                ", deviceType=" + deviceType +
                 '}';
     }
 }

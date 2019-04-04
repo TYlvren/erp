@@ -24,6 +24,13 @@ public interface ErpService {
 
     /**------------------------------Order----------------------------------*/
     List<COrder> findCOrder();
+    COrder findCOrderById(String id);
+
+    int addOrder(COrder cOrder);
+
+    int editOrder(COrder cOrder);
+
+    int deleteOrder(String[] ids);
 
     /**------------------------------Custom--------------------------------*/
     List<Custom> findCustom();
@@ -46,6 +53,9 @@ public interface ErpService {
     /**------------------------------Manufacture--------------------------------*/
     List<Manufacture> findManufacture();
 
+    /**------------------------------Work--------------------------------*/
+    List<Work> findWork();
+
     /*****************设备管理接口实现*************************************/
     /*-------------设备分类模块------------------------------------------------*/
     List<DeviceType> findDeviceTypeByPage();
@@ -56,6 +66,11 @@ public interface ErpService {
     List<DeviceType> findDeviceTypeByName(String searchValue);
     /*-------------设备模块------------------------------------------------*/
     List<Device> findDeviceByPage();
+    int insertDevice(Device device);
+    int updateDevice(Device device);
+    int deleteDevice(String id);
+    List<DeviceType> findDeviceById(String searchValue);
+    List<DeviceType> findDeviceByName(String searchValue);
     /*-------------设备例检模块------------------------------------------------*/
 
     /*-------------设备故障模块------------------------------------------------*/
@@ -115,7 +130,6 @@ public interface ErpService {
     /*****************人员监控接口实现*************************************/
     List<Department> selectDepartment();
 
-    List<Work> findWork();
 
 
     /*****************系统管理接口实现*************************************/

@@ -69,7 +69,7 @@
 	            <td>
 		            <input id="deviceKeeper" class="easyui-combobox" name="deviceKeeperId" panelHeight="auto" 
     					data-options="required:true,editable:false,valueField:'empId',textField:'empName',
-    					url:'employee/get_data'" />
+    					url:'employee/get_data'" value="aa"/>
 				</td>
 	        </tr>
 	        <tr>
