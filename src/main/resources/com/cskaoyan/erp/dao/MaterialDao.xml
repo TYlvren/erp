@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.MaterialDao">
+    <sql id="materialColumns">
+        material_id as materialId,material_type as materialType,status,remaining,note
+    </sql>
+    <delete id="deleteById">
 
+          delete from material where material_id = #{id}
+    </delete>
+    <update id="update" parameterType="material">
+        update material
+        <set>
+            material_type=#{material.materialType},
+            status=#{material.status},
+            remaining=#{material.remaining},
+            note=#{material.note}
+        </set>
+        where material_id=#{material.materialId}
+    </update>
+    <select id="count" resultType="_int">
+      select count(*) FROM material
+   </select>
+    <select id="selectMaterial" resultType="material">
+        select material_id As materialID,
+              material_type As materialType,
+              status,
+              remaining,
+              note
+         from material
+    </select>
+    <select id="findMaterialById" resultType="material">
+        select material_id from material
+    </select>
+    <insert id="addMaterial" parameterType="material">
+        insert into material ( material_id,material_type,status,remaining,note)
+        value(#{material.materialId},#{material.materialType},#{material.status},#{material.remaining},#{material.note});
+    </insert>
 </mapper>

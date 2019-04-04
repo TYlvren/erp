@@ -22,19 +22,39 @@ public interface ErpService {
     /*****************计划进度接口实现*************************************/
 
 
-    /**------------------------------order----------------------------------*/
+    /**------------------------------Order----------------------------------*/
     List<COrder> findCOrder();
+    COrder findCOrderById(String id);
 
-    /**------------------------------custom--------------------------------*/
+    int addOrder(COrder cOrder);
+
+    int editOrder(COrder cOrder);
+
+    int deleteOrder(String[] ids);
+
+    /**------------------------------Custom--------------------------------*/
     List<Custom> findCustom();
     Custom findCustomById(String id);
 
-    /**------------------------------product--------------------------------*/
+    int addCustom(Custom custom);
+
+    int editCustom(Custom custom);
+
+    int deleteCustom(String[] ids);
+
+    /**------------------------------Product--------------------------------*/
     List<Product> findProduct();
-    Product findProductByid(String id);
+    Product findProductById(String id);
     int addProduct(Product product);
     int editProduct(Product product);
-    int deleteProduct(String id);
+    int deleteProduct(String[] ids);
+
+
+    /**------------------------------Manufacture--------------------------------*/
+    List<Manufacture> findManufacture();
+
+    /**------------------------------Work--------------------------------*/
+    List<Work> findWork();
 
     /*****************设备管理接口实现*************************************/
     /*-------------设备分类模块------------------------------------------------*/
@@ -62,6 +82,32 @@ public interface ErpService {
 
 
     /*****************物料监控接口实现*************************************/
+    /**
+     * 获得所有物料信息
+     * @return Material对象的List集合
+     * */
+    List<Material> selectMaterial();
+    int selectCountOfMaterial();
+
+    /**
+     * 根据material_id删除物料信息
+     * @param id
+     * */
+    int removeMaterialById(String id);
+
+    /**
+     * 修改物料信息
+     * @param material 物料对象
+     * */
+    int modifyMaterial(Material material);
+
+    /**
+     * 添加物料信息
+     *
+     * @param material 物料对象
+     */
+    int addMaterial(Material material) ;
+    Material findMaterialById(String id);
 
 
     /*****************质量监控接口实现*************************************/
@@ -69,12 +115,12 @@ public interface ErpService {
     void  addUnqualifyService(UnQualifyApply unQualifyApply);
     int updateUnqualifyService(UnQualifyApply unQualifyApply);
     int deleteUnqualifyService(String[] ids);
+    int updateNoteUnqualifyService(String unqualifyApplyId,String note);
 
 
 
     /*****************人员监控接口实现*************************************/
     List<Department> selectDepartment();
-
 
 
 

@@ -87,6 +87,10 @@
 			}else{
 				$.messager.alert('提示',data.msg);
 			}
+			/*$.messager.alert('提示','新增工艺成功!');
+			clearTechnologyAddForm();
+			$("#technologyAddWindow").window("close");
+			$("#technologyList").datagrid("reload");*/
 		});
 	}
 	

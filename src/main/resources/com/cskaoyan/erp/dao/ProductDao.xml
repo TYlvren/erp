@@ -32,6 +32,11 @@
     </update>
 
     <delete id="deleteProductById">
-        delete from product where product_id = #{id};
+        delete from product
+        <where>
+            <foreach collection="array" item="id" close=";">
+                or product_id = #{id}
+            </foreach>
+        </where>
     </delete>
 </mapper>

@@ -13,6 +13,37 @@ public class TechnologyRequirement {
 
     private Date reviseTime;
 
+    String technologyName;
+
+    Technology technology;
+
+    public Technology getTechnology() {
+        return technology;
+    }
+
+    public void setTechnology(Technology technology) {
+        this.technology = technology;
+    }
+    public TechnologyRequirement() {
+    }
+
+    public TechnologyRequirement(String technologyRequirementId, String technologyId, String requirement, Date addTime, Date reviseTime, String technologyName) {
+        this.technologyRequirementId = technologyRequirementId;
+        this.technologyId = technologyId;
+        this.requirement = requirement;
+        this.addTime = addTime;
+        this.reviseTime = reviseTime;
+        this.technologyName = technologyName;
+    }
+
+    public String getTechnologyName() {
+        return technologyName;
+    }
+
+    public void setTechnologyName(String technologyName) {
+        this.technologyName = technologyName;
+    }
+
     public String getTechnologyRequirementId() {
         return technologyRequirementId;
     }
@@ -52,4 +83,17 @@ public class TechnologyRequirement {
     public void setReviseTime(Date reviseTime) {
         this.reviseTime = reviseTime;
     }
+
+    @Override
+    public String toString() {
+        return "TechnologyRequirement{" +
+                "technologyRequirementId='" + technologyRequirementId + '\'' +
+                ", technologyId='" + technologyId + '\'' +
+                ", requirement='" + requirement + '\'' +
+                ", addTime=" + addTime +
+                ", reviseTime=" + reviseTime +
+                ", technologyName='" + technologyName + '\'' +
+                '}';
+    }
+
 }

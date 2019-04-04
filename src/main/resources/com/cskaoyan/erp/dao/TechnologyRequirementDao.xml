@@ -2,4 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.TechnologyRequirementDao">
 
+    <resultMap id="tRequirementLeft" type="technologyRequirement">
+        <result column="technology_requirement_id" property="technologyRequirementId"/>
+        <result column="requirement" property="requirement"/>
+        <result column="add_time" property="addTime"/>
+        <result column="revise_time" property="reviseTime"/>
+        <association property="technology" javaType="technology">
+            <result column="t_name" property="technologyName"/>
+            <result column="t_id" property="technologyId"/>
+        </association>
+    </resultMap>
+
+    <select id="selectTechnologyRequirement" resultMap="tRequirementLeft">
+    SELECT
+    te.technology_requirement_id ,
+    t.technology_name AS t_name,
+    t.technology_id AS t_id,
+    te.requirement,
+    te.add_time,
+    te.revise_time
+	FROM
+	technology_requirement te
+	LEFT JOIN
+	technology t ON
+	te.`technology_id` = t.`technology_id`
+    </select>
+
+   <!--查询总数-->
+    <select id="selectCountOfTechnologyRequirement" resultType="integer">
+            select count(*) from technology_requirement
+    </select>
 </mapper>

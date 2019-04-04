@@ -33,9 +33,14 @@ public class ErpServiceImpl implements ErpService {
     @Autowired
     private ProductDao productDao;
 
+    @Autowired
+    private WorkDao workDao;
+
+    @Autowired
+    private ManufactureDao manufactureDao;
 
 
-    /**------------------------------order--------------------------------*/
+    /**------------------------------Order--------------------------------*/
 
     /**
      * 查询订单API的实现
@@ -48,8 +53,28 @@ public class ErpServiceImpl implements ErpService {
         return cOrderDao.selectALLCOder();
     }
 
+    @Override
+    public COrder findCOrderById(String id) {
+        return cOrderDao.selectCOrderById(id);
+    }
+
+    @Override
+    public int addOrder(COrder cOrder) {
+        return cOrderDao.insertOrder(cOrder);
+    }
+
+    @Override
+    public int editOrder(COrder cOrder) {
+        return cOrderDao.updateOrder(cOrder);
+    }
+
+    @Override
+    public int deleteOrder(String[] ids) {
+        return cOrderDao.deleteOrderByIds(ids);
+    }
+
     /**
-     * ------------------------------custom--------------------------------
+     * ------------------------------Custom--------------------------------
      */
     @Override
     public List<Custom> findCustom() {
@@ -61,17 +86,29 @@ public class ErpServiceImpl implements ErpService {
         return customDao.selectCustomById(id);
     }
 
+    @Override
+    public int addCustom(Custom custom) {
+        return customDao.insertCustom(custom);
+    }
 
-    /**
-     * ------------------------------product--------------------------------
-     */
+    @Override
+    public int editCustom(Custom custom) {
+        return customDao.updateCustom(custom);
+    }
+
+    @Override
+    public int deleteCustom(String[] ids) {
+        return customDao.deleteCustomByIds(ids);
+    }
+
+    /** ------------------------------Product--------------------------------*/
     @Override
     public List<Product> findProduct() {
         return productDao.selectAllProduct();
     }
 
     @Override
-    public Product findProductByid(String id) {
+    public Product findProductById(String id) {
         return productDao.selectProductById(id);
     }
 
@@ -86,8 +123,21 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
-    public int deleteProduct(String id) {
-        return productDao.deleteProductById(id);
+    public int deleteProduct(String[] ids) {
+        return productDao.deleteProductById(ids);
+    }
+
+    /** ------------------------------Work--------------------------------*/
+    @Override
+    public List<Work> findWork() {
+        return workDao.selectAllWork();
+    }
+
+    /**------------------------------Manufacture--------------------------------*/
+
+    @Override
+    public List<Manufacture> findManufacture() {
+        return manufactureDao.selectAllManufacture();
     }
 
     /*****************设备管理接口实现*************************************/
@@ -179,6 +229,37 @@ public class ErpServiceImpl implements ErpService {
 
 
     /*****************物料监控接口实现*************************************/
+    @Autowired
+    private MaterialDao materialDao;
+    @Override
+    public List<Material> selectMaterial() {
+        return materialDao.selectMaterial();
+    }
+
+    @Override
+    public int selectCountOfMaterial() {
+        return materialDao.count();
+    }
+
+    @Override
+    public int removeMaterialById(String id) {
+        return  materialDao.deleteById(id);
+    }
+
+    @Override
+    public int modifyMaterial(Material material) {
+        return materialDao.update(material);
+    }
+
+    @Override
+    public int addMaterial(Material material) {
+        return  materialDao.addMaterial(material);
+    }
+
+    @Override
+    public Material findMaterialById(String id) {
+        return  materialDao.selectMaterialById(id);
+    }
 
 
     /*****************质量监控接口实现*************************************/
@@ -190,7 +271,8 @@ public class ErpServiceImpl implements ErpService {
     @Override
     public List<UnQualifyApply> findUnqualifyList() {
 
-        return unQualifyApplyDao.findUnqualifyListDao();
+        List<UnQualifyApply> unqualifyListDao = unQualifyApplyDao.findUnqualifyListDao();
+        return unqualifyListDao;
     }
         //************新建不合格品
     @Override
@@ -208,6 +290,13 @@ public class ErpServiceImpl implements ErpService {
     @Override
     public int deleteUnqualifyService(String[] ids) {
         return unQualifyApplyDao.deleteUnqualifyDao(ids);
+    }
+    //*************修改不合格品备注功能
+
+
+    @Override
+    public int updateNoteUnqualifyService(String unqualifyApplyId, String note) {
+        return unQualifyApplyDao.updateNoteByUnqualifyApplyIdDao(unqualifyApplyId,note);
     }
 
     /*****************人员监控接口实现*************************************/

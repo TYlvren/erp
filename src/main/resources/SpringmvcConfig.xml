@@ -11,6 +11,7 @@
     <!--开启注解-->
     <context:component-scan base-package="com.cskaoyan.erp.controller"/>
     <!--SpringMVC注解驱动-->
+
     <mvc:annotation-driven conversion-service="conversionService" validator="validator"/>
 
     <!--index.jsp的视图解析器-->
@@ -29,12 +30,15 @@
     <!--文件上传-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
-    <!--converter格式转换器 StringtoDate-->
+    <!--资源解析器-->
     <mvc:resources mapping="/*" location="/"/>
+
+
+    <!--converter格式转换器 StringtoDate-->
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters" >
             <set>
-                <bean class="com.cskaoyan.erp.converter.StringToDateConverter   "/>
+                <bean class="com.cskaoyan.erp.converter.StringToDateConverter"/>
             </set>
         </property>
     </bean>
