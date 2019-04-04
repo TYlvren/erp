@@ -29,12 +29,15 @@
     <!--文件上传-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
-    <!--converter格式转换器 StringtoDate-->
+    <!--资源解析器-->
     <mvc:resources mapping="/*" location="/"/>
+
+
+    <!--converter格式转换器 StringtoDate-->
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters" >
             <set>
-                <bean class="com.cskaoyan.erp.converter.StringToDateConverter   "/>
+                <bean class="com.cskaoyan.erp.converter.StringToDateConverter"/>
             </set>
         </property>
     </bean>

@@ -33,9 +33,14 @@ public class ErpServiceImpl implements ErpService {
     @Autowired
     private ProductDao productDao;
 
+    @Autowired
+    private WorkDao workDao;
+
+    @Autowired
+    private ManufactureDao manufactureDao;
 
 
-    /**------------------------------order--------------------------------*/
+    /**------------------------------Order--------------------------------*/
 
     /**
      * 查询订单API的实现
@@ -49,7 +54,7 @@ public class ErpServiceImpl implements ErpService {
     }
 
     /**
-     * ------------------------------custom--------------------------------
+     * ------------------------------Custom--------------------------------
      */
     @Override
     public List<Custom> findCustom() {
@@ -62,9 +67,7 @@ public class ErpServiceImpl implements ErpService {
     }
 
 
-    /**
-     * ------------------------------product--------------------------------
-     */
+    /** ------------------------------Product--------------------------------*/
     @Override
     public List<Product> findProduct() {
         return productDao.selectAllProduct();
@@ -88,6 +91,19 @@ public class ErpServiceImpl implements ErpService {
     @Override
     public int deleteProduct(String id) {
         return productDao.deleteProductById(id);
+    }
+
+    /** ------------------------------Work--------------------------------*/
+    @Override
+    public List<Work> findWork() {
+        return workDao.selectAllWork();
+    }
+
+    /**------------------------------Manufacture--------------------------------*/
+
+    @Override
+    public List<Manufacture> findManufacture() {
+        return manufactureDao.selectAllManufacture();
     }
 
     /*****************设备管理接口实现*************************************/

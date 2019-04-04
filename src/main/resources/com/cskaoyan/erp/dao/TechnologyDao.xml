@@ -2,4 +2,91 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.TechnologyDao">
 
+    <resultMap id="selectTechnologyMap" type="technology">
+        <result column="technology_id" property="technologyId"/>
+        <result column="technology_name" property="technologyName"/>
+        <result column="price" property="price"/>
+        <result column="vital_process_period" property="vitalProcessPeriod"/>
+        <result column="standard_capacity" property="standardCapacity"/>
+        <result column="overtime_standard_capacity" property="overtimeStandardCapacity"/>
+        <result column="overtime_overfulfil_capacity" property="overtimeOverfulfilCapacity"/>
+        <result column="double_capacity" property="doubleCapacity"/>
+        <result column="overfulfil_capacity" property="overfulfilCapacity"/>
+    </resultMap>
+    <!--查询所有的技术信息-->
+    <select id="selectTechnology" resultMap="selectTechnologyMap">
+        SELECT
+        technology_id,technology_name,price,vital_process_period,standard_capacity,
+        overtime_standard_capacity,overtime_overfulfil_capacity,double_capacity,
+        overfulfil_capacity
+        FROM technology
+    </select>
+
+    <!--检查技术名与id是否已存在-->
+    <select id="selectTechnologyNameAndIDisExist" resultMap="selectTechnologyMap">
+        SELECT
+        technology_id,technology_name,price,vital_process_period,standard_capacity,
+        overtime_standard_capacity,overtime_overfulfil_capacity,double_capacity,
+        overfulfil_capacity
+        FROM technology
+        <where>
+            technology_id = #{technologyId} or technology_name = #{technologyName}
+        </where>
+    </select>
+
+    <!--验证要添加的技术信息后，进行插入操作-->
+    <insert id="insertTechnology">
+        insert into technology values(
+        #{technology.technologyId},#{technology.technologyName},#{technology.price},
+        #{technology.vitalProcessPeriod},#{technology.standardCapacity},#{technology.overtimeStandardCapacity},
+        #{technology.overtimeOverfulfilCapacity},#{technology.doubleCapacity},#{technology.overfulfilCapacity})
+    </insert>
+    <!--删除选中的技术-->
+    <delete id="removeTechnologyById">
+        delete from technology where technology_id = #{id}
+    </delete>
+    <!--对选中信息进行修改-->
+    <update id="updateTechnology">
+        update technology
+        <set>
+            <if test="technology.technologyName!=null">technology_name=#{technology.technologyName},</if>
+            <if test="technology.price!=null">price=#{technology.price},</if>
+            <if test="technology.vitalProcessPeriod!=null">vital_process_period=#{technology.vitalProcessPeriod},</if>
+            <if test="technology.standardCapacity!=null">standard_capacity=#{technology.standardCapacity},</if>
+            <if test="technology.overtimeStandardCapacity!=null">overtime_standard_capacity=#{technology.overtimeStandardCapacity},</if>
+            <if test="technology.overtimeOverfulfilCapacity!=null">overtime_overfulfil_capacity=#{technology.overtimeOverfulfilCapacity},</if>
+            <if test="technology.doubleCapacity!=null">double_capacity=#{technology.doubleCapacity},</if>
+            <if test="technology.overfulfilCapacity!=null">overfulfil_capacity=#{technology.overfulfilCapacity}</if>
+        </set>
+        <where>technology_id = #{technology.technologyId}</where>
+    </update>
+
+    <!--统计总数-->
+    <select id="selectCountOfTechnology" resultType="integer">
+        select count(*) from technology
+    </select>
+
+
+    <resultMap id="findById" type="technology">
+        <result column="technology_name" property="technologyName"/>
+        <result column="price" property="price"/>
+        <result column="vital_process_period" property="vitalProcessPeriod"/>
+        <result column="standard_capacity" property="standardCapacity"/>
+        <result column="overtime_standard_capacity" property="overtimeStandardCapacity"/>
+        <result column="overtime_overfulfil_capacity" property="overtimeOverfulfilCapacity"/>
+        <result column="double_capacity" property="doubleCapacity"/>
+        <result column="overfulfil_capacity" property="overfulfilCapacity"/>
+    </resultMap>
+    <!--查询所有的技术信息-->
+    <select id="findTechnologyById" resultMap="findById">
+        select
+        technology_name,price,vital_process_period,standard_capacity,
+        overtime_standard_capacity,overtime_overfulfil_capacity,double_capacity,
+        overfulfil_capacity
+        from technology
+        <where>
+            technology_id = #{id}
+        </where>
+    </select>
+
 </mapper>

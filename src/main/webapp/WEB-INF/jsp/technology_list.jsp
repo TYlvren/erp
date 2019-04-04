@@ -22,9 +22,8 @@
     </thead>
 </table>
 
-<div  id="toolbar_technology" style=" height: 22px; padding: 3px 11px; background: #fafafa;">  
-	
-	<c:forEach items="${sessionScope.sysPermissionList}" var="per" >
+<div  id="toolbar_technology" style=" height: 22px; padding: 3px 11px; background: #fafafa;">
+	<%--<c:forEach items="${sessionScope.sysPermissionList}" var="per" >
 		<c:if test="${per == 'technology:add' }" >
 		    <div style="float: left;">  
 		        <a href="#" class="easyui-linkbutton" plain="true" icon="icon-add" onclick="technology_add()">
@@ -46,16 +45,34 @@
 				</a>
 		    </div>  
 		</c:if>
-	</c:forEach>
-	
-	<div class="datagrid-btn-separator"></div>  
-	
-	<div style="float: left;">  
+	</c:forEach>--%>
+
+	<div style="float: left;">
+		<a href="#" class="easyui-linkbutton" plain="true" icon="icon-add" onclick="technology_add()">
+			新增
+		</a>
+	</div>
+
+	<div style="float: left;">
+		<a href="#" class="easyui-linkbutton" plain="true" icon="icon-edit" onclick="technology_edit()">
+			编辑
+		</a>
+	</div>
+
+	<div style="float: left;">
+		<a href="#" class="easyui-linkbutton" plain="true" icon="icon-cancel" onclick="technology_delete()">
+			删除
+		</a>
+	</div>
+
+	<div class="datagrid-btn-separator"></div>
+
+	<div style="float: left;">
 		<a href="#" class="easyui-linkbutton" plain="true" icon="icon-reload" onclick="technology_reload()">
 			刷新
 		</a>
-	</div>  
-	
+	</div>
+
     <div id="search_technology" style="float: right;">
         <input id="search_text_technology" class="easyui-searchbox"  
             data-options="searcher:doSearch_technology,prompt:'请输入...',menu:'#menu_technology'"  
@@ -189,7 +206,7 @@ function doSearch_technology(value,name){ //用户输入用户名,点击搜素,�
 	function technology_add(){
     	$.get("technology/add_judge",'',function(data){
        		if(data.msg != null){
-       			//$.messager.alert('提示', data.msg);
+       			$.messager.alert('提示', data.msg);
        			$("#technologyAddWindow").window("open");
        		}else{
        			$("#technologyAddWindow").window("open");

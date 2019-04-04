@@ -33,4 +33,10 @@
         from c_order;
     </select>
 
+    <select id="selectCOrderById" resultType="corder">
+        select <include refid="COrderColumns"/>
+        from c_order
+        where order_id=#{id};
+    </select>
+
 </mapper>

@@ -27,7 +27,6 @@ public class COrder {
     private String file;
 
     private Integer status;
-
     public String getOrderId() {
         return orderId;
     }

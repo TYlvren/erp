@@ -1,8 +1,6 @@
 package com.cskaoyan.erp.controller;
 
-import com.cskaoyan.erp.model.COrder;
-import com.cskaoyan.erp.model.Custom;
-import com.cskaoyan.erp.model.Product;
+import com.cskaoyan.erp.model.*;
 import com.cskaoyan.erp.service.ErpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -66,6 +64,12 @@ public class PlanProgressController {
     @ResponseBody
     @RequestMapping("custom/list")
     public List<Custom> findCustom(){
+        return erpService.findCustom();
+    }
+
+    @RequestMapping("custom/get_data")
+    @ResponseBody
+    public List<Custom> getCustomData(){
         return erpService.findCustom();
     }
 
@@ -172,9 +176,6 @@ public class PlanProgressController {
         return map;
     }
 
-    /**
-     * 质量监控需要的查询全部product的接口
-     */
     @RequestMapping("product/get_data")
     @ResponseBody
     public List<Product> getProductData(){
@@ -183,9 +184,40 @@ public class PlanProgressController {
 
     /*****************Work控制层*************************************/
 
+    @RequestMapping("work/find")
+    public String toWorkList(HttpSession session){
+        List<String> sysPermissionList = new ArrayList<>();
+        sysPermissionList.add("work:add");
+        sysPermissionList.add("work:edit");
+        sysPermissionList.add("work:delete");
+        session.setAttribute("sysPermissionList",sysPermissionList);
+        return "work_list";
+    }
+
+    @RequestMapping("work/list")
+    @ResponseBody
+    public List<Work> findWork(){
+        return erpService.findWork();
+    }
 
 
     /*****************Manufacture控制层*************************************/
+    @RequestMapping("manufacture/find")
+    public String toManufactureList(HttpSession session){
+        List<String> sysPermissionList = new ArrayList<>();
+        sysPermissionList.add("manufacture:add");
+        sysPermissionList.add("manufacture:edit");
+        sysPermissionList.add("manufacture:delete");
+        session.setAttribute("sysPermissionList",sysPermissionList);
+        return "manufacture_list";
+    }
+
+    @RequestMapping("manufacture/list")
+    @ResponseBody
+    public List<Manufacture> findManufacture(){
+        return erpService.findManufacture();
+    }
+
 
     /*****************Task控制层*************************************/
 }
