@@ -1,12 +1,19 @@
 package com.cskaoyan.erp.controller;
 
 import com.cskaoyan.erp.model.Material;
+import com.cskaoyan.erp.model.MaterialReceive;
 import com.cskaoyan.erp.service.ErpService;
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MaterialController {
@@ -52,11 +60,39 @@ public class MaterialController {
         response.getWriter().println(jsonObject);
 
     }
-@RequestMapping("material/search_material_by_materialId")
-public String search(String id){
-        erpService.findMaterialById(id);
-        return "material_list";
-}
+
+    @RequestMapping("material/search_material_by_{name}")
+    @ResponseBody
+    public void search(String searchValue, @PathVariable("name") String name, HttpServletResponse response) throws IOException {
+        if ("materialId".equals(name)) {
+            Map<String, Object> map = null;
+            response.setContentType("text/html;charset=utf-8");
+            List<Material> materialList = erpService.selectMaterialById(searchValue);
+            int total = erpService.selectCountOfMaterial();
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("total", total);
+            hashMap.put("rows", materialList);
+            JSONObject jsonObject = JSONObject.fromObject(hashMap);
+            response.getWriter().println(jsonObject);
+        }
+        if ("materialType".equals(name)) {
+            Map<String, Object> map = null;
+            response.setContentType("text/html;charset=utf-8");
+            List<Material> materialList = erpService.selectMaterialByType(searchValue);
+            int total = erpService.selectCountOfMaterial();
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("total", total);
+            hashMap.put("rows", materialList);
+            JSONObject jsonObject = JSONObject.fromObject(hashMap);
+            response.getWriter().println(jsonObject);
+        }
+
+    }
+
+
+
+
+
     /**
      * 处理添加请求
      *
@@ -125,11 +161,22 @@ public String search(String id){
             erpService.modifyMaterial(material);
             return "material_edit";
         }
-
+    @RequestMapping("material/update_note")
+    public String updateNote(Material material) {
+        //System.out.println("update");
+        System.out.println(material);
+        erpService.modifyNote(material);
+        return "material_edit";
+    }
 
         /*---------物料收入模块------------------------------------------------------------------------*/
-   /* @RequestMapping("materialReceive/find")//进入物料信息
-    public String findMaterialReceive(){
+   @RequestMapping("materialReceive/find")//进入物料收入信息
+    public String findMaterialReceive(HttpSession session){
+       List<String> sysPermissionList = new ArrayList<>();
+       sysPermissionList.add("materialReceive:add");
+       sysPermissionList.add("materialReceive:edit");
+       sysPermissionList.add("materialReceive:delete");
+       session.setAttribute("sysPermissionList", sysPermissionList);
         return "materialReceive_list";
     }
     @RequestMapping("materialReceive/list")
@@ -143,7 +190,7 @@ public String search(String id){
         JSONObject jsonObject= JSONObject.fromObject(hashMap);
         response.getWriter().println(jsonObject);
 
-    }*/
+    }
     }
     /*---------物料消耗模块------------------------------------------------------------------------*/
 

@@ -2,6 +2,7 @@ package com.cskaoyan.erp.dao;
 
 
 import com.cskaoyan.erp.model.Material;
+import com.cskaoyan.erp.model.MaterialReceive;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -22,10 +23,12 @@ public interface MaterialDao {
 
     // 根据物料id删除物料信息
     int deleteById(@Param("id") String id);
-    Material selectMaterialById(String material_id);
     // 动态修改物料信息
     int update(@Param("material") Material material);
+    int updateNote(@Param("material") Material material);
+    List<Material> selectByID(@Param("materialId") String searchValue);
 
-    List<Material> selectByPage(Map<String, Object> params);
+    List<Material> selectByType(@Param("materialType") String searchValue);
+
 
 }
