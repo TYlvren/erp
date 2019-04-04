@@ -43,8 +43,8 @@
         insert into c_order
         (order_id ,custom_id,product_id ,order_date,request_date,
         note,quantity ,unit_price,unit ,image,file ,status)
-        value (#{orderId},#{orderDate},#{requestDate},#{note},#{quantity},#{unitPrice},#{unit}
-        ,#{image},#{file},#{status},#{custom.customId},#{product.productId});
+        value (#{orderId},#{custom.customId},#{product.productId},#{orderDate},#{requestDate},#{note},#{quantity},#{unitPrice},#{unit}
+        ,#{image},#{file},#{status});
     </insert>
 
     <update id="updateOrder">

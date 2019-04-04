@@ -14,7 +14,7 @@
 	         <tr>
 	            <td>订购客户:</td>
 	            <td>
-	            	<input id="custom" class="easyui-combobox" name="customId"  panelHeight="auto"
+	            	<input id="custom" class="easyui-combobox" name="custom.customId"  panelHeight="auto"
 						   data-options="required:true,valueField:'customId',textField:'customName',
 						   url:'custom/get_data', editable:false" />
 	            </td>
@@ -22,7 +22,7 @@
 	        <tr>
 	            <td>订购产品:</td>
 	            <td>
-	            	<input id="product" class="easyui-combobox" name="productId"  panelHeight="auto" 
+	            	<input id="product" class="easyui-combobox" name="product.productId"  panelHeight="auto"
     					data-options="valueField:'productId',textField:'productName',url:'product/get_data',
     					editable:false, required:true" />
     			</td>  
