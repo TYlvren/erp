@@ -67,6 +67,10 @@ public class ErpServiceImpl implements ErpService {
     DeviceMaintainDao deviceMaintainDao;
     @Autowired
     DeviceFaultDao deviceFaultDao;
+    @Autowired
+    DeviceDao deviceDao;
+    @Autowired
+    DeviceCheckDao deviceCheckDao;
 
     /*-------------设备分类模块------------------------------------------------*/
 
@@ -81,8 +85,13 @@ public class ErpServiceImpl implements ErpService {
     }
 
 
-    /*-------------设备模块----------------------------------------------------*/
 
+
+    /*-------------设备模块----------------------------------------------------*/
+    @Override
+    public List<Device> findDeviceByPage() {
+        return deviceDao.findAllDevice();
+    }
 
     /*-------------设备例检模块------------------------------------------------*/
 

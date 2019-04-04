@@ -1,5 +1,6 @@
 package com.cskaoyan.erp.controller;
 
+import com.cskaoyan.erp.model.Device;
 import com.cskaoyan.erp.model.DeviceFault;
 import com.cskaoyan.erp.model.DeviceMaintain;
 import com.cskaoyan.erp.model.DeviceType;
@@ -36,6 +37,20 @@ public class DeviceController {
         return "deviceList";
     }
 
+    @RequestMapping("/deviceList/list")
+    public @ResponseBody   Map<String, Object> findAllDeviceByPageData(@RequestParam int page, int rows) {
+        //System.out.println(page + "-------" + rows);
+        PageHelper.startPage(page, rows, true);
+        List<Device> list = erpService.findDeviceByPage();
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        //System.out.println(pageInfo);
+        return map;
+    }
 
 
     /*---------设备种类模块------------------------------------------------------------------------*/
