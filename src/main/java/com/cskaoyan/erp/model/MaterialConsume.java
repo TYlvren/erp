@@ -82,4 +82,18 @@ public class MaterialConsume {
     public void setNote(String note) {
         this.note = note == null ? null : note.trim();
     }
+
+    @Override
+    public String toString() {
+        return "MaterialConsume{" +
+                "consumeId='" + consumeId + '\'' +
+                ", workId='" + workId + '\'' +
+                ", materialId='" + materialId + '\'' +
+                ", consumeAmount=" + consumeAmount +
+                ", consumeDate=" + consumeDate +
+                ", sender='" + sender + '\'' +
+                ", receiver='" + receiver + '\'' +
+                ", note='" + note + '\'' +
+                '}';
+    }
 }

@@ -2,4 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.ProcessDao">
 
+    <resultMap id="selectPro" type="com.cskaoyan.erp.model.Process">
+        <result column="process_id" property="processId"/>
+        <result column="technology_plan_id" property="technologyPlanId"/>
+        <result column="sequence" property="sequence"/>
+        <result column="quota" property="quota"/>
+    </resultMap>
+    <select id="selectProcess" resultMap="selectPro">
+        select process_id,technology_plan_id,sequence,quota
+        from process
+    </select>
+
+    <resultMap id="selectProcessbyId" type="com.cskaoyan.erp.model.Process">
+        <result column="process_id" property="processId"/>
+        <result column="technology_plan_id" property="technologyPlanId"/>
+        <result column="sequence" property="sequence"/>
+        <result column="quota" property="quota"/>
+    </resultMap>
+
+    <select id="selectProcessById" resultMap="selectProcessbyId">
+         select process_id,technology_plan_id,sequence,quota
+        from process
+        <where>
+            process_id = #{id}
+        </where>
+    </select>
 </mapper>
