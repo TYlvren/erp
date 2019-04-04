@@ -19,6 +19,7 @@
         <include refid="unqualifyColumns"/>
         from unqualify_apply
     </select>
+    <!--新增不合格产品-->
     <insert id="addUnqualifyDao" parameterType="unQualifyApply">
         insert into unqualify_apply (unqualify_apply_id ,product_id ,unqualify_item ,unqualify_count ,
         assembly_date,emp_id ,apply_date,note) values(#{unqualifyApplyId},#{productId},#{unqualifyItem},#{unqualifyCount},#{assemblyDate},#{empId},#{applyDate},#{note})

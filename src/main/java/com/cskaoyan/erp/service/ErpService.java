@@ -113,12 +113,20 @@ public interface ErpService {
 
 
     /*****************质量监控接口实现*************************************/
+    //不合格品管理相关方法
     List<UnQualifyApply> findUnqualifyList();
-    void  addUnqualifyService(UnQualifyApply unQualifyApply);
+    int  addUnqualifyService(UnQualifyApply unQualifyApply);
     int updateUnqualifyService(UnQualifyApply unQualifyApply);
     int deleteUnqualifyService(String[] ids);
     int updateNoteUnqualifyService(String unqualifyApplyId,String note);
+    //成品计量质检模块相关方法
+    //成品计数质检模块相关方法
 
+
+    //工序计量质检模块相关方法
+    List<ProcessMeasureCheck>findPMeasureCheck();
+    int  addPMeasureCheckService(ProcessMeasureCheck processMeasureCheck);
+    //工序计数质检模块相关方法
 
 
     /*****************人员监控接口实现*************************************/

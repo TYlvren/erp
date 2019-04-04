@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 public interface UnQualifyApplyDao {
     List<UnQualifyApply> findUnqualifyListDao();
-    void addUnqualifyDao(UnQualifyApply unQualifyApply);
+    int addUnqualifyDao(UnQualifyApply unQualifyApply);
     int updateUnqualifyDao(UnQualifyApply unQualifyApply);
     int deleteUnqualifyDao(String[] ids);
     int updateNoteByUnqualifyApplyIdDao(@Param("id") String unqualifyApplyId,@Param("note") String note);
