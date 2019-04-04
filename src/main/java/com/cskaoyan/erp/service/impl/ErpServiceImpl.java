@@ -134,7 +134,7 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
-    public Product findWorkById(String id) {
+    public Work findWorkById(String id) {
         return workDao.selectWorkById(id);
     }
 

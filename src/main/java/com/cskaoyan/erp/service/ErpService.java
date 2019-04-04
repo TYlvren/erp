@@ -65,7 +65,7 @@ public interface ErpService {
 
     /**------------------------------Work--------------------------------*/
     List<Work> findWork();
-    Product findWorkById(String id);
+    Work findWorkById(String id);
 
     /**------------------------------Task--------------------------------*/
     List<Task> findTask();

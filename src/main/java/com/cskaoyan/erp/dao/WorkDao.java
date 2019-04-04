@@ -10,5 +10,5 @@ public interface WorkDao {
 
     List<Work> selectAllWork();
 
-    Product selectWorkById(String id);
+    Work selectWorkById(String id);
 }

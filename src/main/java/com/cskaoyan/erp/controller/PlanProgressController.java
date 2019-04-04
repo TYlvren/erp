@@ -346,7 +346,7 @@ public class PlanProgressController {
 
     @RequestMapping("work/get/{id}")
     @ResponseBody
-    public Product getWork(@PathVariable("id") String id) {
+    public Work getWork(@PathVariable("id") String id) {
 
         return erpService.findWorkById(id);
     }
