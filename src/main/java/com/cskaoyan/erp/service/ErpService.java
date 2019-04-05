@@ -150,13 +150,6 @@ public interface ErpService {
     int deleteDepartment(String[] ids);
 
 
-<<<<<<< HEAD
-=======
-
-
-
-
->>>>>>> d9d02af615541e783433b4164baf1852a42977fe
     /*****************系统管理接口实现*************************************/
 
 }

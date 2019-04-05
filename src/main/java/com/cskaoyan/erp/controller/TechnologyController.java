@@ -7,6 +7,7 @@ import com.cskaoyan.erp.dao.TechnologyRequirementDao;
 import com.cskaoyan.erp.model.*;
 import com.cskaoyan.erp.model.Process;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import net.sf.json.JSONObject;
 import org.apache.ibatis.annotations.Param;
 import org.junit.jupiter.api.Test;
@@ -14,16 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class TechnologyController {
@@ -52,6 +51,7 @@ public class TechnologyController {
         PageHelper.startPage(page, rows);
         List<Technology> technologyList = technologyDao.selectTechnology();
         int total = technologyDao.selectCountOfTechnology();
+        System.out.println("total:"+total);
         Map<String,Object > hashMap = new HashMap();
         hashMap.put("total",total);
         hashMap.put("rows",technologyList);
@@ -147,30 +147,30 @@ public class TechnologyController {
 
     @RequestMapping("technologyRequirement/list")
     @ResponseBody
-    public Map testcase12(HttpServletResponse response, HttpServletRequest request){
-        response.setHeader("Content-type", "text/html;charset=UTF-8");
-        String rows1 = request.getParameter("rows");
-        System.out.println("rows:"+rows1);
-        String page1 = request.getParameter("page");
-        System.out.println("page:"+page1);
-        int rows = Integer.parseInt(rows1);
-        int page = Integer.parseInt(page1);
-        PageHelper.startPage(page, rows);
-
-        int total = requirementDao.selectCountOfTechnologyRequirement();
+    public Map testcase12(@RequestParam int page, int rows){
+        Integer total = requirementDao.selectCountOfTechnologyRequirement();
         System.out.println("总数为:"+total);
+        PageHelper.startPage(page, rows, true);
+        if (total == null){
+            total = requirementDao.selectCountOfTechnologyRequirement();
+            System.out.println("re总数为:"+total);
+        }
 
+        List<TestModel> modelList = new ArrayList<>();
         List<TechnologyRequirement> technologyRequirements = requirementDao.selectTechnologyRequirement();
-        System.out.println("technologyRequirements:"+technologyRequirements);
         for (TechnologyRequirement t :technologyRequirements
              ) {
             t.setTechnologyName(t.getTechnology().getTechnologyName());
             t.setTechnologyId(t.getTechnology().getTechnologyId());
         }
-        Map<String,Object > hashMap = new HashMap();
-        hashMap.put("total",total);
-        hashMap.put("rows",technologyRequirements);
-        return hashMap;
+        PageInfo pageInfo = new PageInfo(technologyRequirements);
+        technologyRequirements = pageInfo.getList();
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("total", total);
+        map.put("rows", technologyRequirements);
+        return map;
     }
 
     //新增技艺的参数信息
@@ -265,14 +265,16 @@ public class TechnologyController {
 
     @RequestMapping("technologyPlan/list")
     @ResponseBody
-    public HashMap<String, Object> testcase27(HttpServletResponse response,HttpServletRequest request){
+    public Map<String, Object> testcase27(HttpServletResponse response,HttpServletRequest request){
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         String rows1 = request.getParameter("rows");
         String page1 = request.getParameter("page");
         int rows = Integer.parseInt(rows1);
         int page = Integer.parseInt(page1);
         PageHelper.startPage(page, rows);
-        HashMap<String,Object > hashMap = new HashMap();
+
+        Map<String,Object > hashMap = new HashMap();
+
         int total = technologyPlanDao.selectCountOfTechnologyPlan();
         List<TechnologyPlan> technologyPlans =
                 technologyPlanDao.selectTechnologyPlan();
@@ -365,6 +367,14 @@ public class TechnologyController {
         Map<String, String> map = new HashMap<>();
         map.put("status", "200");
         return map;
+    }
+
+    @RequestMapping("technologyPlan/get_data")
+    @ResponseBody
+    public List<TechnologyPlan> testcase47(){
+        System.out.println("get_data");
+        List<TechnologyPlan> technologyPlans = technologyPlanDao.selectTechnologyPlan();
+        return technologyPlans;
     }
 
 

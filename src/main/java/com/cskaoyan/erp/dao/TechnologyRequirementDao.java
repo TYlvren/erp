@@ -9,7 +9,7 @@ import java.util.List;
 public interface TechnologyRequirementDao {
     List<TechnologyRequirement> selectTechnologyRequirement();
 
-    int selectCountOfTechnologyRequirement();
+    Integer selectCountOfTechnologyRequirement();
 
     int addTechnologyRequirement(@Param("tRequirement") TechnologyRequirement technologyRequirement);
 
@@ -18,4 +18,6 @@ public interface TechnologyRequirementDao {
     void removeTechnologyRequirementById(@Param("id") String tid);
 
     int updateTechnology(@Param("tRequirement") TechnologyRequirement technologyRequirement);
+
+    List<TechnologyRequirement> selectTechnologyRequirement2();
 }
