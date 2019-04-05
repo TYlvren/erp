@@ -32,6 +32,34 @@
         where work_id=#{id}
     </select>
 
+    <select id="selectWorkBySearch" resultMap="workMap">
+        <bind name="searchValue" value="'%' + searchValue + '%'" />
+        select
+        work_id,process_number,w.product_id,w.process_id,w.device_id,rating
+        from `work` w
+        <choose>
+            <when test="condition == 'Id'">
+                where w.work_id like #{searchValue}
+            </when>
+
+            <when test="condition == 'Product'">
+                ,product
+                where product_name like #{searchValue} and w.product_id = product.product_id
+            </when>
+
+
+            <when test="condition == 'Device'">
+                ,device
+                where device_name like #{searchValue} and w.device_id = device.device_id
+            </when>
+
+            <when test="condition == 'Process'">
+                ,process
+                where process.process_id like  #{searchValue} and w.process_id = process.process_id
+            </when>
+        </choose>
+    </select>
+
     <insert id="insertWork">
         insert into work
         (work_id,process_number,product_id,process_id,device_id,rating)

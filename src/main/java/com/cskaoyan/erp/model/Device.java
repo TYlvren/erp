@@ -28,7 +28,9 @@ public class Device {
 
     private String note;
 
-    private DeviceType deviceType;
+    private String deviceTypeName;
+
+    private String deviceKeeper;
 
     public String getDeviceId() {
         return deviceId;
@@ -118,15 +120,26 @@ public class Device {
         this.note = note;
     }
 
-    public DeviceType getDeviceType() {
-        return deviceType;
+    public String getDeviceTypeName() {
+        return deviceTypeName;
     }
 
-    public void setDeviceType(DeviceType deviceType) {
-        this.deviceType = deviceType;
+    public void setDeviceTypeName(String deviceTypeName) {
+        this.deviceTypeName = deviceTypeName;
     }
 
-    public Device(String deviceId, String deviceName, String deviceTypeId, String deviceStatusId, String deviceStatus, String devicePurchaseDate, int devicePurchasePrice, String deviceManufactureDate, String deviceServiceLife, String deviceKeeperId, String note, DeviceType deviceType) {
+    public String getDeviceKeeper() {
+        return deviceKeeper;
+    }
+
+    public void setDeviceKeeper(String deviceKeeper) {
+        this.deviceKeeper = deviceKeeper;
+    }
+
+    public Device() {
+    }
+
+    public Device(String deviceId, String deviceName, String deviceTypeId, String deviceStatusId, String deviceStatus, String devicePurchaseDate, int devicePurchasePrice, String deviceManufactureDate, String deviceServiceLife, String deviceKeeperId, String note) {
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.deviceTypeId = deviceTypeId;
@@ -138,12 +151,7 @@ public class Device {
         this.deviceServiceLife = deviceServiceLife;
         this.deviceKeeperId = deviceKeeperId;
         this.note = note;
-        this.deviceType = deviceType;
     }
-
-    public Device() {
-    }
-
 
     @Override
     public String toString() {
@@ -153,13 +161,14 @@ public class Device {
                 ", deviceTypeId='" + deviceTypeId + '\'' +
                 ", deviceStatusId='" + deviceStatusId + '\'' +
                 ", deviceStatus='" + deviceStatus + '\'' +
-                ", devicePurchaseDate=" + devicePurchaseDate +
+                ", devicePurchaseDate='" + devicePurchaseDate + '\'' +
                 ", devicePurchasePrice=" + devicePurchasePrice +
-                ", deviceManufactureDate=" + deviceManufactureDate +
-                ", deviceServiceLife=" + deviceServiceLife +
+                ", deviceManufactureDate='" + deviceManufactureDate + '\'' +
+                ", deviceServiceLife='" + deviceServiceLife + '\'' +
                 ", deviceKeeperId='" + deviceKeeperId + '\'' +
                 ", note='" + note + '\'' +
-                ", deviceType=" + deviceType +
+                ", deviceTypeName='" + deviceTypeName + '\'' +
+                ", deviceKeeper='" + deviceKeeper + '\'' +
                 '}';
     }
 }

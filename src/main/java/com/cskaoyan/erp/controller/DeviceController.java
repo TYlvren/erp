@@ -4,7 +4,6 @@ import com.cskaoyan.erp.model.*;
 import com.cskaoyan.erp.service.ErpService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -197,7 +196,7 @@ public class DeviceController {
     @RequestMapping("deviceList/search_device_by_deviceTypeName")
     public @ResponseBody Map<String, Object> searchDeviceByTypeName(@RequestParam int page, int rows, String searchValue) {
         PageHelper.startPage(page, rows, true);
-        List<Device> list = erpService.findDeviceById(searchValue);
+        List<Device> list = erpService.findDeviceByTypeName(searchValue);
         PageInfo pageInfo = new PageInfo(list);
         list = pageInfo.getList();
         long total = pageInfo.getTotal();
@@ -208,7 +207,26 @@ public class DeviceController {
     }
 
 
+
+
     /*---------设备种类模块------------------------------------------------------------------------*/
+    @RequestMapping("deviceType/update_all")
+    public @ResponseBody Map<String, String> updateAllDeviceType(DeviceType deviceType) {
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.updateDeviceType(deviceType);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("deviceType/get/{id}")
+    @ResponseBody
+    public DeviceType getDeviceType(@PathVariable("id")String id) {
+        return erpService.getDeviceTypeById(id);
+    }
 
     @RequestMapping("deviceType/get_data")
     public @ResponseBody List<DeviceType> findAllDeviceType() {
@@ -379,7 +397,7 @@ public class DeviceController {
     }
 
     /**
-     * 这是一个设备分类根据id模糊搜索的方法
+     * 这是一个设备分类根据Name模糊搜索的方法
      * @param page
      * @param rows
      * @param searchValue
@@ -399,6 +417,8 @@ public class DeviceController {
         //System.out.println(pageInfo);
         return map;
     }
+
+
 
 
 
@@ -537,8 +557,31 @@ public class DeviceController {
 
 
     /*---------设备故障模块------------------------------------------------------------------------*/
+    @RequestMapping("deviceFault/update_all")
+    public @ResponseBody Map<String, String> updateAllDeviceFault(DeviceFault deviceFault) {
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.updateDeviceFault(deviceFault);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("deviceFault/get/{id}")
+    @ResponseBody
+    public DeviceFault getDeviceFault(@PathVariable("id")String id) {
+        return erpService.getDeviceFaultById(id);
+    }
+
     @RequestMapping("device/deviceFault")
-    public String findAllDeviceFaultByPage() {
+    public String findAllDeviceFaultByPage(HttpSession session) {
+        List<String> list = new ArrayList();
+        list.add("deviceFault:add");
+        list.add("deviceFault:edit");
+        list.add("deviceFault:delete");
+        session.setAttribute("sysPermissionList", list);
         return "deviceFault";
     }
 
@@ -555,11 +598,127 @@ public class DeviceController {
         return map;
     }
 
+    @RequestMapping("deviceFault/add_judge")
+    public String add1DeviceFault() {
+        return "deviceFault_add";
+    }
+
+    @RequestMapping("deviceFault/add")
+    public String add2DeviceFault() {
+        return "deviceFault_add";
+    }
+
+    @RequestMapping("deviceFault/insert")
+    public @ResponseBody Map<String, String> insertDeviceFault(DeviceFault deviceFault) {
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.insertDeviceFault(deviceFault);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "添加失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("deviceFault/edit_judge")
+    public String edit1DeviceFault() {
+        return "deviceFault_edit";
+    }
+    /**
+     * 对前端的请求进行映射，修改设备类别信息
+     * @return
+     */
+    @RequestMapping("deviceFault/edit")
+    public String edit2DeviceFault() {
+        return "deviceFault_edit";
+    }
+
+    @RequestMapping("deviceFault/update")
+    public @ResponseBody Map<String, String> updateDeviceFault(DeviceFault deviceFault) {
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.updateDeviceFault(deviceFault);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("deviceFault/delete_judge")
+    public String delete1DeviceFault() {
+        return "deviceFault";
+    }
+
+    @RequestMapping("deviceFault/delete_batch")
+    public @ResponseBody Map<String, String> deleteDeviceFault(String ids) {
+        Map<String, String> map = new HashMap<>();
+        String[] split = ids.split(",");
+        int i = 0;
+        for (String id : split) {
+            i = erpService.deleteDeviceFault(id);
+        }
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "删除失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("deviceFault/search_deviceFault_by_deviceFaultId")
+    public @ResponseBody Map<String, Object> searchDeviceFaultByIdData(@RequestParam int page, int rows, String searchValue) {
+        PageHelper.startPage(page, rows, true);
+        List<DeviceFault> list = erpService.findDeviceFaultById(searchValue);
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
+    }
+
+    @RequestMapping("deviceFault/search_deviceFault_by_deviceName")
+    public @ResponseBody Map<String, Object> searchDeviceFaultByNameData(@RequestParam int page, int rows, String searchValue) {
+        PageHelper.startPage(page, rows, true);
+        List<DeviceFault> list = erpService.findDeviceFaultByName(searchValue);
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
+    }
+
+    @RequestMapping("deviceFault/update_note")
+    public @ResponseBody Map<String, String> updateDeviceFaultNote(DeviceFault deviceFault) {
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.updateDeviceFaultNote(deviceFault);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
+    }
+
+
+
+
+
+
 
 
     /*---------设备维修模块-----------------------------------------------------------------------*/
     @RequestMapping("device/deviceMaintain")
-    public String findAllDeviceMaintainByPage() {
+    public String findAllDeviceMaintainByPage(HttpSession session) {
+        List<String> list = new ArrayList();
+        list.add("deviceMaintain:add");
+        list.add("deviceMaintain:edit");
+        list.add("deviceMaintain:delete");
+        session.setAttribute("sysPermissionList", list);
         return "deviceMaintain";
     }
 
@@ -576,6 +735,111 @@ public class DeviceController {
         return map;
     }
 
+    @RequestMapping("deviceMaintain/add_judge")
+    public String add1DeviceMaintain() {
+        return "deviceMaintain_add";
+    }
+
+    @RequestMapping("deviceMaintain/add")
+    public String add2DeviceMaintain() {
+        return "deviceMaintain_add";
+    }
+
+    @RequestMapping("deviceMaintain/insert")
+    public @ResponseBody Map<String, String> insertDeviceMaintain(DeviceMaintain deviceMaintain) {
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.insertDeviceMaintain(deviceMaintain);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "添加失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("deviceMaintain/edit_judge")
+    public String edit1DeviceMaintain() {
+        return "deviceMaintain_edit";
+    }
+    /**
+     * 对前端的请求进行映射，修改设备类别信息
+     * @return
+     */
+    @RequestMapping("deviceMaintain/edit")
+    public String edit2DeviceMaintain() {
+        return "deviceMaintain_edit";
+    }
+
+    @RequestMapping("deviceMaintain/update")
+    public @ResponseBody Map<String, String> updateDeviceMaintain(DeviceMaintain deviceMaintain) {
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.updateDeviceMaintain(deviceMaintain);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("deviceMaintain/delete_judge")
+    public String delete1DeviceMaintain() {
+        return "deviceFault";
+    }
+
+    @RequestMapping("deviceMaintain/delete_batch")
+    public @ResponseBody Map<String, String> deleteDeviceMaintain(String ids) {
+        Map<String, String> map = new HashMap<>();
+        String[] split = ids.split(",");
+        int i = 0;
+        for (String id : split) {
+            i = erpService.deleteDeviceMaintain(id);
+        }
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "删除失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("deviceMaintain/search_deviceMaintain_by_deviceMaintainId")
+    public @ResponseBody Map<String, Object> searchDeviceMaintainByIdData(@RequestParam int page, int rows, String searchValue) {
+        PageHelper.startPage(page, rows, true);
+        List<DeviceMaintain> list = erpService.findDeviceMaintainById(searchValue);
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
+    }
+
+    @RequestMapping("deviceMaintain/search_deviceMaintain_by_deviceFaultId")
+    public @ResponseBody Map<String, Object> searchDeviceMaintainByFaultIdData(@RequestParam int page, int rows, String searchValue) {
+        PageHelper.startPage(page, rows, true);
+        List<DeviceMaintain> list = erpService.findDeviceMaintainByFaultId(searchValue);
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
+    }
+
+    @RequestMapping("deviceMaintain/update_note")
+    public @ResponseBody Map<String, String> updateDeviceMaintainNote(DeviceMaintain deviceMaintain) {
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.updateDeviceMaintainNote(deviceMaintain);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
+    }
 
     /*---------通用代码-----------------------------------------------------------------------*/
     /*public static void authorityUtils(HttpSession session) {
@@ -585,7 +849,5 @@ public class DeviceController {
         list.add("deviceType:delete");
         session.setAttribute("sysPermissionList", list);
     }*/
-
-
 
 }

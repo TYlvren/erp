@@ -22,7 +22,7 @@
       select 
       manufacture_sn,order_id,technology_id,
       launch_quantity,begin_date,end_date
-      from manufacture;
+      from manufacture
     </select>
 
     <select id="selectManufactureById" resultMap="manufactureMap">
@@ -30,7 +30,30 @@
       manufacture_sn,order_id,technology_id,
       launch_quantity,begin_date,end_date
       from manufacture
-      where manufacture_sn=#{id};
+      where manufacture_sn=#{id}
+    </select>
+
+    <select id="selectManufactureBySearch" resultMap="manufactureMap">
+        <bind name="searchValue" value="'%' + searchValue + '%'" />
+        select
+        manufacture_sn,m.order_id,m.technology_id,
+        launch_quantity,begin_date,end_date
+        from manufacture m
+        <choose>
+            <when test="condition == 'Sn'">
+                where manufacture_sn like #{searchValue}
+            </when>
+
+            <when test="condition == 'OrderId'">
+                ,c_order
+                where m.order_id like #{searchValue} and m.order_id = c_order.order_id
+            </when>
+
+            <when test="condition == 'TechnologyName'">
+                ,technology
+                where technology_name like #{searchValue} and m.technology_id = technology.technology_id
+            </when>
+        </choose>
     </select>
 
 </mapper>

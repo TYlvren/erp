@@ -24,4 +24,6 @@ public interface DeviceDao {
     int updateDeviceNote(@Param("device")Device device);
 
     Device findServiceDeviceById(@Param("id")String id);
+
+    List<Device> findDeviceByTypeName(@Param("name")String searchValue);
 }

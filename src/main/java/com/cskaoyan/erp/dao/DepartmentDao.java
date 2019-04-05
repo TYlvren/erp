@@ -13,7 +13,7 @@ public interface DepartmentDao {
 
  int insertDepartment(Department department);
 
- int updateDepartment(Department product);
+ int updateDepartment(Department department);
 
  int deleteDepartmentById(String[] ids);
 

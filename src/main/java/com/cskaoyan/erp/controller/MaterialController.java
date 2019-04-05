@@ -1,7 +1,8 @@
 package com.cskaoyan.erp.controller;
 
-import com.cskaoyan.erp.model.Material;
-import com.cskaoyan.erp.model.MaterialReceive;
+import com.cskaoyan.erp.dao.ProcessDao;
+import com.cskaoyan.erp.model.*;
+import com.cskaoyan.erp.model.Process;
 import com.cskaoyan.erp.service.ErpService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -179,18 +181,11 @@ public class MaterialController {
 
     @RequestMapping("materialReceive/list")
     @ResponseBody
-    public List<MaterialReceive> selectMaterialReceive(HttpServletResponse response, HttpServletRequest request) throws IOException {
-        response.setContentType("text/html;charset=utf-8");
-        List<MaterialReceive> materialReceiveList = erpService.selectMaterialReceive();
-        int total = erpService.selectCountOfMaterialReceive();
-       /* HashMap<String,Object> hashMap=new HashMap<>();
-        hashMap.put("total",total);
-        hashMap.put("rows",materialReceiveList);
-        JSONObject jsonObject= JSONObject.fromObject(hashMap);
-        response.getWriter().println(jsonObject);*/
-        return materialReceiveList;
-
+    public Map<String, Object> materialReceiveLsit(@RequestParam("page") Integer pageNum, @RequestParam("rows") Integer pageSize){
+        Map<String, Object> map=  erpService.listMaterialReceiveByPage(pageNum, pageSize);
+        return map;
     }
+
 
 
     @RequestMapping("materialReceive/add_judge")
@@ -229,7 +224,7 @@ public class MaterialController {
         //System.out.println("update");
         System.out.println(materialReceive);
         erpService.modifyMaterialReceive(materialReceive);
-        return "material_edit";
+        return "materialReceive_edit";
     }
 
     @RequestMapping("materialReceive/update_note")
@@ -239,6 +234,117 @@ public class MaterialController {
         erpService.modifyReceiveNote(materialReceive);
         return "materialReceive_edit";
     }
+    @RequestMapping("materialReceive/delete_judge")
+    public String deleteReceive() {
+        return "materialReceive_list";
     }
-    /*---------物料消耗模块------------------------------------------------------------------------*/
 
+    @RequestMapping("materialReceive/delete_batch")
+    public String removeReceive(String ids) {
+        String[] split = ids.split(",");
+        System.out.println(split);
+        for (String s : split) {
+            erpService.removeMaterialReceiveById(s);
+        }
+
+        return "materialReceive_list";
+    }
+    @RequestMapping("materialReceive/search_materialReceive_by_{name}")
+    @ResponseBody
+    public Map<String, Object> searchReceive(String searchValue, @PathVariable("name") String name, @RequestParam("page") Integer pageNum, @RequestParam("rows") Integer pageSize){
+        Map<String, Object> map = null;
+        if("materialId".equals(name)) {
+
+            map=  erpService.searchMaterialReceiveBymaterialId(searchValue,pageNum, pageSize);
+        }
+        if("receiveId".equals(name)) {
+            map = erpService.searchMaterialReceiveByReceiveId(searchValue,pageNum,pageSize);
+        }
+        return map;
+    }
+
+    /*---------物料消耗模块------------------------------------------------------------------------*/
+    @RequestMapping("materialConsume/find")//进入物料收入信息
+    public String findMaterialConsume(HttpSession session) {
+        List<String> sysPermissionList = new ArrayList<>();
+        sysPermissionList.add("materialConsume:add");
+        sysPermissionList.add("materialConsume:edit");
+        sysPermissionList.add("materialConsume:delete");
+        session.setAttribute("sysPermissionList", sysPermissionList);
+        return "materialConsume_list";
+    }
+    @RequestMapping("materialConsume/add_judge")
+    public String addMaterialConsume() {
+        return "materialConsume_add";
+    }
+    @RequestMapping("materialConsume/add")
+    public String addMaterialConsume2() {
+        return "materialConsume_add";
+    }
+    @RequestMapping("materialConsume/insert")
+    public String addMaterialConsume(MaterialConsume materialConsume) {
+        System.out.println("materialConsume:" + materialConsume);
+        erpService.addMaterialConsume(materialConsume);
+        return "materialConsume_add";
+    }
+    @RequestMapping("materialConsume/list")
+    @ResponseBody
+    public Map<String, Object> materialConsumeList(@RequestParam("page") Integer pageNum, @RequestParam("rows") Integer pageSize){
+        Map<String, Object> map=  erpService.listMaterialConsumeByPage(pageNum, pageSize);
+        return map;
+    }
+    @RequestMapping("materialConsume/search_materialConsume_by_{name}")
+    @ResponseBody
+    public Map<String, Object> searchConsume(String searchValue, @PathVariable("name") String name, @RequestParam("page") Integer pageNum, @RequestParam("rows") Integer pageSize){
+        Map<String, Object> map = null;
+        if("consumeId".equals(name)) {
+
+            map=  erpService.searchMaterialConsumeByConsumeId(searchValue,pageNum, pageSize);
+        }
+        if("workId".equals(name)) {
+            map = erpService.searchMaterialConsumeByWorkId(searchValue,pageNum,pageSize);
+        }
+        if("materialId".equals(name)) {
+            map = erpService.searchMaterialConsumeBymaterialId(searchValue,pageNum,pageSize);
+        }
+        return map;
+    }
+    @RequestMapping("materialConsume/edit_judge")
+    public String updateMaterialConsume() {
+        return "materialConsume_edit";
+    }
+
+    @RequestMapping("materialConsume/edit")
+    public String updateMaterialConsume2() {
+        return "materialConsume_edit";
+    }
+    @RequestMapping("materialConsume/update_all")
+    public String updateConsumeById(MaterialConsume materialConsume) {
+        //System.out.println("update");
+        System.out.println(materialConsume);
+        erpService.modifyMaterialConsume(materialConsume);
+        return "materialConsume_edit";
+    }
+
+    @RequestMapping("materialConsume/update_note")
+    public String updateReceiveNote(MaterialConsume materialConsume) {
+        erpService.modifyConsumeNote(materialConsume);
+        return "materialConsume_edit";
+    }
+    @RequestMapping("materialConsume/delete_judge")
+    public String deleteConsume() {
+        return "materialConsume_list";
+    }
+
+    @RequestMapping("materialConsume/delete_batch")
+    public String removeConsume(String ids) {
+        String[] split = ids.split(",");
+        System.out.println(split);
+        for (String s : split) {
+            erpService.removeMaterialConsumeById(s);
+        }
+
+        return "materialConsume_list";
+    }
+
+}

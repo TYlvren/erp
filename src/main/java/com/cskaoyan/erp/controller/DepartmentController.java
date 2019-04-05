@@ -39,7 +39,7 @@ public class DepartmentController {
   return "department_list";
  }
 
- @RequestMapping("department/get/{id")
+ @RequestMapping("department/get/{id}")
  @ResponseBody
  public Department getDepartment(@PathVariable("id") String id) {
   return erpService.findDepartmentById(id);
@@ -56,6 +56,7 @@ public class DepartmentController {
  @RequestMapping("department/add_judge")
  @ResponseBody
  public Map<String, String> addDepartmentJudge(Department department) {
+
   return new HashMap<>();
  }
 
@@ -121,4 +122,11 @@ public class DepartmentController {
   }
    return map;
  }
+ @RequestMapping("department/get_data")
+ @ResponseBody
+ public List<Department> getDepartmentData(){
+  return erpService.findDepartment();
+ }
+
+
 }

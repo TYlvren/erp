@@ -19,4 +19,6 @@ public interface DeviceTypeDao {
     List<DeviceType> findDeviceTypeById(@Param("id")String searchValue);
 
     List<DeviceType> findDeviceTypeByName(@Param("name")String searchValue);
+
+    DeviceType getDeviceTypeById(@Param("id")String id);
 }

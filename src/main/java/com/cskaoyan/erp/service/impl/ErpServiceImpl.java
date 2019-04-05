@@ -10,9 +10,12 @@ import com.cskaoyan.erp.model.DeviceMaintain;
 import com.cskaoyan.erp.model.UnQualifyApply;
 
 import com.cskaoyan.erp.service.ErpService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -93,6 +96,11 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
+    public List<COrder> findCustomBySearch(String condition, String searchValue) {
+        return customDao.selectCustomBySearch(condition,searchValue);
+    }
+
+    @Override
     public int addCustom(Custom custom) {
         return customDao.insertCustom(custom);
     }
@@ -111,6 +119,11 @@ public class ErpServiceImpl implements ErpService {
     @Override
     public List<Product> findProduct() {
         return productDao.selectAllProduct();
+    }
+
+    @Override
+    public List<Product> findProductBySearch(String condition, String searchValue) {
+        return productDao.selectProductBySearch(condition,searchValue);
     }
 
     @Override
@@ -140,6 +153,11 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
+    public List<Work> findWorkBySearch(String condition, String searchValue) {
+        return workDao.selectWorkBySearch(condition,searchValue);
+    }
+
+    @Override
     public Work findWorkById(String id) {
         return workDao.selectWorkById(id);
     }
@@ -164,6 +182,11 @@ public class ErpServiceImpl implements ErpService {
     @Override
     public List<Manufacture> findManufacture() {
         return manufactureDao.selectAllManufacture();
+    }
+
+    @Override
+    public List<Manufacture> findManufactureBySearch(String condition, String searchValue) {
+        return manufactureDao.selectManufactureBySearch(condition,searchValue);
     }
 
     @Override
@@ -231,6 +254,12 @@ public class ErpServiceImpl implements ErpService {
     public List<DeviceType> findDeviceTypeById(String searchValue) {
         return deviceTypeDao.findDeviceTypeById(searchValue);
     }
+
+    @Override
+    public DeviceType getDeviceTypeById(String id) {
+        return deviceTypeDao.getDeviceTypeById(id);
+    }
+
     @Override
     public List<DeviceType> findDeviceTypeByName(String searchValue) {
         return deviceTypeDao.findDeviceTypeByName(searchValue);
@@ -271,6 +300,10 @@ public class ErpServiceImpl implements ErpService {
         return deviceDao.updateDeviceNote(device);
     }
 
+    @Override
+    public List<Device> findDeviceByTypeName(String searchValue) {
+        return deviceDao.findDeviceByTypeName(searchValue);
+    }
 
 
     /*-------------设备例检模块------------------------------------------------*/
@@ -318,10 +351,76 @@ public class ErpServiceImpl implements ErpService {
     public List<DeviceFault> findAllDeviceFaultByPage() {
         return  deviceFaultDao.findAllDeviceFault();
     }
+
+    @Override
+    public int insertDeviceFault(DeviceFault deviceFault) {
+        return deviceFaultDao.insertDeviceFault(deviceFault);
+    }
+
+    @Override
+    public int updateDeviceFault(DeviceFault deviceFault) {
+        return deviceFaultDao.updateDeviceFault(deviceFault);
+    }
+
+    @Override
+    public int deleteDeviceFault(String id) {
+        return deviceFaultDao.deleteDeviceFault(id);
+    }
+
+    @Override
+    public List<DeviceFault> findDeviceFaultById(String searchValue) {
+        return deviceFaultDao.findDeviceFaultById(searchValue);
+    }
+
+    @Override
+    public DeviceFault getDeviceFaultById(String searchValue) {
+        return deviceFaultDao.getDeviceFaultById(searchValue);
+    }
+
+    @Override
+    public List<DeviceFault> findDeviceFaultByName(String searchValue) {
+        return deviceFaultDao.findDeviceFaultByName(searchValue);
+    }
+
+    @Override
+    public int updateDeviceFaultNote(DeviceFault deviceFault) {
+        return deviceFaultDao.updateDeviceFaultNote(deviceFault);
+    }
+
     /*-------------设备维修模块------------------------------------------------*/
     @Override
     public List<DeviceMaintain> findDeviceMaintainByPage() {
         return deviceMaintainDao.findAllDeviceMaintain();
+    }
+
+    @Override
+    public int insertDeviceMaintain(DeviceMaintain deviceMaintain) {
+        return deviceMaintainDao.insertDeviceMaintain(deviceMaintain);
+    }
+
+    @Override
+    public int updateDeviceMaintain(DeviceMaintain deviceMaintain) {
+        return deviceMaintainDao.updateDeviceMaintain(deviceMaintain);
+    }
+
+    @Override
+    public int deleteDeviceMaintain(String id) {
+        return deviceMaintainDao.deleteDeviceMaintain(id);
+    }
+
+    @Override
+    public List<DeviceMaintain> findDeviceMaintainById(String searchValue) {
+        return deviceMaintainDao.findDeviceMaintainById(searchValue);
+    }
+
+    @Override
+    public List<DeviceMaintain> findDeviceMaintainByFaultId(String searchValue) {
+        return deviceMaintainDao.findDeviceMaintainByFaultId(searchValue);
+    }
+
+    @Override
+    public int updateDeviceMaintainNote(DeviceMaintain deviceMaintain) {
+        return  deviceMaintainDao.updateDeviceMaintainNote(deviceMaintain);
     }
 
 
@@ -334,6 +433,8 @@ public class ErpServiceImpl implements ErpService {
     private MaterialDao materialDao;
     @Autowired
     private MaterialReceiveDao materialReceiveDao;
+    @Autowired
+    private MaterialConsumeDao materialConsumeDao;
     @Override
     public List<Material> selectMaterial() {
         return materialDao.selectMaterial();
@@ -372,21 +473,49 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public int modifyNote(Material material) {
-         return materialDao.updateNote(material);
+        return materialDao.updateNote(material);
     }
 
 
     /*-------------物料收入模块------------------------------------------------*/
     @Override
-    public List<MaterialReceive> selectMaterialReceive() {
-        return materialReceiveDao.selectMaterialReceive();
+    public Map<String, Object> listMaterialReceiveByPage(Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialReceive> materials= materialReceiveDao.selectAll();
+        map.put("total",onePage.getTotal());
+        map.put("rows",materials);
+        return map;
+    }
+    @Override
+    public Map<String, Object> searchMaterialReceiveBymaterialId(String materialId, Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialReceive> materialReceives = materialReceiveDao.selectLikeMaterialId(materialId);
+        map.put("total",onePage.getTotal());
+        map.put("rows",materialReceives);
+        return map;
     }
 
     @Override
-    public int selectCountOfMaterialReceive() {
-        return materialReceiveDao.CountOfMaterialReceive();
-    }
+    public Map<String, Object> searchMaterialReceiveByReceiveId(String receiveId, Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
 
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialReceive> materialReceives = materialReceiveDao.selectLikeReceiveId(receiveId);
+        map.put("total",onePage.getTotal());
+        map.put("rows",materialReceives);
+        return map;
+
+    }
     @Override
     public int removeMaterialReceiveById(String id) {
         return materialReceiveDao.deleteById(id);
@@ -394,7 +523,7 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public int modifyMaterialReceive(MaterialReceive materialReceive) {
-        return materialReceiveDao.update(materialReceive);
+        return materialReceiveDao.updateReceive(materialReceive);
     }
 
     @Override
@@ -409,7 +538,82 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public int modifyReceiveNote(MaterialReceive materialReceive) {
-        return materialReceiveDao.updateNote(materialReceive);
+        return materialReceiveDao.updateReceiveNote(materialReceive);
+    }
+    /*-------------物料消耗模块------------------------------------------------*/
+    @Override
+    public int removeMaterialConsumeById(String id) {
+        return materialConsumeDao.deleteById(id);
+    }
+
+    @Override
+    public int modifyMaterialConsume(MaterialConsume materialConsume) {
+        return materialConsumeDao.updateConsume(materialConsume);
+    }
+
+    @Override
+    public int addMaterialConsume(MaterialConsume materialConsume) {
+        return materialConsumeDao.addMaterialConsume(materialConsume);
+    }
+
+    @Override
+    public int modifyConsumeNote(MaterialConsume materialConsume) {
+        return materialConsumeDao.updateConsumeNote(materialConsume);
+    }
+
+    @Override
+    public Map<String, Object> listMaterialConsumeByPage(Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialConsume> materials= materialConsumeDao.selectAll();
+        map.put("total",onePage.getTotal());
+        map.put("rows",materials);
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> searchMaterialConsumeBymaterialId(String materialId, Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialConsume> materialConsumes  = materialConsumeDao.selectLikeMaterialId(materialId);
+        map.put("total",onePage.getTotal());
+        map.put("rows",materialConsumes);
+        return map;
+
+    }
+
+    @Override
+    public Map<String, Object> searchMaterialConsumeByWorkId(String workId, Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialConsume> materialConsumes = materialConsumeDao.selectLikeWorkId(workId);
+        map.put("total",onePage.getTotal());
+        map.put("rows",materialConsumes);
+        return map;
+
+    }
+
+    @Override
+    public Map<String, Object> searchMaterialConsumeByConsumeId(String consumeId, Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialConsume> materialConsumes = materialConsumeDao.selectLikeConsumeId(consumeId);
+        map.put("total",onePage.getTotal());
+        map.put("rows",materialConsumes);
+        return map;
+
     }
 
     /*****************质量监控接口实现*************************************/
@@ -620,6 +824,7 @@ private FinalMeasureCheckDao finalMeasureCheckDao;
     }
 
     /*****************人员监控接口实现*************************************/
+  //部门
     @Autowired
     private DepartmentDao departmentDao;
     @Override
@@ -642,10 +847,49 @@ private FinalMeasureCheckDao finalMeasureCheckDao;
     public int deleteDepartment(String[] ids ){
         return departmentDao.deleteDepartmentById(ids);
     }
+//员工
+    @Autowired
+    private EmployeeDao employeeDao;
+
 
 
 
     /*****************系统管理接口实现*************************************/
+    @Override
+    public List<Employee> findAllEmployee() {
+        List<Employee> employees = employeeDao.findAllEmployee();
+        return employees;
+    }
+
+    @Override
+    public int insertEmployee(Employee employee, String departmentId) {
+        return employeeDao.insertEmployee(employee, departmentId);
+    }
+
+    @Override
+    public int updateByPrimaryKey(Employee employee) {
+        return employeeDao.updateByPrimaryKey(employee);
+    }
+
+    @Override
+    public int deleteEmployee(String[] ids) {
+        return employeeDao.deleteEmployee(ids);
+    }
+
+    @Override
+    public List<Employee> queryByEmployeeId(String empId) {
+        return employeeDao.queryByEmployeeId(empId);
+    }
+
+    @Override
+    public List<Employee> queryByEmployeeName(String empName) {
+        return employeeDao.queryByEmployeeName(empName);
+    }
+
+    @Override
+    public List<Employee> queryByDepartmentName(String departmentName) {
+        return employeeDao.queryByDepartmentName(departmentName);
+    }
 
 
 }

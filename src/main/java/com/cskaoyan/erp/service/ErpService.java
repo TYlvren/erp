@@ -54,6 +54,7 @@ public interface ErpService {
     List<Custom> findCustom();
     Custom findCustomById(String id);
 
+    List<COrder> findCustomBySearch(String condition, String searchValue);
     int addCustom(Custom custom);
 
     int editCustom(Custom custom);
@@ -62,6 +63,7 @@ public interface ErpService {
 
     /**------------------------------Product--------------------------------*/
     List<Product> findProduct();
+    List<Product> findProductBySearch(String condition, String searchValue);
     Product findProductById(String id);
     int addProduct(Product product);
     int editProduct(Product product);
@@ -70,10 +72,12 @@ public interface ErpService {
 
     /**------------------------------Manufacture--------------------------------*/
     List<Manufacture> findManufacture();
+    List<Manufacture> findManufactureBySearch(String condition, String searchValue);
     Manufacture findManufactureById(String id);
 
     /**------------------------------Work--------------------------------*/
     List<Work> findWork();
+    List<Work> findWorkBySearch(String condition, String searchValue);
     Work findWorkById(String id);
     int addWork(Work work);
 
@@ -98,6 +102,7 @@ public interface ErpService {
     int updateDeviceType(DeviceType deviceType);
     int deleteDeviceType(String id);
     List<DeviceType> findDeviceTypeById(String searchValue);
+    DeviceType getDeviceTypeById(String id);
     List<DeviceType> findDeviceTypeByName(String searchValue);
     /*-------------设备模块------------------------------------------------*/
     List<Device> findDeviceByPage();
@@ -108,6 +113,7 @@ public interface ErpService {
     Device findServiceDeviceById(String id);
     List<Device> findDeviceByName(String searchValue);
     int updateDeviceNote(Device device);
+    List<Device> findDeviceByTypeName(String searchValue);
     /*-------------设备例检模块------------------------------------------------*/
     List<DeviceCheck> findDeviceeCheckByPage();
     int insertDeviceCheck(DeviceCheck deviceCheck);
@@ -119,9 +125,21 @@ public interface ErpService {
     int updateDeviceCheckNote(DeviceCheck deviceCheck);
     /*-------------设备故障模块------------------------------------------------*/
     List<DeviceFault> findAllDeviceFaultByPage();
+    int insertDeviceFault(DeviceFault deviceFault);
+    int updateDeviceFault(DeviceFault deviceFault);
+    int deleteDeviceFault(String id);
+    List<DeviceFault> findDeviceFaultById(String searchValue);
+    DeviceFault getDeviceFaultById(String searchValue);
+    List<DeviceFault> findDeviceFaultByName(String searchValue);
+    int updateDeviceFaultNote(DeviceFault deviceFault);
     /*-------------设备维修模块------------------------------------------------*/
     List<DeviceMaintain> findDeviceMaintainByPage();
-
+    int insertDeviceMaintain(DeviceMaintain deviceMaintain);
+    int updateDeviceMaintain(DeviceMaintain deviceMaintain);
+    int deleteDeviceMaintain(String id);
+    List<DeviceMaintain> findDeviceMaintainById(String searchValue);
+    List<DeviceMaintain> findDeviceMaintainByFaultId(String searchValue);
+    int updateDeviceMaintainNote(DeviceMaintain deviceMaintain);
     /*****************工艺监控接口实现*************************************/
 
 
@@ -136,13 +154,24 @@ public interface ErpService {
     List<Material> selectMaterialByType(String searchValue);
     int modifyNote(Material material);
     /*-------------物料收入模块------------------------------------------------*/
-    List<MaterialReceive> selectMaterialReceive();
-    int selectCountOfMaterialReceive();
+    Map<String, Object> listMaterialReceiveByPage(Integer pageNum, Integer pageSize);
+    Map<String, Object> searchMaterialReceiveBymaterialId(String materialId, Integer pageNum, Integer pageSize);
+    Map<String, Object> searchMaterialReceiveByReceiveId(String receiveId, Integer pageNum, Integer pageSize);
     int removeMaterialReceiveById(String id);
     int modifyMaterialReceive(MaterialReceive materialReceive);
     int addMaterialReceive(MaterialReceive materialReceive) ;
     List<Material> selectMaterialId();
     int modifyReceiveNote(MaterialReceive materialReceive);
+    /*-------------物料消耗模块------------------------------------------------*/
+    int removeMaterialConsumeById(String id);
+    int modifyMaterialConsume(MaterialConsume materialConsume);
+    int addMaterialConsume(MaterialConsume materialConsume) ;
+    int modifyConsumeNote(MaterialConsume materialConsume);
+    Map<String, Object> listMaterialConsumeByPage(Integer pageNum, Integer pageSize);
+    Map<String, Object> searchMaterialConsumeBymaterialId(String searchValue, Integer pageNum, Integer pageSize);
+    Map<String, Object> searchMaterialConsumeByWorkId(String searchValue, Integer pageNum, Integer pageSize);
+    Map<String, Object> searchMaterialConsumeByConsumeId(String searchValue, Integer pageNum, Integer pageSize);
+
     /*****************质量监控接口实现*************************************/
     //不合格品管理相关方法
     List<UnQualifyApply> findUnqualifyList();
@@ -181,12 +210,28 @@ public interface ErpService {
     int updateNotePCountCheckService(String pCountCheckId,String note);
     List<ProcessCountCheck>searchPCountCheckService(String searchname,String searchValue);
     /*****************人员监控接口实现*************************************/
-    //部门管理模块
+    //部门管理
     List<Department> findDepartment();
     Department findDepartmentById(String id);
     int addDepartment( Department department);
     int editDepartment(Department department);
     int deleteDepartment(String[] ids);
+
+    //员工管理
+
+    List<Employee> findAllEmployee();
+
+    int insertEmployee(Employee employee, String departmentId);
+
+    int updateByPrimaryKey(Employee employee);
+
+    int deleteEmployee(String[] ids);
+
+    List<Employee>  queryByEmployeeId(String empId);
+
+    List<Employee>  queryByEmployeeName(String empName);
+
+    List<Employee>  queryByDepartmentName(String departmentName);
 
 
 
