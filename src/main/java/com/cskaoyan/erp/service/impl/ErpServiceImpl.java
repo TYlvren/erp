@@ -424,6 +424,51 @@ public class ErpServiceImpl implements ErpService {
         return unQualifyApplyDao.updateNoteByUnqualifyApplyIdDao(unqualifyApplyId,note);
     }
 //-------------------------成品计量质检--------------------------------------
+//************注入Dao
+@Autowired
+private FinalMeasureCheckDao finalMeasureCheckDao;
+////    //***********查询工序计数质检列表
+
+    @Override
+    public List<FinalMeasureCheck> findFMeasureCheck() {
+        return finalMeasureCheckDao.findFMeasureCheckDao();
+    }
+
+//
+//    @Override
+//    public List<ProcessCountCheck> findPCountCheckService() {
+//        return processCountCheckDao.findPCountCheckDao();
+//    }
+//
+////    //**********添加工序计数质检记录
+//
+//    @Override
+//    public int addPCountCheckService(ProcessCountCheck processCountCheck) {
+//        return processCountCheckDao.insertPCountCheckDao(processCountCheck);
+//    }
+//
+////    //**********修改工序计数质检记录
+//
+//    @Override
+//    public int updatePCountCheckService(ProcessCountCheck processCountCheck) {
+//        return processCountCheckDao.updatePCountCheckDao(processCountCheck);
+//    }
+//
+////    //*********删除工序计数质检记录
+//
+//    @Override
+//    public int deletePCountCheckService(String[] ids) {
+//        return processCountCheckDao.deletePCountCheckDao(ids);
+//    }
+//
+////    //***********修改备注工序计量质检记录
+//
+//    @Override
+//    public int updateNotePCountCheckService(String pCountCheckId, String note) {
+//        return processCountCheckDao.updateNotePCountCheckDao(pCountCheckId, note);
+//    }
+
+
 //-------------------------成品计数质检--------------------------------------
 //-------------------------工序计量质检--------------------------------------
     //************注入Dao

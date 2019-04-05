@@ -10,6 +10,7 @@
  */
 package com.cskaoyan.erp.controller;
 
+import com.cskaoyan.erp.model.FinalMeasureCheck;
 import com.cskaoyan.erp.model.ProcessCountCheck;
 import com.cskaoyan.erp.model.ProcessMeasureCheck;
 import com.cskaoyan.erp.model.UnQualifyApply;
@@ -139,28 +140,28 @@ public class QualityController {
 
     /********************************成品计量质检模块******************************************************************/
 
-//    @RequestMapping("measure/find")//进入情况1.home.jsp中点击成品计量质检
-//    public String turnToPMeasureCheck(ModelAndView mv, HttpSession session){
-//        List<String> sysPermissionList=new ArrayList<>();
-//        sysPermissionList.add("pMeasureCheck:add");//设置新建编辑删除按钮的显示
-//        sysPermissionList.add("pMeasureCheck:edit");
-//        sysPermissionList.add("pMeasureCheck:delete");
-//        session.setAttribute("sysPermissionList",sysPermissionList);
-//        return "p_measure_check_list";
-//    }
-//
-//    @RequestMapping("p_measure_check/list")//自动查询成品计量质检数据  实现分页
-//    public  @ResponseBody Map<String, Object> findPMeasureCheck(@RequestParam int page, int rows){
-//        PageHelper.startPage(page, rows, true);
-//        List<ProcessMeasureCheck> list = erpService.findPMeasureCheck();
-//        PageInfo pageInfo = new PageInfo(list);
-//        list = pageInfo.getList();
-//        long total = pageInfo.getTotal();
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("total", total);
-//        map.put("rows", list);
-//        return map;
-//    }
+    @RequestMapping("measure/find")//进入情况1.home.jsp中点击成品计量质检
+    public String turnToFMeasureCheck(ModelAndView mv, HttpSession session){
+        List<String> sysPermissionList=new ArrayList<>();
+        sysPermissionList.add("fMeasureCheck:add");//设置新建编辑删除按钮的显示
+        sysPermissionList.add("fMeasureCheck:edit");
+        sysPermissionList.add("fMeasureCheck:delete");
+        session.setAttribute("sysPermissionList",sysPermissionList);
+        return "measurement_list";
+    }
+
+    @RequestMapping("measure/list")//自动查询成品计量质检数据  实现分页
+    public  @ResponseBody Map<String, Object> findFMeasureCheck(@RequestParam int page, int rows){
+        PageHelper.startPage(page, rows, true);
+        List<FinalMeasureCheck> list = erpService.findFMeasureCheck();
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
+    }
 //    @RequestMapping("p_measure_check/add")//新建成品计量质检转入对应jsp
 //    public String addPMeasureCheck(){
 //        return "p_measure_check_add";

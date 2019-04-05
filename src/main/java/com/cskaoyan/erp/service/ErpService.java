@@ -139,6 +139,11 @@ public interface ErpService {
     int deleteUnqualifyService(String[] ids);
     int updateNoteUnqualifyService(String unqualifyApplyId,String note);
     //成品计量质检模块相关方法
+     List<FinalMeasureCheck>findFMeasureCheck();
+//    int  addPCountCheckService(ProcessCountCheck processCountCheck);
+//    int  updatePCountCheckService(ProcessCountCheck processCountCheck);
+//    int deletePCountCheckService(String[] ids);
+//    int updateNotePCountCheckService(String pCountCheckId,String note);
     //成品计数质检模块相关方法
 
 

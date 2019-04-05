@@ -2,4 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.FinalMeasureCheckDao">
 
+    <sql id="FMeasureCheckColumns">
+          fmc.f_measure_check_id as fMeasureCheckId,fmc.order_id as orderId,fmc.check_item as checkItem,fmc.cdate as cdate,
+          fmc.measure_data as measureData,fmc.emp_id as empId,fmc.result as result, fmc.note as note,e.emp_name as empName
+    </sql>
+    <select id="findFMeasureCheckDao" resultType="FinalMeasureCheck">
+        select
+        <include refid="FMeasureCheckColumns"/>
+        from final_measuret_check as fmc left join employee as e on fmc.emp_id=e.emp_id
+    </select>
+
+    <!--<insert id="insertPCountCheckDao" parameterType="ProcessCountCheck">-->
+        <!--insert into process_count_check (-->
+        <!--p_count_check_id  ,process_id  ,check_item ,sample  ,-->
+          <!--check_number  ,unqualify  ,qualify  ,cdate  ,-->
+          <!--measure_data  ,emp_id  ,result  ,note-->
+<!--) values(#{pCountCheckId},#{processId},#{checkItem},#{sample},#{checkNumber},#{unqualify},#{qualify},#{cdate},#{measureData},#{empId},#{result},#{note})-->
+    <!--</insert>-->
+    <!--&lt;!&ndash;修改工序计数质检&ndash;&gt;-->
+    <!--<update id="updatePCountCheckDao" parameterType="ProcessCountCheck">-->
+        <!--update  process_count_check set  process_id =#{processId},check_item =#{checkItem},sample=#{sample},-->
+        <!--check_number=#{checkNumber},unqualify =#{unqualify},qualify=#{qualify},cdate =#{cdate},-->
+        <!--measure_data=#{measureData},emp_id =#{empId},result=#{result},note=#{note} where p_count_check_id= #{pCountCheckId}-->
+    <!--</update>-->
+    <!--&lt;!&ndash;删除工序计数质检条数&ndash;&gt;-->
+    <!--<delete id="deletePCountCheckDao" >-->
+        <!--delete from process_count_check where p_count_check_id in-->
+        <!--(-->
+        <!--<foreach collection="array" item="idss" separator="," >-->
+            <!--#{idss}-->
+        <!--</foreach>-->
+        <!--)-->
+    <!--</delete>-->
+    <!--&lt;!&ndash;修改工序计数质检备注信息&ndash;&gt;-->
+    <!--<update id="updateNotePCountCheckDao" parameterType="string">-->
+                <!--update  process_count_check set  note=#{note} where p_count_check_id= #{id}-->
+    <!--</update>-->
 </mapper>
