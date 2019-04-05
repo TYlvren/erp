@@ -31,6 +31,13 @@ public interface ErpService {
     List<COrder> findCOrder();
 
     /**
+     * 模糊查找
+     * @param condition
+     * @param searchValue
+     * @return
+     */
+    List<COrder> findCOrderBySearch(String condition, String searchValue);
+    /**
      * 通过id 查找COrder
      * @param id
      * @return

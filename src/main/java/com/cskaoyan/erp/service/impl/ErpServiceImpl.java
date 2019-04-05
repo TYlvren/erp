@@ -55,6 +55,11 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
+    public List<COrder> findCOrderBySearch(String condition, String searchValue) {
+        return cOrderDao.selectCOderBySearch(condition,searchValue);
+    }
+
+    @Override
     public COrder findCOrderById(String id) {
         return cOrderDao.selectCOrderById(id);
     }

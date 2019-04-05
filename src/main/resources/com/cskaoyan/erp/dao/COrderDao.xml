@@ -39,6 +39,33 @@
         where order_id=#{id}
     </select>
 
+
+
+    <select id="selectCOderBySearch" resultMap="corderMap">
+        <bind name="searchValue" value="'%' + searchValue + '%'" />
+        select
+        order_id ,o.custom_id,o.product_id ,order_date,request_date,
+        o.note,o.quantity ,o.unit_price,o.unit ,o.image,o.file ,o.status
+        from c_order o
+        <choose>
+
+            <when test="condition == 'Id'">
+            where order_id like #{searchValue}
+            </when>
+
+            <when test="condition == 'Custom'">
+            ,custom
+            where custom_name like #{searchValue}
+            </when>
+
+            <when test="condition == 'Product'">
+            ,product
+            where product_name like #{searchValue}
+            </when>
+        </choose>
+    </select>
+
+
     <insert id="insertOrder">
         insert into c_order
         (order_id ,custom_id,product_id ,order_date,request_date,
@@ -63,4 +90,6 @@
           </foreach>
       </where>
     </delete>
+
+
 </mapper>

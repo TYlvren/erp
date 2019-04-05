@@ -118,6 +118,14 @@ public class PlanProgressController {
         return map;
     }
 
+    /**Order的模糊查找*/
+    @RequestMapping("order/search_order_by_order{condition}")
+    @ResponseBody
+    public Object findPageOrderBySearch(@RequestParam int page,@RequestParam int rows,
+                                        String searchValue,@PathVariable String condition){
+        List<COrder> list = erpService.findCOrderBySearch(condition,searchValue);
+        return list;
+    }
 
     /*****************Custom控制层*************************************/
     /**
