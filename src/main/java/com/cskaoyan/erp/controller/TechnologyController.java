@@ -104,7 +104,6 @@ public class TechnologyController {
     @ResponseBody
     public Map<String,String> testcase10(Technology technology){
         //获取修改后的技术信息，对其进行修改
-
         Technology technology1 =
                 technologyDao.selectTechnologyNameisExist(technology.getTechnologyName());
         Map<String,String> map = new HashMap<>();
@@ -125,6 +124,24 @@ public class TechnologyController {
         return technologyById;
     }
 
+    /*-----------------工艺的信息查找操作------------------------------*/
+
+    @RequestMapping("technology/search_technology_by_technologyId")
+    @ResponseBody
+    public Object findPage_SearchByTechnologyId(@RequestParam String searchValue,int page,int rows){
+
+        List<Technology> list =
+                technologyDao.searchTechnologyByTechnologyIdOrTechnologyName(null,searchValue);
+        return list;
+    }
+
+    @RequestMapping("technology/search_technology_by_technologyName")
+    @ResponseBody
+    public Object findPage_SearchByTechnologyName(@RequestParam String searchValue,int page,int rows){
+        List<Technology> list =
+                technologyDao.searchTechnologyByTechnologyIdOrTechnologyName(searchValue,null);
+        return list;
+    }
     //模块二
     /********************工艺要求****************************************************************/
 
@@ -328,8 +345,9 @@ public class TechnologyController {
 
     @RequestMapping("technologyPlan/update_all")
     @ResponseBody
-    public Map<String, String> testcase35(TechnologyPlan TechnologyPlan){
-        int i = technologyPlanDao.updateTechnologyPlan(TechnologyPlan);
+    public Map<String, String> testcase35(TechnologyPlan technologyPlan){
+        System.out.println("technologyPlan:"+technologyPlan);
+        int i = technologyPlanDao.updateTechnologyPlan(technologyPlan);
         Map<String, String> map = new HashMap<>();
         map.put("status", "200");
         return map;
