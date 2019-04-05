@@ -89,4 +89,9 @@
         </where>
     </select>
 
+    <select id="findTechnologyNameById" resultType="technology">
+            select technology_name from technology where technology_id = #{technology_id}
+    </select>
+
+
 </mapper>

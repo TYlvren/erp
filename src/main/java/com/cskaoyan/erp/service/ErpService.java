@@ -24,7 +24,17 @@ public interface ErpService {
 
 
     /**------------------------------Order----------------------------------*/
+    /**
+     * 查找所有的COrder
+     * @return
+     */
     List<COrder> findCOrder();
+
+    /**
+     * 通过id 查找COrder
+     * @param id
+     * @return
+     */
     COrder findCOrderById(String id);
 
     int addOrder(COrder cOrder);
@@ -53,9 +63,26 @@ public interface ErpService {
 
     /**------------------------------Manufacture--------------------------------*/
     List<Manufacture> findManufacture();
+    Manufacture findManufactureById(String id);
 
     /**------------------------------Work--------------------------------*/
     List<Work> findWork();
+    Work findWorkById(String id);
+    int addWork(Work work);
+
+    int editWork(Work work);
+
+    int deleteWork(String[] ids);
+    /**------------------------------Task--------------------------------*/
+    List<Task> findTask();
+
+    Task findTaskById(String id);
+
+    int addTask(Task task);
+
+    int editTask(Task task);
+
+    int deleteTask(String[] ids);
 
     /*****************设备管理接口实现*************************************/
     /*-------------设备分类模块------------------------------------------------*/
@@ -98,6 +125,11 @@ public interface ErpService {
     /*-------------物料收入模块------------------------------------------------*/
     List<MaterialReceive> selectMaterialReceive();
     int selectCountOfMaterialReceive();
+    int removeMaterialReceiveById(String id);
+    int modifyMaterialReceive(MaterialReceive materialReceive);
+    int addMaterialReceive(MaterialReceive materialReceive) ;
+    List<Material> selectMaterialId();
+    int modifyReceiveNote(MaterialReceive materialReceive);
     /*****************质量监控接口实现*************************************/
     //不合格品管理相关方法
     List<UnQualifyApply> findUnqualifyList();
@@ -126,7 +158,6 @@ public interface ErpService {
     int addDepartment( Department department);
     int editDepartment(Department department);
     int deleteDepartment(String[] ids);
-
 
 
 

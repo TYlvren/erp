@@ -38,6 +38,8 @@ public class ErpServiceImpl implements ErpService {
     @Autowired
     private ManufactureDao manufactureDao;
 
+    @Autowired
+    private TaskDao taskDao;
 
     /**------------------------------Order--------------------------------*/
 
@@ -132,11 +134,62 @@ public class ErpServiceImpl implements ErpService {
         return workDao.selectAllWork();
     }
 
+    @Override
+    public Work findWorkById(String id) {
+        return workDao.selectWorkById(id);
+    }
+
+    @Override
+    public int addWork(Work work) {
+        return workDao.insertWork(work);
+    }
+
+    @Override
+    public int editWork(Work work) {
+        return workDao.updateWork(work);
+    }
+
+    @Override
+    public int deleteWork(String[] ids) {
+        return workDao.deleteWorkByIds(ids);
+    }
+
     /**------------------------------Manufacture--------------------------------*/
 
     @Override
     public List<Manufacture> findManufacture() {
         return manufactureDao.selectAllManufacture();
+    }
+
+    @Override
+    public Manufacture findManufactureById(String id) {
+        return manufactureDao.selectManufactureById(id);
+    }
+
+    /**------------------------------Task--------------------------------*/
+    @Override
+    public List<Task> findTask() {
+        return taskDao.selectAllTask();
+    }
+
+    @Override
+    public Task findTaskById(String id) {
+        return taskDao.selectTaskById(id);
+    }
+
+    @Override
+    public int addTask(Task task) {
+        return taskDao.insertTask(task);
+    }
+
+    @Override
+    public int editTask(Task task) {
+        return taskDao.updateTask(task);
+    }
+
+    @Override
+    public int deleteTask(String[] ids) {
+        return taskDao.deleteTaskByIds(ids);
     }
 
     /*****************设备管理接口实现*************************************/
@@ -306,6 +359,32 @@ public class ErpServiceImpl implements ErpService {
     public int selectCountOfMaterialReceive() {
         return materialReceiveDao.CountOfMaterialReceive();
     }
+
+    @Override
+    public int removeMaterialReceiveById(String id) {
+        return materialReceiveDao.deleteById(id);
+    }
+
+    @Override
+    public int modifyMaterialReceive(MaterialReceive materialReceive) {
+        return materialReceiveDao.update(materialReceive);
+    }
+
+    @Override
+    public int addMaterialReceive(MaterialReceive materialReceive) {
+        return materialReceiveDao.addMaterialReceive(materialReceive);
+    }
+
+    @Override
+    public List<Material> selectMaterialId() {
+        return materialReceiveDao.selectMaterialId();
+    }
+
+    @Override
+    public int modifyReceiveNote(MaterialReceive materialReceive) {
+        return materialReceiveDao.updateNote(materialReceive);
+    }
+
     /*****************质量监控接口实现*************************************/
 //    ------------------不合格品管理-------------------
         //**********注入Dao
