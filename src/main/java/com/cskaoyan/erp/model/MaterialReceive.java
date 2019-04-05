@@ -4,6 +4,15 @@ import java.util.Date;
 
 public class MaterialReceive {
     private String receiveId;
+    private  Material material;
+
+    public Material getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
 
     private String materialId;
 

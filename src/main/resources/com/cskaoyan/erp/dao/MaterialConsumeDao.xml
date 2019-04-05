@@ -1,5 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.MaterialConsumeDao">
+    <resultMap id="BaseResultMap" type="com.cskaoyan.erp.model.MaterialConsume">
+        <id column="consume_id" jdbcType="VARCHAR" property="consumeId" />
+        <result column="work_id" jdbcType="VARCHAR" property="workId" />
+        <result column="material_id" jdbcType="VARCHAR" property="materialId" />
+        <result column="consume_amount" jdbcType="INTEGER" property="consumeAmount" />
+        <result column="consume_date" jdbcType="TIMESTAMP" property="consumeDate" />
+        <result column="sender" jdbcType="VARCHAR" property="sender" />
+        <result column="receiver" jdbcType="VARCHAR" property="receiver" />
+        <result column="note" jdbcType="VARCHAR" property="note" />
+    </resultMap>
 
+    <resultMap id="MaterialConsumeMap" type="com.cskaoyan.erp.model.MaterialConsume">
+        <id column="consume_id" jdbcType="VARCHAR" property="consumeId" />
+        <result column="work_id" jdbcType="VARCHAR" property="workId" />
+        <result column="material_id" jdbcType="VARCHAR" property="materialId" />
+        <result column="consume_amount" jdbcType="INTEGER" property="consumeAmount" />
+        <result column="consume_date" jdbcType="TIMESTAMP" property="consumeDate" />
+        <result column="sender" jdbcType="VARCHAR" property="sender" />
+        <result column="receiver" jdbcType="VARCHAR" property="receiver" />
+        <result column="notem" jdbcType="VARCHAR" property="note" />
+        <association property="material" javaType="com.cskaoyan.erp.model.Material">
+            <id column="material_id" jdbcType="VARCHAR" property="materialId" />
+            <result column="material_type" jdbcType="VARCHAR" property="materialType" />
+            <result column="status" jdbcType="VARCHAR" property="status" />
+            <result column="remaining" jdbcType="INTEGER" property="remaining" />
+            <result column="note" jdbcType="VARCHAR" property="note" />
+        </association>
+        <association property="work" javaType="com.cskaoyan.erp.model.Work">
+            <id column="work_id" jdbcType="VARCHAR" property="workId" />
+            <result column="process_number" jdbcType="VARCHAR" property="processNumber" />
+            <result column="product" jdbcType="VARCHAR" property="productId" />
+            <result column="process" jdbcType="VARCHAR" property="processId" />
+            <result column="device" jdbcType="VARCHAR" property="deviceId" />
+            <result column="rating" jdbcType="INTEGER" property="rating" />
+        </association>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        consume_id, work_id, material_id, consume_amount, consume_date, sender, receiver, note
+    </sql>
+
+    <select id="selectAll" resultMap="MaterialConsumeMap">
+      SELECT consume_id, material_consume.work_id, material_consume.material_id,consume_amount,consume_date,sender, receiver,
+      material.*,work.*, material_consume.`note` as note
+      FROM `material_consume`
+      LEFT JOIN  `material` ON `material_consume`.`material_id` = `material`.`material_id`
+      LEFT JOIN `work` ON `material_consume`.`work_id` = work.work_id
+  </select>
+    <select id="selectLikematerialId" resultMap="MaterialConsumeMap">
+    SELECT consume_id, material_consume.work_id, material_consume.material_id,consume_amount,consume_date,sender, receiver,
+    material.*,work.*,material_consume.`note` as notem
+    FROM `material_consume`, material,`work`
+    WHERE `material_consume`.`material_id` = `material`.`material_id` AND `material_consume`.`work_id` = `work`.work_id
+    and `material_consume`.`material_id` like concat('%',#{materialId},'%')
+  </select>
+    <select id="selectLikeConsumeId" resultMap="MaterialConsumeMap">
+    SELECT consume_id, material_consume.work_id, material_consume.material_id,consume_amount,consume_date,sender, receiver,
+    material.*,work.*,material_consume.`note` as notem
+    FROM `material_consume`, material,`work`
+    WHERE `material_consume`.`material_id` = `material`.`material_id` AND `material_consume`.`work_id` = `work`.work_id
+    AND `material_consume`.`consume_id` LIKE CONCAT('%',#{consumeId},'%')
+  </select>
+    <select id="selectLikeWorkId" resultMap="MaterialConsumeMap">
+    SELECT consume_id, material_consume.work_id, material_consume.material_id,consume_amount,consume_date,sender, receiver,
+    material.*,work.*,material_consume.`note` as notem
+    FROM `material_consume`, material,`work`
+    WHERE `material_consume`.`material_id` = `material`.`material_id` AND `material_consume`.`work_id` = `work`.work_id
+    AND `work`.`work_id` LIKE CONCAT('%',#{wordId},'%')
+  </select>
+    <delete id="deleteById">
+
+          delete from material_consume where consume_id = #{id}
+    </delete>
+    <insert id="addMaterialConsume" parameterType="materialConsume">
+         insert into material_consume (consume_id,work_id,material_id,consume_amount,consume_date,sender,
+    receiver,note) value (#{materialConsume.consumeId},#{materialConsume.workId},#{materialConsume.materialId},#{materialConsume.consumeAmount}
+    ,#{materialConsume.consumeDate},#{materialConsume.sender},#{materialConsume.receiver},#{materialConsume.note})
+     </insert>
 </mapper>

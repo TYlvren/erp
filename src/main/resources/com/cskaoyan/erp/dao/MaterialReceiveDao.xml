@@ -1,27 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.MaterialReceiveDao">
-        <select id="CountOfMaterialReceive" resultType="_int">
-      select count(*) FROM material_receive
-   </select>
-    <select id="selectMaterialId" resultType="material">
-      select material_id as materialId FROM material
-   </select>
-        <select id="selectMaterialReceive" resultType="materialReceive">
-        select    receive_id As receiveId,
-             material_id As materialId,
-             amount,
-              receive_date As receiveDate,
-               sender,
-                receiver,
-             note
-         from material_receive
+    <resultMap id="BaseResultMap" type="com.cskaoyan.erp.model.MaterialReceive">
+
+        <id column="receive_id" jdbcType="VARCHAR" property="receiveId" />
+        <result column="material_id" jdbcType="VARCHAR" property="materialId" />
+        <result column="amount" jdbcType="INTEGER" property="amount" />
+        <result column="receive_date" jdbcType="TIMESTAMP" property="receiveDate" />
+        <result column="sender" jdbcType="VARCHAR" property="sender" />
+        <result column="receiver" jdbcType="VARCHAR" property="receiver" />
+        <result column="note" jdbcType="VARCHAR" property="note" />
+    </resultMap>
+    <sql id="Base_Column_List">
+
+        receive_id, material_id, amount, receive_date, sender, receiver, note
+    </sql>
+
+    <select id="selectAll" resultMap="MaterialRecieveMap">
+    SELECT
+    receive_id, amount, receive_date, sender, receiver, material_receive.note as rnote, material.*
+    FROM material_receive
+    LEFT JOIN material
+    ON material_receive.material_id = material.material_id
+  </select>
+    <resultMap id="MaterialRecieveMap" type="com.cskaoyan.erp.model.MaterialReceive">
+        <id column="receive_id" jdbcType="VARCHAR" property="receiveId" />
+        <result column="material_id" jdbcType="VARCHAR" property="materialId" />
+        <result column="amount" jdbcType="INTEGER" property="amount" />
+        <result column="receive_date" jdbcType="TIMESTAMP" property="receiveDate" />
+        <result column="sender" jdbcType="VARCHAR" property="sender" />
+        <result column="receiver" jdbcType="VARCHAR" property="receiver" />
+        <result column="note" jdbcType="VARCHAR" property="note" />
+        <association property="material" javaType="com.cskaoyan.erp.model.Material">
+            <id column="material_id" jdbcType="VARCHAR" property="materialId" />
+            <result column="material_type" jdbcType="VARCHAR" property="materialType" />
+            <result column="status" jdbcType="VARCHAR" property="status" />
+            <result column="remaining" jdbcType="INTEGER" property="remaining" />
+            <result column="note" jdbcType="VARCHAR" property="note" />
+        </association>
+
+    </resultMap>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="MaterialRecieveMap">
+        SELECT
+        receive_id, amount, receive_date, sender, receiver, material_receive.note AS rnote, material.*
+        FROM material_receive, material
+        WHERE receive_id = #{receiveId,jdbcType=VARCHAR} AND material_receive.`material_id` = material.`material_id`
     </select>
-     <insert id="addMaterialReceive" parameterType="materialReceive">
+    <select id="selectLikeReceiveId" resultMap="MaterialRecieveMap">
+    SELECT
+    receive_id, amount, receive_date, sender, receiver, material_receive.note AS rnote, material.*
+    FROM material_receive, material
+    WHERE material_receive.`material_id` = material.`material_id` and receive_id like CONCAT('%',#{receiveId},'%')
+  </select>
+
+    <select id="selectLikeMaterialId" resultMap="MaterialRecieveMap">
+    SELECT
+    receive_id, amount, receive_date, sender, receiver, material_receive.note AS rnote, material.*
+    FROM material_receive, material
+    WHERE material_receive.`material_id` = material.`material_id`
+    and material.material_id like CONCAT('%',#{materialId},'%')
+  </select>
+    <select id="selectMaterialId"  resultType="material">
+        SELECT
+        material_id as materialId
+        FROM  material
+    </select>
+    <insert id="addMaterialReceive" parameterType="materialReceive">
          insert into material_receive (receive_id,material_id,amount,receive_date,sender,
     receiver,note) value (#{materialReceive.receiveId},#{materialReceive.materialId},#{materialReceive.amount}
     ,#{materialReceive.receiveDate},#{materialReceive.sender},#{materialReceive.receiver},#{materialReceive.note})
      </insert>
+    <update id="updateReceive" parameterType="materialReceive">
+    update material_receive
+    set material_id = #{materialReceive.materialId,jdbcType=VARCHAR},
+      amount = #{materialReceive.amount,jdbcType=INTEGER},
+      receive_date = #{materialReceive.receiveDate,jdbcType=TIMESTAMP},
+      sender = #{materialReceive.sender,jdbcType=VARCHAR},
+      receiver = #{materialReceive.receiver,jdbcType=VARCHAR},
+      note = #{materialReceive.note,jdbcType=VARCHAR}
+    where receive_id = #{materialReceive.receiveId,jdbcType=VARCHAR}
+  </update>
+    <update id="updateReceiveNote" parameterType="materialReceive">
+        update material_receive
+        <set>
+            note=#{materialReceive.note}
+        </set>
+        where receive_id=#{materialReceive.receiveId}
+    </update>
+    <delete id="deleteById">
 
-
+          delete from material_receive where receive_id = #{id}
+    </delete>
 </mapper>
