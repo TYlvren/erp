@@ -40,5 +40,39 @@
 			      device_check_id=#{deviceCheck.deviceCheckId}
       </update>
 
+      <delete id="deleteDeviceCheck">
+            DELETE FROM
+                  device_check
+            WHERE
+                  device_check_id=#{id}
+      </delete>
+
+      <select id="findDeviceCheckById" resultType="deviceCheck">
+            SELECT
+                  device_check_id deviceCheckId,
+                  device_id deviceId,
+                  device_check_emp_id deviceCheckEmpId,
+                  device_check_date deviceCheckDate,
+                  device_check_result deviceCheckResult,
+                  device_check_fault_id deviceCheckFaultId
+            FROM
+                  device_check
+            WHERE
+                  device_check_id like '%${id}%'
+      </select>
+
+      <select id="getDeviceCheckById" resultType="deviceCheck">
+            SELECT
+                  device_check_id deviceCheckId,
+                  device_id deviceId,
+                  device_check_emp_id deviceCheckEmpId,
+                  device_check_date deviceCheckDate,
+                  device_check_result deviceCheckResult,
+                  device_check_fault_id deviceCheckFaultId
+            FROM
+                  device_check
+            WHERE
+                  device_check_id = #{id}
+      </select>
 
 </mapper>
