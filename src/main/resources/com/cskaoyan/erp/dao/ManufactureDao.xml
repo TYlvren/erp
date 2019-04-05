@@ -56,4 +56,27 @@
         </choose>
     </select>
 
+    <insert id="insertManufacture">
+        insert into manufacture
+        (manufacture_sn ,order_id ,technology_id,launch_quantity,
+        begin_date,end_date)
+        values (#{manufactureSn},#{cOrder.orderId},#{technology.technologyId},
+        #{launchQuantity},#{beginDate},#{endDate});
+    </insert>
+
+    <update id="updateManufacture">
+      update manufacture
+      set order_id=#{cOrder.orderId} ,technology_id=#{technology.technologyId},
+      launch_quantity=#{launchQuantity},begin_date=#{beginDate},end_date=#{endDate}
+      where manufacture_sn = #{manufactureSn}
+    </update>
+
+    <delete id="deleteManufactureByIds" >
+        delete from manufacture
+        <where>
+            <foreach collection="array" item="id" close=";">
+                or manufacture_sn = #{id}
+            </foreach>
+        </where>
+    </delete>
 </mapper>

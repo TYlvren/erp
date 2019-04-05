@@ -75,6 +75,12 @@ public interface ErpService {
     List<Manufacture> findManufactureBySearch(String condition, String searchValue);
     Manufacture findManufactureById(String id);
 
+    int addManufacture(Manufacture manufacture);
+
+    int editManufacture(Manufacture manufacture);
+
+    int deleteManufacture(String[] ids);
+
     /**------------------------------Work--------------------------------*/
     List<Work> findWork();
     List<Work> findWorkBySearch(String condition, String searchValue);
