@@ -149,6 +149,11 @@ public interface ErpService {
 
     //工序计数质检模块相关方法
 
+    List<ProcessCountCheck>findPCountCheckService();
+    int  addPCountCheckService(ProcessCountCheck processCountCheck);
+    int  updatePCountCheckService(ProcessCountCheck processCountCheck);
+    int deletePCountCheckService(String[] ids);
+    int updateNotePCountCheckService(String pCountCheckId,String note);
 
     /*****************人员监控接口实现*************************************/
     //部门管理模块
