@@ -150,6 +150,11 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
+    public List<Work> findWorkBySearch(String condition, String searchValue) {
+        return workDao.selectWorkBySearch(condition,searchValue);
+    }
+
+    @Override
     public Work findWorkById(String id) {
         return workDao.selectWorkById(id);
     }

@@ -76,6 +76,7 @@ public interface ErpService {
 
     /**------------------------------Work--------------------------------*/
     List<Work> findWork();
+    List<Work> findWorkBySearch(String condition, String searchValue);
     Work findWorkById(String id);
     int addWork(Work work);
 
@@ -187,6 +188,7 @@ public interface ErpService {
     int addDepartment( Department department);
     int editDepartment(Department department);
     int deleteDepartment(String[] ids);
+
 
 
 

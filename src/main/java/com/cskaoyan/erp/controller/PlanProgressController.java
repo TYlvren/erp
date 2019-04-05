@@ -390,6 +390,14 @@ public class PlanProgressController {
         return erpService.findWorkById(id);
     }
 
+    /**Work的模糊查找*/
+    @RequestMapping("work/search_work_by_work{condition}")
+    @ResponseBody
+    public Object findPageWorkBySearch(@RequestParam int page,@RequestParam int rows,
+                                          String searchValue,@PathVariable String condition){
+        return erpService.findWorkBySearch(condition,searchValue);
+    }
+
     /**
      * 添加Work的controller
      */
