@@ -508,11 +508,30 @@ public class DeviceController {
         return map;
     }
 
+    @RequestMapping("deviceCheck/search_deviceCheck_by_deviceName")
+    public @ResponseBody Map<String, Object> searchDeviceCheckByNameData(@RequestParam int page, int rows, String searchValue) {
+        PageHelper.startPage(page, rows, true);
+        List<DeviceCheck> list = erpService.findDeviceCheckByName(searchValue);
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
+    }
 
-
-
-
-
+    @RequestMapping("deviceCheck/update_note")
+    public @ResponseBody Map<String, String> updateDeviceCheckNote(DeviceCheck deviceCheck) {
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.updateDeviceCheckNote(deviceCheck);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
+    }
 
 
     /*---------设备故障模块------------------------------------------------------------------------*/

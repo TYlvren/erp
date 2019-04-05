@@ -298,6 +298,16 @@ public class ErpServiceImpl implements ErpService {
         return deviceCheckDao.getDeviceCheckById(id);
     }
 
+    @Override
+    public List<DeviceCheck> findDeviceCheckByName(String searchValue) {
+        return deviceCheckDao.getDeviceCheckByName(searchValue);
+    }
+
+    @Override
+    public int updateDeviceCheckNote(DeviceCheck deviceCheck) {
+        return deviceCheckDao.updateDeviceCheckByNote(deviceCheck);
+    }
+
     /*-------------设备故障模块------------------------------------------------*/
     @Override
     public List<DeviceFault> findAllDeviceFaultByPage() {
