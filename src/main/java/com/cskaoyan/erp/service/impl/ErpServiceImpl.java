@@ -431,52 +431,73 @@ public class ErpServiceImpl implements ErpService {
         return unQualifyApplyDao.updateNoteByUnqualifyApplyIdDao(unqualifyApplyId,note);
     }
 //-------------------------成品计量质检--------------------------------------
-//************注入Dao
+        //************注入Dao
 @Autowired
 private FinalMeasureCheckDao finalMeasureCheckDao;
-////    //***********查询工序计数质检列表
-
+        //***********查询产品计量质检列表
     @Override
     public List<FinalMeasureCheck> findFMeasureCheck() {
         return finalMeasureCheckDao.findFMeasureCheckDao();
     }
+        //**********添加成品计量质检记录
+    @Override
+    public int addFMeasureCheckService(FinalMeasureCheck finalMeasureCheck) {
+        return finalMeasureCheckDao.insertFMeasureCheckDao(finalMeasureCheck);
+    }
+        //**********修改成品计量质检记录
+    @Override
+    public int updateFMeasureCheckService(FinalMeasureCheck finalMeasureCheck) {
+        return finalMeasureCheckDao.updateFMeasureCheckDao(finalMeasureCheck);
+    }
+        //*********删除成品计量质检记录
+    @Override
+    public int deleteFMeasureCheckService(String[] ids) {
+        return finalMeasureCheckDao.deleteFMeasureCheckDao(ids);
+    }
+        //***********修改备注成品计量质检记录
+    @Override
+    public int updateNoteFMeasureCheckService(String fMeasureCheckId, String note) {
+        return finalMeasureCheckDao.updateNoteFMeasureCheckDao(fMeasureCheckId, note);
+    }
 
-//
-//    @Override
-//    public List<ProcessCountCheck> findPCountCheckService() {
-//        return processCountCheckDao.findPCountCheckDao();
-//    }
-//
-////    //**********添加工序计数质检记录
-//
-//    @Override
-//    public int addPCountCheckService(ProcessCountCheck processCountCheck) {
-//        return processCountCheckDao.insertPCountCheckDao(processCountCheck);
-//    }
-//
-////    //**********修改工序计数质检记录
-//
-//    @Override
-//    public int updatePCountCheckService(ProcessCountCheck processCountCheck) {
-//        return processCountCheckDao.updatePCountCheckDao(processCountCheck);
-//    }
-//
-////    //*********删除工序计数质检记录
-//
-//    @Override
-//    public int deletePCountCheckService(String[] ids) {
-//        return processCountCheckDao.deletePCountCheckDao(ids);
-//    }
-//
-////    //***********修改备注工序计量质检记录
-//
-//    @Override
-//    public int updateNotePCountCheckService(String pCountCheckId, String note) {
-//        return processCountCheckDao.updateNotePCountCheckDao(pCountCheckId, note);
-//    }
+    //-------------------------成品计数质检--------------------------------------
+    //************注入Dao
+    @Autowired
+    private FinalCountCheckDao finalCountCheckDao;
+    //***********查询成品计数质检列表
 
+    @Override
+    public List<FinalCountCheck> findFCountCheck() {
+        return finalCountCheckDao.findFCountCheckDao();
+    }
 
-//-------------------------成品计数质检--------------------------------------
+    //**********添加成品计数质检记录
+
+    @Override
+    public int addFCountCheckService(FinalCountCheck finalCountCheck) {
+        return finalCountCheckDao.insertFCountCheckDao(finalCountCheck);
+    }
+//    //**********修改成品计数质检记录
+
+    @Override
+    public int updateFCountCheckService(FinalCountCheck finalCountCheck) {
+        return finalCountCheckDao.updateFCountCheckDao(finalCountCheck);
+    }
+
+//    //*********删除成品计数质检记录
+
+    @Override
+    public int deleteFCountCheckService(String[] ids) {
+        return finalCountCheckDao.deleteFCountCheckDao(ids);
+    }
+
+//    //***********修改备注成品计数质检记录
+
+    @Override
+    public int updateNoteFCountCheckService(String fCountCheckId, String note) {
+        return finalCountCheckDao.updateNoteFCountCheckDao(fCountCheckId, note);
+    }
+
 //-------------------------工序计量质检--------------------------------------
     //************注入Dao
     @Autowired

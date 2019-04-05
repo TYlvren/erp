@@ -143,12 +143,16 @@ public interface ErpService {
     int updateNoteUnqualifyService(String unqualifyApplyId,String note);
     //成品计量质检模块相关方法
      List<FinalMeasureCheck>findFMeasureCheck();
-//    int  addPCountCheckService(ProcessCountCheck processCountCheck);
-//    int  updatePCountCheckService(ProcessCountCheck processCountCheck);
-//    int deletePCountCheckService(String[] ids);
-//    int updateNotePCountCheckService(String pCountCheckId,String note);
+    int  addFMeasureCheckService(FinalMeasureCheck finalMeasureCheck);
+    int  updateFMeasureCheckService(FinalMeasureCheck finalMeasureCheck);
+    int deleteFMeasureCheckService(String[] ids);
+    int updateNoteFMeasureCheckService(String fMeasureCheckId,String note);
     //成品计数质检模块相关方法
-
+    List<FinalCountCheck>findFCountCheck();
+    int  addFCountCheckService(FinalCountCheck finalCountCheck);
+    int  updateFCountCheckService(FinalCountCheck finalCountCheck);
+    int deleteFCountCheckService(String[] ids);
+    int updateNoteFCountCheckService(String fCountCheckId,String note);
 
     //工序计量质检模块相关方法
     List<ProcessMeasureCheck>findPMeasureCheck();

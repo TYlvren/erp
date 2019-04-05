@@ -282,7 +282,6 @@ public class TechnologyController {
     @RequestMapping("technology/get_data")
     @ResponseBody
     public List<Technology> testcase29(){
-        System.out.println("get_data");
         List<Technology> technologies = technologyDao.selectTechnology();
         return technologies;
     }

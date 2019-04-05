@@ -21,7 +21,8 @@
 	            <td>
 	            	<input class="easyui-combobox" name="orderId"   
     					data-options="valueField:'orderId',textField:'orderId',url:'order/get_data',required:true, 
-    						editable:false, required:true"/>
+    						editable:false, required:true" value="000006"/>
+					<%--自定义数值--%>
 	            </td>
 	        </tr>
 	        <tr>
@@ -72,7 +73,8 @@
 	            <td>
 	            	<input class="easyui-combobox" name="empId" panelHeight="auto" 
     					data-options="required:true,editable:false,valueField:'empId',textField:'empName',
-    						url:'employee/get_data'"/>
+    						url:'employee/get_data'" value="005"/>
+					<%--自定义数值--%>
     			</td>  
 	        </tr>
 	          <tr>
