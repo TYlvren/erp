@@ -119,6 +119,11 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
+    public List<Product> findProductBySearch(String condition, String searchValue) {
+        return productDao.selectProductBySearch(condition,searchValue);
+    }
+
+    @Override
     public Product findProductById(String id) {
         return productDao.selectProductById(id);
     }

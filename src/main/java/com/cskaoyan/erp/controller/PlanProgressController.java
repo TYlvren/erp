@@ -242,7 +242,9 @@ public class PlanProgressController {
     }
 
     /*****************Product控制层*************************************/
-
+    /**
+     * 查找商品的controller
+     */
     @RequestMapping("product/find")
     public String toProductList(HttpSession session) {
         List<String> sysPermissionList = new ArrayList<>();
@@ -270,6 +272,15 @@ public class PlanProgressController {
     @ResponseBody
     public List<Product> getProductData() {
         return erpService.findProduct();
+    }
+
+
+    /**Product的模糊查找*/
+    @RequestMapping("product/search_product_by_product{condition}")
+    @ResponseBody
+    public Object findPageProductBySearch(@RequestParam int page,@RequestParam int rows,
+                                         String searchValue,@PathVariable String condition){
+        return erpService.findProductBySearch(condition,searchValue);
     }
 
     /**

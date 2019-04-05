@@ -63,6 +63,7 @@ public interface ErpService {
 
     /**------------------------------Product--------------------------------*/
     List<Product> findProduct();
+    List<Product> findProductBySearch(String condition, String searchValue);
     Product findProductById(String id);
     int addProduct(Product product);
     int editProduct(Product product);
@@ -186,7 +187,6 @@ public interface ErpService {
     int addDepartment( Department department);
     int editDepartment(Department department);
     int deleteDepartment(String[] ids);
-
 
 
 
