@@ -41,17 +41,18 @@ public class DeviceController {
         return erpService.findServiceDeviceById(id);
     }
 
-    /*@RequestMapping("employee/get/{id}")
+    @RequestMapping("employee/get/{id}")
     @ResponseBody
-    public Device getEmploy(@PathVariable("id")String id) {
-        return erpService.findServiceDeviceById(id);
-    }*/
+    public Employee getEmploy(@PathVariable("id")String id) {
+        return erpService.findEmployeeById(id);
+    }
 
     /*@RequestMapping("order/get/{id}")
     @ResponseBody
     public Employee getOrder(@PathVariable("id") String id) {
         return erpService.;
     }*/
+
 
     @RequestMapping("device/deviceList")
     public String findAllDeviceByPage(HttpSession session) {
@@ -64,7 +65,7 @@ public class DeviceController {
     }
 
     @RequestMapping("/deviceList/list")
-    public @ResponseBody   Map<String, Object> findAllDeviceByPageData(@RequestParam int page, int rows) {
+    public @ResponseBody Map<String, Object> findAllDeviceByPageData(int page, int rows) {
         PageHelper.startPage(page, rows, true);
 
         List<Device> list = erpService.findDeviceByPage();
@@ -97,7 +98,7 @@ public class DeviceController {
      * @param device
      * @return 添加成功则返回200状态码，失败则返回提示信息，添加失败
      */
-    @RequestMapping("deviceList/insert")
+    @RequestMapping(value = "deviceList/insert")
     public @ResponseBody Map<String, String> insertDevice(Device device) {
         System.out.println(device);
         Map<String, String> map = new HashMap<>();
@@ -137,6 +138,19 @@ public class DeviceController {
     public @ResponseBody Map<String, String> updateDeviceNote(Device device) {
         Map<String, String> map = new HashMap<>();
         int i = erpService.updateDeviceNote(device);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
+    }
+
+    @RequestMapping(value = "deviceList/update_all")
+    public @ResponseBody Map<String, String> updateAllDevice(Device device) {
+
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.updateDevice(device);
         if (i > 0) {
             map.put("status", "200");
         } else {
@@ -296,7 +310,6 @@ public class DeviceController {
      */
     @RequestMapping("deviceType/insert")
     public @ResponseBody Map<String, String> insert(DeviceType deviceType) {
-        //System.out.println("iiiiiii");
         Map<String, String> map = new HashMap<>();
         int i = erpService.insertDeviceType(deviceType);
         if (i > 0) {

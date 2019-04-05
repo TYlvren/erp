@@ -16,13 +16,13 @@ public class Device {
 
     private String deviceStatus;
 
-    private String devicePurchaseDate;
+    private Date devicePurchaseDate;
 
-    private int devicePurchasePrice;
+    private String devicePurchasePrice;
 
-    private String deviceManufactureDate;
+    private Date deviceManufactureDate;
 
-    private String deviceServiceLife;
+    private Date deviceServiceLife;
 
     private String deviceKeeperId;
 
@@ -31,6 +31,30 @@ public class Device {
     private String deviceTypeName;
 
     private String deviceKeeper;
+
+    public Date getDevicePurchaseDate() {
+        return devicePurchaseDate;
+    }
+
+    public void setDevicePurchaseDate(Date devicePurchaseDate) {
+        this.devicePurchaseDate = devicePurchaseDate;
+    }
+
+    public Date getDeviceManufactureDate() {
+        return deviceManufactureDate;
+    }
+
+    public void setDeviceManufactureDate(Date deviceManufactureDate) {
+        this.deviceManufactureDate = deviceManufactureDate;
+    }
+
+    public Date getDeviceServiceLife() {
+        return deviceServiceLife;
+    }
+
+    public void setDeviceServiceLife(Date deviceServiceLife) {
+        this.deviceServiceLife = deviceServiceLife;
+    }
 
     public String getDeviceId() {
         return deviceId;
@@ -72,36 +96,12 @@ public class Device {
         this.deviceStatus = deviceStatus;
     }
 
-    public String getDevicePurchaseDate() {
-        return devicePurchaseDate;
-    }
-
-    public void setDevicePurchaseDate(String devicePurchaseDate) {
-        this.devicePurchaseDate = devicePurchaseDate;
-    }
-
-    public int getDevicePurchasePrice() {
+    public String getDevicePurchasePrice() {
         return devicePurchasePrice;
     }
 
-    public void setDevicePurchasePrice(int devicePurchasePrice) {
+    public void setDevicePurchasePrice(String devicePurchasePrice) {
         this.devicePurchasePrice = devicePurchasePrice;
-    }
-
-    public String getDeviceManufactureDate() {
-        return deviceManufactureDate;
-    }
-
-    public void setDeviceManufactureDate(String deviceManufactureDate) {
-        this.deviceManufactureDate = deviceManufactureDate;
-    }
-
-    public String getDeviceServiceLife() {
-        return deviceServiceLife;
-    }
-
-    public void setDeviceServiceLife(String deviceServiceLife) {
-        this.deviceServiceLife = deviceServiceLife;
     }
 
     public String getDeviceKeeperId() {
@@ -139,7 +139,7 @@ public class Device {
     public Device() {
     }
 
-    public Device(String deviceId, String deviceName, String deviceTypeId, String deviceStatusId, String deviceStatus, String devicePurchaseDate, int devicePurchasePrice, String deviceManufactureDate, String deviceServiceLife, String deviceKeeperId, String note) {
+    public Device(String deviceId, String deviceName, String deviceTypeId, String deviceStatusId, String deviceStatus, Date devicePurchaseDate, String devicePurchasePrice, Date deviceManufactureDate, Date deviceServiceLife, String deviceKeeperId, String note) {
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.deviceTypeId = deviceTypeId;
