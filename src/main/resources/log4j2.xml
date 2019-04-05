@@ -3,22 +3,102 @@
 <!-- OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
 <Configuration status="WARN">
 <Appenders>
+    <!-- 控制台输出 -->
     <Console name="Console" target="SYSTEM_OUT">
-        <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %l %msg%n"/>
+        <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
     </Console>
+   <!-- <RollingFile name="RollingFileDebug" fileName="${web:rootDir}/logs/debug.log"
+                 filePattern="${web:rootDir}/logs/$${date:yyyy-MM}/debug-%d{yyyy-MM-dd}-%i.log">
+        &lt;!&ndash;控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）&ndash;&gt;
+        <Filters>
+            <ThresholdFilter level="DEBUG"/>
+            <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL"/>
+        </Filters>
+        <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+        <Policies>
+            <TimeBasedTriggeringPolicy/>
+            <SizeBasedTriggeringPolicy size="100 MB"/>
+        </Policies>
+        &lt;!&ndash;最多保留20个日志文件&ndash;&gt;
+        <DefaultRolloverStrategy max="20" min="0"/>
+    </RollingFile>
 
+    <RollingFile name="RollingFileInfo" fileName="${web:rootDir}/logs/info.log"
+                 filePattern="${web:rootDir}/logs/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+        <Filters>
+            <ThresholdFilter level="INFO"/>
+            <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+        </Filters>
+        <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+        <Policies>
+            <TimeBasedTriggeringPolicy/>
+            <SizeBasedTriggeringPolicy size="100 MB"/>
+        </Policies>
+        &lt;!&ndash;最多保留20个日志文件&ndash;&gt;
+        <DefaultRolloverStrategy max="20" min="0"/>
+    </RollingFile>
+
+    <RollingFile name="RollingFileWarn" fileName="${web:rootDir}/logs/warn.log"
+                 filePattern="${web:rootDir}/logs/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
+        <Filters>
+            <ThresholdFilter level="WARN"/>
+            <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+        </Filters>
+        <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+        <Policies>
+            <TimeBasedTriggeringPolicy/>
+            <SizeBasedTriggeringPolicy size="100 MB"/>
+        </Policies>
+        &lt;!&ndash;最多保留20个日志文件&ndash;&gt;
+        <DefaultRolloverStrategy max="20" min="0"/>
+    </RollingFile>
+
+    <RollingFile name="RollingFileError" fileName="${web:rootDir}/logs/error.log"
+                 filePattern="${web:rootDir}/logs/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
+        <ThresholdFilter level="ERROR"/>
+        <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+        <Policies>
+            <TimeBasedTriggeringPolicy/>
+            <SizeBasedTriggeringPolicy size="100 MB"/>
+        </Policies>
+        &lt;!&ndash;最多保留20个日志文件&ndash;&gt;
+        <DefaultRolloverStrategy max="20" min="0"/>
+    </RollingFile>
+
+    <RollingFile name="RollingFileFatal" fileName="${web:rootDir}/logs/fatal.log"
+                 filePattern="${web:rootDir}/logs/$${date:yyyy-MM}/fatal-%d{yyyy-MM-dd}-%i.log">
+        <ThresholdFilter level="FATAL"/>
+        <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+        <Policies>
+            <TimeBasedTriggeringPolicy/>
+            <SizeBasedTriggeringPolicy size="100 MB"/>
+        </Policies>
+        &lt;!&ndash;最多保留20个日志文件&ndash;&gt;
+        <DefaultRolloverStrategy max="20" min="0"/>
+    </RollingFile>-->
 </Appenders>
+    <Loggers>
+        <!--过滤掉simm.spring.restapi一些无用的DEBUG信息-->
+        <logger name="simm.spring.restapi" level="INFO"></logger>
+        <Root level="all">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileDebug"/>
+            <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileWarn"/>
+            <appender-ref ref="RollingFileError"/>
+            <appender-ref ref="RollingFileFatal"/>
+        </Root>
+    </Loggers>
+    <loggers>
+        <!--过滤掉simm.spring.restapi一些无用的DEBUG信息-->
+        <logger name="simm.spring.restapi" level="INFO"></logger>
+        <!-- 将业务dao接口填写进去,并用控制台输出即可 -->
+        <logger name="com.cskaoyan.erp.dao" level="DEBUG" additivity="false">
+            <appender-ref ref="Console"/>
+        </logger>
 
-<Loggers>
-    <!--过滤掉simm.spring.restapi一些无用的DEBUG信息-->
-    <logger name="simm.spring.restapi" level="INFO"/>
-
-    <Root level="error">
-        <AppenderRef ref="Console"/>
-    </Root>
-    <!-- 将业务dao接口填写进去,并用控制台输出即可 -->
-    <Logger name="com.cskaoyan.erp.dao" level="TRACE" additivity="false">
-        <AppenderRef ref="Console"/>
-    </Logger>
-</Loggers>
+        <root level="info">
+            <appender-ref ref="Console"/>
+        </root>
+    </loggers>
 </Configuration>

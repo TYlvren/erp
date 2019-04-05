@@ -14,15 +14,43 @@
         <association property="product" column="product_id" javaType="product"
                      select="com.cskaoyan.erp.dao.ProductDao.selectProductById"/>
         <association property="process" column="process_id" javaType="process"
-                     select=""/>
+                     select="com.cskaoyan.erp.dao.ProcessDao.selectProcessById"/>
         <association property="device" column="device_id" javaType="device"
-                     select=""/>
+                     select="com.cskaoyan.erp.dao.DeviceDao.findServiceDeviceById"/>
     </resultMap>
+
     <select id="selectAllWork" resultMap="workMap">
         select
-        work_id,process_number,product_id,process_id ,device_id,rating
-        from work;
+        work_id,process_number,product_id,process_id,device_id,rating
+        from `work`
     </select>
 
+    <select id="selectWorkById" resultMap="workMap">
+        select
+        work_id,process_number,product_id,process_id ,device_id,rating
+        from `work`
+        where work_id=#{id}
+    </select>
 
+    <insert id="insertWork">
+        insert into work
+        (work_id,process_number,product_id,process_id,device_id,rating)
+        value (#{workId},#{processNumber},#{product.productId},#{process.processId},
+        #{device.deviceId},#{rating})
+    </insert>
+
+    <update id="updateWork">
+        update work
+        set process_number=#{processNumber},product_id=#{product.productId},process_id=#{process.processId},
+        device_id=#{device.deviceId},rating=#{rating}
+        where work_id=#{id}
+    </update>
+    <delete id="deleteWorkByIds">
+        delete from work
+        <where>
+            <foreach collection="array" item="id" close=";">
+                or work_id=#{id}
+            </foreach>
+        </where>
+    </delete>
 </mapper>

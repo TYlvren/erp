@@ -4,9 +4,7 @@ import com.cskaoyan.erp.model.*;
 import com.cskaoyan.erp.service.ErpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -20,11 +18,11 @@ import java.util.Map;
  */
 @Controller
 public class PlanProgressController {
-
-
-    /*****************Order控制层*************************************/
     @Autowired
     private ErpService erpService;
+
+    /*****************Order控制层*************************************/
+
 
     @RequestMapping("order/find")
     public String toOrderList(HttpSession session) {
@@ -38,7 +36,7 @@ public class PlanProgressController {
 
     @ResponseBody
     @RequestMapping("order/list")
-    public List<COrder> findOrder() {
+    public Object findPageOrder(@RequestParam int page, @RequestParam int rows) {
         return erpService.findCOrder();
     }
 
@@ -46,6 +44,12 @@ public class PlanProgressController {
     @ResponseBody
     public COrder getOrder(@PathVariable("id") String id) {
         return erpService.findCOrderById(id);
+    }
+
+    @ResponseBody
+    @RequestMapping("order/get_data")
+    public List<COrder> getOrderData() {
+        return erpService.findCOrder();
     }
 
     /**
@@ -114,7 +118,14 @@ public class PlanProgressController {
         return map;
     }
 
-
+    /**Order的模糊查找*/
+    @RequestMapping("order/search_order_by_order{condition}")
+    @ResponseBody
+    public Object findPageOrderBySearch(@RequestParam int page,@RequestParam int rows,
+                                        String searchValue,@PathVariable String condition){
+        List<COrder> list = erpService.findCOrderBySearch(condition,searchValue);
+        return list;
+    }
 
     /*****************Custom控制层*************************************/
     /**
@@ -138,7 +149,7 @@ public class PlanProgressController {
 
     @ResponseBody
     @RequestMapping("custom/list")
-    public List<Custom> findCustom() {
+    public Object findPageCustom(@RequestParam int page,@RequestParam int rows) {
         return erpService.findCustom();
     }
 
@@ -148,6 +159,14 @@ public class PlanProgressController {
         return erpService.findCustom();
     }
 
+
+    /**Custom的模糊查找*/
+    @RequestMapping("custom/search_custom_by_custom{condition}")
+    @ResponseBody
+    public Object findPageCustomBySearch(@RequestParam int page,@RequestParam int rows,
+                                        String searchValue,@PathVariable String condition){
+        return erpService.findCustomBySearch(condition,searchValue);
+    }
 
     /**
      * 添加Custom的controller
@@ -216,7 +235,6 @@ public class PlanProgressController {
         Map<String, String> map = new HashMap<>();
         map.put("status", "200");
         int i = erpService.deleteCustom(ids);
-
         if (i != ids.length) {
             map.put("msg", "异常");
         }
@@ -224,7 +242,9 @@ public class PlanProgressController {
     }
 
     /*****************Product控制层*************************************/
-
+    /**
+     * 查找商品的controller
+     */
     @RequestMapping("product/find")
     public String toProductList(HttpSession session) {
         List<String> sysPermissionList = new ArrayList<>();
@@ -244,10 +264,24 @@ public class PlanProgressController {
 
     @RequestMapping("product/list")
     @ResponseBody
-    public List<Product> findProduct() {
+    public Object findPageProduct(@RequestParam int page,@RequestParam int rows) {
         return erpService.findProduct();
     }
 
+    @RequestMapping("product/get_data")
+    @ResponseBody
+    public List<Product> getProductData() {
+        return erpService.findProduct();
+    }
+
+
+    /**Product的模糊查找*/
+    @RequestMapping("product/search_product_by_product{condition}")
+    @ResponseBody
+    public Object findPageProductBySearch(@RequestParam int page,@RequestParam int rows,
+                                         String searchValue,@PathVariable String condition){
+        return erpService.findProductBySearch(condition,searchValue);
+    }
 
     /**
      * 添加商品的controller
@@ -292,7 +326,7 @@ public class PlanProgressController {
     @ResponseBody
     public Map<String, String> updateProduct(Product product) {
         int i = erpService.editProduct(product);
-        return getStatusMap(i );
+        return getStatusMap(i);
     }
 
 
@@ -314,20 +348,19 @@ public class PlanProgressController {
         Map<String, String> map = new HashMap<>();
         map.put("status", "200");
         int i = erpService.deleteProduct(ids);
-        if(i != ids.length) {
+        if (i != ids.length) {
             map.put("msg", "删除异常");
         }
         return map;
     }
 
-    @RequestMapping("product/get_data")
-    @ResponseBody
-    public List<Product> getProductData() {
-        return erpService.findProduct();
-    }
+
 
     /*****************Work控制层*************************************/
 
+    /**
+     * 查找Work的controller
+     */
     @RequestMapping("work/find")
     public String toWorkList(HttpSession session) {
         List<String> sysPermissionList = new ArrayList<>();
@@ -340,10 +373,86 @@ public class PlanProgressController {
 
     @RequestMapping("work/list")
     @ResponseBody
-    public List<Work> findWork() {
+    public Object findPageWork(@RequestParam int page,@RequestParam int rows) {
         return erpService.findWork();
     }
 
+    @RequestMapping("work/get_data")
+    @ResponseBody
+    public List<Work> getWorkData() {
+        return erpService.findWork();
+    }
+
+    @RequestMapping("work/get/{id}")
+    @ResponseBody
+    public Work getWork(@PathVariable("id") String id) {
+
+        return erpService.findWorkById(id);
+    }
+
+    /**
+     * 添加Work的controller
+     */
+    @RequestMapping("work/add_judge")
+    @ResponseBody
+    public Map<String, String> addWorkJudge(Work work) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("work/add")
+    public String addWork() {
+        return "work_add";
+    }
+
+    @RequestMapping("work/insert")
+    @ResponseBody
+    public Map<String, String> insertWork(Work work) {
+        int i = erpService.addWork(work);
+        return getStatusMap(i);
+    }
+
+    /**
+     * 编辑Work的controller
+     */
+    @RequestMapping("work/edit_judge")
+    @ResponseBody
+    public Map<String, String> editWorkJudge(Work work) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("work/edit")
+    public String editWork() {
+        return "work_edit";
+    }
+
+    @RequestMapping("work/update_all")
+    @ResponseBody
+    public Map<String, String> updateWork(Work work) {
+        int i = erpService.editWork(work);
+        return getStatusMap(i);
+    }
+
+
+    /**
+     * 删除Work的controller
+     */
+    @RequestMapping("work/delete_judge")
+    @ResponseBody
+    public Map<String, String> deleteWorkJudge(Work work) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("work/delete_batch")
+    @ResponseBody
+    public Map<String, String> deleteWorkBatch(String[] ids) {
+        Map<String, String> map = new HashMap<>();
+        map.put("status", "200");
+        int i = erpService.deleteWork(ids);
+        if (i != ids.length) {
+            map.put("msg", "异常");
+        }
+        return map;
+    }
 
     /*****************Manufacture控制层*************************************/
     @RequestMapping("manufacture/find")
@@ -358,10 +467,117 @@ public class PlanProgressController {
 
     @RequestMapping("manufacture/list")
     @ResponseBody
-    public List<Manufacture> findManufacture() {
+    public Object findPageManufacture(@RequestParam int page,@RequestParam int rows) {
         return erpService.findManufacture();
     }
 
 
+    @RequestMapping("manufacture/get/{id}")
+    @ResponseBody
+    public Manufacture getManufacture(@PathVariable("id") String id) {
+        return erpService.findManufactureById(id);
+    }
+
+    @RequestMapping("manufacture/get_data")
+    @ResponseBody
+    public List<Manufacture> getManufactureData() {
+        return erpService.findManufacture();
+    }
+
     /*****************Task控制层*************************************/
+    /**
+     * 查找Task的controller
+     */
+    @RequestMapping("task/find")
+    public String toTaskList(HttpSession session) {
+        List<String> sysPermissionList = new ArrayList<>();
+        sysPermissionList.add("task:add");
+        sysPermissionList.add("task:edit");
+        sysPermissionList.add("task:delete");
+        session.setAttribute("sysPermissionList", sysPermissionList);
+        return "task_list";
+    }
+
+    @ResponseBody
+    @RequestMapping("task/list")
+    public Object findPageTask(@RequestParam int page,@RequestParam int rows) {
+        return erpService.findTask();
+    }
+
+    @RequestMapping("task/get/{id}")
+    @ResponseBody
+    public Task getTask(@PathVariable("id") String id) {
+        return erpService.findTaskById(id);
+    }
+
+    @RequestMapping("task/get_data")
+    @ResponseBody
+    public List<Task> getTaskData() {
+        return erpService.findTask();
+    }
+    /**
+     * 添加Task的controller
+     */
+    @RequestMapping("task/add_judge")
+    @ResponseBody
+    public Map<String, String> addTaskJudge(Task task) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("task/add")
+    public String addTask() {
+        return "task_add";
+    }
+
+    @RequestMapping("task/insert")
+    @ResponseBody
+    public Map<String, String> insertOrder(Task task) {
+        int i = erpService.addTask(task);
+        return getStatusMap(i);
+    }
+
+
+    /**
+     * 编辑Task的controller
+     */
+    @RequestMapping("task/edit_judge")
+    @ResponseBody
+    public Map<String, String> editOrderJudge(Task task) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("task/edit")
+    public String editTask() {
+        return "task_edit";
+    }
+
+    @RequestMapping("task/update_all")
+    @ResponseBody
+    public Map<String, String> updateTask(Task task) {
+        int i = erpService.editTask(task);
+        return getStatusMap(i);
+    }
+
+
+    /**
+     * 删除Task的controller
+     */
+    @RequestMapping("task/delete_judge")
+    @ResponseBody
+    public Map<String, String> deleteTaskJudge(Task task) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("task/delete_batch")
+    @ResponseBody
+    public Map<String, String> deleteTaskBatch(String[] ids) {
+        Map<String, String> map = new HashMap<>();
+        map.put("status", "200");
+        int i = erpService.deleteTask(ids);
+        if (i != ids.length) {
+            map.put("msg", "异常");
+        }
+        return map;
+    }
+
 }

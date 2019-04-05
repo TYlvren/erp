@@ -127,4 +127,6 @@ public class DepartmentController {
  public List<Department> getDepartmentData(){
   return erpService.findDepartment();
  }
+
+
 }

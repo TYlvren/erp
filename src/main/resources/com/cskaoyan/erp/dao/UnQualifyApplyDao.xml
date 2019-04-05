@@ -4,8 +4,8 @@
 
 
     <sql id="unqualifyColumns">
-        unqualify_apply_id as unqualifyApplyId,product_id as productId,unqualify_item as unqualifyItem,unqualify_count as unqualifyCount,
-        assembly_date as assemblyDate,emp_id as empId,apply_date as applyDate,note
+        uq.unqualify_apply_id as unqualifyApplyId,uq.product_id as productId,uq.unqualify_item as unqualifyItem,uq.unqualify_count as unqualifyCount,
+        uq.assembly_date as assemblyDate,uq.emp_id as empId,uq.apply_date as applyDate,uq.note as note,e.emp_name as empName,p.product_name as productName
     </sql>
     <sql id="unqualifyBaseColumns">
         unqualify_apply_id ,product_id ,unqualify_item ,unqualify_count ,
@@ -17,7 +17,7 @@
     <select id="findUnqualifyListDao" resultType="unQualifyApply">
         select
         <include refid="unqualifyColumns"/>
-        from unqualify_apply
+        from unqualify_apply as uq left join employee as e on uq.emp_id=e.emp_id left join product as p on uq.product_id=p.product_id
     </select>
     <!--新增不合格产品-->
     <insert id="addUnqualifyDao" parameterType="unQualifyApply">

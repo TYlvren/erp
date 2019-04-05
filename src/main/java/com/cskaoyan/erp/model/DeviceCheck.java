@@ -1,7 +1,9 @@
 package com.cskaoyan.erp.model;
 
-import java.util.Date;
+import org.springframework.stereotype.Component;
 
+import java.util.Date;
+@Component
 public class DeviceCheck {
     private String deviceCheckId;
 
@@ -14,6 +16,26 @@ public class DeviceCheck {
     private String deviceCheckResult;
 
     private String deviceCheckFaultId;
+
+    private String deviceName;
+
+    private String deviceCheckEmp;
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
+    public String getDeviceCheckEmp() {
+        return deviceCheckEmp;
+    }
+
+    public void setDeviceCheckEmp(String deviceCheckEmp) {
+        this.deviceCheckEmp = deviceCheckEmp;
+    }
 
     public String getDeviceCheckId() {
         return deviceCheckId;
@@ -63,6 +85,18 @@ public class DeviceCheck {
         this.deviceCheckFaultId = deviceCheckFaultId == null ? null : deviceCheckFaultId.trim();
     }
 
+    public DeviceCheck() {
+    }
+
+    public DeviceCheck(String deviceCheckId, String deviceId, String deviceCheckEmpId, Date deviceCheckDate, String deviceCheckResult, String deviceCheckFaultId) {
+        this.deviceCheckId = deviceCheckId;
+        this.deviceId = deviceId;
+        this.deviceCheckEmpId = deviceCheckEmpId;
+        this.deviceCheckDate = deviceCheckDate;
+        this.deviceCheckResult = deviceCheckResult;
+        this.deviceCheckFaultId = deviceCheckFaultId;
+    }
+
     @Override
     public String toString() {
         return "DeviceCheck{" +
@@ -72,6 +106,8 @@ public class DeviceCheck {
                 ", deviceCheckDate=" + deviceCheckDate +
                 ", deviceCheckResult='" + deviceCheckResult + '\'' +
                 ", deviceCheckFaultId='" + deviceCheckFaultId + '\'' +
+                ", deviceName='" + deviceName + '\'' +
+                ", deviceCheckEmp='" + deviceCheckEmp + '\'' +
                 '}';
     }
 }

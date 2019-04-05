@@ -24,6 +24,7 @@ public class TechnologyRequirement {
     public void setTechnology(Technology technology) {
         this.technology = technology;
     }
+
     public TechnologyRequirement() {
     }
 
@@ -84,7 +85,7 @@ public class TechnologyRequirement {
         this.reviseTime = reviseTime;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "TechnologyRequirement{" +
                 "technologyRequirementId='" + technologyRequirementId + '\'' +
@@ -94,6 +95,18 @@ public class TechnologyRequirement {
                 ", reviseTime=" + reviseTime +
                 ", technologyName='" + technologyName + '\'' +
                 '}';
-    }
+    }*/
 
+    @Override
+    public String toString() {
+        return "TechnologyRequirement{" +
+                "technologyRequirementId='" + technologyRequirementId + '\'' +
+                ", technologyId='" + technologyId + '\'' +
+                ", requirement='" + requirement + '\'' +
+                ", addTime=" + addTime +
+                ", reviseTime=" + reviseTime +
+                ", technologyName='" + technologyName + '\'' +
+                ", technology=" + technology +
+                '}';
+    }
 }

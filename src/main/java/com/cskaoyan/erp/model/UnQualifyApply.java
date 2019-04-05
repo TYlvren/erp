@@ -6,6 +6,7 @@ public class UnQualifyApply {
     private String unqualifyApplyId;
 
     private String productId;
+    private String productName;
 
     private String unqualifyItem;
 
@@ -14,10 +15,27 @@ public class UnQualifyApply {
     private Date assemblyDate;
 
     private String empId;
+    private String empName;
 
     private Date applyDate;
 
     private String note;
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
 
     public String getUnqualifyApplyId() {
         return unqualifyApplyId;

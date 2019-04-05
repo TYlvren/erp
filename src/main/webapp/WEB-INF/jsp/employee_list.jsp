@@ -105,7 +105,7 @@ function doSearch_employee(value,name){ //用户输入用户名,点击搜素,触
 	        title:'员工列表', singleSelect:false, collapsible:true, pagination:true, rownumbers:true, method:'get',
 			nowrap:true, toolbar:"toolbar_employee", url:'employee/list', method:'get', loadMsg:'数据加载中......',
 			fitColumns:true,//允许表格自动缩放,以适应父容器
-	        columns : [ [ 
+	        columns : [ [
 				{field : 'ck', checkbox:true },
 				{field : 'empId', width : 100, align:'center', title : '员工编号'},
 				{field : 'empName', width : 100, align : 'center', title : '员工姓名'},
@@ -119,14 +119,14 @@ function doSearch_employee(value,name){ //用户输入用户名,点击搜素,触
 				{field : 'birthday', width : 130, title : '生日', align:'center', formatter:TAOTAO.formatDate},
 				{field : 'joinDate', width : 130, title : '入职日期', align:'center', formatter:TAOTAO.formatDate},
 				{field : 'status',  width : 100, title : '员工状态', align:'center'}
-	        ] ],  
+	        ] ],
 	    });
 	}else{
 		$("#employeeList").datagrid({  
 	        title:'员工列表', singleSelect:false, collapsible:true, pagination:true, rownumbers:true, method:'get',
 			nowrap:true, toolbar:"toolbar_employee", url:'employee/search_employee_by_'+name+'?searchValue='+value,
 			loadMsg:'数据加载中......', fitColumns:true,//允许表格自动缩放,以适应父容器
-	        columns : [ [ 
+	        columns : [ [
 				{field : 'ck', checkbox:true },
 				{field : 'empId', width : 100, align:'center', title : '员工编号'},
 				{field : 'empName', width : 100, align : 'center', title : '员工姓名'},
@@ -140,7 +140,7 @@ function doSearch_employee(value,name){ //用户输入用户名,点击搜素,触
 				{field : 'birthday', width : 130, title : '生日', align:'center', formatter:TAOTAO.formatDate},
 				{field : 'joinDate', width : 130, title : '入职日期', align:'center', formatter:TAOTAO.formatDate},
 				{field : 'status',  width : 100, title : '员工状态', align:'center'}
-	        ] ],  
+	        ] ],
 	    });
 	}
 }

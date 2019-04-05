@@ -10,14 +10,32 @@
 
     <select id="selectAllCustom" resultType="custom">
         select <include refid="customColumns"/>
-        from custom;
+        from custom
     </select>
 
     <select id="selectCustomById" resultType="custom">
         select <include refid="customColumns"/>
         from custom
-        where custom_id=#{id};
+        where custom_id=#{id}
     </select>
+
+    <select id="selectCustomBySearch" resultType="custom">
+        <bind name="searchValue" value="'%' + searchValue + '%'" />
+        select <include refid="customColumns"/>
+        from custom
+        <where>
+            <choose>
+                <when test="condition == 'Id'">
+                    custom_id like #{searchValue}
+                </when>
+
+                <when test="condition == 'Name'">
+                    custom_name like #{searchValue}
+                </when>
+            </choose>
+        </where>
+    </select>
+
 
     <delete id="deleteCustomByIds">
         delete from custom
@@ -39,6 +57,6 @@
         update custom
         set custom_name =#{customName} ,full_name=#{fullName},address=#{address},fax=#{fax},
         email=#{email},owner_name=#{ownerName},owner_tel=#{ownerTel},status=#{status},note=#{note}
-        where custom_id = #{customId};
+        where custom_id = #{customId}
     </update>
 </mapper>

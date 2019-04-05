@@ -4,6 +4,15 @@ import java.util.Date;
 
 public class MaterialReceive {
     private String receiveId;
+    private  Material material;
+
+    public Material getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
 
     private String materialId;
 
@@ -73,16 +82,4 @@ public class MaterialReceive {
         this.note = note == null ? null : note.trim();
     }
 
-    @Override
-    public String toString() {
-        return "MaterialReceive{" +
-                "receiveId='" + receiveId + '\'' +
-                ", materialId='" + materialId + '\'' +
-                ", amount=" + amount +
-                ", receiveDate=" + receiveDate +
-                ", sender='" + sender + '\'' +
-                ", receiver='" + receiver + '\'' +
-                ", note='" + note + '\'' +
-                '}';
-    }
 }

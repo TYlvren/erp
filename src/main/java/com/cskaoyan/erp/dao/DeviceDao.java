@@ -17,11 +17,11 @@ public interface DeviceDao {
 
     int deleteDeviceById(@Param("id")String id);
 
-    List<DeviceType> findDeviceById(@Param("id")String id);
+    List<Device> findDeviceById(@Param("id")String id);
 
-    List<DeviceType> findDeviceByName(@Param("name")String name);
+    List<Device> findDeviceByName(@Param("name")String name);
 
     int updateDeviceNote(@Param("device")Device device);
 
-    List<DeviceType> findServiceDeviceById(@Param("id")String id);
+    Device findServiceDeviceById(@Param("id")String id);
 }

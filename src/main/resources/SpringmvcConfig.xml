@@ -3,10 +3,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!--开启注解-->
     <context:component-scan base-package="com.cskaoyan.erp.controller"/>
@@ -36,7 +38,7 @@
 
     <!--converter格式转换器 StringtoDate-->
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-        <property name="converters" >
+        <property name="converters">
             <set>
                 <bean class="com.cskaoyan.erp.converter.StringToDateConverter"/>
             </set>
@@ -47,4 +49,15 @@
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
         <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
     </bean>
+
+    <!--配置AOP-->
+    <aop:config> <!--该切入点的范围为所有的切面-->
+        <aop:aspect ref="pageModelAspect"> <!--切面内的切入点的范围为当前切面-->
+            <aop:pointcut id="findListPointcut"
+                          expression="execution(public * com.cskaoyan.erp.controller..findPage*(..))"/>
+
+            <!--配置切入点的Before通知-->
+            <aop:around method="findListAround" pointcut-ref="findListPointcut"/>
+        </aop:aspect>
+    </aop:config>
 </beans>

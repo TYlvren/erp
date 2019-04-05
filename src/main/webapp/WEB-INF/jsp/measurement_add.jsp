@@ -21,7 +21,8 @@
 	            <td>
 	            	<input class="easyui-combobox" name="orderId"  panelHeight="auto"
 						   data-options="valueField:'orderId',textField:'orderId',url:'order/get_data',required:true,
-						   editable:false" />
+						   editable:false" value="000001"/>
+					<%--自定义数据--%>
 	            </td>
 	        </tr>
 	        <tr>
@@ -47,8 +48,9 @@
 	            <td>检验人:</td>
 	            <td>
 	            	<input class="easyui-combobox" name="empId" panelHeight="auto" data-options="required:true,
-	            		editable:false,valueField:'empId',textField:'empName',url:'employee/get_data'"/>
-    			</td>  
+	            		editable:false,valueField:'empId',textField:'empName',url:'employee/get_data'" value="001"/>
+    			<%--自定义数据--%>
+				</td>
 	        </tr>
 	        <tr>
 	            <td>检验结果:</td>

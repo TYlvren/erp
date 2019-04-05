@@ -8,16 +8,16 @@
         <result column="add_time" property="addTime"/>
         <result column="revise_time" property="reviseTime"/>
         <association property="technology" javaType="technology">
-            <result column="t_name" property="technologyName"/>
-            <result column="t_id" property="technologyId"/>
+            <result column="technology_name" property="technologyName"/>
+            <result column="technology_id" property="technologyId"/>
         </association>
     </resultMap>
 
     <select id="selectTechnologyRequirement" resultMap="tRequirementLeft">
     SELECT
     te.technology_requirement_id ,
-    t.technology_name AS t_name,
-    t.technology_id AS t_id,
+    t.technology_name,
+    t.technology_id,
     te.requirement,
     te.add_time,
     te.revise_time
@@ -28,8 +28,110 @@
 	te.`technology_id` = t.`technology_id`
     </select>
 
+    <resultMap id="tRequirement" type="technologyRequirement">
+        <result column="technology_requirement_id" property="technologyRequirementId"/>
+        <result column="technology_id" property="technologyId"/>
+        <result column="requirement" property="requirement"/>
+        <result column="add_time" property="addTime"/>
+        <result column="revise_time" property="reviseTime"/>
+        <association property="technology" column="technology_id" javaType="technology"
+                     select="com.cskaoyan.erp.dao.TechnologyDao.findTechnologyNameById"/>
+    </resultMap>
+
+<!--使用多次查询-->
+    <select id="selectTechnologyRequirement2" resultMap="tRequirement">
+    select
+    technology_requirement_id ,
+    technology_id,
+    requirement,
+    add_time,
+    revise_time
+    FROM
+	technology_requirement
+    </select>
+
+
    <!--查询总数-->
     <select id="selectCountOfTechnologyRequirement" resultType="integer">
             select count(*) from technology_requirement
     </select>
+
+    <!--判断插入的信息是否重复-->
+    <select id="technologyRequirementIdIsexist" resultType="technologyRequirement">
+        select * from technology_requirement
+        <where>
+            technology_requirement_id = #{technologyRequirementId}
+        </where>
+    </select>
+
+
+    <!--添加新的信息数据-->
+    <insert id="addTechnologyRequirement">
+        insert into technology_requirement
+        values
+        (
+        #{tRequirement.technologyRequirementId},
+        #{tRequirement.technologyId},
+        #{tRequirement.requirement},
+        #{tRequirement.addTime},
+        #{tRequirement.reviseTime}
+        )
+    </insert>
+
+    <!--删除选中的信息-->
+    <delete id="removeTechnologyRequirementById">
+         delete from technology_requirement where technology_requirement_id = #{id}
+    </delete>
+
+    <!--编辑新的信息-->
+    <update id="updateTechnology">
+        update technology_requirement
+        <set>
+            technology_id=#{tRequirement.technologyId},
+            requirement=#{tRequirement.requirement},
+            add_time=#{tRequirement.addTime},
+            revise_time=#{tRequirement.reviseTime}
+        </set>
+        <where>technology_requirement_id = #{tRequirement.technologyRequirementId}</where>
+    </update>
+
+    <!--模糊查询，根据technologyrequirementid或者technologyName-->
+
+    <resultMap id="searchRequirementLeft" type="technologyRequirement">
+        <result column="technology_requirement_id" property="technologyRequirementId"/>
+        <result column="requirement" property="requirement"/>
+        <result column="add_time" property="addTime"/>
+        <result column="revise_time" property="reviseTime"/>
+        <association property="technology" javaType="technology">
+            <result column="technology_name" property="technologyName"/>
+            <result column="technology_id" property="technologyId"/>
+        </association>
+    </resultMap>
+
+    <select id="searchTechnologyRequirementByTechnologyRequirementIdOrTechnologyName" resultMap="searchRequirementLeft">
+         SELECT
+        te.technology_requirement_id ,
+        t.technology_name,
+        t.technology_id,
+        te.requirement,
+        te.add_time,
+        te.revise_time
+        FROM
+        technology_requirement te
+        LEFT JOIN
+        technology t ON
+        te.`technology_id` = t.`technology_id`
+        <where>
+            1=1
+            <if test="name!=null">
+                <bind name="pattern" value="'%' + name + '%'" />
+                and technology_name like #{pattern}
+            </if>
+            <if test="id!=null">
+                <bind name="pattern" value="'%' + id + '%'" />
+                and technology_requirement_id like #{pattern}
+            </if>
+        </where>
+    </select>
+
 </mapper>
