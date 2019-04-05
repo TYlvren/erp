@@ -547,7 +547,6 @@ public class PlanProgressController {
         Map<String, String> map = new HashMap<>();
         map.put("status", "200");
         int i = erpService.deleteTask(ids);
-
         if (i != ids.length) {
             map.put("msg", "异常");
         }
