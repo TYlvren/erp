@@ -10,6 +10,7 @@
  */
 package com.cskaoyan.erp.controller;
 
+import com.cskaoyan.erp.model.ProcessCountCheck;
 import com.cskaoyan.erp.model.ProcessMeasureCheck;
 import com.cskaoyan.erp.model.UnQualifyApply;
 import com.cskaoyan.erp.service.ErpService;
@@ -267,16 +268,90 @@ public String turnToPMeasureCheck(ModelAndView mv, HttpSession session){
         return map;
     }
 
-
-
-
-
-
-
-
-
-
 /********************************工序计数质检模块******************************************************************/
+@RequestMapping("p_count_check/find")//进入情况1.home.jsp中点击工序计数质检
+public String turnToPCountCheck(ModelAndView mv, HttpSession session){
+    List<String> sysPermissionList=new ArrayList<>();
+    sysPermissionList.add("pCountCheck:add");//设置新建编辑删除按钮的显示
+    sysPermissionList.add("pCountCheck:edit");
+    sysPermissionList.add("pCountCheck:delete");
+    session.setAttribute("sysPermissionList",sysPermissionList);
+    return "p_count_check_list";
+}
 
+    @RequestMapping("p_count_check/list")//自动查询工序计数质检数据  实现分页
+    public  @ResponseBody Map<String, Object> findPCountCheck(@RequestParam int page, int rows){
+        PageHelper.startPage(page, rows, true);
+        List<ProcessCountCheck> list = erpService.findPCountCheckService();
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
+    }
+    @RequestMapping("p_count_check/add")//新建工序计数质检转入对应jsp
+    public String addPCountCheck(){
+        return "p_count_check_add";
+    }
+    @RequestMapping("pCountCheck/add_judge")//工序质检判断
+    @ResponseBody
+    public String addJudgePCountCheck()  {
+        return "{}";
+    }
+
+
+    @RequestMapping("p_count_check/insert")//新建工序计数质检记录
+    @ResponseBody
+    public Map<String,String > insertPCountCheck(ProcessCountCheck processCountCheck)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        erpService.addPCountCheckService(processCountCheck);//添加工序计数质检
+        return map;
+    }
+
+    @RequestMapping("pCountCheck/edit_judge")//修改工序计数质检记录
+    @ResponseBody
+    public String editJudgePCountCheck()  {
+        return "{}";
+    }
+    @RequestMapping("p_count_check/edit")//跳转修改工序计数质检页面
+    public String editPCountCheck(){
+        return "p_count_check_edit";
+    }
+    @RequestMapping("p_count_check/update_all")//修改工序计数质检记录
+    @ResponseBody
+    public Map<String,String > updatePCountCheck(ProcessCountCheck processCountCheck)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.updatePCountCheckService(processCountCheck);
+        return map;
+    }
+    @RequestMapping("pCountCheck/delete_judge")//删除工序计量质检记录
+    @ResponseBody
+    public String deleteJudgePCountCheck()  {
+        return "{}";
+    }
+    @RequestMapping("p_count_check/delete_batch")//删除工序计数质检记录(可为多条)
+    @ResponseBody
+    public Map<String,String > deletePCountCheck(String[] ids)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.deletePCountCheckService(ids);//删除工序计数质检
+        return map;
+    }
+    @RequestMapping("p_count_check/update_note")//更新工序计量质检记录备注属性
+    @ResponseBody
+    public Map<String,String > updateNotePCountCheck(String pCountCheckId,String note)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.updateNotePCountCheckService(pCountCheckId,note);//修改备注
+        return map;
+    }
 
 }
