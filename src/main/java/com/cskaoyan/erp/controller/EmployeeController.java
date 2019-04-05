@@ -66,7 +66,7 @@ public class EmployeeController {
 
  @RequestMapping("/insert")
  @ResponseBody
- public Map<String, String> insertEmployee(Employee employee, String departmentId){
+ public Map<String, String> insertEmployee(Employee employee,String departmentId){
   int b = erpService.insertEmployee(employee, departmentId);
   Map<String, String> map = new HashMap<>();
   map.put("status", "200");
@@ -113,7 +113,7 @@ public class EmployeeController {
  @RequestMapping("/delete_judge")
  @ResponseBody
  public void deleteJudge(){
-  return;
+  return ;
  }
 
  @RequestMapping("/delete_batch")
@@ -154,6 +154,4 @@ public class EmployeeController {
   List<Employee> employees = erpService.queryByDepartmentName(searchValue);
   return employees;
  }
-
-
 }

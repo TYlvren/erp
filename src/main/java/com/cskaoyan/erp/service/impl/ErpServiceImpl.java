@@ -854,6 +854,11 @@ private FinalMeasureCheckDao finalMeasureCheckDao;
     }
 
     @Override
+    public Employee findEmployeeById(String empId) {
+        return employeeDao.findEmployeeById(empId);
+    }
+
+    @Override
     public List<Employee> queryByEmployeeName(String empName) {
         return employeeDao.queryByEmployeeName(empName);
     }

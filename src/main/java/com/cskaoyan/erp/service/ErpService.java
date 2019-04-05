@@ -227,6 +227,7 @@ public interface ErpService {
     int deleteEmployee(String[] ids);
 
     List<Employee>  queryByEmployeeId(String empId);
+    Employee  findEmployeeById(String empId);
 
     List<Employee>  queryByEmployeeName(String empName);
 
