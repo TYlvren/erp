@@ -10,7 +10,11 @@ import java.util.List;
 public interface MaterialReceiveDao {
     /*-------------物料收入模块------------------------------------------------*/
     List<MaterialReceive> selectMaterialReceive();
-    int addMaterialReceive(@Param("materialReceive") Material material);
-
+    int addMaterialReceive(@Param("materialReceive") MaterialReceive materialReceive);
+    List<Material> selectMaterialId();
+    int deleteById(@Param("id") String id);
+    // 动态修改物料信息
+    int update(@Param("materialReceive") MaterialReceive materialReceive);
+    int updateNote(@Param("materialReceive") MaterialReceive materialReceive);
     int CountOfMaterialReceive();
 }

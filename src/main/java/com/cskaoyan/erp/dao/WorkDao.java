@@ -11,4 +11,10 @@ public interface WorkDao {
     List<Work> selectAllWork();
 
     Work selectWorkById(String id);
+
+    int insertWork(Work work);
+
+    int updateWork(Work work);
+
+    int deleteWorkByIds(String[] ids);
 }
