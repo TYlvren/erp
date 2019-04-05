@@ -30,13 +30,13 @@
         select
         order_id ,custom_id,product_id ,order_date,request_date,
         note,quantity ,unit_price,unit ,image,file ,status
-        from c_order;
+        from c_order
     </select>
 
     <select id="selectCOrderById" resultType="corder">
         select <include refid="COrderColumns"/>
         from c_order
-        where order_id=#{id};
+        where order_id=#{id}
     </select>
 
     <insert id="insertOrder">
@@ -44,7 +44,7 @@
         (order_id ,custom_id,product_id ,order_date,request_date,
         note,quantity ,unit_price,unit ,image,file ,status)
         value (#{orderId},#{custom.customId},#{product.productId},#{orderDate},#{requestDate},#{note},#{quantity},#{unitPrice},#{unit}
-        ,#{image},#{file},#{status});
+        ,#{image},#{file},#{status})
     </insert>
 
     <update id="updateOrder">
@@ -52,7 +52,7 @@
         set custom_id=#{custom.customId},product_id=#{product.productId},order_date=#{orderDate},
         request_date=#{requestDate},note=#{note},quantity=#{quantity},unit_price=#{unitPrice},
         unit=#{unit},image=#{image},file=#{file},status=#{status}
-        where order_id=#{orderId};
+        where order_id=#{orderId}
     </update>
 
     <delete id="deleteOrderByIds">

@@ -9,26 +9,26 @@
 
     <select id="selectAllProduct" resultType="product">
         select <include refid="productColumns"/>
-        from product;
+        from product
     </select>
 
     <select id="selectProductById" resultType="product">
         select <include refid="productColumns"/>
         from product
-        where product_id=#{id};
+        where product_id=#{id}
     </select>
 
     <insert id="insertProduct">
         insert into product
         (product_id,product_name,product_type,image,note,status)
-        value(#{productId},#{productName},#{productType},#{image},#{note},#{status});
+        value(#{productId},#{productName},#{productType},#{image},#{note},#{status})
     </insert>
 
     <update id="updateProduct">
         update product
         set product_name = #{productName},product_type = #{productType},image=#{image},
         note=#{note},status=#{status}
-        where product_id =#{productId};
+        where product_id =#{productId}
     </update>
 
     <delete id="deleteProductById">

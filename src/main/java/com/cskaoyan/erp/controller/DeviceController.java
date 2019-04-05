@@ -67,7 +67,9 @@ public class DeviceController {
     @RequestMapping("/deviceList/list")
     public @ResponseBody   Map<String, Object> findAllDeviceByPageData(@RequestParam int page, int rows) {
         PageHelper.startPage(page, rows, true);
+
         List<Device> list = erpService.findDeviceByPage();
+
         PageInfo pageInfo = new PageInfo(list);
         list = pageInfo.getList();
         long total = pageInfo.getTotal();
