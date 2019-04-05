@@ -3,6 +3,7 @@ package com.cskaoyan.erp.dao;
 
 import com.cskaoyan.erp.model.COrder;
 import com.cskaoyan.erp.model.SysUser;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,9 +19,10 @@ public interface SysUserDao {
 
     int deleteUserByIds(String[] ids);
 
-    SysUser selectUserByUsernameAndPassword(String username, String password);
+    SysUser selectUserByUsernameAndPassword(@Param("username") String username,@Param("password") String password);
 
-    List<COrder> selectUserBySearch(String condition, String searchValue);
+    List<COrder> selectUserBySearch(@Param("condition") String condition,@Param("searchValue") String searchValue);
 
-    SysUser selectUsername(String username);
+
+    SysUser selectUserByUsername(String username);
 }

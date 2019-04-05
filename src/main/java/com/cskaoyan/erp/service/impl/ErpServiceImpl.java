@@ -997,6 +997,6 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public SysUser findUserByUsername(String username) {
-        return sysUserDao.selectUsername(username);
+        return sysUserDao.selectUserByUsername(username);
     }
 }

@@ -5,6 +5,8 @@ public class SysUser {
 
     private String username;
 
+    private String rolename = "超级管理员";
+
     private String password;
 
     private String locked;
@@ -39,5 +41,13 @@ public class SysUser {
 
     public void setLocked(String locked) {
         this.locked = locked == null ? null : locked.trim();
+    }
+
+    public String getRolename() {
+        return rolename;
+    }
+
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
     }
 }
