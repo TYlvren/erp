@@ -75,4 +75,29 @@
                   device_check_id = #{id}
       </select>
 
+      <select id="getDeviceCheckByName" resultType="deviceCheck">
+             SELECT
+                device_check_id deviceCheckId,
+                dc.device_id deviceId,
+                device_check_emp_id deviceCheckEmpId,
+                device_check_date deviceCheckDate,
+                device_check_result deviceCheckResult,
+                device_check_fault_id deviceCheckFaultId,
+                device_name AS deviceName,
+                emp_name AS deviceCheckEmp
+             FROM
+                (device_check dc LEFT  JOIN device d ON dc.device_id = d.device_id) LEFT JOIN employee e ON dc.device_check_emp_id = e.emp_id
+             WHERE
+                  device_name like '%${name}%'
+      </select>
+      
+      <update id="updateDeviceCheckByNote">
+            UPDATE device_check
+            <set>
+                  device_check_result=#{deviceCheck.deviceCheckResult}
+            </set>
+            WHERE
+                  device_check_id=#{deviceCheck.deviceCheckId}
+      </update>
+
 </mapper>
