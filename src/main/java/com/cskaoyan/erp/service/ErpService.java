@@ -31,6 +31,13 @@ public interface ErpService {
     List<COrder> findCOrder();
 
     /**
+     * 模糊查找
+     * @param condition
+     * @param searchValue
+     * @return
+     */
+    List<COrder> findCOrderBySearch(String condition, String searchValue);
+    /**
      * 通过id 查找COrder
      * @param id
      * @return
@@ -108,6 +115,8 @@ public interface ErpService {
     int deleteDeviceCheck(String id);
     List<DeviceCheck> findDeviceCheckById(String searchValue);
     DeviceCheck getDeviceCheckById(String id);
+    List<DeviceCheck> findDeviceCheckByName(String searchValue);
+    int updateDeviceCheckNote(DeviceCheck deviceCheck);
     /*-------------设备故障模块------------------------------------------------*/
     List<DeviceFault> findAllDeviceFaultByPage();
     /*-------------设备维修模块------------------------------------------------*/
@@ -176,6 +185,9 @@ public interface ErpService {
     int addDepartment( Department department);
     int editDepartment(Department department);
     int deleteDepartment(String[] ids);
+
+
+
 
     /*****************系统管理接口实现*************************************/
 

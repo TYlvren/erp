@@ -95,4 +95,43 @@
         <where>technology_requirement_id = #{tRequirement.technologyRequirementId}</where>
     </update>
 
+    <!--模糊查询，根据technologyrequirementid或者technologyName-->
+
+    <resultMap id="searchRequirementLeft" type="technologyRequirement">
+        <result column="technology_requirement_id" property="technologyRequirementId"/>
+        <result column="requirement" property="requirement"/>
+        <result column="add_time" property="addTime"/>
+        <result column="revise_time" property="reviseTime"/>
+        <association property="technology" javaType="technology">
+            <result column="technology_name" property="technologyName"/>
+            <result column="technology_id" property="technologyId"/>
+        </association>
+    </resultMap>
+
+    <select id="searchTechnologyRequirementByTechnologyRequirementIdOrTechnologyName" resultMap="searchRequirementLeft">
+         SELECT
+        te.technology_requirement_id ,
+        t.technology_name,
+        t.technology_id,
+        te.requirement,
+        te.add_time,
+        te.revise_time
+        FROM
+        technology_requirement te
+        LEFT JOIN
+        technology t ON
+        te.`technology_id` = t.`technology_id`
+        <where>
+            1=1
+            <if test="name!=null">
+                <bind name="pattern" value="'%' + name + '%'" />
+                and technology_name like #{pattern}
+            </if>
+            <if test="id!=null">
+                <bind name="pattern" value="'%' + id + '%'" />
+                and technology_requirement_id like #{pattern}
+            </if>
+        </where>
+    </select>
+
 </mapper>

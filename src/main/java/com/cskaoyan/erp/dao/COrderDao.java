@@ -2,6 +2,7 @@ package com.cskaoyan.erp.dao;
 
 
 import com.cskaoyan.erp.model.COrder;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface COrderDao {
     int updateOrder(COrder cOrder);
 
     int deleteOrderByIds(String[] ids);
+
+    List<COrder> selectCOderBySearch(@Param("condition") String condition, @Param("searchValue") String searchValue);
 }

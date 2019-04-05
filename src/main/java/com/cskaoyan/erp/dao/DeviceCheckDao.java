@@ -1,6 +1,7 @@
 package com.cskaoyan.erp.dao;
 
 
+import com.cskaoyan.erp.model.Device;
 import com.cskaoyan.erp.model.DeviceCheck;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,4 +20,8 @@ public interface DeviceCheckDao {
     List<DeviceCheck> findDeviceCheckById(@Param("id") String id);
 
     DeviceCheck getDeviceCheckById(@Param("id") String id);
+
+    List<DeviceCheck> getDeviceCheckByName(@Param("name")String searchValue);
+
+    int updateDeviceCheckByNote(@Param("deviceCheck")DeviceCheck deviceCheck);
 }

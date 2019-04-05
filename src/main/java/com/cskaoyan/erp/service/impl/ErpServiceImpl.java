@@ -55,6 +55,11 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
+    public List<COrder> findCOrderBySearch(String condition, String searchValue) {
+        return cOrderDao.selectCOderBySearch(condition,searchValue);
+    }
+
+    @Override
     public COrder findCOrderById(String id) {
         return cOrderDao.selectCOrderById(id);
     }
@@ -296,6 +301,16 @@ public class ErpServiceImpl implements ErpService {
     @Override
     public DeviceCheck getDeviceCheckById(String id) {
         return deviceCheckDao.getDeviceCheckById(id);
+    }
+
+    @Override
+    public List<DeviceCheck> findDeviceCheckByName(String searchValue) {
+        return deviceCheckDao.getDeviceCheckByName(searchValue);
+    }
+
+    @Override
+    public int updateDeviceCheckNote(DeviceCheck deviceCheck) {
+        return deviceCheckDao.updateDeviceCheckByNote(deviceCheck);
     }
 
     /*-------------设备故障模块------------------------------------------------*/
