@@ -240,9 +240,23 @@ public interface ErpService {
 
     List<Employee>  queryByDepartmentName(String departmentName);
 
-
+    List<SysUser> findUser();
 
 
     /*****************系统管理接口实现*************************************/
 
+
+    SysUser findUserById(String id);
+
+    int addUser(SysUser sysUser);
+
+    int editUser(SysUser user);
+
+    int deleteUser(String[] ids);
+
+    List<COrder> findUserBySearch(String condition, String searchValue);
+
+    SysUser findUserByUsernameAndPassword(String username, String password);
+
+    SysUser findUserByUsername(String username);
 }
