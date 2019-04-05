@@ -10,9 +10,12 @@ import com.cskaoyan.erp.model.DeviceMaintain;
 import com.cskaoyan.erp.model.UnQualifyApply;
 
 import com.cskaoyan.erp.service.ErpService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -334,6 +337,8 @@ public class ErpServiceImpl implements ErpService {
     private MaterialDao materialDao;
     @Autowired
     private MaterialReceiveDao materialReceiveDao;
+    @Autowired
+    private MaterialConsumeDao materialConsumeDao;
     @Override
     public List<Material> selectMaterial() {
         return materialDao.selectMaterial();
@@ -372,21 +377,49 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public int modifyNote(Material material) {
-         return materialDao.updateNote(material);
+        return materialDao.updateNote(material);
     }
 
 
     /*-------------物料收入模块------------------------------------------------*/
     @Override
-    public List<MaterialReceive> selectMaterialReceive() {
-        return materialReceiveDao.selectMaterialReceive();
+    public Map<String, Object> listMaterialReceiveByPage(Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialReceive> materials= materialReceiveDao.selectAll();
+        map.put("total",onePage.getTotal());
+        map.put("rows",materials);
+        return map;
+    }
+    @Override
+    public Map<String, Object> searchMaterialReceiveBymaterialId(String materialId, Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialReceive> materialReceives = materialReceiveDao.selectLikeMaterialId(materialId);
+        map.put("total",onePage.getTotal());
+        map.put("rows",materialReceives);
+        return map;
     }
 
     @Override
-    public int selectCountOfMaterialReceive() {
-        return materialReceiveDao.CountOfMaterialReceive();
-    }
+    public Map<String, Object> searchMaterialReceiveByReceiveId(String receiveId, Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
 
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialReceive> materialReceives = materialReceiveDao.selectLikeReceiveId(receiveId);
+        map.put("total",onePage.getTotal());
+        map.put("rows",materialReceives);
+        return map;
+
+    }
     @Override
     public int removeMaterialReceiveById(String id) {
         return materialReceiveDao.deleteById(id);
@@ -394,7 +427,7 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public int modifyMaterialReceive(MaterialReceive materialReceive) {
-        return materialReceiveDao.update(materialReceive);
+        return materialReceiveDao.updateReceive(materialReceive);
     }
 
     @Override
@@ -409,7 +442,82 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public int modifyReceiveNote(MaterialReceive materialReceive) {
-        return materialReceiveDao.updateNote(materialReceive);
+        return materialReceiveDao.updateReceiveNote(materialReceive);
+    }
+    /*-------------物料消耗模块------------------------------------------------*/
+    @Override
+    public int removeMaterialConsumeById(String id) {
+        return materialConsumeDao.deleteById(id);
+    }
+
+    @Override
+    public int modifyMaterialConsume(MaterialConsume materialConsume) {
+        return materialConsumeDao.updateConsume(materialConsume);
+    }
+
+    @Override
+    public int addMaterialConsume(MaterialConsume materialConsume) {
+        return materialConsumeDao.addMaterialConsume(materialConsume);
+    }
+
+    @Override
+    public int modifyConsumeNote(MaterialConsume materialConsume) {
+        return materialConsumeDao.updateConsumeNote(materialConsume);
+    }
+
+    @Override
+    public Map<String, Object> listMaterialConsumeByPage(Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialConsume> materials= materialConsumeDao.selectAll();
+        map.put("total",onePage.getTotal());
+        map.put("rows",materials);
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> searchMaterialConsumeBymaterialId(String materialId, Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialConsume> materialConsumes  = materialConsumeDao.selectLikeMaterialId(materialId);
+        map.put("total",onePage.getTotal());
+        map.put("rows",materialConsumes);
+        return map;
+
+    }
+
+    @Override
+    public Map<String, Object> searchMaterialConsumeByWorkId(String workId, Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialConsume> materialConsumes = materialConsumeDao.selectLikeWorkId(workId);
+        map.put("total",onePage.getTotal());
+        map.put("rows",materialConsumes);
+        return map;
+
+    }
+
+    @Override
+    public Map<String, Object> searchMaterialConsumeByConsumeId(String consumeId, Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialConsume> materialConsumes = materialConsumeDao.selectLikeConsumeId(consumeId);
+        map.put("total",onePage.getTotal());
+        map.put("rows",materialConsumes);
+        return map;
+
     }
 
     /*****************质量监控接口实现*************************************/

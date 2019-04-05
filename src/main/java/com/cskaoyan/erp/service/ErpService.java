@@ -136,13 +136,24 @@ public interface ErpService {
     List<Material> selectMaterialByType(String searchValue);
     int modifyNote(Material material);
     /*-------------物料收入模块------------------------------------------------*/
-    List<MaterialReceive> selectMaterialReceive();
-    int selectCountOfMaterialReceive();
+    Map<String, Object> listMaterialReceiveByPage(Integer pageNum, Integer pageSize);
+    Map<String, Object> searchMaterialReceiveBymaterialId(String materialId, Integer pageNum, Integer pageSize);
+    Map<String, Object> searchMaterialReceiveByReceiveId(String receiveId, Integer pageNum, Integer pageSize);
     int removeMaterialReceiveById(String id);
     int modifyMaterialReceive(MaterialReceive materialReceive);
     int addMaterialReceive(MaterialReceive materialReceive) ;
     List<Material> selectMaterialId();
     int modifyReceiveNote(MaterialReceive materialReceive);
+    /*-------------物料消耗模块------------------------------------------------*/
+    int removeMaterialConsumeById(String id);
+    int modifyMaterialConsume(MaterialConsume materialConsume);
+    int addMaterialConsume(MaterialConsume materialConsume) ;
+    int modifyConsumeNote(MaterialConsume materialConsume);
+    Map<String, Object> listMaterialConsumeByPage(Integer pageNum, Integer pageSize);
+    Map<String, Object> searchMaterialConsumeBymaterialId(String searchValue, Integer pageNum, Integer pageSize);
+    Map<String, Object> searchMaterialConsumeByWorkId(String searchValue, Integer pageNum, Integer pageSize);
+    Map<String, Object> searchMaterialConsumeByConsumeId(String searchValue, Integer pageNum, Integer pageSize);
+
     /*****************质量监控接口实现*************************************/
     //不合格品管理相关方法
     List<UnQualifyApply> findUnqualifyList();

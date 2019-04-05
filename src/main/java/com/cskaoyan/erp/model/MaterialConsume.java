@@ -14,6 +14,24 @@ public class MaterialConsume {
     private Date consumeDate;
 
     private String sender;
+    private  Material material;
+    private Work work;
+
+    public Work getWork() {
+        return work;
+    }
+
+    public void setWork(Work work) {
+        this.work = work;
+    }
+
+    public Material getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
 
     private String receiver;
 
