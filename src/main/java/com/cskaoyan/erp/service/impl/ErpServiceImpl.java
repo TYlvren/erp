@@ -59,7 +59,7 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public List<COrder> findCOrderBySearch(String condition, String searchValue) {
-        return cOrderDao.selectCOderBySearch(condition,searchValue);
+        return cOrderDao.selectCOderBySearch(condition, searchValue);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public List<COrder> findCustomBySearch(String condition, String searchValue) {
-        return customDao.selectCustomBySearch(condition,searchValue);
+        return customDao.selectCustomBySearch(condition, searchValue);
     }
 
     @Override
@@ -115,7 +115,9 @@ public class ErpServiceImpl implements ErpService {
         return customDao.deleteCustomByIds(ids);
     }
 
-    /** ------------------------------Product--------------------------------*/
+    /**
+     * ------------------------------Product--------------------------------
+     */
     @Override
     public List<Product> findProduct() {
         return productDao.selectAllProduct();
@@ -123,7 +125,7 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public List<Product> findProductBySearch(String condition, String searchValue) {
-        return productDao.selectProductBySearch(condition,searchValue);
+        return productDao.selectProductBySearch(condition, searchValue);
     }
 
     @Override
@@ -146,7 +148,9 @@ public class ErpServiceImpl implements ErpService {
         return productDao.deleteProductById(ids);
     }
 
-    /** ------------------------------Work--------------------------------*/
+    /**
+     * ------------------------------Work--------------------------------
+     */
     @Override
     public List<Work> findWork() {
         return workDao.selectAllWork();
@@ -154,7 +158,7 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public List<Work> findWorkBySearch(String condition, String searchValue) {
-        return workDao.selectWorkBySearch(condition,searchValue);
+        return workDao.selectWorkBySearch(condition, searchValue);
     }
 
     @Override
@@ -177,7 +181,9 @@ public class ErpServiceImpl implements ErpService {
         return workDao.deleteWorkByIds(ids);
     }
 
-    /**------------------------------Manufacture--------------------------------*/
+    /**
+     * ------------------------------Manufacture--------------------------------
+     */
 
     @Override
     public List<Manufacture> findManufacture() {
@@ -186,7 +192,7 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public List<Manufacture> findManufactureBySearch(String condition, String searchValue) {
-        return manufactureDao.selectManufactureBySearch(condition,searchValue);
+        return manufactureDao.selectManufactureBySearch(condition, searchValue);
     }
 
     @Override
@@ -209,7 +215,9 @@ public class ErpServiceImpl implements ErpService {
         return manufactureDao.deleteManufactureByIds(ids);
     }
 
-    /**------------------------------Task--------------------------------*/
+    /**
+     * ------------------------------Task--------------------------------
+     */
     @Override
     public List<Task> findTask() {
         return taskDao.selectAllTask();
@@ -217,7 +225,7 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public List<Task> findTaskBySearch(String condition, String searchValue) {
-        return taskDao.selectTaskBySearch(condition,searchValue);
+        return taskDao.selectTaskBySearch(condition, searchValue);
     }
 
     @Override
@@ -258,18 +266,22 @@ public class ErpServiceImpl implements ErpService {
     public List<DeviceType> findDeviceTypeByPage() {
         return deviceTypeDao.findAllDeviceType();
     }
+
     @Override
     public int insertDeviceType(DeviceType deviceType) {
         return deviceTypeDao.insertDeviceType(deviceType);
     }
+
     @Override
     public int updateDeviceType(DeviceType deviceType) {
         return deviceTypeDao.modifyDeviceTypeById(deviceType);
     }
+
     @Override
     public int deleteDeviceType(String id) {
         return deviceTypeDao.deleteDeviceTypeById(id);
     }
+
     @Override
     public List<DeviceType> findDeviceTypeById(String searchValue) {
         return deviceTypeDao.findDeviceTypeById(searchValue);
@@ -291,30 +303,37 @@ public class ErpServiceImpl implements ErpService {
     public List<Device> findDeviceByPage() {
         return deviceDao.findAllDevice();
     }
+
     @Override
     public int insertDevice(Device device) {
         return deviceDao.insertDevice(device);
     }
+
     @Override
     public int updateDevice(Device device) {
         return deviceDao.updateDeviceById(device);
     }
+
     @Override
     public int deleteDevice(String id) {
         return deviceDao.deleteDeviceById(id);
     }
+
     @Override
     public List<Device> findDeviceById(String searchValue) {
         return deviceDao.findDeviceById(searchValue);
     }
+
     @Override
     public Device findServiceDeviceById(String id) {
         return deviceDao.findServiceDeviceById(id);
     }
+
     @Override
     public List<Device> findDeviceByName(String searchValue) {
         return deviceDao.findDeviceByName(searchValue);
     }
+
     @Override
     public int updateDeviceNote(Device device) {
         return deviceDao.updateDeviceNote(device);
@@ -346,6 +365,7 @@ public class ErpServiceImpl implements ErpService {
     public int deleteDeviceCheck(String id) {
         return deviceCheckDao.deleteDeviceCheck(id);
     }
+
     @Override
     public List<DeviceCheck> findDeviceCheckById(String searchValue) {
         return deviceCheckDao.findDeviceCheckById(searchValue);
@@ -369,7 +389,7 @@ public class ErpServiceImpl implements ErpService {
     /*-------------设备故障模块------------------------------------------------*/
     @Override
     public List<DeviceFault> findAllDeviceFaultByPage() {
-        return  deviceFaultDao.findAllDeviceFault();
+        return deviceFaultDao.findAllDeviceFault();
     }
 
     @Override
@@ -440,7 +460,7 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public int updateDeviceMaintainNote(DeviceMaintain deviceMaintain) {
-        return  deviceMaintainDao.updateDeviceMaintainNote(deviceMaintain);
+        return deviceMaintainDao.updateDeviceMaintainNote(deviceMaintain);
     }
 
 
@@ -455,6 +475,7 @@ public class ErpServiceImpl implements ErpService {
     private MaterialReceiveDao materialReceiveDao;
     @Autowired
     private MaterialConsumeDao materialConsumeDao;
+
     @Override
     public List<Material> selectMaterial() {
         return materialDao.selectMaterial();
@@ -467,7 +488,7 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public int removeMaterialById(String id) {
-        return  materialDao.deleteById(id);
+        return materialDao.deleteById(id);
     }
 
     @Override
@@ -477,7 +498,7 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public int addMaterial(Material material) {
-        return  materialDao.addMaterial(material);
+        return materialDao.addMaterial(material);
     }
 
     @Override
@@ -500,42 +521,44 @@ public class ErpServiceImpl implements ErpService {
     /*-------------物料收入模块------------------------------------------------*/
     @Override
     public Map<String, Object> listMaterialReceiveByPage(Integer pageNum, Integer pageSize) {
-        Integer num = pageNum!=null ? pageNum:1;
-        Integer size = pageSize!=null ? pageSize:10;
-        Page onePage = PageHelper.startPage(num,size,true);
+        Integer num = pageNum != null ? pageNum : 1;
+        Integer size = pageSize != null ? pageSize : 10;
+        Page onePage = PageHelper.startPage(num, size, true);
 
         Map<String, Object> map = new HashMap<>();
-        List<MaterialReceive> materials= materialReceiveDao.selectAll();
-        map.put("total",onePage.getTotal());
-        map.put("rows",materials);
+        List<MaterialReceive> materials = materialReceiveDao.selectAll();
+        map.put("total", onePage.getTotal());
+        map.put("rows", materials);
         return map;
     }
+
     @Override
     public Map<String, Object> searchMaterialReceiveBymaterialId(String materialId, Integer pageNum, Integer pageSize) {
-        Integer num = pageNum!=null ? pageNum:1;
-        Integer size = pageSize!=null ? pageSize:10;
-        Page onePage = PageHelper.startPage(num,size,true);
+        Integer num = pageNum != null ? pageNum : 1;
+        Integer size = pageSize != null ? pageSize : 10;
+        Page onePage = PageHelper.startPage(num, size, true);
 
         Map<String, Object> map = new HashMap<>();
         List<MaterialReceive> materialReceives = materialReceiveDao.selectLikeMaterialId(materialId);
-        map.put("total",onePage.getTotal());
-        map.put("rows",materialReceives);
+        map.put("total", onePage.getTotal());
+        map.put("rows", materialReceives);
         return map;
     }
 
     @Override
     public Map<String, Object> searchMaterialReceiveByReceiveId(String receiveId, Integer pageNum, Integer pageSize) {
-        Integer num = pageNum!=null ? pageNum:1;
-        Integer size = pageSize!=null ? pageSize:10;
-        Page onePage = PageHelper.startPage(num,size,true);
+        Integer num = pageNum != null ? pageNum : 1;
+        Integer size = pageSize != null ? pageSize : 10;
+        Page onePage = PageHelper.startPage(num, size, true);
 
         Map<String, Object> map = new HashMap<>();
         List<MaterialReceive> materialReceives = materialReceiveDao.selectLikeReceiveId(receiveId);
-        map.put("total",onePage.getTotal());
-        map.put("rows",materialReceives);
+        map.put("total", onePage.getTotal());
+        map.put("rows", materialReceives);
         return map;
 
     }
+
     @Override
     public int removeMaterialReceiveById(String id) {
         return materialReceiveDao.deleteById(id);
@@ -560,6 +583,7 @@ public class ErpServiceImpl implements ErpService {
     public int modifyReceiveNote(MaterialReceive materialReceive) {
         return materialReceiveDao.updateReceiveNote(materialReceive);
     }
+
     /*-------------物料消耗模块------------------------------------------------*/
     @Override
     public int removeMaterialConsumeById(String id) {
@@ -583,132 +607,142 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public Map<String, Object> listMaterialConsumeByPage(Integer pageNum, Integer pageSize) {
-        Integer num = pageNum!=null ? pageNum:1;
-        Integer size = pageSize!=null ? pageSize:10;
-        Page onePage = PageHelper.startPage(num,size,true);
+        Integer num = pageNum != null ? pageNum : 1;
+        Integer size = pageSize != null ? pageSize : 10;
+        Page onePage = PageHelper.startPage(num, size, true);
 
         Map<String, Object> map = new HashMap<>();
-        List<MaterialConsume> materials= materialConsumeDao.selectAll();
-        map.put("total",onePage.getTotal());
-        map.put("rows",materials);
+        List<MaterialConsume> materials = materialConsumeDao.selectAll();
+        map.put("total", onePage.getTotal());
+        map.put("rows", materials);
         return map;
     }
 
     @Override
     public Map<String, Object> searchMaterialConsumeBymaterialId(String materialId, Integer pageNum, Integer pageSize) {
-        Integer num = pageNum!=null ? pageNum:1;
-        Integer size = pageSize!=null ? pageSize:10;
-        Page onePage = PageHelper.startPage(num,size,true);
+        Integer num = pageNum != null ? pageNum : 1;
+        Integer size = pageSize != null ? pageSize : 10;
+        Page onePage = PageHelper.startPage(num, size, true);
 
         Map<String, Object> map = new HashMap<>();
-        List<MaterialConsume> materialConsumes  = materialConsumeDao.selectLikeMaterialId(materialId);
-        map.put("total",onePage.getTotal());
-        map.put("rows",materialConsumes);
+        List<MaterialConsume> materialConsumes = materialConsumeDao.selectLikeMaterialId(materialId);
+        map.put("total", onePage.getTotal());
+        map.put("rows", materialConsumes);
         return map;
 
     }
 
     @Override
     public Map<String, Object> searchMaterialConsumeByWorkId(String workId, Integer pageNum, Integer pageSize) {
-        Integer num = pageNum!=null ? pageNum:1;
-        Integer size = pageSize!=null ? pageSize:10;
-        Page onePage = PageHelper.startPage(num,size,true);
+        Integer num = pageNum != null ? pageNum : 1;
+        Integer size = pageSize != null ? pageSize : 10;
+        Page onePage = PageHelper.startPage(num, size, true);
 
         Map<String, Object> map = new HashMap<>();
         List<MaterialConsume> materialConsumes = materialConsumeDao.selectLikeWorkId(workId);
-        map.put("total",onePage.getTotal());
-        map.put("rows",materialConsumes);
+        map.put("total", onePage.getTotal());
+        map.put("rows", materialConsumes);
         return map;
 
     }
 
     @Override
     public Map<String, Object> searchMaterialConsumeByConsumeId(String consumeId, Integer pageNum, Integer pageSize) {
-        Integer num = pageNum!=null ? pageNum:1;
-        Integer size = pageSize!=null ? pageSize:10;
-        Page onePage = PageHelper.startPage(num,size,true);
+        Integer num = pageNum != null ? pageNum : 1;
+        Integer size = pageSize != null ? pageSize : 10;
+        Page onePage = PageHelper.startPage(num, size, true);
 
         Map<String, Object> map = new HashMap<>();
         List<MaterialConsume> materialConsumes = materialConsumeDao.selectLikeConsumeId(consumeId);
-        map.put("total",onePage.getTotal());
-        map.put("rows",materialConsumes);
+        map.put("total", onePage.getTotal());
+        map.put("rows", materialConsumes);
         return map;
 
     }
 
     /*****************质量监控接口实现*************************************/
 //    ------------------不合格品管理-------------------
-        //**********注入Dao
+    //**********注入Dao
     @Autowired
     private UnQualifyApplyDao unQualifyApplyDao;
-        //***********查询不合格品
+
+    //***********查询不合格品
     @Override
     public List<UnQualifyApply> findUnqualifyList() {
 
         List<UnQualifyApply> unqualifyListDao = unQualifyApplyDao.findUnqualifyListDao();
         return unqualifyListDao;
     }
-        //************新建不合格品
+
+    //************新建不合格品
     @Override
     public int addUnqualifyService(UnQualifyApply unQualifyApply) {
         return unQualifyApplyDao.addUnqualifyDao(unQualifyApply);
     }
-        //***********修改不合格品
+    //***********修改不合格品
 
     @Override
     public int updateUnqualifyService(UnQualifyApply unQualifyApply) {
-        return  unQualifyApplyDao.updateUnqualifyDao(unQualifyApply);
+        return unQualifyApplyDao.updateUnqualifyDao(unQualifyApply);
     }
-        //**********删除不合格品(可为多条)
+
+    //**********删除不合格品(可为多条)
     @Override
     public int deleteUnqualifyService(String[] ids) {
         return unQualifyApplyDao.deleteUnqualifyDao(ids);
     }
+
     //*************修改不合格品备注功能
     @Override
     public int updateNoteUnqualifyService(String unqualifyApplyId, String note) {
-        return unQualifyApplyDao.updateNoteByUnqualifyApplyIdDao(unqualifyApplyId,note);
+        return unQualifyApplyDao.updateNoteByUnqualifyApplyIdDao(unqualifyApplyId, note);
     }
 //    //***********模糊查询
 
     @Override
     public List<UnQualifyApply> searchUnqualifyService(String searchname, String searchValue) {
-        return unQualifyApplyDao.searchUnqualifyDao(searchname,searchValue);
+        return unQualifyApplyDao.searchUnqualifyDao(searchname, searchValue);
     }
 
-//-------------------------成品计量质检--------------------------------------
-        //************注入Dao
-@Autowired
-private FinalMeasureCheckDao finalMeasureCheckDao;
-        //***********查询产品计量质检列表
+    //-------------------------成品计量质检--------------------------------------
+    //************注入Dao
+    @Autowired
+    private FinalMeasureCheckDao finalMeasureCheckDao;
+
+    //***********查询产品计量质检列表
     @Override
     public List<FinalMeasureCheck> findFMeasureCheck() {
         return finalMeasureCheckDao.findFMeasureCheckDao();
     }
-        //**********添加成品计量质检记录
+
+    //**********添加成品计量质检记录
     @Override
     public int addFMeasureCheckService(FinalMeasureCheck finalMeasureCheck) {
         return finalMeasureCheckDao.insertFMeasureCheckDao(finalMeasureCheck);
     }
-        //**********修改成品计量质检记录
+
+    //**********修改成品计量质检记录
     @Override
     public int updateFMeasureCheckService(FinalMeasureCheck finalMeasureCheck) {
         return finalMeasureCheckDao.updateFMeasureCheckDao(finalMeasureCheck);
     }
-        //*********删除成品计量质检记录
+
+    //*********删除成品计量质检记录
     @Override
     public int deleteFMeasureCheckService(String[] ids) {
         return finalMeasureCheckDao.deleteFMeasureCheckDao(ids);
     }
-        //***********修改备注成品计量质检记录
+
+    //***********修改备注成品计量质检记录
     @Override
     public int updateNoteFMeasureCheckService(String fMeasureCheckId, String note) {
         return finalMeasureCheckDao.updateNoteFMeasureCheckDao(fMeasureCheckId, note);
     }
-        //**************查找*********
+
+    //**************查找*********
     @Override
     public List<FinalMeasureCheck> searchFMeasureCheckService(String searchname, String searchValue) {
-        return finalMeasureCheckDao.searchFMeasureCheckDao(searchname,searchValue);
+        return finalMeasureCheckDao.searchFMeasureCheckDao(searchname, searchValue);
     }
 
     //-------------------------成品计数质检--------------------------------------
@@ -748,23 +782,25 @@ private FinalMeasureCheckDao finalMeasureCheckDao;
     public int updateNoteFCountCheckService(String fCountCheckId, String note) {
         return finalCountCheckDao.updateNoteFCountCheckDao(fCountCheckId, note);
     }
-        //*********模糊搜索
+    //*********模糊搜索
 
     @Override
     public List<FinalCountCheck> searchFCountCheckService(String searchname, String searchValue) {
-        return finalCountCheckDao.searchFCountCheckDao(searchname,searchValue);
+        return finalCountCheckDao.searchFCountCheckDao(searchname, searchValue);
     }
 
     //-------------------------工序计量质检--------------------------------------
     //************注入Dao
     @Autowired
     private ProcessMeasureCheckDao processMeasureCheckDao;
+
     //***********查询工序计量质检列表
     @Override
     public List<ProcessMeasureCheck> findPMeasureCheck() {
         List<ProcessMeasureCheck> list = processMeasureCheckDao.findPMeasureCheckDao();
         return list;
     }
+
     //**********添加工序计量质检记录
     @Override
     public int addPMeasureCheckService(ProcessMeasureCheck processMeasureCheck) {
@@ -786,13 +822,13 @@ private FinalMeasureCheckDao finalMeasureCheckDao;
 
     @Override
     public int updateNotePMeasureCheckService(String pMeasureCheckId, String note) {
-        return processMeasureCheckDao.updateNotePMeasureCheckDao(pMeasureCheckId,note);
+        return processMeasureCheckDao.updateNotePMeasureCheckDao(pMeasureCheckId, note);
     }
     //**********模糊查询
 
     @Override
     public List<ProcessMeasureCheck> searchPMeasureCheckService(String searchname, String searchValue) {
-        return processMeasureCheckDao.searchPMeasureCheckDao(searchname,searchValue);
+        return processMeasureCheckDao.searchPMeasureCheckDao(searchname, searchValue);
     }
 
 
@@ -840,41 +876,44 @@ private FinalMeasureCheckDao finalMeasureCheckDao;
 
     @Override
     public List<ProcessCountCheck> searchPCountCheckService(String searchname, String searchValue) {
-        return processCountCheckDao.searchPCountCheckDao(searchname,searchValue);
+        return processCountCheckDao.searchPCountCheckDao(searchname, searchValue);
     }
 
     /*****************人员监控接口实现*************************************/
-  //部门
+    //部门
     @Autowired
     private DepartmentDao departmentDao;
+
     @Override
-    public  List<Department> findDepartment(){
+    public List<Department> findDepartment() {
         return departmentDao.selectDepartment();
     }
+
     @Override
-    public Department findDepartmentById(String id){
+    public Department findDepartmentById(String id) {
         return departmentDao.selectDepartmentById(id);
     }
+
     @Override
-    public int addDepartment(Department department){
+    public int addDepartment(Department department) {
         return departmentDao.insertDepartment(department);
     }
+
     @Override
-    public int editDepartment(Department department){
+    public int editDepartment(Department department) {
         return departmentDao.updateDepartment(department);
     }
+
     @Override
-    public int deleteDepartment(String[] ids ){
+    public int deleteDepartment(String[] ids) {
         return departmentDao.deleteDepartmentById(ids);
     }
-//员工
+
+    //员工
     @Autowired
     private EmployeeDao employeeDao;
 
 
-
-
-    /*****************系统管理接口实现*************************************/
     @Override
     public List<Employee> findAllEmployee() {
         List<Employee> employees = employeeDao.findAllEmployee();
@@ -917,4 +956,47 @@ private FinalMeasureCheckDao finalMeasureCheckDao;
     }
 
 
+    /*****************系统管理接口实现*************************************/
+    @Autowired
+    private SysUserDao sysUserDao;
+
+    @Override
+    public List<SysUser> findUser() {
+        return sysUserDao.selectAllUser();
+    }
+
+    @Override
+    public SysUser findUserById(String id) {
+        return sysUserDao.selectAllUserById();
+    }
+
+    @Override
+    public int addUser(SysUser sysUser) {
+        return sysUserDao.insertUser(sysUser);
+    }
+
+    @Override
+    public int editUser(SysUser user) {
+        return sysUserDao.addUser(user);
+    }
+
+    @Override
+    public int deleteUser(String[] ids) {
+        return sysUserDao.deleteUserByIds(ids);
+    }
+
+    @Override
+    public List<COrder> findUserBySearch(String condition, String searchValue) {
+        return sysUserDao.selectUserBySearch(condition,searchValue);
+    }
+
+    @Override
+    public SysUser findUserByUsernameAndPassword(String username, String password) {
+        return sysUserDao.selectUserByUsernameAndPassword(username,password);
+    }
+
+    @Override
+    public SysUser findUserByUsername(String username) {
+        return sysUserDao.selectUsername(username);
+    }
 }

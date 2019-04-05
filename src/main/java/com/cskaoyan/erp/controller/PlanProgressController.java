@@ -189,14 +189,6 @@ public class PlanProgressController {
         return getStatusMap(i);
     }
 
-    private Map<String, String> getStatusMap(int i) {
-        Map<String, String> map = new HashMap<>();
-        map.put("status", "200");
-        if (i != 1) {
-            map.put("msg", "异常");
-        }
-        return map;
-    }
 
     /**
      * 编辑Custom的controller
@@ -669,4 +661,15 @@ public class PlanProgressController {
         return map;
     }
 
+
+
+
+    private Map<String, String> getStatusMap(int i) {
+        Map<String, String> map = new HashMap<>();
+        map.put("status", "200");
+        if (i != 1) {
+            map.put("msg", "异常");
+        }
+        return map;
+    }
 }
