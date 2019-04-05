@@ -20,8 +20,7 @@
 	            <td>工序编号:</td>
 	            <td>
 	            	<input class="easyui-combobox" name="processId" panelHeight="auto" data-options="required:true,
-	            		valueField:'processId',textField:'processId',url:'process/get_data',editable:false" value="02"/>
-	            <%--自定义数据--%>
+	            		valueField:'processId',textField:'processId',url:'process/get_data',editable:false" />
 				</td>
 	        </tr>
 	        <tr>
@@ -47,8 +46,7 @@
 	            <td>检验人:</td>
 	            <td>
 	            	<input class="easyui-combobox" name="empId" panelHeight="auto" data-options="required:true,
-	            		editable:false,valueField:'empId',textField:'empName',url:'employee/get_data'" value="002"/>
-	            <%--自定义数据--%>
+	            		editable:false,valueField:'empId',textField:'empName',url:'employee/get_data'" />
 				</td>
 	        </tr>
 	        <tr>

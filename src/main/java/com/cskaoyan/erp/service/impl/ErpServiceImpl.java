@@ -445,6 +445,13 @@ public class ErpServiceImpl implements ErpService {
     public int updateNoteUnqualifyService(String unqualifyApplyId, String note) {
         return unQualifyApplyDao.updateNoteByUnqualifyApplyIdDao(unqualifyApplyId,note);
     }
+//    //***********模糊查询
+
+    @Override
+    public List<UnQualifyApply> searchUnqualifyService(String searchname, String searchValue) {
+        return unQualifyApplyDao.searchUnqualifyDao(searchname,searchValue);
+    }
+
 //-------------------------成品计量质检--------------------------------------
         //************注入Dao
 @Autowired
@@ -473,6 +480,11 @@ private FinalMeasureCheckDao finalMeasureCheckDao;
     @Override
     public int updateNoteFMeasureCheckService(String fMeasureCheckId, String note) {
         return finalMeasureCheckDao.updateNoteFMeasureCheckDao(fMeasureCheckId, note);
+    }
+        //**************查找*********
+    @Override
+    public List<FinalMeasureCheck> searchFMeasureCheckService(String searchname, String searchValue) {
+        return finalMeasureCheckDao.searchFMeasureCheckDao(searchname,searchValue);
     }
 
     //-------------------------成品计数质检--------------------------------------
@@ -512,8 +524,14 @@ private FinalMeasureCheckDao finalMeasureCheckDao;
     public int updateNoteFCountCheckService(String fCountCheckId, String note) {
         return finalCountCheckDao.updateNoteFCountCheckDao(fCountCheckId, note);
     }
+        //*********模糊搜索
 
-//-------------------------工序计量质检--------------------------------------
+    @Override
+    public List<FinalCountCheck> searchFCountCheckService(String searchname, String searchValue) {
+        return finalCountCheckDao.searchFCountCheckDao(searchname,searchValue);
+    }
+
+    //-------------------------工序计量质检--------------------------------------
     //************注入Dao
     @Autowired
     private ProcessMeasureCheckDao processMeasureCheckDao;
@@ -545,6 +563,12 @@ private FinalMeasureCheckDao finalMeasureCheckDao;
     @Override
     public int updateNotePMeasureCheckService(String pMeasureCheckId, String note) {
         return processMeasureCheckDao.updateNotePMeasureCheckDao(pMeasureCheckId,note);
+    }
+    //**********模糊查询
+
+    @Override
+    public List<ProcessMeasureCheck> searchPMeasureCheckService(String searchname, String searchValue) {
+        return processMeasureCheckDao.searchPMeasureCheckDao(searchname,searchValue);
     }
 
 
@@ -587,9 +611,13 @@ private FinalMeasureCheckDao finalMeasureCheckDao;
     public int updateNotePCountCheckService(String pCountCheckId, String note) {
         return processCountCheckDao.updateNotePCountCheckDao(pCountCheckId, note);
     }
+    //***********模糊查询
 
 
-
+    @Override
+    public List<ProcessCountCheck> searchPCountCheckService(String searchname, String searchValue) {
+        return processCountCheckDao.searchPCountCheckDao(searchname,searchValue);
+    }
 
     /*****************人员监控接口实现*************************************/
     @Autowired

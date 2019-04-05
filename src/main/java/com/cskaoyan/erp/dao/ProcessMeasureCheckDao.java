@@ -12,5 +12,5 @@ public interface ProcessMeasureCheckDao {
     int updatePMeasureCheckDao(ProcessMeasureCheck processMeasureCheck);
     int deletePMeasureCheckDao(String[] ids);
     int updateNotePMeasureCheckDao(@Param("id") String unqualifyApplyId, @Param("note") String note);
-
+    List<ProcessMeasureCheck> searchPMeasureCheckDao(@Param("class1")String searchname,@Param("value1") String searchValue);
 }

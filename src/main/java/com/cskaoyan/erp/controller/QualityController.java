@@ -127,6 +127,11 @@ public class QualityController {
         int i = erpService.updateNoteUnqualifyService(unqualifyApplyId,note);//删除商品
         return map;
     }
+    @RequestMapping("unqualify/search_unqualify_by_{name}")//模糊查询不合格品
+    @ResponseBody
+    public Object findPageSearchUnqualify(int page,int rows,@PathVariable("name") String searchname,String searchValue)  {
+        return erpService.searchUnqualifyService(searchname,searchValue);
+    }
 
     /********************************成品计量质检模块******************************************************************/
 
@@ -204,6 +209,11 @@ public class QualityController {
         map.put("msg","OK");
         int i = erpService.updateNoteFMeasureCheckService(fMeasureCheckId,note);//修改备注
         return map;
+    }
+    @RequestMapping("measure/search_fMeasureCheck_by_{name}")//模糊查询成品计量质检记录
+    @ResponseBody
+    public Object findPageSearchFMeasureCheck(int page,int rows,@PathVariable("name") String searchname,String searchValue)  {
+        return erpService.searchFMeasureCheckService(searchname,searchValue);
     }
 
 
@@ -286,6 +296,11 @@ public String turnToFCountCheck(ModelAndView mv, HttpSession session){
         int i = erpService.updateNoteFCountCheckService(fCountCheckId,note);//修改备注
         return map;
     }
+    @RequestMapping("f_count_check/search_fCountCheck_by_{name}")//模糊查询成品计数质检记录
+    @ResponseBody
+    public Object findPageSearchFCountCheck(int page,int rows,@PathVariable("name") String searchname,String searchValue)  {
+        return erpService.searchFCountCheckService(searchname,searchValue);
+    }
 
 /********************************工序计量质检模块******************************************************************/
 @RequestMapping("p_measure_check/find")//进入情况1.home.jsp中点击工序计量质检
@@ -365,7 +380,11 @@ public String turnToPMeasureCheck(ModelAndView mv, HttpSession session){
         int i = erpService.updateNotePMeasureCheckService(pMeasureCheckId,note);//修改备注
         return map;
     }
-
+    @RequestMapping("p_measure_check/search_pMeasureCheck_by_{name}")//模糊查询成品计数质检记录
+    @ResponseBody
+    public Object findPageSearchPMeasureCheck(int page,int rows,@PathVariable("name") String searchname,String searchValue)  {
+        return erpService.searchPMeasureCheckService(searchname,searchValue);
+    }
 /********************************工序计数质检模块******************************************************************/
 @RequestMapping("p_count_check/find")//进入情况1.home.jsp中点击工序计数质检
 public String turnToPCountCheck(ModelAndView mv, HttpSession session){
@@ -421,7 +440,7 @@ public String turnToPCountCheck(ModelAndView mv, HttpSession session){
         int i = erpService.updatePCountCheckService(processCountCheck);
         return map;
     }
-    @RequestMapping("pCountCheck/delete_judge")//删除工序计量质检记录
+    @RequestMapping("pCountCheck/delete_judge")//删除工序计数质检记录
     @ResponseBody
     public String deleteJudgePCountCheck()  {
         return "{}";
@@ -435,7 +454,7 @@ public String turnToPCountCheck(ModelAndView mv, HttpSession session){
         int i = erpService.deletePCountCheckService(ids);//删除工序计数质检
         return map;
     }
-    @RequestMapping("p_count_check/update_note")//更新工序计量质检记录备注属性
+    @RequestMapping("p_count_check/update_note")//更新工序计数质检记录备注属性
     @ResponseBody
     public Map<String,String > updateNotePCountCheck(String pCountCheckId,String note)  {
         Map<String,String > map = new HashMap<>();
@@ -444,5 +463,9 @@ public String turnToPCountCheck(ModelAndView mv, HttpSession session){
         int i = erpService.updateNotePCountCheckService(pCountCheckId,note);//修改备注
         return map;
     }
-
+    @RequestMapping("p_count_check/search_pCountCheck_by_{name}")//模糊查询成品计数质检记录
+    @ResponseBody
+    public Object findPageSearchPCountCheck(int page,int rows,@PathVariable("name") String searchname,String searchValue)  {
+        return erpService.searchPCountCheckService(searchname,searchValue);
+    }
 }
