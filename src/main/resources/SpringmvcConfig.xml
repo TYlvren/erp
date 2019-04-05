@@ -54,7 +54,7 @@
     <aop:config> <!--该切入点的范围为所有的切面-->
         <aop:aspect ref="pageModelAspect"> <!--切面内的切入点的范围为当前切面-->
             <aop:pointcut id="findListPointcut"
-                          expression="execution(public * com.cskaoyan.erp.controller..find*(int,int))"/>
+                          expression="execution(public * com.cskaoyan.erp.controller..findPage*(int,int))"/>
 
             <!--配置切入点的Before通知-->
             <aop:around method="findListAround" pointcut-ref="findListPointcut"/>
