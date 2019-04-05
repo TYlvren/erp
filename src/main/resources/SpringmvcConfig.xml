@@ -60,4 +60,9 @@
             <aop:around method="findListAround" pointcut-ref="findListPointcut"/>
         </aop:aspect>
     </aop:config>
+
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <bean class="com.cskaoyan.erp.interceptor.AuthorizedInterceptor"/>
+    </mvc:interceptors>
 </beans>
