@@ -185,6 +185,11 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
+    public List<Manufacture> findManufactureBySearch(String condition, String searchValue) {
+        return manufactureDao.selectManufactureBySearch(condition,searchValue);
+    }
+
+    @Override
     public Manufacture findManufactureById(String id) {
         return manufactureDao.selectManufactureById(id);
     }

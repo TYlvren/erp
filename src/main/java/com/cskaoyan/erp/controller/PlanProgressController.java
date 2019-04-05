@@ -492,6 +492,14 @@ public class PlanProgressController {
         return erpService.findManufacture();
     }
 
+    /**Work的模糊查找*/
+    @RequestMapping("manufacture/search_manufacture_by_manufacture{condition}")
+    @ResponseBody
+    public Object findPageManufactureBySearch(@RequestParam int page,@RequestParam int rows,
+                                       String searchValue,@PathVariable String condition){
+        return erpService.findManufactureBySearch(condition,searchValue);
+    }
+
     /*****************Task控制层*************************************/
     /**
      * 查找Task的controller

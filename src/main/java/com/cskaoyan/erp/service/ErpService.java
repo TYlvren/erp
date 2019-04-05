@@ -72,6 +72,7 @@ public interface ErpService {
 
     /**------------------------------Manufacture--------------------------------*/
     List<Manufacture> findManufacture();
+    List<Manufacture> findManufactureBySearch(String condition, String searchValue);
     Manufacture findManufactureById(String id);
 
     /**------------------------------Work--------------------------------*/
