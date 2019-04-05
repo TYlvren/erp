@@ -40,18 +40,12 @@ public class TechnologyController {
 
     @RequestMapping("technology/list")
     @ResponseBody
-    public Map testcase02(HttpServletResponse response, HttpServletRequest request){
-        response.setHeader("Content-type", "text/html;charset=UTF-8");
-        String rows1 = request.getParameter("rows");
-        System.out.println("rows:"+rows1);
-        String page1 = request.getParameter("page");
-        System.out.println("page:"+page1);
-        int rows = Integer.parseInt(rows1);
-        int page = Integer.parseInt(page1);
+    public Map testcase02(@RequestParam int page, int rows){
         PageHelper.startPage(page, rows);
         List<Technology> technologyList = technologyDao.selectTechnology();
         int total = technologyDao.selectCountOfTechnology();
-        System.out.println("total:"+total);
+        PageInfo pageInfo = new PageInfo(technologyList);
+        technologyList = pageInfo.getList();
         Map<String,Object > hashMap = new HashMap();
         hashMap.put("total",total);
         hashMap.put("rows",technologyList);
@@ -69,17 +63,12 @@ public class TechnologyController {
 
     @RequestMapping("technology/insert")
     @ResponseBody
-    public Map<String,String> testcase05(Technology technology, HttpServletResponse response, HttpServletRequest request){
-        response.setHeader("Content-type", "text/html;charset=UTF-8");
-        System.out.println(technology);
+    public Map<String,String> testcase05(Technology technology){
         //检查工艺名或工艺号是否已存在
         List<Technology> technologyList = technologyDao.selectTechnologyNameAndIDisExist(
                 technology.getTechnologyId(),technology.getTechnologyName());
-        System.out.println("technologyList:"+technologyList);
         Map<String,String> map = new HashMap<>();
         if (technologyList.isEmpty()){
-            System.out.println("可以添加");
-            System.out.println(technology);
             technologyDao.insertTechnology(technology);
             map.put("status", "200");
         }else {
@@ -95,14 +84,15 @@ public class TechnologyController {
     }
 
     @RequestMapping("technology/delete_batch")
-    public String testcase07(HttpServletRequest request){
-        String ids = request.getParameter("ids");
+    public Map testcase07(@RequestParam String ids){
         String[] str = ids.split(",");
         for (int i = 0; i < str.length; i++) {
             String tid = str[i];
             technologyDao.removeTechnologyById(tid);
         }
-        return "technology_list";
+        Map<String,String> map = new HashMap<>();
+        map.put("status", "200");
+        return map;
     }
 
     //工艺更新操作
@@ -144,19 +134,14 @@ public class TechnologyController {
     public String testcase11(){
         return "technologyRequirement_list";
     }
-
     @RequestMapping("technologyRequirement/list")
     @ResponseBody
     public Map testcase12(@RequestParam int page, int rows){
-        Integer total = requirementDao.selectCountOfTechnologyRequirement();
-        System.out.println("总数为:"+total);
+        Integer total = requirementDao.selectCountOfTechnologyRequirement();;
         PageHelper.startPage(page, rows, true);
         if (total == null){
             total = requirementDao.selectCountOfTechnologyRequirement();
-            System.out.println("re总数为:"+total);
         }
-
-        List<TestModel> modelList = new ArrayList<>();
         List<TechnologyRequirement> technologyRequirements = requirementDao.selectTechnologyRequirement();
         for (TechnologyRequirement t :technologyRequirements
              ) {
@@ -165,9 +150,7 @@ public class TechnologyController {
         }
         PageInfo pageInfo = new PageInfo(technologyRequirements);
         technologyRequirements = pageInfo.getList();
-
         Map<String, Object> map = new HashMap<>();
-
         map.put("total", total);
         map.put("rows", technologyRequirements);
         return map;
@@ -406,14 +389,6 @@ public class TechnologyController {
     @RequestMapping("process/add")
     public String testcase37(){
         return "process_add";
-    }
-
-    @RequestMapping("technologyPlan/get_data")
-    @ResponseBody
-    public List<TechnologyPlan> testcase38(){
-        System.out.println("get_data");
-        List<TechnologyPlan> technologyPlans = technologyPlanDao.selectTechnologyPlan();
-        return technologyPlans;
     }
 
     @RequestMapping("process/insert")
