@@ -3,16 +3,12 @@ package com.cskaoyan.erp.controller;
 import com.cskaoyan.erp.model.Material;
 import com.cskaoyan.erp.model.MaterialReceive;
 import com.cskaoyan.erp.service.ErpService;
-import net.sf.json.JSON;
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -90,9 +86,6 @@ public class MaterialController {
     }
 
 
-
-
-
     /**
      * 处理添加请求
      *
@@ -116,6 +109,7 @@ public class MaterialController {
         erpService.addMaterial(material);
         return "material_add";
     }
+
     /**
      * 处理删除请求
      *
@@ -129,7 +123,7 @@ public class MaterialController {
     }
 
     @RequestMapping("material/delete_batch")
-    public String removeMaterial(String ids,HttpServletRequest request) {
+    public String removeMaterial(String ids, HttpServletRequest request) {
         String[] split = ids.split(",");
         System.out.println(split);
         for (String s : split) {
@@ -138,6 +132,7 @@ public class MaterialController {
 
         return "material_list";
     }
+
     /**
      * 处理修改请求
      *
@@ -149,18 +144,20 @@ public class MaterialController {
     public String updateMaterial() {
         return "material_edit";
     }
+
     @RequestMapping("material/edit")
     public String updateMaterial2() {
         return "material_edit";
     }
 
     @RequestMapping("material/update_all")
-    public String updateUserById(Material material) {
+    public String updateMaterialById(Material material) {
         //System.out.println("update");
-            System.out.println(material);
-            erpService.modifyMaterial(material);
-            return "material_edit";
-        }
+        System.out.println(material);
+        erpService.modifyMaterial(material);
+        return "material_edit";
+    }
+
     @RequestMapping("material/update_note")
     public String updateNote(Material material) {
         //System.out.println("update");
@@ -169,27 +166,78 @@ public class MaterialController {
         return "material_edit";
     }
 
-        /*---------物料收入模块------------------------------------------------------------------------*/
-   @RequestMapping("materialReceive/find")//进入物料收入信息
-    public String findMaterialReceive(HttpSession session){
-       List<String> sysPermissionList = new ArrayList<>();
-       sysPermissionList.add("materialReceive:add");
-       sysPermissionList.add("materialReceive:edit");
-       sysPermissionList.add("materialReceive:delete");
-       session.setAttribute("sysPermissionList", sysPermissionList);
+    /*---------物料收入模块------------------------------------------------------------------------*/
+    @RequestMapping("materialReceive/find")//进入物料收入信息
+    public String findMaterialReceive(HttpSession session) {
+        List<String> sysPermissionList = new ArrayList<>();
+        sysPermissionList.add("materialReceive:add");
+        sysPermissionList.add("materialReceive:edit");
+        sysPermissionList.add("materialReceive:delete");
+        session.setAttribute("sysPermissionList", sysPermissionList);
         return "materialReceive_list";
     }
+
     @RequestMapping("materialReceive/list")
-    public void selectMaterialReceive( HttpServletResponse response,HttpServletRequest request) throws IOException {
+    @ResponseBody
+    public List<MaterialReceive> selectMaterialReceive(HttpServletResponse response, HttpServletRequest request) throws IOException {
         response.setContentType("text/html;charset=utf-8");
         List<MaterialReceive> materialReceiveList = erpService.selectMaterialReceive();
-        int total=erpService.selectCountOfMaterialReceive();
-        HashMap<String,Object> hashMap=new HashMap<>();
+        int total = erpService.selectCountOfMaterialReceive();
+       /* HashMap<String,Object> hashMap=new HashMap<>();
         hashMap.put("total",total);
         hashMap.put("rows",materialReceiveList);
         JSONObject jsonObject= JSONObject.fromObject(hashMap);
-        response.getWriter().println(jsonObject);
+        response.getWriter().println(jsonObject);*/
+        return materialReceiveList;
 
+    }
+
+
+    @RequestMapping("materialReceive/add_judge")
+    public String addMaterialReceive() {
+        return "materialReceive_add";
+    }
+    @RequestMapping("material/get_data")
+    @ResponseBody
+    public List<Material> getMaterialId() {
+        List<Material> materialList= erpService.selectMaterialId();
+        return materialList;
+    }
+    @RequestMapping("materialReceive/add")
+    public String addMaterialReceive2() {
+        return "materialReceive_add";
+    }
+
+    @RequestMapping("materialReceive/insert")
+    public String addMaterialReceive(MaterialReceive materialReceive) {
+        System.out.println("materialReceive:" + materialReceive);
+        erpService.addMaterialReceive(materialReceive);
+        return "materialReceive_add";
+    }
+    @RequestMapping("materialReceive/edit_judge")
+    public String updateMaterialReceive() {
+        return "materialReceive_edit";
+    }
+
+    @RequestMapping("materialReceive/edit")
+    public String updateMaterialReceive2() {
+        return "materialReceive_edit";
+    }
+
+    @RequestMapping("materialReceive/update_all")
+    public String updateReceiveById(MaterialReceive materialReceive) {
+        //System.out.println("update");
+        System.out.println(materialReceive);
+        erpService.modifyMaterialReceive(materialReceive);
+        return "material_edit";
+    }
+
+    @RequestMapping("materialReceive/update_note")
+    public String updateReceiveNote(MaterialReceive materialReceive) {
+        //System.out.println("update");
+        System.out.println(materialReceive);
+        erpService.modifyReceiveNote(materialReceive);
+        return "materialReceive_edit";
     }
     }
     /*---------物料消耗模块------------------------------------------------------------------------*/

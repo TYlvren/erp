@@ -124,6 +124,11 @@ public interface ErpService {
     /*-------------物料收入模块------------------------------------------------*/
     List<MaterialReceive> selectMaterialReceive();
     int selectCountOfMaterialReceive();
+    int removeMaterialReceiveById(String id);
+    int modifyMaterialReceive(MaterialReceive materialReceive);
+    int addMaterialReceive(MaterialReceive materialReceive) ;
+    List<Material> selectMaterialId();
+    int modifyReceiveNote(MaterialReceive materialReceive);
     /*****************质量监控接口实现*************************************/
     //不合格品管理相关方法
     List<UnQualifyApply> findUnqualifyList();

@@ -353,6 +353,32 @@ public class ErpServiceImpl implements ErpService {
     public int selectCountOfMaterialReceive() {
         return materialReceiveDao.CountOfMaterialReceive();
     }
+
+    @Override
+    public int removeMaterialReceiveById(String id) {
+        return materialReceiveDao.deleteById(id);
+    }
+
+    @Override
+    public int modifyMaterialReceive(MaterialReceive materialReceive) {
+        return materialReceiveDao.update(materialReceive);
+    }
+
+    @Override
+    public int addMaterialReceive(MaterialReceive materialReceive) {
+        return materialReceiveDao.addMaterialReceive(materialReceive);
+    }
+
+    @Override
+    public List<Material> selectMaterialId() {
+        return materialReceiveDao.selectMaterialId();
+    }
+
+    @Override
+    public int modifyReceiveNote(MaterialReceive materialReceive) {
+        return materialReceiveDao.updateNote(materialReceive);
+    }
+
     /*****************质量监控接口实现*************************************/
 //    ------------------不合格品管理-------------------
         //**********注入Dao
