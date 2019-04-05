@@ -73,16 +73,4 @@ public class MaterialReceive {
         this.note = note == null ? null : note.trim();
     }
 
-    @Override
-    public String toString() {
-        return "MaterialReceive{" +
-                "receiveId='" + receiveId + '\'' +
-                ", materialId='" + materialId + '\'' +
-                ", amount=" + amount +
-                ", receiveDate=" + receiveDate +
-                ", sender='" + sender + '\'' +
-                ", receiver='" + receiver + '\'' +
-                ", note='" + note + '\'' +
-                '}';
-    }
 }
