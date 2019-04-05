@@ -345,6 +345,12 @@ public class PlanProgressController {
         return erpService.findWork();
     }
 
+    @RequestMapping("work/get_data")
+    @ResponseBody
+    public List<Work> getWorkData() {
+        return erpService.findWork();
+    }
+
     @RequestMapping("work/get/{id}")
     @ResponseBody
     public Work getWork(@PathVariable("id") String id) {
