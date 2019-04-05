@@ -18,6 +18,27 @@
         where product_id=#{id}
     </select>
 
+    <select id="selectProductBySearch" resultType="product">
+        <bind name="searchValue" value="'%' + searchValue + '%'" />
+        select <include refid="productColumns"/>
+        from product
+        <where>
+            <choose>
+                <when test="condition == 'Id'">
+                    product_id like #{searchValue}
+                </when>
+
+                <when test="condition == 'Name'">
+                    product_name like #{searchValue}
+                </when>
+
+                <when test="condition == 'Type'">
+                    product_type like #{searchValue}
+                </when>
+            </choose>
+        </where>
+    </select>
+
     <insert id="insertProduct">
         insert into product
         (product_id,product_name,product_type,image,note,status)

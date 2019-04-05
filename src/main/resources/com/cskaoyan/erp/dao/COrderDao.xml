@@ -48,19 +48,18 @@
         o.note,o.quantity ,o.unit_price,o.unit ,o.image,o.file ,o.status
         from c_order o
         <choose>
-
             <when test="condition == 'Id'">
             where order_id like #{searchValue}
             </when>
 
             <when test="condition == 'Custom'">
             ,custom
-            where custom_name like #{searchValue}
+            where custom_name like #{searchValue} and o.custom_id = custom.custom_id
             </when>
 
             <when test="condition == 'Product'">
             ,product
-            where product_name like #{searchValue}
+            where product_name like #{searchValue} and o.product_id = product.product_id
             </when>
         </choose>
     </select>
