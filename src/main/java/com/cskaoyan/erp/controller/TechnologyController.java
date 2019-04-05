@@ -466,7 +466,6 @@ public class TechnologyController {
     @RequestMapping("process/get_data")
     @ResponseBody
     public List<Process> testcase46(){
-        System.out.println("get_data");
         List<Process> technologyPlans = processDao.selectProcess();
         return technologyPlans;
     }
