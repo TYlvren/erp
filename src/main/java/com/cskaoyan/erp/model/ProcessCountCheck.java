@@ -23,10 +23,19 @@ public class ProcessCountCheck {
     private String measureData;
 
     private String empId;
+    private String empName;//手动添加类
 
     private String result;
 
     private String note;
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
 
     public String getpCountCheckId() {
         return pCountCheckId;

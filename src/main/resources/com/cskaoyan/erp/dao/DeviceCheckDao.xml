@@ -15,4 +15,64 @@
           FROM
                 (device_check dc LEFT  JOIN device d ON dc.device_id = d.device_id) LEFT JOIN employee e ON dc.device_check_emp_id = e.emp_id
     </select>
+
+      <insert id="insertDeviceCheck">
+            INSERT INTO
+            `device_check`
+            VALUES (#{deviceCheck.deviceCheckId},
+            #{deviceCheck.deviceId},
+            #{deviceCheck.deviceCheckEmpId},
+            #{deviceCheck.deviceCheckDate},
+            #{deviceCheck.deviceCheckResult},
+            #{deviceCheck.deviceCheckFaultId})
+      </insert>
+
+      <update id="updateDeviceCheck">
+            UPDATE device_check
+            <set>
+                  device_id=#{deviceCheck.deviceId},
+                  device_check_emp_id=#{deviceCheck.deviceCheckEmpId},
+                  device_check_date=#{deviceCheck.deviceCheckDate},
+                  device_check_result=#{deviceCheck.deviceCheckResult},
+                  device_check_fault_id=#{deviceCheck.deviceCheckFaultId}
+            </set>
+			WHERE
+			      device_check_id=#{deviceCheck.deviceCheckId}
+      </update>
+
+      <delete id="deleteDeviceCheck">
+            DELETE FROM
+                  device_check
+            WHERE
+                  device_check_id=#{id}
+      </delete>
+
+      <select id="findDeviceCheckById" resultType="deviceCheck">
+            SELECT
+                  device_check_id deviceCheckId,
+                  device_id deviceId,
+                  device_check_emp_id deviceCheckEmpId,
+                  device_check_date deviceCheckDate,
+                  device_check_result deviceCheckResult,
+                  device_check_fault_id deviceCheckFaultId
+            FROM
+                  device_check
+            WHERE
+                  device_check_id like '%${id}%'
+      </select>
+
+      <select id="getDeviceCheckById" resultType="deviceCheck">
+            SELECT
+                  device_check_id deviceCheckId,
+                  device_id deviceId,
+                  device_check_emp_id deviceCheckEmpId,
+                  device_check_date deviceCheckDate,
+                  device_check_result deviceCheckResult,
+                  device_check_fault_id deviceCheckFaultId
+            FROM
+                  device_check
+            WHERE
+                  device_check_id = #{id}
+      </select>
+
 </mapper>

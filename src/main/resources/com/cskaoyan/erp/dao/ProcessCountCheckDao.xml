@@ -2,4 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.ProcessCountCheckDao">
 
+
+    <sql id="PCountCheckColumns">
+          pcc.p_count_check_id as pCountCheckId,pcc.process_id as processId,pcc.check_item as checkItem,pcc.sample as sample,
+          pcc.check_number as checkNumber,pcc.unqualify as unqualify,pcc.qualify as qualify,pcc.cdate as cdate,
+          pcc.measure_data as measureData,pcc.emp_id as empId,pcc.result as result,e.emp_name as empName,pcc.note as note
+    </sql>
+    <select id="findPCountCheckDao" resultType="ProcessCountCheck">
+        select
+        <include refid="PCountCheckColumns"/>
+        from process_count_check as pcc left join employee as e on pcc.emp_id=e.emp_id
+    </select>
+
+    <insert id="insertPCountCheckDao" parameterType="ProcessCountCheck">
+        insert into process_count_check (
+        p_count_check_id  ,process_id  ,check_item ,sample  ,
+          check_number  ,unqualify  ,qualify  ,cdate  ,
+          measure_data  ,emp_id  ,result  ,note
+) values(#{pCountCheckId},#{processId},#{checkItem},#{sample},#{checkNumber},#{unqualify},#{qualify},#{cdate},#{measureData},#{empId},#{result},#{note})
+    </insert>
+    <!--修改工序计数质检-->
+    <update id="updatePCountCheckDao" parameterType="ProcessCountCheck">
+        update  process_count_check set  process_id =#{processId},check_item =#{checkItem},sample=#{sample},
+        check_number=#{checkNumber},unqualify =#{unqualify},qualify=#{qualify},cdate =#{cdate},
+        measure_data=#{measureData},emp_id =#{empId},result=#{result},note=#{note} where p_count_check_id= #{pCountCheckId}
+    </update>
+    <!--删除工序计数质检条数-->
+    <delete id="deletePCountCheckDao" >
+        delete from process_count_check where p_count_check_id in
+        (
+        <foreach collection="array" item="idss" separator="," >
+            #{idss}
+        </foreach>
+        )
+    </delete>
+    <!--修改工序计数质检备注信息-->
+    <update id="updateNotePCountCheckDao" parameterType="string">
+                update  process_count_check set  note=#{note} where p_count_check_id= #{id}
+    </update>
+
+
+
+
+
+
+
+
+
+
+
 </mapper>

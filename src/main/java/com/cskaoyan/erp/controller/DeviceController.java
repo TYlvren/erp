@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +30,30 @@ public class DeviceController {
     ErpService erpService;
 
     /*---------设备模块------------------------------------------------------------------------*/
+    @RequestMapping("deviceList/get_data")
+    public @ResponseBody List<Device> findAllDevice() {
+        List<Device> deviceByPage = erpService.findDeviceByPage();
+        return deviceByPage;
+    }
+
+    @RequestMapping("deviceList/get/{id}")
+    @ResponseBody
+    public Device getDevice(@PathVariable("id")String id) {
+        return erpService.findServiceDeviceById(id);
+    }
+
+    /*@RequestMapping("employee/get/{id}")
+    @ResponseBody
+    public Device getEmploy(@PathVariable("id")String id) {
+        return erpService.findServiceDeviceById(id);
+    }*/
+
+    /*@RequestMapping("order/get/{id}")
+    @ResponseBody
+    public Employee getOrder(@PathVariable("id") String id) {
+        return erpService.;
+    }*/
+
     @RequestMapping("device/deviceList")
     public String findAllDeviceByPage(HttpSession session) {
         List<String> list = new ArrayList();
@@ -147,7 +172,7 @@ public class DeviceController {
     @RequestMapping("deviceList/search_device_by_deviceId")
     public @ResponseBody Map<String, Object> searchDeviceById(@RequestParam int page, int rows, String searchValue) {
         PageHelper.startPage(page, rows, true);
-        List<DeviceType> list = erpService.findDeviceById(searchValue);
+        List<Device> list = erpService.findDeviceById(searchValue);
         PageInfo pageInfo = new PageInfo(list);
         list = pageInfo.getList();
         long total = pageInfo.getTotal();
@@ -160,7 +185,7 @@ public class DeviceController {
     @RequestMapping("deviceList/search_device_by_deviceName")
     public @ResponseBody Map<String, Object> searchDeviceByName(@RequestParam int page, int rows, String searchValue) {
         PageHelper.startPage(page, rows, true);
-        List<DeviceType> list = erpService.findDeviceByName(searchValue);
+        List<Device> list = erpService.findDeviceByName(searchValue);
         PageInfo pageInfo = new PageInfo(list);
         list = pageInfo.getList();
         long total = pageInfo.getTotal();
@@ -172,7 +197,7 @@ public class DeviceController {
     @RequestMapping("deviceList/search_device_by_deviceTypeName")
     public @ResponseBody Map<String, Object> searchDeviceByTypeName(@RequestParam int page, int rows, String searchValue) {
         PageHelper.startPage(page, rows, true);
-        List<DeviceType> list = erpService.findDeviceById(searchValue);
+        List<Device> list = erpService.findDeviceById(searchValue);
         PageInfo pageInfo = new PageInfo(list);
         list = pageInfo.getList();
         long total = pageInfo.getTotal();
@@ -403,6 +428,93 @@ public class DeviceController {
         map.put("rows", list);
         return map;
     }
+
+    @RequestMapping("deviceCheck/add_judge")
+    public String add1DeviceCheck() {
+        return "deviceCheck_add";
+    }
+
+    @RequestMapping("deviceCheck/add")
+    public String add2DeviceCheck() {
+        return "deviceCheck_add";
+    }
+
+    @RequestMapping("deviceCheck/insert")
+    public @ResponseBody Map<String, String> insertDeviceCheck(DeviceCheck deviceCheck) {
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.insertDeviceCheck(deviceCheck);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "添加失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("deviceCheck/edit_judge")
+    public String edit1DeviceCheck() {
+        return "deviceCheck_edit";
+    }
+    /**
+     * 对前端的请求进行映射，修改设备类别信息
+     * @return
+     */
+    @RequestMapping("deviceCheck/edit")
+    public String edit2DeviceCheck() {
+        return "deviceCheck_edit";
+    }
+
+    @RequestMapping("deviceCheck/update")
+    public @ResponseBody Map<String, String> updateDeviceCheck(DeviceCheck deviceCheck) {
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.updateDeviceCheck(deviceCheck);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("deviceCheck/delete_judge")
+    public String delete1DeviceCheck() {
+        return "deviceCheck";
+    }
+
+    @RequestMapping("deviceCheck/delete_batch")
+    public @ResponseBody Map<String, String> deleteDeviceCheck(String ids) {
+        Map<String, String> map = new HashMap<>();
+        String[] split = ids.split(",");
+        int i = 0;
+        for (String id : split) {
+            i = erpService.deleteDeviceCheck(id);
+        }
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "删除失败");
+        }
+        return map;
+    }
+
+    @RequestMapping("deviceCheck/search_deviceCheck_by_deviceCheckId")
+    public @ResponseBody Map<String, Object> searchDeviceCheckByIdData(@RequestParam int page, int rows, String searchValue) {
+        PageHelper.startPage(page, rows, true);
+        List<DeviceCheck> list = erpService.findDeviceCheckById(searchValue);
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
+    }
+
+
+
+
+
+
 
 
     /*---------设备故障模块------------------------------------------------------------------------*/

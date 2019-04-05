@@ -237,37 +237,30 @@ public class ErpServiceImpl implements ErpService {
     public List<Device> findDeviceByPage() {
         return deviceDao.findAllDevice();
     }
-
     @Override
     public int insertDevice(Device device) {
         return deviceDao.insertDevice(device);
     }
-
     @Override
     public int updateDevice(Device device) {
         return deviceDao.updateDeviceById(device);
     }
-
     @Override
     public int deleteDevice(String id) {
         return deviceDao.deleteDeviceById(id);
     }
-
     @Override
-    public List<DeviceType> findDeviceById(String searchValue) {
+    public List<Device> findDeviceById(String searchValue) {
         return deviceDao.findDeviceById(searchValue);
     }
-
     @Override
-    public List<DeviceType> findServiceDeviceById(String id) {
+    public Device findServiceDeviceById(String id) {
         return deviceDao.findServiceDeviceById(id);
     }
-
     @Override
-    public List<DeviceType> findDeviceByName(String searchValue) {
+    public List<Device> findDeviceByName(String searchValue) {
         return deviceDao.findDeviceByName(searchValue);
     }
-
     @Override
     public int updateDeviceNote(Device device) {
         return deviceDao.updateDeviceNote(device);
@@ -280,6 +273,31 @@ public class ErpServiceImpl implements ErpService {
     public List<DeviceCheck> findDeviceeCheckByPage() {
         return deviceCheckDao.findAllDeviceCheck();
     }
+
+    @Override
+    public int insertDeviceCheck(DeviceCheck deviceCheck) {
+        return deviceCheckDao.insertDeviceCheck(deviceCheck);
+    }
+
+    @Override
+    public int updateDeviceCheck(DeviceCheck deviceCheck) {
+        return deviceCheckDao.updateDeviceCheck(deviceCheck);
+    }
+
+    @Override
+    public int deleteDeviceCheck(String id) {
+        return deviceCheckDao.deleteDeviceCheck(id);
+    }
+    @Override
+    public List<DeviceCheck> findDeviceCheckById(String searchValue) {
+        return deviceCheckDao.findDeviceCheckById(searchValue);
+    }
+
+    @Override
+    public DeviceCheck getDeviceCheckById(String id) {
+        return deviceCheckDao.getDeviceCheckById(id);
+    }
+
     /*-------------设备故障模块------------------------------------------------*/
     @Override
     public List<DeviceFault> findAllDeviceFaultByPage() {
@@ -451,7 +469,43 @@ public class ErpServiceImpl implements ErpService {
 
     //-------------------------工序计数质检--------------------------------------
 
+    //************注入Dao
+    @Autowired
+    private ProcessCountCheckDao processCountCheckDao;
+//    //***********查询工序计数质检列表
 
+    @Override
+    public List<ProcessCountCheck> findPCountCheckService() {
+        return processCountCheckDao.findPCountCheckDao();
+    }
+
+//    //**********添加工序计数质检记录
+
+    @Override
+    public int addPCountCheckService(ProcessCountCheck processCountCheck) {
+        return processCountCheckDao.insertPCountCheckDao(processCountCheck);
+    }
+
+//    //**********修改工序计数质检记录
+
+    @Override
+    public int updatePCountCheckService(ProcessCountCheck processCountCheck) {
+        return processCountCheckDao.updatePCountCheckDao(processCountCheck);
+    }
+
+//    //*********删除工序计数质检记录
+
+    @Override
+    public int deletePCountCheckService(String[] ids) {
+        return processCountCheckDao.deletePCountCheckDao(ids);
+    }
+
+//    //***********修改备注工序计量质检记录
+
+    @Override
+    public int updateNotePCountCheckService(String pCountCheckId, String note) {
+        return processCountCheckDao.updateNotePCountCheckDao(pCountCheckId, note);
+    }
 
 
 
@@ -479,6 +533,8 @@ public class ErpServiceImpl implements ErpService {
     public int deleteDepartment(String[] ids ){
         return departmentDao.deleteDepartmentById(ids);
     }
+
+
 
     /*****************系统管理接口实现*************************************/
 
