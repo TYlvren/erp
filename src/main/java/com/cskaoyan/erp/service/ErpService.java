@@ -31,6 +31,13 @@ public interface ErpService {
     List<COrder> findCOrder();
 
     /**
+     * 模糊查找
+     * @param condition
+     * @param searchValue
+     * @return
+     */
+    List<COrder> findCOrderBySearch(String condition, String searchValue);
+    /**
      * 通过id 查找COrder
      * @param id
      * @return
@@ -47,6 +54,7 @@ public interface ErpService {
     List<Custom> findCustom();
     Custom findCustomById(String id);
 
+    List<COrder> findCustomBySearch(String condition, String searchValue);
     int addCustom(Custom custom);
 
     int editCustom(Custom custom);
@@ -55,6 +63,7 @@ public interface ErpService {
 
     /**------------------------------Product--------------------------------*/
     List<Product> findProduct();
+    List<Product> findProductBySearch(String condition, String searchValue);
     Product findProductById(String id);
     int addProduct(Product product);
     int editProduct(Product product);
@@ -63,10 +72,12 @@ public interface ErpService {
 
     /**------------------------------Manufacture--------------------------------*/
     List<Manufacture> findManufacture();
+    List<Manufacture> findManufactureBySearch(String condition, String searchValue);
     Manufacture findManufactureById(String id);
 
     /**------------------------------Work--------------------------------*/
     List<Work> findWork();
+    List<Work> findWorkBySearch(String condition, String searchValue);
     Work findWorkById(String id);
     int addWork(Work work);
 
@@ -143,13 +154,24 @@ public interface ErpService {
     List<Material> selectMaterialByType(String searchValue);
     int modifyNote(Material material);
     /*-------------物料收入模块------------------------------------------------*/
-    List<MaterialReceive> selectMaterialReceive();
-    int selectCountOfMaterialReceive();
+    Map<String, Object> listMaterialReceiveByPage(Integer pageNum, Integer pageSize);
+    Map<String, Object> searchMaterialReceiveBymaterialId(String materialId, Integer pageNum, Integer pageSize);
+    Map<String, Object> searchMaterialReceiveByReceiveId(String receiveId, Integer pageNum, Integer pageSize);
     int removeMaterialReceiveById(String id);
     int modifyMaterialReceive(MaterialReceive materialReceive);
     int addMaterialReceive(MaterialReceive materialReceive) ;
     List<Material> selectMaterialId();
     int modifyReceiveNote(MaterialReceive materialReceive);
+    /*-------------物料消耗模块------------------------------------------------*/
+    int removeMaterialConsumeById(String id);
+    int modifyMaterialConsume(MaterialConsume materialConsume);
+    int addMaterialConsume(MaterialConsume materialConsume) ;
+    int modifyConsumeNote(MaterialConsume materialConsume);
+    Map<String, Object> listMaterialConsumeByPage(Integer pageNum, Integer pageSize);
+    Map<String, Object> searchMaterialConsumeBymaterialId(String searchValue, Integer pageNum, Integer pageSize);
+    Map<String, Object> searchMaterialConsumeByWorkId(String searchValue, Integer pageNum, Integer pageSize);
+    Map<String, Object> searchMaterialConsumeByConsumeId(String searchValue, Integer pageNum, Integer pageSize);
+
     /*****************质量监控接口实现*************************************/
     //不合格品管理相关方法
     List<UnQualifyApply> findUnqualifyList();
@@ -158,8 +180,17 @@ public interface ErpService {
     int deleteUnqualifyService(String[] ids);
     int updateNoteUnqualifyService(String unqualifyApplyId,String note);
     //成品计量质检模块相关方法
+     List<FinalMeasureCheck>findFMeasureCheck();
+    int  addFMeasureCheckService(FinalMeasureCheck finalMeasureCheck);
+    int  updateFMeasureCheckService(FinalMeasureCheck finalMeasureCheck);
+    int deleteFMeasureCheckService(String[] ids);
+    int updateNoteFMeasureCheckService(String fMeasureCheckId,String note);
     //成品计数质检模块相关方法
-
+    List<FinalCountCheck>findFCountCheck();
+    int  addFCountCheckService(FinalCountCheck finalCountCheck);
+    int  updateFCountCheckService(FinalCountCheck finalCountCheck);
+    int deleteFCountCheckService(String[] ids);
+    int updateNoteFCountCheckService(String fCountCheckId,String note);
 
     //工序计量质检模块相关方法
     List<ProcessMeasureCheck>findPMeasureCheck();

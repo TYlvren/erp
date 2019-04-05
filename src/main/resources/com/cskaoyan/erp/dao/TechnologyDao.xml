@@ -109,5 +109,52 @@
          select * from technology where technology_name = #{technologyName}
     </select>
 
+    <resultMap id="searchById" type="technology">
+        <result column="technology_id" property="technologyId"/>
+        <result column="technology_name" property="technologyName"/>
+        <result column="price" property="price"/>
+        <result column="vital_process_period" property="vitalProcessPeriod"/>
+        <result column="standard_capacity" property="standardCapacity"/>
+        <result column="overtime_standard_capacity" property="overtimeStandardCapacity"/>
+        <result column="overtime_overfulfil_capacity" property="overtimeOverfulfilCapacity"/>
+        <result column="double_capacity" property="doubleCapacity"/>
+        <result column="overfulfil_capacity" property="overfulfilCapacity"/>
+    </resultMap>
+
+    <select id="searchTechnologyByTechnologyId" resultMap="searchById">
+        select * from technology
+        <where>
+            <bind name="pattern" value="'%' + searchValue + '%'" />
+            technology_id like #{pattern}
+        </where>
+    </select>
+
+    <resultMap id="searchByName" type="technology">
+        <result column="technology_id" property="technologyId"/>
+        <result column="technology_name" property="technologyName"/>
+        <result column="price" property="price"/>
+        <result column="vital_process_period" property="vitalProcessPeriod"/>
+        <result column="standard_capacity" property="standardCapacity"/>
+        <result column="overtime_standard_capacity" property="overtimeStandardCapacity"/>
+        <result column="overtime_overfulfil_capacity" property="overtimeOverfulfilCapacity"/>
+        <result column="double_capacity" property="doubleCapacity"/>
+        <result column="overfulfil_capacity" property="overfulfilCapacity"/>
+    </resultMap>
+
+    <select id="searchTechnologyByTechnologyIdOrTechnologyName" resultMap="searchByName">
+        select * from technology
+        <where>
+            1=1
+            <if test="name!=null">
+            <bind name="pattern" value="'%' + name + '%'" />
+            and technology_name like #{pattern}
+             </if>
+            <if test="id!=null">
+                <bind name="pattern" value="'%' + id + '%'" />
+                and technology_id like #{pattern}
+            </if>
+
+        </where>
+    </select>
 
 </mapper>

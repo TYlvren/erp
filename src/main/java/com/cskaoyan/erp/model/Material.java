@@ -5,6 +5,7 @@ public class Material {
 
     private String materialType;
 
+
     private String status;
 
     private Integer remaining;
@@ -50,6 +51,7 @@ public class Material {
     public void setNote(String note) {
         this.note = note == null ? null : note.trim();
     }
+
 
     @Override
     public String toString() {

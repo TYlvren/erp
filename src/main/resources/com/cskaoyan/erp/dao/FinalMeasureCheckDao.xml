@@ -2,4 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.FinalMeasureCheckDao">
 
+    <sql id="FMeasureCheckColumns">
+          fmc.f_measure_check_id as fMeasureCheckId,fmc.order_id as orderId,fmc.check_item as checkItem,fmc.cdate as cdate,
+          fmc.measure_data as measureData,fmc.emp_id as empId,fmc.result as result, fmc.note as note,e.emp_name as empName
+    </sql>
+    <select id="findFMeasureCheckDao" resultType="FinalMeasureCheck">
+        select
+        <include refid="FMeasureCheckColumns"/>
+        from final_measuret_check as fmc left join employee as e on fmc.emp_id=e.emp_id
+    </select>
+
+    <insert id="insertFMeasureCheckDao" parameterType="FinalMeasureCheck">
+        insert into final_measuret_check  (
+          f_measure_check_id  ,order_id ,check_item  ,
+          cdate  ,measure_data ,emp_id  ,
+          result  , note
+
+) values(#{fMeasureCheckId},#{orderId},#{checkItem},#{cdate},#{measureData},#{empId},#{result},#{note})
+    </insert>
+    <!--修改工序计数质检-->
+    <update id="updateFMeasureCheckDao" parameterType="FinalMeasureCheck">
+        update  final_measuret_check set  order_id =#{orderId},check_item =#{checkItem},cdate=#{cdate},
+        measure_data=#{measureData},emp_id =#{empId},result=#{result},note =#{note}
+        where f_measure_check_id= #{fMeasureCheckId}
+    </update>
+    <!--删除工序计数质检条数-->
+    <delete id="deleteFMeasureCheckDao" >
+        delete from final_measuret_check where f_measure_check_id in
+        (
+        <foreach collection="array" item="idss" separator="," >
+            #{idss}
+        </foreach>
+        )
+    </delete>
+    <!--修改工序计数质检备注信息-->
+    <update id="updateNoteFMeasureCheckDao" parameterType="string">
+                update  final_measuret_check set  note=#{note} where f_measure_check_id= #{id}
+    </update>
 </mapper>

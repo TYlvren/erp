@@ -10,9 +10,7 @@
  */
 package com.cskaoyan.erp.controller;
 
-import com.cskaoyan.erp.model.ProcessCountCheck;
-import com.cskaoyan.erp.model.ProcessMeasureCheck;
-import com.cskaoyan.erp.model.UnQualifyApply;
+import com.cskaoyan.erp.model.*;
 import com.cskaoyan.erp.service.ErpService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -66,16 +64,9 @@ public class QualityController {
         return "unqualify_list";
     }
     @RequestMapping("unqualify/list")//自动查询数据  实现分页
-    public  @ResponseBody Map<String, Object> findUnqualify(@RequestParam int page, int rows){
-        PageHelper.startPage(page, rows, true);
-        List<UnQualifyApply> list = erpService.findUnqualifyList();
-        PageInfo pageInfo = new PageInfo(list);
-        list = pageInfo.getList();
-        long total = pageInfo.getTotal();
-        Map<String, Object> map = new HashMap<>();
-        map.put("total", total);
-        map.put("rows", list);
-        return map;
+    @ResponseBody
+    public   Object findPageUnqualify(int page, int rows){
+        return erpService.findUnqualifyList();
     }
     @RequestMapping("unqualify/add")//新建不合格品记录
     public String addUniqualify(){
@@ -139,49 +130,163 @@ public class QualityController {
 
     /********************************成品计量质检模块******************************************************************/
 
-//    @RequestMapping("measure/find")//进入情况1.home.jsp中点击成品计量质检
-//    public String turnToPMeasureCheck(ModelAndView mv, HttpSession session){
-//        List<String> sysPermissionList=new ArrayList<>();
-//        sysPermissionList.add("pMeasureCheck:add");//设置新建编辑删除按钮的显示
-//        sysPermissionList.add("pMeasureCheck:edit");
-//        sysPermissionList.add("pMeasureCheck:delete");
-//        session.setAttribute("sysPermissionList",sysPermissionList);
-//        return "p_measure_check_list";
-//    }
-//
-//    @RequestMapping("p_measure_check/list")//自动查询成品计量质检数据  实现分页
-//    public  @ResponseBody Map<String, Object> findPMeasureCheck(@RequestParam int page, int rows){
-//        PageHelper.startPage(page, rows, true);
-//        List<ProcessMeasureCheck> list = erpService.findPMeasureCheck();
-//        PageInfo pageInfo = new PageInfo(list);
-//        list = pageInfo.getList();
-//        long total = pageInfo.getTotal();
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("total", total);
-//        map.put("rows", list);
-//        return map;
-//    }
-//    @RequestMapping("p_measure_check/add")//新建成品计量质检转入对应jsp
-//    public String addPMeasureCheck(){
-//        return "p_measure_check_add";
-//    }
-//    @RequestMapping("pMeasureCheck/add_judge")//计量质检判断
-//    @ResponseBody
-//    public String addJudgePMeasureCheck()  {
-//        return "{}";
-//    }
-//
-//
-//    @RequestMapping("unqualify/insert")//新建成品计量质检记录
-//    @ResponseBody
-//    public Map<String,String > insertUnQualifyApply(ProcessMeasureCheck processMeasureCheck)  {
-//        Map<String,String > map = new HashMap<>();
-//        map.put("status","200");
-//        map.put("msg","OK");
-//        erpService.addPMeasureCheckService(processMeasureCheck);//添加商品没有返回值
-//        return map;
-//    }
+    @RequestMapping("measure/find")//进入情况1.home.jsp中点击成品计量质检
+    public String turnToFMeasureCheck(ModelAndView mv, HttpSession session){
+        List<String> sysPermissionList=new ArrayList<>();
+        sysPermissionList.add("fMeasureCheck:add");//设置新建编辑删除按钮的显示
+        sysPermissionList.add("fMeasureCheck:edit");
+        sysPermissionList.add("fMeasureCheck:delete");
+        session.setAttribute("sysPermissionList",sysPermissionList);
+        return "measurement_list";
+    }
+
+    @RequestMapping("measure/list")//自动查询成品计量质检数据  实现分页
+    @ResponseBody
+    public Object findPageFMeasureCheck( int page, int rows){
+        return erpService.findFMeasureCheck();
+    }
+    @RequestMapping("measure/add")//新建成品计量质检转入对应jsp
+    public String addFMeasureCheck(){
+        return "measurement_add";
+    }
+    @RequestMapping("fMeasureCheck/add_judge")//计量质检判断
+    @ResponseBody
+    public String addJudgeFMeasureCheck()  {
+        return "{}";
+    }
+    @RequestMapping("measure/insert")//新建成品计量质检记录
+    @ResponseBody
+    public Map<String,String > insertFMeasureCheck(FinalMeasureCheck finalMeasureCheck)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        erpService.addFMeasureCheckService(finalMeasureCheck);//添加商品没有返回值
+        return map;
+    }
+
+    @RequestMapping("fMeasureCheck/edit_judge")//修改成品计量质检记录
+    @ResponseBody
+    public String editJudgeFMeasureCheck()  {
+        return "{}";
+    }
+    @RequestMapping("measure/edit")//跳转修改成品计量质检页面
+    public String editFMeasureCheck(){
+        return "measurement_edit";
+    }
+    @RequestMapping("measure/update_all")//修改成品计量质检记录
+    @ResponseBody
+    public Map<String,String > updateFMeasureCheck(FinalMeasureCheck finalMeasureCheck)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.updateFMeasureCheckService(finalMeasureCheck);
+        return map;
+    }
+    @RequestMapping("fMeasureCheck/delete_judge")//删除成品计量质检记录
+    @ResponseBody
+    public String deleteJudgeFMeasureCheck()  {
+        return "{}";
+    }
+    @RequestMapping("measure/delete_batch")//删除成品计量质检记录(可为多条)
+    @ResponseBody
+    public Map<String,String > deleteFMeasureCheck(String[] ids)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.deleteFMeasureCheckService(ids);//删除成品计量质检
+        return map;
+    }
+    @RequestMapping("measure/update_note")//更新成品计量质检记录备注属性
+    @ResponseBody
+    public Map<String,String > updateNoteFMeasureCheck(String fMeasureCheckId,String note)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.updateNoteFMeasureCheckService(fMeasureCheckId,note);//修改备注
+        return map;
+    }
+
+
+
+
 /********************************成品计数质检模块******************************************************************/
+
+
+@RequestMapping("f_count_check/find")//进入情况1.home.jsp中点击成品计数质检
+public String turnToFCountCheck(ModelAndView mv, HttpSession session){
+    List<String> sysPermissionList=new ArrayList<>();
+    sysPermissionList.add("fCountCheck:add");//设置新建编辑删除按钮的显示
+    sysPermissionList.add("fCountCheck:edit");
+    sysPermissionList.add("fCountCheck:delete");
+    session.setAttribute("sysPermissionList",sysPermissionList);
+    return "f_count_check_list";
+}
+
+    @RequestMapping("f_count_check/list")//自动查询成品计数质检数据  实现分页
+    @ResponseBody
+    public Object findPageFCountCheck( int page, int rows){
+        return erpService.findFCountCheck();
+    }
+    @RequestMapping("f_count_check/add")//新建成品计数质检入对应jsp
+    public String addFCountCheck(){
+        return "f_count_check_add";
+    }
+    @RequestMapping("fCountCheck/add_judge")//成品计数质检判断
+    @ResponseBody
+    public String addJudgeFCountCheck()  {
+        return "{}";
+    }
+    @RequestMapping("f_count_check/insert")//新建成品计数质检记录
+    @ResponseBody
+    public Map<String,String > insertFCountCheck(FinalCountCheck finalCountCheck)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        erpService.addFCountCheckService(finalCountCheck);//添加商品没有返回值
+        return map;
+    }
+    @RequestMapping("fCountCheck/edit_judge")//修改成品计数质检记录
+    @ResponseBody
+    public String editJudgeFCountCheck()  {
+        return "{}";
+    }
+    @RequestMapping("f_count_check/edit")//跳转修改成品计数质检页面
+    public String editFCountCheck(){
+        return "f_count_check_edit";
+    }
+    @RequestMapping("f_count_check/update_all")//修改成品计数质检记录
+    @ResponseBody
+    public Map<String,String > updateFCountCheck(FinalCountCheck finalCountCheck)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.updateFCountCheckService(finalCountCheck);
+        return map;
+    }
+    @RequestMapping("fCountCheck/delete_judge")//删除成品计数质检记录
+    @ResponseBody
+    public String deleteJudgeFCountCheck()  {
+        return "{}";
+    }
+    @RequestMapping("f_count_check/delete_batch")//删除成品计数质检记录(可为多条)
+    @ResponseBody
+    public Map<String,String > deleteFCountCheck(String[] ids)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.deleteFCountCheckService(ids);//删除成品计数质检
+        return map;
+    }
+    @RequestMapping("f_count_check/update_note")//更新成品计数质检记录备注属性
+    @ResponseBody
+    public Map<String,String > updateNoteFCountCheck(String fCountCheckId,String note)  {
+        Map<String,String > map = new HashMap<>();
+        map.put("status","200");
+        map.put("msg","OK");
+        int i = erpService.updateNoteFCountCheckService(fCountCheckId,note);//修改备注
+        return map;
+    }
+
 /********************************工序计量质检模块******************************************************************/
 @RequestMapping("p_measure_check/find")//进入情况1.home.jsp中点击工序计量质检
 public String turnToPMeasureCheck(ModelAndView mv, HttpSession session){
@@ -194,16 +299,9 @@ public String turnToPMeasureCheck(ModelAndView mv, HttpSession session){
 }
 
     @RequestMapping("p_measure_check/list")//自动查询工序计量质检数据  实现分页
-    public  @ResponseBody Map<String, Object> findPMeasureCheck(@RequestParam int page, int rows){
-        PageHelper.startPage(page, rows, true);
-        List<ProcessMeasureCheck> list = erpService.findPMeasureCheck();
-        PageInfo pageInfo = new PageInfo(list);
-        list = pageInfo.getList();
-        long total = pageInfo.getTotal();
-        Map<String, Object> map = new HashMap<>();
-        map.put("total", total);
-        map.put("rows", list);
-        return map;
+    @ResponseBody
+    public  Object findPagePMeasureCheck( int page, int rows){
+        return erpService.findPMeasureCheck();
     }
     @RequestMapping("p_measure_check/add")//新建工序计量质检转入对应jsp
     public String addPMeasureCheck(){
@@ -280,16 +378,9 @@ public String turnToPCountCheck(ModelAndView mv, HttpSession session){
 }
 
     @RequestMapping("p_count_check/list")//自动查询工序计数质检数据  实现分页
-    public  @ResponseBody Map<String, Object> findPCountCheck(@RequestParam int page, int rows){
-        PageHelper.startPage(page, rows, true);
-        List<ProcessCountCheck> list = erpService.findPCountCheckService();
-        PageInfo pageInfo = new PageInfo(list);
-        list = pageInfo.getList();
-        long total = pageInfo.getTotal();
-        Map<String, Object> map = new HashMap<>();
-        map.put("total", total);
-        map.put("rows", list);
-        return map;
+    @ResponseBody
+    public   Object findPagePCountCheck(int page, int rows){
+        return erpService.findPCountCheckService();
     }
     @RequestMapping("p_count_check/add")//新建工序计数质检转入对应jsp
     public String addPCountCheck(){

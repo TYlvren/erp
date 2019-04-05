@@ -10,9 +10,12 @@ import com.cskaoyan.erp.model.DeviceMaintain;
 import com.cskaoyan.erp.model.UnQualifyApply;
 
 import com.cskaoyan.erp.service.ErpService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +58,11 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
+    public List<COrder> findCOrderBySearch(String condition, String searchValue) {
+        return cOrderDao.selectCOderBySearch(condition,searchValue);
+    }
+
+    @Override
     public COrder findCOrderById(String id) {
         return cOrderDao.selectCOrderById(id);
     }
@@ -88,6 +96,11 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
+    public List<COrder> findCustomBySearch(String condition, String searchValue) {
+        return customDao.selectCustomBySearch(condition,searchValue);
+    }
+
+    @Override
     public int addCustom(Custom custom) {
         return customDao.insertCustom(custom);
     }
@@ -106,6 +119,11 @@ public class ErpServiceImpl implements ErpService {
     @Override
     public List<Product> findProduct() {
         return productDao.selectAllProduct();
+    }
+
+    @Override
+    public List<Product> findProductBySearch(String condition, String searchValue) {
+        return productDao.selectProductBySearch(condition,searchValue);
     }
 
     @Override
@@ -135,6 +153,11 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
+    public List<Work> findWorkBySearch(String condition, String searchValue) {
+        return workDao.selectWorkBySearch(condition,searchValue);
+    }
+
+    @Override
     public Work findWorkById(String id) {
         return workDao.selectWorkById(id);
     }
@@ -159,6 +182,11 @@ public class ErpServiceImpl implements ErpService {
     @Override
     public List<Manufacture> findManufacture() {
         return manufactureDao.selectAllManufacture();
+    }
+
+    @Override
+    public List<Manufacture> findManufactureBySearch(String condition, String searchValue) {
+        return manufactureDao.selectManufactureBySearch(condition,searchValue);
     }
 
     @Override
@@ -405,6 +433,8 @@ public class ErpServiceImpl implements ErpService {
     private MaterialDao materialDao;
     @Autowired
     private MaterialReceiveDao materialReceiveDao;
+    @Autowired
+    private MaterialConsumeDao materialConsumeDao;
     @Override
     public List<Material> selectMaterial() {
         return materialDao.selectMaterial();
@@ -443,21 +473,49 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public int modifyNote(Material material) {
-         return materialDao.updateNote(material);
+        return materialDao.updateNote(material);
     }
 
 
     /*-------------物料收入模块------------------------------------------------*/
     @Override
-    public List<MaterialReceive> selectMaterialReceive() {
-        return materialReceiveDao.selectMaterialReceive();
+    public Map<String, Object> listMaterialReceiveByPage(Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialReceive> materials= materialReceiveDao.selectAll();
+        map.put("total",onePage.getTotal());
+        map.put("rows",materials);
+        return map;
+    }
+    @Override
+    public Map<String, Object> searchMaterialReceiveBymaterialId(String materialId, Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialReceive> materialReceives = materialReceiveDao.selectLikeMaterialId(materialId);
+        map.put("total",onePage.getTotal());
+        map.put("rows",materialReceives);
+        return map;
     }
 
     @Override
-    public int selectCountOfMaterialReceive() {
-        return materialReceiveDao.CountOfMaterialReceive();
-    }
+    public Map<String, Object> searchMaterialReceiveByReceiveId(String receiveId, Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
 
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialReceive> materialReceives = materialReceiveDao.selectLikeReceiveId(receiveId);
+        map.put("total",onePage.getTotal());
+        map.put("rows",materialReceives);
+        return map;
+
+    }
     @Override
     public int removeMaterialReceiveById(String id) {
         return materialReceiveDao.deleteById(id);
@@ -465,7 +523,7 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public int modifyMaterialReceive(MaterialReceive materialReceive) {
-        return materialReceiveDao.update(materialReceive);
+        return materialReceiveDao.updateReceive(materialReceive);
     }
 
     @Override
@@ -480,7 +538,82 @@ public class ErpServiceImpl implements ErpService {
 
     @Override
     public int modifyReceiveNote(MaterialReceive materialReceive) {
-        return materialReceiveDao.updateNote(materialReceive);
+        return materialReceiveDao.updateReceiveNote(materialReceive);
+    }
+    /*-------------物料消耗模块------------------------------------------------*/
+    @Override
+    public int removeMaterialConsumeById(String id) {
+        return materialConsumeDao.deleteById(id);
+    }
+
+    @Override
+    public int modifyMaterialConsume(MaterialConsume materialConsume) {
+        return materialConsumeDao.updateConsume(materialConsume);
+    }
+
+    @Override
+    public int addMaterialConsume(MaterialConsume materialConsume) {
+        return materialConsumeDao.addMaterialConsume(materialConsume);
+    }
+
+    @Override
+    public int modifyConsumeNote(MaterialConsume materialConsume) {
+        return materialConsumeDao.updateConsumeNote(materialConsume);
+    }
+
+    @Override
+    public Map<String, Object> listMaterialConsumeByPage(Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialConsume> materials= materialConsumeDao.selectAll();
+        map.put("total",onePage.getTotal());
+        map.put("rows",materials);
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> searchMaterialConsumeBymaterialId(String materialId, Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialConsume> materialConsumes  = materialConsumeDao.selectLikeMaterialId(materialId);
+        map.put("total",onePage.getTotal());
+        map.put("rows",materialConsumes);
+        return map;
+
+    }
+
+    @Override
+    public Map<String, Object> searchMaterialConsumeByWorkId(String workId, Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialConsume> materialConsumes = materialConsumeDao.selectLikeWorkId(workId);
+        map.put("total",onePage.getTotal());
+        map.put("rows",materialConsumes);
+        return map;
+
+    }
+
+    @Override
+    public Map<String, Object> searchMaterialConsumeByConsumeId(String consumeId, Integer pageNum, Integer pageSize) {
+        Integer num = pageNum!=null ? pageNum:1;
+        Integer size = pageSize!=null ? pageSize:10;
+        Page onePage = PageHelper.startPage(num,size,true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<MaterialConsume> materialConsumes = materialConsumeDao.selectLikeConsumeId(consumeId);
+        map.put("total",onePage.getTotal());
+        map.put("rows",materialConsumes);
+        return map;
+
     }
 
     /*****************质量监控接口实现*************************************/
@@ -517,7 +650,73 @@ public class ErpServiceImpl implements ErpService {
         return unQualifyApplyDao.updateNoteByUnqualifyApplyIdDao(unqualifyApplyId,note);
     }
 //-------------------------成品计量质检--------------------------------------
-//-------------------------成品计数质检--------------------------------------
+        //************注入Dao
+@Autowired
+private FinalMeasureCheckDao finalMeasureCheckDao;
+        //***********查询产品计量质检列表
+    @Override
+    public List<FinalMeasureCheck> findFMeasureCheck() {
+        return finalMeasureCheckDao.findFMeasureCheckDao();
+    }
+        //**********添加成品计量质检记录
+    @Override
+    public int addFMeasureCheckService(FinalMeasureCheck finalMeasureCheck) {
+        return finalMeasureCheckDao.insertFMeasureCheckDao(finalMeasureCheck);
+    }
+        //**********修改成品计量质检记录
+    @Override
+    public int updateFMeasureCheckService(FinalMeasureCheck finalMeasureCheck) {
+        return finalMeasureCheckDao.updateFMeasureCheckDao(finalMeasureCheck);
+    }
+        //*********删除成品计量质检记录
+    @Override
+    public int deleteFMeasureCheckService(String[] ids) {
+        return finalMeasureCheckDao.deleteFMeasureCheckDao(ids);
+    }
+        //***********修改备注成品计量质检记录
+    @Override
+    public int updateNoteFMeasureCheckService(String fMeasureCheckId, String note) {
+        return finalMeasureCheckDao.updateNoteFMeasureCheckDao(fMeasureCheckId, note);
+    }
+
+    //-------------------------成品计数质检--------------------------------------
+    //************注入Dao
+    @Autowired
+    private FinalCountCheckDao finalCountCheckDao;
+    //***********查询成品计数质检列表
+
+    @Override
+    public List<FinalCountCheck> findFCountCheck() {
+        return finalCountCheckDao.findFCountCheckDao();
+    }
+
+    //**********添加成品计数质检记录
+
+    @Override
+    public int addFCountCheckService(FinalCountCheck finalCountCheck) {
+        return finalCountCheckDao.insertFCountCheckDao(finalCountCheck);
+    }
+//    //**********修改成品计数质检记录
+
+    @Override
+    public int updateFCountCheckService(FinalCountCheck finalCountCheck) {
+        return finalCountCheckDao.updateFCountCheckDao(finalCountCheck);
+    }
+
+//    //*********删除成品计数质检记录
+
+    @Override
+    public int deleteFCountCheckService(String[] ids) {
+        return finalCountCheckDao.deleteFCountCheckDao(ids);
+    }
+
+//    //***********修改备注成品计数质检记录
+
+    @Override
+    public int updateNoteFCountCheckService(String fCountCheckId, String note) {
+        return finalCountCheckDao.updateNoteFCountCheckDao(fCountCheckId, note);
+    }
+
 //-------------------------工序计量质检--------------------------------------
     //************注入Dao
     @Autowired

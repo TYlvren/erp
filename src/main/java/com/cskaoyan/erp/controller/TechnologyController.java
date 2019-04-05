@@ -8,9 +8,6 @@ import com.cskaoyan.erp.model.*;
 import com.cskaoyan.erp.model.Process;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import net.sf.json.JSONObject;
-import org.apache.ibatis.annotations.Param;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -30,28 +24,28 @@ public class TechnologyController {
     TechnologyDao technologyDao;
 
     //模块一
-    /********************工艺管理**********************/
+    /********************工艺管理****************************************************************/
 
-    //工艺查询操作
+    /*-----------------工艺查询操作------------------------------*/
     @RequestMapping("technology/find")
     public String testcase01(){
         return "technology_list";
     }
-
     @RequestMapping("technology/list")
     @ResponseBody
-    public Map testcase02(@RequestParam int page, int rows){
-        PageHelper.startPage(page, rows);
+    public Object findPageTestcase02(@RequestParam int page, int rows){
+      /*  PageHelper.startPage(page, rows);
         List<Technology> technologyList = technologyDao.selectTechnology();
         int total = technologyDao.selectCountOfTechnology();
         PageInfo pageInfo = new PageInfo(technologyList);
         technologyList = pageInfo.getList();
         Map<String,Object > hashMap = new HashMap();
         hashMap.put("total",total);
-        hashMap.put("rows",technologyList);
-        return hashMap;
+        hashMap.put("rows",technologyList);*/
+        List<Technology> technologyList = technologyDao.selectTechnology();
+        return technologyList;
     }
-    //工艺的添加操作
+    /*-----------------工艺的添加操作------------------------------*/
     @RequestMapping("technology/add_judge")
     public String testcase03(){
         return "technology_add";
@@ -77,7 +71,7 @@ public class TechnologyController {
         return map;
     }
 
-    //工艺的删除操作
+    /*-----------------工艺的删除操作------------------------------*/
     @RequestMapping("technology/delete_judge")
     public String testcase06(HttpServletRequest request){
         return "technology_list";
@@ -95,8 +89,7 @@ public class TechnologyController {
         map.put("status", "200");
         return map;
     }
-
-    //工艺更新操作
+    /*-----------------工艺更新操作------------------------------*/
     @RequestMapping("technology/edit_judge")
     public String testcase08(){
         return "technology_edit";
@@ -111,35 +104,50 @@ public class TechnologyController {
     @ResponseBody
     public Map<String,String> testcase10(Technology technology){
         //获取修改后的技术信息，对其进行修改
-
         Technology technology1 =
                 technologyDao.selectTechnologyNameisExist(technology.getTechnologyName());
         Map<String,String> map = new HashMap<>();
         if (technology1 == null){
             technologyDao.updateTechnology(technology);
-            System.out.println("technology:"+technology);
             map.put("status", "200");
         }else {
             map.put("msg","错了兄弟");
         }
         return map;
     }
-    //工艺的信息显示操作custom/get/{id}
+    /*-----------------工艺的信息显示操作------------------------------*/
+
     @RequestMapping("technology/get/{id}")
     @ResponseBody
     public Technology testcase(@PathVariable("id") String id){
-        System.out.println(id);
         Technology technologyById = technologyDao.findTechnologyById(id);
-        System.out.println("technologyById:"+technologyById);
         return technologyById;
     }
 
+    /*-----------------工艺的信息查找操作------------------------------*/
+
+    @RequestMapping("technology/search_technology_by_technologyId")
+    @ResponseBody
+    public Object findPage_SearchByTechnologyId(@RequestParam String searchValue,int page,int rows){
+
+        List<Technology> list =
+                technologyDao.searchTechnologyByTechnologyIdOrTechnologyName(null,searchValue);
+        return list;
+    }
+
+    @RequestMapping("technology/search_technology_by_technologyName")
+    @ResponseBody
+    public Object findPage_SearchByTechnologyName(@RequestParam String searchValue,int page,int rows){
+        List<Technology> list =
+                technologyDao.searchTechnologyByTechnologyIdOrTechnologyName(searchValue,null);
+        return list;
+    }
     //模块二
-    /********************工艺要求**********************/
+    /********************工艺要求****************************************************************/
+
     @Autowired
     TechnologyRequirementDao requirementDao;
-
-    //查询所有的工艺要求信息
+    /*-----------------查询所有的工艺要求信息------------------------------*/
     @RequestMapping("technologyRequirement/find")
     public String testcase11(){
         return "technologyRequirement_list";
@@ -162,8 +170,7 @@ public class TechnologyController {
         map.put("rows", technologyRequirements);
         return map;
     }
-
-    //新增技艺的参数信息
+    /*-----------------新增技艺的参数信息------------------------------*/
     @RequestMapping("technologyRequirement/add_judge")
     public String testcase14(){
         return "technologyRequirement_add";
@@ -198,8 +205,7 @@ public class TechnologyController {
             return map;
         }
     }
-
-    //删除选中的信息
+    /*-----------------删除选中的信息------------------------------*/
     @RequestMapping("technologyRequirement/delete_judge")
     public String testcase21(){
         return "technologyRequirement_list";
@@ -210,15 +216,14 @@ public class TechnologyController {
     public Map<String, String> testcase22(String[] ids){
         for (int i = 0; i < ids.length; i++) {
             String tid = ids[i];
-            System.out.println(ids[i]);
             requirementDao.removeTechnologyRequirementById(tid);
         }
         Map<String, String> map = new HashMap<>();
         map.put("status", "200");
         return map;
     }
+    /*-----------------工艺要求的编辑功能------------------------------*/
 
-    //工艺要求的编辑功能
     @RequestMapping("technologyRequirement/edit_judge")
     public String testcase23(){
         return "technologyRequirement_edit";
@@ -238,12 +243,43 @@ public class TechnologyController {
         map.put("status", "200");
         return map;
     }
+    /*-----------------工艺要求的条件查询操作------------------------------*/
 
-    /********************工艺计划模块***************/
+    @RequestMapping("technologyRequirement/search_technologyRequirement_by_technologyRequirementId")
+    @ResponseBody
+    public Object findPage_SearchByTechnologyRequirementId(@RequestParam String searchValue,int page,int rows){
+        List<TechnologyRequirement> list =
+                requirementDao.searchTechnologyRequirementByTechnologyRequirementIdOrTechnologyName(null,searchValue);
+
+        for (TechnologyRequirement t :list
+        ) {
+            t.setTechnologyName(t.getTechnology().getTechnologyName());
+            t.setTechnologyId(t.getTechnology().getTechnologyId());
+        }
+        return list;
+    }
+
+    @RequestMapping("technologyRequirement/search_technologyRequirement_by_technologyName")
+    @ResponseBody
+    public Object findPage_SearchByTechnologyRequirementName(@RequestParam String searchValue,int page,int rows){
+        List<TechnologyRequirement> list =
+                requirementDao.searchTechnologyRequirementByTechnologyRequirementIdOrTechnologyName(searchValue,null);
+        for (TechnologyRequirement t :list
+        ) {
+            t.setTechnologyName(t.getTechnology().getTechnologyName());
+            t.setTechnologyId(t.getTechnology().getTechnologyId());
+        }
+        return list;
+    }
+
+    //模块三
+    /********************工艺计划模块****************************************************************/
+
     @Autowired
     TechnologyPlanDao technologyPlanDao;
 
-    //查询工艺计划列表
+    /*-----------------查询工艺计划列表------------------------------*/
+
     @RequestMapping("technologyPlan/find")
     public String testcase26(){
         return "technologyPlan_list";
@@ -268,7 +304,7 @@ public class TechnologyController {
         return hashMap;
     }
 
-    //新增工艺计划
+    /*-----------------新增工艺计划------------------------------*/
     @RequestMapping("technologyPlan/add_judge")
     public String testcase27(){
         return "technologyPlan_add";
@@ -282,7 +318,6 @@ public class TechnologyController {
     @RequestMapping("technology/get_data")
     @ResponseBody
     public List<Technology> testcase29(){
-        System.out.println("get_data");
         List<Technology> technologies = technologyDao.selectTechnology();
         return technologies;
     }
@@ -291,10 +326,8 @@ public class TechnologyController {
     @ResponseBody
     public Map<String, String> testcase30(TechnologyPlan technologyPlan){
         Map<String, String> map = new HashMap<>();
-        System.out.println("technologyPlan:"+technologyPlan);
         //首先判断输入的工艺要求编号是否重复
         String technologyPlanId = technologyPlan.getTechnologyPlanId();
-        System.out.println("technologyPlanId:"+technologyPlanId);
 
         List<TechnologyPlan> technologyPlan1 =
                 technologyPlanDao.technologyPlanIdIsexist(technologyPlanId);
@@ -309,7 +342,7 @@ public class TechnologyController {
         }
     }
 
-    //删除数据
+    /*-----------------删除数据------------------------------*/
     @RequestMapping("technologyPlan/delete_judge")
     public String testcase31(){
         return "technologyPlan_list";
@@ -320,15 +353,13 @@ public class TechnologyController {
     public Map<String, String> testcase32(String[] ids, HttpServletRequest request){
         for (int i = 0; i < ids.length; i++) {
             String tid = ids[i];
-            System.out.println(ids[i]);
             technologyPlanDao.removeTechnologyPlanById(tid);
         }
         Map<String, String> map = new HashMap<>();
         map.put("status", "200");
         return map;
     }
-
-    //更新数据
+    /*-----------------更新数据------------------------------*/
     @RequestMapping("technologyPlan/edit_judge")
     public String testcase33(){
         return "technologyPlan_edit";
@@ -341,9 +372,9 @@ public class TechnologyController {
 
     @RequestMapping("technologyPlan/update_all")
     @ResponseBody
-    public Map<String, String> testcase35(TechnologyPlan TechnologyPlan){
-        System.out.println("TechnologyPlan:"+TechnologyPlan);
-        int i = technologyPlanDao.updateTechnologyPlan(TechnologyPlan);
+    public Map<String, String> testcase35(TechnologyPlan technologyPlan){
+        System.out.println("technologyPlan:"+technologyPlan);
+        int i = technologyPlanDao.updateTechnologyPlan(technologyPlan);
         Map<String, String> map = new HashMap<>();
         map.put("status", "200");
         return map;
@@ -352,18 +383,17 @@ public class TechnologyController {
     @RequestMapping("technologyPlan/get_data")
     @ResponseBody
     public List<TechnologyPlan> testcase47(){
-        System.out.println("get_data");
         List<TechnologyPlan> technologyPlans = technologyPlanDao.selectTechnologyPlan();
         return technologyPlans;
     }
 
 
-    /******************工序模块*******************/
+    //模块四
+    /********************工序模块****************************************************************/
 
     @Autowired
     ProcessDao processDao;
-
-    //查询所有的工序信息
+    /*-----------------查询所有的工序信息------------------------------*/
     @RequestMapping("process/find")
     public String testcase18(HttpServletResponse response){
         return "process_list";
@@ -382,7 +412,8 @@ public class TechnologyController {
         return map;
     }
 
-    //添加工序信息
+    /*-----------------添加工序信息------------------------------*/
+
     @RequestMapping("process/add_judge")
     public String testcase36(){
         return "process_add";
@@ -403,7 +434,6 @@ public class TechnologyController {
                 processDao.processIdIsexist(ProcessId);
 
         if (processList.isEmpty()){
-            System.out.println("可以进行添加");
             processDao.addProcess(process);
             map.put("status", "200");
             return map;
@@ -416,13 +446,11 @@ public class TechnologyController {
     @RequestMapping("technologyPlan/get/{id}")
     @ResponseBody
     public TechnologyPlan testcase40(@PathVariable("id") String id){
-        System.out.println(id);
-        TechnologyPlan technologyById = technologyPlanDao.findTechnologyPlanById(id);
-        System.out.println("technologyById:"+technologyById);
-        return technologyById;
+        return technologyPlanDao.findTechnologyPlanById(id);
     }
 
-    //删除工序信息
+    /*-----------------删除工序信息------------------------------*/
+
     @RequestMapping("process/delete_judge")
     public String testcase41(){
         return "technologyPlan_list";
@@ -433,15 +461,13 @@ public class TechnologyController {
     public Map<String, String> testcase42(String[] ids, HttpServletRequest request){
         for (int i = 0; i < ids.length; i++) {
             String tid = ids[i];
-            System.out.println(ids[i]);
             processDao.removeProcessById(tid);
         }
         Map<String, String> map = new HashMap<>();
         map.put("status", "200");
         return map;
     }
-
-    //修改工序信息
+    /*-----------------修改工序信息------------------------------*/
 
     @RequestMapping("process/edit_judge")
     public String testcase43(){
@@ -456,7 +482,6 @@ public class TechnologyController {
     @RequestMapping("process/update_all")
     @ResponseBody
     public Map<String, String> testcase45(Process process){
-        System.out.println("process:"+process);
         int i = processDao.updateProcess(process);
         Map<String, String> map = new HashMap<>();
         map.put("status", "200");
@@ -466,8 +491,8 @@ public class TechnologyController {
     @RequestMapping("process/get_data")
     @ResponseBody
     public List<Process> testcase46(){
-        System.out.println("get_data");
         List<Process> technologyPlans = processDao.selectProcess();
+
         return technologyPlans;
     }
 }

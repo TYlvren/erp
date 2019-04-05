@@ -87,6 +87,7 @@
 
 
     <resultMap id="selectPlan" type="technologyPlan">
+        <result column="technology_plan_id" property="technologyPlanId"/>
         <result column="technology_id" property="technologyId"/>
         <result column="batch_amount" property="batchAmount"/>
         <result column="start_plan" property="startPlan"/>
@@ -96,7 +97,7 @@
         <result column="technology_plan_end" property="technologyPlanEnd"/>
     </resultMap>
     <select id="findTechnologyPlanById" resultMap="selectPlan">
-        select technology_id,batch_amount,start_plan,
+        select technology_plan_id,technology_id,batch_amount,start_plan,
         end_plan,commit_plan,technology_plan_start,
         technology_plan_end
         from technology_plan

@@ -14,10 +14,19 @@ public class FinalMeasureCheck {
     private String measureData;
 
     private String empId;
+    private String empName;
 
     private String result;
 
     private String note;
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
 
     public String getfMeasureCheckId() {
         return fMeasureCheckId;
