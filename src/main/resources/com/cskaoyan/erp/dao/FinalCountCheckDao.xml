@@ -1,5 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.FinalCountCheckDao">
+    <sql id="FinalCountCheckColumns">
+          fcc.f_count_check_id as fCountCheckId,fcc.order_id as orderId,fcc.check_item as checkItem,fcc.sample as sample,
+          fcc.check_number as checkNumber,fcc.unqualify as unqualify,fcc.qualify as qualify, fcc.cdate as cdate,
+          fcc.measure_data as measureData,fcc.emp_id as empId,fcc.result as result,fcc.note as note,e.emp_name as empName
+    </sql>
+    <select id="findFCountCheckDao" resultType="FinalCountCheck">
+        select
+        <include refid="FinalCountCheckColumns"/>
+        from final_count_check as fcc left join employee as e on fcc.emp_id=e.emp_id
+    </select>
 
+    <insert id="insertFCountCheckDao" parameterType="FinalCountCheck">
+        insert into final_count_check  (
+          f_count_check_id ,order_id ,check_item,sample,
+          check_number,unqualify,qualify,cdate,
+          measure_data,emp_id,result,note) values(
+          #{fCountCheckId},#{orderId},#{checkItem},#{sample},#{checkNumber},#{unqualify},#{qualify},#{cdate},
+        #{measureData},#{empId},#{result},#{note}
+        )
+    </insert>
+    <!--修改工序计数质检-->
+    <update id="updateFCountCheckDao" parameterType="FinalCountCheck">
+        update  final_count_check set  order_id =#{orderId},check_item =#{checkItem},sample=#{sample},
+        check_number=#{checkNumber},unqualify =#{unqualify},qualify=#{qualify},cdate =#{cdate},
+        measure_data=#{measureData},emp_id=#{empId},result=#{result},note=#{note}
+        where f_count_check_id= #{fCountCheckId}
+    </update>
+    <!--删除工序计数质检条数-->
+    <delete id="deleteFCountCheckDao" >
+        delete from final_count_check where f_count_check_id in
+        (
+        <foreach collection="array" item="idss" separator="," >
+            #{idss}
+        </foreach>
+        )
+    </delete>
+    <!--修改工序计数质检备注信息-->
+    <update id="updateNoteFCountCheckDao" parameterType="string">
+                update  final_count_check set  note=#{note} where f_count_check_id= #{id}
+    </update>
 </mapper>

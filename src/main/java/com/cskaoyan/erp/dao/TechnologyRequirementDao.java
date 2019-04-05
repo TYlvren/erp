@@ -1,6 +1,7 @@
 package com.cskaoyan.erp.dao;
 
 
+import com.cskaoyan.erp.model.Technology;
 import com.cskaoyan.erp.model.TechnologyRequirement;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +21,6 @@ public interface TechnologyRequirementDao {
     int updateTechnology(@Param("tRequirement") TechnologyRequirement technologyRequirement);
 
     List<TechnologyRequirement> selectTechnologyRequirement2();
+
+    List<TechnologyRequirement> searchTechnologyRequirementByTechnologyRequirementIdOrTechnologyName(@Param("name") String name,@Param("id") String id);
 }
