@@ -194,10 +194,30 @@ public class ErpServiceImpl implements ErpService {
         return manufactureDao.selectManufactureById(id);
     }
 
+    @Override
+    public int addManufacture(Manufacture manufacture) {
+        return manufactureDao.insertManufacture(manufacture);
+    }
+
+    @Override
+    public int editManufacture(Manufacture manufacture) {
+        return manufactureDao.updateManufacture(manufacture);
+    }
+
+    @Override
+    public int deleteManufacture(String[] ids) {
+        return manufactureDao.deleteManufactureByIds(ids);
+    }
+
     /**------------------------------Task--------------------------------*/
     @Override
     public List<Task> findTask() {
         return taskDao.selectAllTask();
+    }
+
+    @Override
+    public List<Task> findTaskBySearch(String condition, String searchValue) {
+        return taskDao.selectTaskBySearch(condition,searchValue);
     }
 
     @Override

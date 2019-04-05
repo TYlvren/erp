@@ -492,12 +492,77 @@ public class PlanProgressController {
         return erpService.findManufacture();
     }
 
-    /**Work的模糊查找*/
+    /**Manufacture的模糊查找*/
     @RequestMapping("manufacture/search_manufacture_by_manufacture{condition}")
     @ResponseBody
     public Object findPageManufactureBySearch(@RequestParam int page,@RequestParam int rows,
                                        String searchValue,@PathVariable String condition){
         return erpService.findManufactureBySearch(condition,searchValue);
+    }
+
+    /**
+     * 添加Manufacture的controller
+     */
+    @RequestMapping("manufacture/add_judge")
+    @ResponseBody
+    public Map<String, String> addManufactureJudge(Manufacture manufacture) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("manufacture/add")
+    public String addManufacture() {
+        return "manufacture_add";
+    }
+
+    @RequestMapping("manufacture/insert")
+    @ResponseBody
+    public Map<String, String> insertManufacture(Manufacture manufacture) {
+        int i = erpService.addManufacture(manufacture);
+        return getStatusMap(i);
+    }
+
+
+    /**
+     * 编辑Task的controller
+     */
+    @RequestMapping("manufacture/edit_judge")
+    @ResponseBody
+    public Map<String, String> editManufactureJudge(Manufacture manufacture) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("manufacture/edit")
+    public String editManufacture() {
+        return "manufacture_edit";
+    }
+
+    @RequestMapping("manufacture/update_all")
+    @ResponseBody
+    public Map<String, String> updateManufacture(Manufacture manufacture) {
+        int i = erpService.editManufacture(manufacture);
+        return getStatusMap(i);
+    }
+
+
+    /**
+     * 删除Task的controller
+     */
+    @RequestMapping("manufacture/delete_judge")
+    @ResponseBody
+    public Map<String, String> deleteManufactureJudge(Manufacture manufacture) {
+        return new HashMap<>();
+    }
+
+    @RequestMapping("manufacture/delete_batch")
+    @ResponseBody
+    public Map<String, String> deleteManufactureBatch(String[] ids) {
+        Map<String, String> map = new HashMap<>();
+        map.put("status", "200");
+        int i = erpService.deleteManufacture(ids);
+        if (i != ids.length) {
+            map.put("msg", "异常");
+        }
+        return map;
     }
 
     /*****************Task控制层*************************************/
@@ -531,6 +596,14 @@ public class PlanProgressController {
     public List<Task> getTaskData() {
         return erpService.findTask();
     }
+
+    /**Task的模糊查找*/
+    @RequestMapping("task/search_task_by_task{condition}")
+    @ResponseBody
+    public Object findPageTaskBySearch(@RequestParam int page,@RequestParam int rows,
+                                              String searchValue,@PathVariable String condition){
+        return erpService.findTaskBySearch(condition,searchValue);
+    }
     /**
      * 添加Task的controller
      */
@@ -547,7 +620,7 @@ public class PlanProgressController {
 
     @RequestMapping("task/insert")
     @ResponseBody
-    public Map<String, String> insertOrder(Task task) {
+    public Map<String, String> insertTask(Task task) {
         int i = erpService.addTask(task);
         return getStatusMap(i);
     }
@@ -558,7 +631,7 @@ public class PlanProgressController {
      */
     @RequestMapping("task/edit_judge")
     @ResponseBody
-    public Map<String, String> editOrderJudge(Task task) {
+    public Map<String, String> editTaskJudge(Task task) {
         return new HashMap<>();
     }
 

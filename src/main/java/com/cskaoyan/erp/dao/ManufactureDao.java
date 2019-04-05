@@ -10,8 +10,13 @@ public interface ManufactureDao {
 
     List<Manufacture> selectAllManufacture();
 
-
     Manufacture selectManufactureById(String id);
 
     List<Manufacture> selectManufactureBySearch(@Param("condition") String condition,@Param("searchValue") String searchValue);
+
+    int insertManufacture(Manufacture manufacture);
+
+    int updateManufacture(Manufacture manufacture);
+
+    int deleteManufactureByIds(String[] ids);
 }

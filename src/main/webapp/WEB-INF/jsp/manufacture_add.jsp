@@ -19,14 +19,14 @@
 	        <tr>
 	            <td>订单编号:</td>
 	            <td>
-	            	<input class="easyui-combobox" name="orderId"  panelHeight="auto" data-options="required:true,
+	            	<input class="easyui-combobox" name="cOrder.orderId"  panelHeight="auto" data-options="required:true,
 	            		valueField:'orderId',textField:'orderId',url:'order/get_data', editable:false"/>
 	            </td>
 	        </tr>
 	        <tr>
 	            <td>工艺:</td>
 	            <td>
-	            	<input class="easyui-combobox" name="technologyId"  panelHeight="auto"
+	            	<input class="easyui-combobox" name="technology.technologyId"  panelHeight="auto"
 						   data-options="valueField:'technologyId',textField:'technologyName',url:'technology/get_data',
 						   editable:false, required:true"/>
     			</td>  

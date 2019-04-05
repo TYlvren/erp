@@ -18,6 +18,27 @@
         where task_id=#{id}
     </select>
 
+    <select id="selectTaskBySearch" resultType="task">
+        <bind name="searchValue" value="'%' + searchValue + '%'" />
+        select <include refid="taskColumns"/>
+        from task
+        <where>
+            <choose>
+                <when test="condition == 'Id'">
+                    task_id like #{searchValue}
+                </when>
+
+                <when test="condition == 'WorkId'">
+                    work_id like #{searchValue}
+                </when>
+
+                <when test="condition == 'ManufactureSn'">
+                    manufacture_sn like #{searchValue}
+                </when>
+            </choose>
+        </where>
+    </select>
+
     <insert id="insertTask">
         insert into task
         (task_id,manufacture_sn,work_id,task_quantity,working_hours)
