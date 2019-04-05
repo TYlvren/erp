@@ -15,4 +15,15 @@
           FROM
                 (device_check dc LEFT  JOIN device d ON dc.device_id = d.device_id) LEFT JOIN employee e ON dc.device_check_emp_id = e.emp_id
     </select>
+
+      <insert id="insertDeviceCheck">
+            INSERT INTO
+            `device_check`
+            VALUES (#{deviceCheck.deviceCheckId},
+            #{deviceCheck.deviceId},
+            #{deviceCheck.deviceCheckEmpId},
+            #{deviceCheck.deviceCheckDate},
+            #{deviceCheck.deviceCheckResult},
+            #{deviceCheck.deviceCheckFaultId})
+      </insert>
 </mapper>
