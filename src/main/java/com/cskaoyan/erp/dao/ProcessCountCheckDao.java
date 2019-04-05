@@ -12,5 +12,5 @@ public interface ProcessCountCheckDao {
     int updatePCountCheckDao(ProcessCountCheck processCountCheck);
     int deletePCountCheckDao(String[] ids);
     int updateNotePCountCheckDao(@Param("id") String pCountCheckId, @Param("note") String note);
-
+    List<ProcessCountCheck> searchPCountCheckDao(@Param("class1")String searchname,@Param("value1") String searchValue);
 }

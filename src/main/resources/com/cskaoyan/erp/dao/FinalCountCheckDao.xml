@@ -41,4 +41,20 @@
     <update id="updateNoteFCountCheckDao" parameterType="string">
                 update  final_count_check set  note=#{note} where f_count_check_id= #{id}
     </update>
+
+    <!--查询-->
+
+    <select id="searchFCountCheckDao" resultType="FinalCountCheck">
+        select
+        <include refid="FinalCountCheckColumns"/>
+        from final_count_check as fcc left join employee as e on fcc.emp_id=e.emp_id
+        <where>
+            <if test="class1=='fCountCheckId'">
+                f_count_check_id like CONCAT('%',#{value1},'%')
+            </if>
+            <if test="class1=='orderId'">
+                order_id like CONCAT('%',#{value1},'%')
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -43,4 +43,22 @@
     <update id="updateNoteByUnqualifyApplyIdDao" parameterType="string">
                 update  unqualify_apply set  note=#{note} where unqualify_apply_id= #{id}
     </update>
+    <!--&lt;!&ndash;查询&ndash;&gt;-->
+
+    <select id="searchUnqualifyDao" resultType="unQualifyApply">
+        select
+        <include refid="unqualifyColumns"/>
+        from unqualify_apply as uq left join employee as e on uq.emp_id=e.emp_id left join product as p on uq.product_id=p.product_id
+        <where>
+            <if test="class1=='unqualifyId'">
+                uq.unqualify_apply_id like CONCAT('%',#{value1},'%')
+            </if>
+            <if test="class1=='productName'">
+                p.product_name like CONCAT('%',#{value1},'%')
+            </if>
+        </where>
+    </select>
+
+
+
 </mapper>

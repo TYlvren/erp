@@ -13,4 +13,5 @@ public interface FinalMeasureCheckDao {
     int updateFMeasureCheckDao(FinalMeasureCheck processCountCheck);
     int deleteFMeasureCheckDao(String[] ids);
     int updateNoteFMeasureCheckDao(@Param("id") String pCountCheckId, @Param("note") String note);
+    List<FinalMeasureCheck> searchFMeasureCheckDao(@Param("class1")String searchname,@Param("value1") String searchValue);
 }

@@ -42,13 +42,16 @@
     </update>
 
 
-
-
-
-
-
-
-
-
+    <!--查询-->
+    <select id="searchPCountCheckDao" resultType="ProcessCountCheck">
+        select
+        <include refid="PCountCheckColumns"/>
+        from process_count_check as pcc left join employee as e on pcc.emp_id=e.emp_id
+        <where>
+            <if test="class1=='pCountCheckId'">
+                p_count_check_id like CONCAT('%',#{value1},'%')
+            </if>
+        </where>
+    </select>
 
 </mapper>

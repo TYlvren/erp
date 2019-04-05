@@ -9,4 +9,6 @@ public interface UnQualifyApplyDao {
     int updateUnqualifyDao(UnQualifyApply unQualifyApply);
     int deleteUnqualifyDao(String[] ids);
     int updateNoteByUnqualifyApplyIdDao(@Param("id") String unqualifyApplyId,@Param("note") String note);
+    List<UnQualifyApply> searchUnqualifyDao(@Param("class1")String searchname,@Param("value1") String searchValue);
+
 }
