@@ -91,6 +91,7 @@ public interface ErpService {
     int updateDeviceType(DeviceType deviceType);
     int deleteDeviceType(String id);
     List<DeviceType> findDeviceTypeById(String searchValue);
+    DeviceType getDeviceTypeById(String id);
     List<DeviceType> findDeviceTypeByName(String searchValue);
     /*-------------设备模块------------------------------------------------*/
     List<Device> findDeviceByPage();
@@ -101,6 +102,7 @@ public interface ErpService {
     Device findServiceDeviceById(String id);
     List<Device> findDeviceByName(String searchValue);
     int updateDeviceNote(Device device);
+    List<Device> findDeviceByTypeName(String searchValue);
     /*-------------设备例检模块------------------------------------------------*/
     List<DeviceCheck> findDeviceeCheckByPage();
     int insertDeviceCheck(DeviceCheck deviceCheck);
@@ -112,9 +114,21 @@ public interface ErpService {
     int updateDeviceCheckNote(DeviceCheck deviceCheck);
     /*-------------设备故障模块------------------------------------------------*/
     List<DeviceFault> findAllDeviceFaultByPage();
+    int insertDeviceFault(DeviceFault deviceFault);
+    int updateDeviceFault(DeviceFault deviceFault);
+    int deleteDeviceFault(String id);
+    List<DeviceFault> findDeviceFaultById(String searchValue);
+    DeviceFault getDeviceFaultById(String searchValue);
+    List<DeviceFault> findDeviceFaultByName(String searchValue);
+    int updateDeviceFaultNote(DeviceFault deviceFault);
     /*-------------设备维修模块------------------------------------------------*/
     List<DeviceMaintain> findDeviceMaintainByPage();
-
+    int insertDeviceMaintain(DeviceMaintain deviceMaintain);
+    int updateDeviceMaintain(DeviceMaintain deviceMaintain);
+    int deleteDeviceMaintain(String id);
+    List<DeviceMaintain> findDeviceMaintainById(String searchValue);
+    List<DeviceMaintain> findDeviceMaintainByFaultId(String searchValue);
+    int updateDeviceMaintainNote(DeviceMaintain deviceMaintain);
     /*****************工艺监控接口实现*************************************/
 
 

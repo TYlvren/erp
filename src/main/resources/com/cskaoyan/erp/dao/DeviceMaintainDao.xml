@@ -4,15 +4,86 @@
 
     <select id="findAllDeviceMaintain" resultType="deviceMaintain">
         SELECT
-            device_maintain.device_maintain_id AS deviceMaintainId,
-            device_maintain.device_fault_id AS deviceFaultId,
-            device_maintain.device_maintain_emp_id AS deviceMaintainEmpId,
-            device_maintain.device_maintain_date AS deviceMaintainDate,
-            device_maintain.device_maintain_result AS deviceMaintainResult,
-            device_maintain.device_maintain_cost AS deviceMaintainCost,
-            device_maintain.note
+            device_maintain_id AS deviceMaintainId,
+            device_fault_id AS deviceFaultId,
+            dm.device_maintain_emp_id AS deviceMaintainEmpId,
+            device_maintain_date AS deviceMaintainDate,
+            device_maintain_result AS deviceMaintainResult,
+            device_maintain_cost AS deviceMaintainCost,
+            note,
+			emp_name AS deviceMaintainEmp
         FROM
-            device_maintain
+            device_maintain dm LEFT JOIN employee e ON dm.device_maintain_emp_id = e.emp_id
     </select>
 
+    <insert id="insertDeviceMaintain">
+        INSERT INTO
+              device_maintain
+        VALUES
+              (#{deviceMaintain.deviceMaintainId},
+              #{deviceMaintain.deviceFaultId},
+              #{deviceMaintain.deviceMaintainEmpId},
+              #{deviceMaintain.deviceMaintainDate},
+              #{deviceMaintain.deviceMaintainResult},
+              #{deviceMaintain.deviceMaintainCost},
+              #{deviceMaintain.note})
+    </insert>
+
+    <update id="updateDeviceMaintain">
+        UPDATE
+                device_maintain
+       <set>
+           device_maintain.device_fault_id=#{deviceMaintain.deviceFaultId},
+           device_maintain.device_maintain_emp_id=#{deviceMaintain.deviceMaintainEmpId},
+           device_maintain.device_maintain_date=#{deviceMaintain.deviceMaintainDate},
+           device_maintain.device_maintain_result=#{deviceMaintain.deviceMaintainResult},
+           device_maintain.device_maintain_cost=#{deviceMaintain.deviceMaintainCost},
+           device_maintain.note=#{deviceMaintain.note}
+       </set>
+		WHERE
+				device_maintain.device_maintain_id=#{deviceMaintain.deviceMaintainId}
+    </update>
+
+    <delete id="deleteDeviceMaintain">
+        DELETE FROM device_maintain WHERE device_maintain_id=#{id}
+    </delete>
+
+    <select id="findDeviceMaintainById" resultType="deviceMaintain">
+        SELECT
+            device_maintain_id AS deviceMaintainId,
+            device_fault_id AS deviceFaultId,
+            device_maintain_emp_id AS deviceMaintainEmpId,
+            device_maintain_date AS deviceMaintainDate,
+            device_maintain_result AS deviceMaintainResult,
+            device_maintain_cost AS deviceMaintainCost,
+            note
+        FROM  device_maintain
+		WHERE device_maintain_id LIKE '%${id}%'
+    </select>
+
+    <select id="findDeviceMaintainByFaultId" resultType="deviceMaintain">
+        SELECT
+            device_maintain_id AS deviceMaintainId,
+            device_fault_id AS deviceFaultId,
+            dm.device_maintain_emp_id AS deviceMaintainEmpId,
+            device_maintain_date AS deviceMaintainDate,
+            device_maintain_result AS deviceMaintainResult,
+            device_maintain_cost AS deviceMaintainCost,
+            note,
+			emp_name AS deviceMaintainEmp
+        FROM
+            device_maintain dm LEFT JOIN employee e ON dm.device_maintain_emp_id = e.emp_id
+		WHERE
+			device_fault_id LIKE '%${id}%'
+    </select>
+
+    <update id="updateDeviceMaintainNote">
+        UPDATE
+        device_maintain
+        <set>
+            device_maintain.note=#{deviceMaintain.note}
+        </set>
+        WHERE
+            device_maintain_id=#{deviceMaintain.deviceMaintainId}
+    </update>
 </mapper>
