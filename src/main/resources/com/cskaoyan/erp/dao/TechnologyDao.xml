@@ -68,6 +68,7 @@
 
 
     <resultMap id="findById" type="technology">
+        <result column="technology_id" property="technologyId"/>
         <result column="technology_name" property="technologyName"/>
         <result column="price" property="price"/>
         <result column="vital_process_period" property="vitalProcessPeriod"/>
@@ -80,7 +81,7 @@
     <!--查询所有的技术信息-->
     <select id="findTechnologyById" resultMap="findById">
         select
-        technology_name,price,vital_process_period,standard_capacity,
+        technology_id,technology_name,price,vital_process_period,standard_capacity,
         overtime_standard_capacity,overtime_overfulfil_capacity,double_capacity,
         overfulfil_capacity
         from technology
@@ -91,6 +92,21 @@
 
     <select id="findTechnologyNameById" resultType="technology">
             select technology_name from technology where technology_id = #{technology_id}
+    </select>
+
+    <resultMap id="findByName" type="technology">
+        <result column="technology_id" property="technologyId"/>
+        <result column="technology_name" property="technologyName"/>
+        <result column="price" property="price"/>
+        <result column="vital_process_period" property="vitalProcessPeriod"/>
+        <result column="standard_capacity" property="standardCapacity"/>
+        <result column="overtime_standard_capacity" property="overtimeStandardCapacity"/>
+        <result column="overtime_overfulfil_capacity" property="overtimeOverfulfilCapacity"/>
+        <result column="double_capacity" property="doubleCapacity"/>
+        <result column="overfulfil_capacity" property="overfulfilCapacity"/>
+    </resultMap>
+    <select id="selectTechnologyNameisExist" resultMap="findByName">
+         select * from technology where technology_name = #{technologyName}
     </select>
 
 
