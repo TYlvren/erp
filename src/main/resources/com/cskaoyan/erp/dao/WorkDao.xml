@@ -22,14 +22,14 @@
     <select id="selectAllWork" resultMap="workMap">
         select
         work_id,process_number,product_id,process_id,device_id,rating
-        from `work`;
+        from `work`
     </select>
 
     <select id="selectWorkById" resultMap="workMap">
         select
         work_id,process_number,product_id,process_id ,device_id,rating
         from `work`
-        where work_id=#{id};
+        where work_id=#{id}
     </select>
 
     <insert id="insertWork">
@@ -43,7 +43,7 @@
         update work
         set process_number=#{processNumber},product_id=#{product.productId},process_id=#{process.processId},
         device_id=#{device.deviceId},rating=#{rating}
-        where work_id=#{id};
+        where work_id=#{id}
     </update>
     <delete id="deleteWorkByIds">
         delete from work

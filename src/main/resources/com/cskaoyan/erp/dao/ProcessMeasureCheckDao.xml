@@ -13,7 +13,7 @@
         <include refid="PMeasureCheckColumns"/>
         from process_measure_check as pmc left join employee as e on pmc.emp_id=e.emp_id
     </select>
-    <!--parameterType="ProcessMeasureCheck"-->
+
     <insert id="insertPMeasureCheckDao" parameterType="ProcessMeasureCheck">
         insert into process_measure_check (p_measure_check_id,process_id,check_item,cdate,
           measure_data,emp_id,result,note) values(#{pMeasureCheckId},#{processId},#{checkItem},#{cdate},#{measureData},#{empId},#{result},#{note})

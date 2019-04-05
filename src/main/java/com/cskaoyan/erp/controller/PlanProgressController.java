@@ -4,9 +4,7 @@ import com.cskaoyan.erp.model.*;
 import com.cskaoyan.erp.service.ErpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -38,7 +36,7 @@ public class PlanProgressController {
 
     @ResponseBody
     @RequestMapping("order/list")
-    public List<COrder> findOrder() {
+    public Object findPageOrder(@RequestParam int page, @RequestParam int rows) {
         return erpService.findCOrder();
     }
 
@@ -46,6 +44,12 @@ public class PlanProgressController {
     @ResponseBody
     public COrder getOrder(@PathVariable("id") String id) {
         return erpService.findCOrderById(id);
+    }
+
+    @ResponseBody
+    @RequestMapping("order/get_data")
+    public List<COrder> getOrderData() {
+        return erpService.findCOrder();
     }
 
     /**
@@ -115,7 +119,6 @@ public class PlanProgressController {
     }
 
 
-
     /*****************Custom控制层*************************************/
     /**
      * 查找Custom的controller
@@ -138,7 +141,7 @@ public class PlanProgressController {
 
     @ResponseBody
     @RequestMapping("custom/list")
-    public List<Custom> findCustom() {
+    public Object findPageCustom() {
         return erpService.findCustom();
     }
 
@@ -243,10 +246,15 @@ public class PlanProgressController {
 
     @RequestMapping("product/list")
     @ResponseBody
-    public List<Product> findProduct() {
+    public Object findPageProduct() {
         return erpService.findProduct();
     }
 
+    @RequestMapping("product/get_data")
+    @ResponseBody
+    public List<Product> getProductData() {
+        return erpService.findProduct();
+    }
 
     /**
      * 添加商品的controller
@@ -291,7 +299,7 @@ public class PlanProgressController {
     @ResponseBody
     public Map<String, String> updateProduct(Product product) {
         int i = erpService.editProduct(product);
-        return getStatusMap(i );
+        return getStatusMap(i);
     }
 
 
@@ -313,17 +321,13 @@ public class PlanProgressController {
         Map<String, String> map = new HashMap<>();
         map.put("status", "200");
         int i = erpService.deleteProduct(ids);
-        if(i != ids.length) {
+        if (i != ids.length) {
             map.put("msg", "删除异常");
         }
         return map;
     }
 
-    @RequestMapping("product/get_data")
-    @ResponseBody
-    public List<Product> getProductData() {
-        return erpService.findProduct();
-    }
+
 
     /*****************Work控制层*************************************/
 
@@ -342,7 +346,13 @@ public class PlanProgressController {
 
     @RequestMapping("work/list")
     @ResponseBody
-    public List<Work> findWork() {
+    public Object findPageWork() {
+        return erpService.findWork();
+    }
+
+    @RequestMapping("work/get_data")
+    @ResponseBody
+    public List<Work> getWorkData() {
         return erpService.findWork();
     }
 
@@ -430,7 +440,7 @@ public class PlanProgressController {
 
     @RequestMapping("manufacture/list")
     @ResponseBody
-    public List<Manufacture> findManufacture() {
+    public Object findPageManufacture() {
         return erpService.findManufacture();
     }
 
@@ -439,6 +449,12 @@ public class PlanProgressController {
     @ResponseBody
     public Manufacture getManufacture(@PathVariable("id") String id) {
         return erpService.findManufactureById(id);
+    }
+
+    @RequestMapping("manufacture/get_data")
+    @ResponseBody
+    public List<Manufacture> getManufactureData() {
+        return erpService.findManufacture();
     }
 
     /*****************Task控制层*************************************/
@@ -457,7 +473,7 @@ public class PlanProgressController {
 
     @ResponseBody
     @RequestMapping("task/list")
-    public List<Task> findTask() {
+    public Object findPageTask() {
         return erpService.findTask();
     }
 
@@ -467,6 +483,11 @@ public class PlanProgressController {
         return erpService.findTaskById(id);
     }
 
+    @RequestMapping("task/get_data")
+    @ResponseBody
+    public List<Task> getTaskData() {
+        return erpService.findTask();
+    }
     /**
      * 添加Task的controller
      */
@@ -526,7 +547,6 @@ public class PlanProgressController {
         Map<String, String> map = new HashMap<>();
         map.put("status", "200");
         int i = erpService.deleteTask(ids);
-
         if (i != ids.length) {
             map.put("msg", "异常");
         }
