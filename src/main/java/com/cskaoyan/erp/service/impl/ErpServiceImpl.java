@@ -201,6 +201,11 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
+    public List<Task> findTaskBySearch(String condition, String searchValue) {
+        return taskDao.selectTaskBySearch(condition,searchValue);
+    }
+
+    @Override
     public Task findTaskById(String id) {
         return taskDao.selectTaskById(id);
     }

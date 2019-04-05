@@ -531,6 +531,14 @@ public class PlanProgressController {
     public List<Task> getTaskData() {
         return erpService.findTask();
     }
+
+    /**Task的模糊查找*/
+    @RequestMapping("task/search_task_by_task{condition}")
+    @ResponseBody
+    public Object findPageTaskBySearch(@RequestParam int page,@RequestParam int rows,
+                                              String searchValue,@PathVariable String condition){
+        return erpService.findTaskBySearch(condition,searchValue);
+    }
     /**
      * 添加Task的controller
      */

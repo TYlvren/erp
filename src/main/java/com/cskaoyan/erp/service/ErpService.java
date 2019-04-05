@@ -86,7 +86,7 @@ public interface ErpService {
     int deleteWork(String[] ids);
     /**------------------------------Task--------------------------------*/
     List<Task> findTask();
-
+    List<Task> findTaskBySearch(String condition, String searchValue);
     Task findTaskById(String id);
 
     int addTask(Task task);
