@@ -32,28 +32,28 @@ public class TechnologyController {
     TechnologyDao technologyDao;
 
     //模块一
-    /********************工艺管理**********************/
+    /********************工艺管理****************************************************************/
 
-    //工艺查询操作
+    /*-----------------工艺查询操作------------------------------*/
     @RequestMapping("technology/find")
     public String testcase01(){
         return "technology_list";
     }
-
     @RequestMapping("technology/list")
     @ResponseBody
-    public Map testcase02(@RequestParam int page, int rows){
-        PageHelper.startPage(page, rows);
+    public Object findPageTestcase02(@RequestParam int page, int rows){
+      /*  PageHelper.startPage(page, rows);
         List<Technology> technologyList = technologyDao.selectTechnology();
         int total = technologyDao.selectCountOfTechnology();
         PageInfo pageInfo = new PageInfo(technologyList);
         technologyList = pageInfo.getList();
         Map<String,Object > hashMap = new HashMap();
         hashMap.put("total",total);
-        hashMap.put("rows",technologyList);
-        return hashMap;
+        hashMap.put("rows",technologyList);*/
+        List<Technology> technologyList = technologyDao.selectTechnology();
+        return technologyList;
     }
-    //工艺的添加操作
+    /*-----------------工艺的添加操作------------------------------*/
     @RequestMapping("technology/add_judge")
     public String testcase03(){
         return "technology_add";
@@ -79,7 +79,7 @@ public class TechnologyController {
         return map;
     }
 
-    //工艺的删除操作
+    /*-----------------工艺的删除操作------------------------------*/
     @RequestMapping("technology/delete_judge")
     public String testcase06(HttpServletRequest request){
         return "technology_list";
@@ -97,8 +97,7 @@ public class TechnologyController {
         map.put("status", "200");
         return map;
     }
-
-    //工艺更新操作
+    /*-----------------工艺更新操作------------------------------*/
     @RequestMapping("technology/edit_judge")
     public String testcase08(){
         return "technology_edit";
@@ -125,7 +124,8 @@ public class TechnologyController {
         }
         return map;
     }
-    //工艺的信息显示操作custom/get/{id}
+    /*-----------------工艺的信息显示操作------------------------------*/
+
     @RequestMapping("technology/get/{id}")
     @ResponseBody
     public Technology testcase(@PathVariable("id") String id){
@@ -134,11 +134,11 @@ public class TechnologyController {
     }
 
     //模块二
-    /********************工艺要求**********************/
+    /********************工艺要求****************************************************************/
+
     @Autowired
     TechnologyRequirementDao requirementDao;
-
-    //查询所有的工艺要求信息
+    /*-----------------查询所有的工艺要求信息------------------------------*/
     @RequestMapping("technologyRequirement/find")
     public String testcase11(){
         return "technologyRequirement_list";
@@ -161,8 +161,7 @@ public class TechnologyController {
         map.put("rows", technologyRequirements);
         return map;
     }
-
-    //新增技艺的参数信息
+    /*-----------------新增技艺的参数信息------------------------------*/
     @RequestMapping("technologyRequirement/add_judge")
     public String testcase14(){
         return "technologyRequirement_add";
@@ -197,8 +196,7 @@ public class TechnologyController {
             return map;
         }
     }
-
-    //删除选中的信息
+    /*-----------------删除选中的信息------------------------------*/
     @RequestMapping("technologyRequirement/delete_judge")
     public String testcase21(){
         return "technologyRequirement_list";
@@ -215,8 +213,8 @@ public class TechnologyController {
         map.put("status", "200");
         return map;
     }
+    /*-----------------工艺要求的编辑功能------------------------------*/
 
-    //工艺要求的编辑功能
     @RequestMapping("technologyRequirement/edit_judge")
     public String testcase23(){
         return "technologyRequirement_edit";
@@ -238,11 +236,14 @@ public class TechnologyController {
     }
 
 
-    /********************工艺计划模块***************/
+    //模块三
+    /********************工艺计划模块****************************************************************/
+
     @Autowired
     TechnologyPlanDao technologyPlanDao;
 
-    //查询工艺计划列表
+    /*-----------------查询工艺计划列表------------------------------*/
+
     @RequestMapping("technologyPlan/find")
     public String testcase26(){
         return "technologyPlan_list";
@@ -267,7 +268,7 @@ public class TechnologyController {
         return hashMap;
     }
 
-    //新增工艺计划
+    /*-----------------新增工艺计划------------------------------*/
     @RequestMapping("technologyPlan/add_judge")
     public String testcase27(){
         return "technologyPlan_add";
@@ -305,7 +306,7 @@ public class TechnologyController {
         }
     }
 
-    //删除数据
+    /*-----------------删除数据------------------------------*/
     @RequestMapping("technologyPlan/delete_judge")
     public String testcase31(){
         return "technologyPlan_list";
@@ -322,8 +323,7 @@ public class TechnologyController {
         map.put("status", "200");
         return map;
     }
-
-    //更新数据
+    /*-----------------更新数据------------------------------*/
     @RequestMapping("technologyPlan/edit_judge")
     public String testcase33(){
         return "technologyPlan_edit";
@@ -351,12 +351,12 @@ public class TechnologyController {
     }
 
 
-    /******************工序模块*******************/
+    //模块四
+    /********************工序模块****************************************************************/
 
     @Autowired
     ProcessDao processDao;
-
-    //查询所有的工序信息
+    /*-----------------查询所有的工序信息------------------------------*/
     @RequestMapping("process/find")
     public String testcase18(HttpServletResponse response){
         return "process_list";
@@ -375,7 +375,8 @@ public class TechnologyController {
         return map;
     }
 
-    //添加工序信息
+    /*-----------------添加工序信息------------------------------*/
+
     @RequestMapping("process/add_judge")
     public String testcase36(){
         return "process_add";
@@ -412,7 +413,8 @@ public class TechnologyController {
         return technologyById;
     }
 
-    //删除工序信息
+    /*-----------------删除工序信息------------------------------*/
+
     @RequestMapping("process/delete_judge")
     public String testcase41(){
         return "technologyPlan_list";
@@ -429,8 +431,7 @@ public class TechnologyController {
         map.put("status", "200");
         return map;
     }
-
-    //修改工序信息
+    /*-----------------修改工序信息------------------------------*/
 
     @RequestMapping("process/edit_judge")
     public String testcase43(){
