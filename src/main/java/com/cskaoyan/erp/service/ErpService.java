@@ -213,13 +213,30 @@ public interface ErpService {
     int deletePCountCheckService(String[] ids);
     int updateNotePCountCheckService(String pCountCheckId,String note);
 
+
     /*****************人员监控接口实现*************************************/
-    //部门管理模块
+    //部门管理
     List<Department> findDepartment();
     Department findDepartmentById(String id);
     int addDepartment( Department department);
     int editDepartment(Department department);
     int deleteDepartment(String[] ids);
+
+    //员工管理
+
+    List<Employee> findAllEmployee();
+
+    int insertEmployee(Employee employee, String departmentId);
+
+    int updateByPrimaryKey(Employee employee);
+
+    int deleteEmployee(String[] ids);
+
+    List<Employee>  queryByEmployeeId(String empId);
+
+    List<Employee>  queryByEmployeeName(String empName);
+
+    List<Employee>  queryByDepartmentName(String departmentName);
 
 
 

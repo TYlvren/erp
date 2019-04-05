@@ -816,6 +816,7 @@ private FinalMeasureCheckDao finalMeasureCheckDao;
 
 
     /*****************人员监控接口实现*************************************/
+  //部门
     @Autowired
     private DepartmentDao departmentDao;
     @Override
@@ -838,10 +839,49 @@ private FinalMeasureCheckDao finalMeasureCheckDao;
     public int deleteDepartment(String[] ids ){
         return departmentDao.deleteDepartmentById(ids);
     }
+//员工
+    @Autowired
+    private EmployeeDao employeeDao;
+
 
 
 
     /*****************系统管理接口实现*************************************/
+    @Override
+    public List<Employee> findAllEmployee() {
+        List<Employee> employees = employeeDao.findAllEmployee();
+        return employees;
+    }
+
+    @Override
+    public int insertEmployee(Employee employee, String departmentId) {
+        return employeeDao.insertEmployee(employee, departmentId);
+    }
+
+    @Override
+    public int updateByPrimaryKey(Employee employee) {
+        return employeeDao.updateByPrimaryKey(employee);
+    }
+
+    @Override
+    public int deleteEmployee(String[] ids) {
+        return employeeDao.deleteEmployee(ids);
+    }
+
+    @Override
+    public List<Employee> queryByEmployeeId(String empId) {
+        return employeeDao.queryByEmployeeId(empId);
+    }
+
+    @Override
+    public List<Employee> queryByEmployeeName(String empName) {
+        return employeeDao.queryByEmployeeName(empName);
+    }
+
+    @Override
+    public List<Employee> queryByDepartmentName(String departmentName) {
+        return employeeDao.queryByDepartmentName(departmentName);
+    }
 
 
 }

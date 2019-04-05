@@ -1,5 +1,249 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.EmployeeDao">
+    <resultMap id="BaseResultMap" type="employee">
+        <id column="emp_id" jdbcType="VARCHAR" property="empId" />
+        <result column="emp_name" jdbcType="VARCHAR" property="empName" />
+        <result column="sex" jdbcType="CHAR" property="sex" />
+        <result column="id_code" jdbcType="VARCHAR" property="idCode" />
+        <result column="birthday" jdbcType="DATE" property="birthday" />
+        <result column="join_date" jdbcType="DATE" property="joinDate" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="education" jdbcType="VARCHAR" property="education" />
+        <result column="degree" jdbcType="VARCHAR" property="degree" />
+        <result column="major" jdbcType="VARCHAR" property="major" />
+        <result column="graduate_school" jdbcType="VARCHAR" property="graduateSchool" />
+        <result column="education_form" jdbcType="VARCHAR" property="educationForm" />
+        <result column="department_id" jdbcType="VARCHAR" property="departmentId" />
+        <association property="department" column="department_Id"
+                     select="com.cskaoyan.erp.dao.DepartmentDao.selectDepartmentById"/>
+    </resultMap>
 
+    <select id="findAllEmployee" resultMap="BaseResultMap">
+    select *
+    from employee
+  </select>
+
+    <select id="queryByEmployeeName" resultMap="BaseResultMap">
+    select *
+    from employee
+    where emp_name like "%"#{empName}"%"
+  </select>
+
+    <select id="queryByDepartmentName" resultMap="BaseResultMap">
+    select e.*, d.department_name, d.note
+    from employee e, department d
+    on d.department_id = e.department_id
+    where  d.department_name like "%"#{departmentName}"%"
+  </select>
+
+    <select id="queryByEmployeeId" resultMap="BaseResultMap">
+    select *
+    from employee
+    where emp_id like "%"#{empId}"%"
+  </select>
+
+    <select id="getEmployeeByEmployeeId" resultMap="BaseResultMap">
+    select *
+    from employee
+    where emp_id = #{empId}
+  </select>
+
+    <insert id="insertEmployee" >
+    insert into employee (emp_id, emp_name, sex,
+      id_code, birthday, join_date,
+      status, education, degree,
+      major, graduate_school, education_form,
+      department_id)
+    values (#{employee.empId,jdbcType=VARCHAR}, #{employee.empName,jdbcType=VARCHAR}, #{employee.sex,jdbcType=CHAR},
+      #{employee.idCode,jdbcType=VARCHAR}, #{employee.birthday,jdbcType=DATE}, #{employee.joinDate,jdbcType=DATE},
+      #{employee.status,jdbcType=VARCHAR}, #{employee.education,jdbcType=VARCHAR}, #{employee.degree,jdbcType=VARCHAR},
+      #{employee.major,jdbcType=VARCHAR}, #{employee.graduateSchool,jdbcType=VARCHAR}, #{employee.educationForm,jdbcType=VARCHAR},
+      #{departmentId,jdbcType=VARCHAR})
+  </insert>
+
+
+
+    <sql id="Base_Column_List">
+    emp_id, emp_name, sex, id_code, birthday, join_date, status, education, degree, major,
+    graduate_school, education_form, department_id
+  </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from employee
+        where emp_id = #{empId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from employee
+    where emp_id = #{empId,jdbcType=VARCHAR}
+  </delete>
+
+    <delete id="deleteEmployee" >
+        delete
+        from employee
+        <where>
+            <foreach collection="array"  item="id" close=";">
+                or emp_id = #{id}
+            </foreach>
+        </where>
+    </delete>
+
+    <insert id="insert" parameterType="employee">
+    insert into employee (emp_id, emp_name, sex,
+      id_code, birthday, join_date,
+      status, education, degree,
+      major, graduate_school, education_form,
+      department_id)
+    values (#{empId,jdbcType=VARCHAR}, #{empName,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR},
+      #{idCode,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{joinDate,jdbcType=DATE},
+      #{status,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{degree,jdbcType=VARCHAR},
+      #{major,jdbcType=VARCHAR}, #{graduateSchool,jdbcType=VARCHAR}, #{educationForm,jdbcType=VARCHAR},
+      #{departmentId,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="employee">
+        insert into employee
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="empId != null">
+                emp_id,
+            </if>
+            <if test="empName != null">
+                emp_name,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="idCode != null">
+                id_code,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="joinDate != null">
+                join_date,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="education != null">
+                education,
+            </if>
+            <if test="degree != null">
+                degree,
+            </if>
+            <if test="major != null">
+                major,
+            </if>
+            <if test="graduateSchool != null">
+                graduate_school,
+            </if>
+            <if test="educationForm != null">
+                education_form,
+            </if>
+            <if test="departmentId != null">
+                department_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="empId != null">
+                #{empId,jdbcType=VARCHAR},
+            </if>
+            <if test="empName != null">
+                #{empName,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=CHAR},
+            </if>
+            <if test="idCode != null">
+                #{idCode,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=DATE},
+            </if>
+            <if test="joinDate != null">
+                #{joinDate,jdbcType=DATE},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="education != null">
+                #{education,jdbcType=VARCHAR},
+            </if>
+            <if test="degree != null">
+                #{degree,jdbcType=VARCHAR},
+            </if>
+            <if test="major != null">
+                #{major,jdbcType=VARCHAR},
+            </if>
+            <if test="graduateSchool != null">
+                #{graduateSchool,jdbcType=VARCHAR},
+            </if>
+            <if test="educationForm != null">
+                #{educationForm,jdbcType=VARCHAR},
+            </if>
+            <if test="departmentId != null">
+                #{departmentId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="employee">
+        update employee
+        <set>
+            <if test="empName != null">
+                emp_name = #{empName,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=CHAR},
+            </if>
+            <if test="idCode != null">
+                id_code = #{idCode,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=DATE},
+            </if>
+            <if test="joinDate != null">
+                join_date = #{joinDate,jdbcType=DATE},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="education != null">
+                education = #{education,jdbcType=VARCHAR},
+            </if>
+            <if test="degree != null">
+                degree = #{degree,jdbcType=VARCHAR},
+            </if>
+            <if test="major != null">
+                major = #{major,jdbcType=VARCHAR},
+            </if>
+            <if test="graduateSchool != null">
+                graduate_school = #{graduateSchool,jdbcType=VARCHAR},
+            </if>
+            <if test="educationForm != null">
+                education_form = #{educationForm,jdbcType=VARCHAR},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where emp_id = #{empId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="employee">
+    update employee
+    set emp_name = #{empName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=CHAR},
+      id_code = #{idCode,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      join_date = #{joinDate,jdbcType=DATE},
+      status = #{status,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      degree = #{degree,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      graduate_school = #{graduateSchool,jdbcType=VARCHAR},
+      education_form = #{educationForm,jdbcType=VARCHAR},
+      department_id = #{departmentId,jdbcType=VARCHAR}
+    where emp_id = #{empId,jdbcType=VARCHAR}
+  </update>
 </mapper>
