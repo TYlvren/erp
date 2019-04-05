@@ -2,18 +2,20 @@ package com.cskaoyan.erp.dao;
 
 
 import com.cskaoyan.erp.model.Employee;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface EmployeeDao {
- int deleteByPrimaryKey(String empId);
 
- int insert(Employee record);
+List<Employee> selectAllEmployee();
 
- int insertSelective(Employee record);
+Employee selectEmployeeById(String id);
 
- Employee selectByPrimaryKey(String empId);
+int insertEmployee(@Param("employee") Employee employee);
 
- int updateByPrimaryKeySelective(Employee record);
+int updateEmployee(Employee employee);
 
- int updateByPrimaryKey(Employee record);
+int deleteEmployeeByIds(String[] ids);
 
 }

@@ -1,5 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.erp.dao.EmployeeDao">
+    <sql id="employeeColumns">
+          emp_id as empId,emp_name as empName,sex as sex,id_code as idCode ,birthday as birthday,
+          join_date as joinDate,status as status,education as education ,degree as degree,major as major,
+          graduate_school as graduateSchool,education_form as educationForm,department_id as departmentId
+    </sql>
+    <resultMap id="employeeMap" type="employee">
+        <id property="empId" column="emp_id"/>
+        <result column="emp_name" property="empName"/>
+        <result column="sex" property="sex"/>
+        <result column="id_code" property="idCode"/>
+        <result column="birthday" property="birthday"/>
+        <result column="join_date" property="joinDate"/>
+        <result column="status" property="status"/>
+        <result column="education" property="education"/>
+        <result column="degree" property="degree"/>
+        <result column="major" property="major"/>
+        <result column="graduate_school" property="graduateSchool"/>
+        <result column="education_form" property="educationForm"/>
+        <association property="department" column="department_id" javaType="department"
+                     select="com.cskaoyan.erp.dao.DepartmentDao.selectDepartmentById"/>
+    </resultMap>
+    <select id="selectAllEmployee" resultMap="employeeMap">
+        select *
+        /*emp_id,emp_name,sex,id_code,birthday,join_date,
+        status,education,degree,major,graduate_school,education_form,department_id*/ from employee
+    </select>
+    <select id="selectEmployeeById" resultType="employee">
+        select emp_id,emp_name,sex,id_code,birthday,join_date,
+        status,education,degree,major,graduate_school,education_form,department_id from employee where emp_id = #{id}
+    </select>
+
+    <insert id="insertEmployee">
+        INSERT INTO employee VALUES (#{employee.empId},#{employee.empName},#{employee.sex},#{employee.idCode},#{employee.birthday},#{employee.joinDate},#{employee.status},#{employee.education},
+        #{employee.degree},#{employee.major},#{employee.graduateSchool},#{employee.educationForm},#{employee.departmentId})
+    </insert>
+
+<update id="updateEmployee">
+    update employee set emp_name=#{empName},sex=#{sex} ,id_code=#{idCode},birthday=#{birthday},
+    join_date=#{joinDate},status=#{status},education=#{education},degree=#{degree},major=#{major},
+    graduate_school=#{graduateSchool},education_form=#{educationForm},department_id=#{department.departmentId}
+    where emp_id = #{empId}
+</update>
+
+
+<delete id="deleteEmployeeByIds">
+    delete from employee
+    <where>
+        <foreach collection="array" item="id" close=";">
+            or emp_id = #{id}
+        </foreach>
+    </where>
+</delete>
 
 </mapper>

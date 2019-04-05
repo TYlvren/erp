@@ -1,50 +1,93 @@
 package com.cskaoyan.erp.model;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Date;
-
+@Component
 public class Employee {
-    private Integer id;
+    private String empId;
 
-    private String name;
+    private String empName;
 
-    private String gender;
+    private String sex;
+
+    private String idCode;
 
     private Date birthday;
 
-    private Date entryDate;
+    private Date joinDate;
 
-    private String job;
+    private String status;
 
-    private Float salary;
+    private String education;
 
-    private String email;
+    private String degree;
 
-    private String school;
+    private String major;
 
-    private String resume;
+    private String graduateSchool;
 
-    public Integer getId() {
-        return id;
+    private String educationForm;
+
+    private  Department department;
+
+
+    public void setGraduateSchool(String graduateSchool) {
+        this.graduateSchool = graduateSchool;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+         "empId='" + empId + '\'' +
+         ", empName='" + empName + '\'' +
+         ", sex='" + sex + '\'' +
+         ", idCode='" + idCode + '\'' +
+         ", birthday=" + birthday +
+         ", joinDate=" + joinDate +
+         ", status='" + status + '\'' +
+         ", education='" + education + '\'' +
+         ", degree='" + degree + '\'' +
+         ", major='" + major + '\'' +
+         ", graduateSchool='" + graduateSchool + '\'' +
+         ", educationForm='" + educationForm + '\'' +
+         ", department=" + department +
+         '}';
     }
 
-    public String getName() {
-        return name;
+
+
+    public String getEmpId() {
+        return empId;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setEmpId(String empId) {
+        this.empId = empId;
     }
 
-    public String getGender() {
-        return gender;
+    public String getEmpName() {
+        return empName;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender == null ? null : gender.trim();
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getIdCode() {
+        return idCode;
+    }
+
+    public void setIdCode(String idCode) {
+        this.idCode = idCode;
     }
 
     public Date getBirthday() {
@@ -55,51 +98,86 @@ public class Employee {
         this.birthday = birthday;
     }
 
-    public Date getEntryDate() {
-        return entryDate;
+    public Date getJoinDate() {
+        return joinDate;
     }
 
-    public void setEntryDate(Date entryDate) {
-        this.entryDate = entryDate;
+    public void setJoinDate(Date joinDate) {
+        this.joinDate = joinDate;
     }
 
-    public String getJob() {
-        return job;
+    public String getStatus() {
+        return status;
     }
 
-    public void setJob(String job) {
-        this.job = job == null ? null : job.trim();
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Float getSalary() {
-        return salary;
+    public String getEducation() {
+        return education;
     }
 
-    public void setSalary(Float salary) {
-        this.salary = salary;
+    public void setEducation(String education) {
+        this.education = education;
     }
 
-    public String getEmail() {
-        return email;
+    public String getDegree() {
+        return degree;
     }
 
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+    public void setDegree(String degree) {
+        this.degree = degree;
     }
 
-    public String getSchool() {
-        return school;
+    public String getMajor() {
+        return major;
     }
 
-    public void setSchool(String school) {
-        this.school = school == null ? null : school.trim();
+    public void setMajor(String major) {
+        this.major = major;
     }
 
-    public String getResume() {
-        return resume;
+    public String getGraduateSchool() {
+        return graduateSchool;
     }
 
-    public void setResume(String resume) {
-        this.resume = resume == null ? null : resume.trim();
+    public void setGraduteSchool(String graduteSchool) {
+        this.graduateSchool = graduateSchool;
+    }
+
+    public String getEducationForm() {
+        return educationForm;
+    }
+
+    public void setEducationForm(String educationForm) {
+        this.educationForm = educationForm;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Employee() {
+    }
+
+    public Employee(String empId, String empName, String sex, String idCode, Date birthday, Date joinDate, String status, String education, String degree, String major, String graduateSchool, String educationForm, Department department) {
+        this.empId = empId;
+        this.empName = empName;
+        this.sex = sex;
+        this.idCode = idCode;
+        this.birthday = birthday;
+        this.joinDate = joinDate;
+        this.status = status;
+        this.education = education;
+        this.degree = degree;
+        this.major = major;
+        this.graduateSchool = graduateSchool;
+        this.educationForm = educationForm;
+        this.department = department;
     }
 }

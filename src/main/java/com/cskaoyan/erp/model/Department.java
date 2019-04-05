@@ -1,5 +1,8 @@
 package com.cskaoyan.erp.model;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Department {
     private String departmentId;
 

@@ -329,6 +329,7 @@ public class ErpServiceImpl implements ErpService {
 
 
     /*****************人员监控接口实现*************************************/
+  //部门
     @Autowired
     private DepartmentDao departmentDao;
     @Override
@@ -350,6 +351,29 @@ public class ErpServiceImpl implements ErpService {
     @Override
     public int deleteDepartment(String[] ids ){
         return departmentDao.deleteDepartmentById(ids);
+    }
+//员工
+    @Autowired
+    private EmployeeDao employeeDao;
+    @Override
+    public List<Employee> findEmployee(){
+        return  employeeDao.selectAllEmployee();
+    }
+    @Override
+    public Employee findEmployeeById(String id){
+        return employeeDao.selectEmployeeById(id);
+    }
+    @Override
+    public int addEmployee(Employee employee){
+        return employeeDao.insertEmployee(employee);
+    }
+    @Override
+    public int editEmployee(Employee employee){
+        return  employeeDao.updateEmployee(employee);
+    }
+    @Override
+    public int deleteEmployee(String[] ids){
+        return employeeDao.deleteEmployeeByIds(ids);
     }
 
     /*****************系统管理接口实现*************************************/
