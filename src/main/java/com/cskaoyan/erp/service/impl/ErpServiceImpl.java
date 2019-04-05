@@ -259,6 +259,12 @@ public class ErpServiceImpl implements ErpService {
     public List<DeviceType> findDeviceTypeById(String searchValue) {
         return deviceTypeDao.findDeviceTypeById(searchValue);
     }
+
+    @Override
+    public DeviceType getDeviceTypeById(String id) {
+        return deviceTypeDao.getDeviceTypeById(id);
+    }
+
     @Override
     public List<DeviceType> findDeviceTypeByName(String searchValue) {
         return deviceTypeDao.findDeviceTypeByName(searchValue);
@@ -299,6 +305,10 @@ public class ErpServiceImpl implements ErpService {
         return deviceDao.updateDeviceNote(device);
     }
 
+    @Override
+    public List<Device> findDeviceByTypeName(String searchValue) {
+        return deviceDao.findDeviceByTypeName(searchValue);
+    }
 
 
     /*-------------设备例检模块------------------------------------------------*/
@@ -346,10 +356,76 @@ public class ErpServiceImpl implements ErpService {
     public List<DeviceFault> findAllDeviceFaultByPage() {
         return  deviceFaultDao.findAllDeviceFault();
     }
+
+    @Override
+    public int insertDeviceFault(DeviceFault deviceFault) {
+        return deviceFaultDao.insertDeviceFault(deviceFault);
+    }
+
+    @Override
+    public int updateDeviceFault(DeviceFault deviceFault) {
+        return deviceFaultDao.updateDeviceFault(deviceFault);
+    }
+
+    @Override
+    public int deleteDeviceFault(String id) {
+        return deviceFaultDao.deleteDeviceFault(id);
+    }
+
+    @Override
+    public List<DeviceFault> findDeviceFaultById(String searchValue) {
+        return deviceFaultDao.findDeviceFaultById(searchValue);
+    }
+
+    @Override
+    public DeviceFault getDeviceFaultById(String searchValue) {
+        return deviceFaultDao.getDeviceFaultById(searchValue);
+    }
+
+    @Override
+    public List<DeviceFault> findDeviceFaultByName(String searchValue) {
+        return deviceFaultDao.findDeviceFaultByName(searchValue);
+    }
+
+    @Override
+    public int updateDeviceFaultNote(DeviceFault deviceFault) {
+        return deviceFaultDao.updateDeviceFaultNote(deviceFault);
+    }
+
     /*-------------设备维修模块------------------------------------------------*/
     @Override
     public List<DeviceMaintain> findDeviceMaintainByPage() {
         return deviceMaintainDao.findAllDeviceMaintain();
+    }
+
+    @Override
+    public int insertDeviceMaintain(DeviceMaintain deviceMaintain) {
+        return deviceMaintainDao.insertDeviceMaintain(deviceMaintain);
+    }
+
+    @Override
+    public int updateDeviceMaintain(DeviceMaintain deviceMaintain) {
+        return deviceMaintainDao.updateDeviceMaintain(deviceMaintain);
+    }
+
+    @Override
+    public int deleteDeviceMaintain(String id) {
+        return deviceMaintainDao.deleteDeviceMaintain(id);
+    }
+
+    @Override
+    public List<DeviceMaintain> findDeviceMaintainById(String searchValue) {
+        return deviceMaintainDao.findDeviceMaintainById(searchValue);
+    }
+
+    @Override
+    public List<DeviceMaintain> findDeviceMaintainByFaultId(String searchValue) {
+        return deviceMaintainDao.findDeviceMaintainByFaultId(searchValue);
+    }
+
+    @Override
+    public int updateDeviceMaintainNote(DeviceMaintain deviceMaintain) {
+        return  deviceMaintainDao.updateDeviceMaintainNote(deviceMaintain);
     }
 
 

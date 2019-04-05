@@ -4,13 +4,96 @@
 
     <select id="findAllDeviceFault" resultType="deviceFault">
       SELECT
-            device_fault.device_fault_id AS deviceFaultId,
-            device_fault.device_id AS deviceId,
-            device_fault.device_fault_cause AS deviceFaultCause,
-            device_fault.device_fault_detail AS deviceFaultDetail,
-            device_fault.device_fault_date AS deviceFaultDate,
-            device_fault.device_fault_maintenance AS deviceFaultMaintenance
-      FROM
-            device_fault
+			device_fault_id AS deviceFaultId,
+            df.device_id AS deviceId,
+            device_fault_cause AS deviceFaultCause,
+            device_fault_detail AS deviceFaultDetail,
+            device_fault_date AS deviceFaultDate,
+            device_fault_maintenance AS deviceFaultMaintenance,
+			device_name AS deviceName
+        FROM
+            device_fault df LEFT JOIN device d ON df.device_id = d.device_id
     </select>
+
+    <insert id="insertDeviceFault">
+        INSERT INTO
+        device_fault
+        VALUES
+        (#{deviceFault.deviceFaultId},
+        #{deviceFault.deviceId},
+        #{deviceFault.deviceFaultCause},
+        #{deviceFault.deviceFaultDetail},
+        #{deviceFault.deviceFaultDate},
+        #{deviceFault.deviceFaultMaintenance})
+    </insert>
+
+    <update id="updateDeviceFault">
+        UPDATE device_fault
+        <set>
+            device_fault.device_id=#{deviceFault.deviceId},
+            device_fault.device_fault_cause=#{deviceFault.deviceFaultCause},
+            device_fault.device_fault_detail=#{deviceFault.deviceFaultDetail},
+            device_fault.device_fault_date=#{deviceFault.deviceFaultDate},
+            device_fault.device_fault_maintenance=#{deviceFault.deviceFaultMaintenance}
+        </set>
+        WHERE
+            device_fault.device_fault_id=#{deviceFault.deviceFaultId}
+    </update>
+
+    <delete id="deleteDeviceFault">
+        DELETE FROM device_fault WHERE device_fault.device_fault_id=#{id}
+    </delete>
+
+    <select id="findDeviceFaultById" resultType="deviceFault">
+         SELECT
+			device_fault_id AS deviceFaultId,
+            device_id AS deviceId,
+            device_fault_cause AS deviceFaultCause,
+            device_fault_detail AS deviceFaultDetail,
+            device_fault_date AS deviceFaultDate,
+            device_fault_maintenance AS deviceFaultMaintenance
+        FROM
+            device_fault
+	    WHERE
+	        device_fault_id like '%${id}%'
+    </select>
+
+    <select id="getDeviceFaultById" resultType="deviceFault">
+        SELECT
+			device_fault_id AS deviceFaultId,
+            device_id AS deviceId,
+            device_fault_cause AS deviceFaultCause,
+            device_fault_detail AS deviceFaultDetail,
+            device_fault_date AS deviceFaultDate,
+            device_fault_maintenance AS deviceFaultMaintenance
+        FROM
+            device_fault
+	    WHERE
+	        device_fault_id = #{id}
+    </select>
+
+    <select id="findDeviceFaultByName" resultType="deviceFault">
+        SELECT
+			device_fault_id AS deviceFaultId,
+            df.device_id AS deviceId,
+            device_fault_cause AS deviceFaultCause,
+            device_fault_detail AS deviceFaultDetail,
+            device_fault_date AS deviceFaultDate,
+            device_fault_maintenance AS deviceFaultMaintenance,
+			device_name AS deviceName
+        FROM
+            device_fault df LEFT JOIN device d ON df.device_id = d.device_id
+		WHERE device_name like '%${name}%'
+    </select>
+
+    <update id="updateDeviceFaultNote">
+        UPDATE
+            device_fault
+        <set>
+            device_fault.device_fault_detail=#{deviceFault.deviceFaultDetail}
+        </set>
+        WHERE
+            device_fault.device_fault_id=#{deviceFault.deviceFaultId}
+    </update>
+
 </mapper>

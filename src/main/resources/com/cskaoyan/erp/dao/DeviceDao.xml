@@ -3,35 +3,23 @@
 <mapper namespace="com.cskaoyan.erp.dao.DeviceDao">
 
 
-    <resultMap id="deviceMap" type="device">
-        <result column="device_id" property="deviceId"/>
-        <result column="device_name" property="deviceName"/>
-        <result column="device_type_id" property="deviceTypeId"/>
-        <result column="device_status_id" property="deviceStatusId"/>
-        <result column="device_status" property="deviceStatus"/>
-        <result column="device_purchase_date" property="devicePurchaseDate"/>
-        <result column="device_purchase_price" property="devicePurchasePrice"/>
-        <result column="device_manufacture_date" property="deviceManufactureDate"/>
-        <result column="device_service_life" property="deviceServiceLife"/>
-        <result column="device_keeper_id" property="deviceKeeperId"/>
-        <result column="note" property="note"/>
-        <association property="deviceType" javaType="deviceType">
-            <result column="device_type_id" property="deviceTypeId"/>
-            <result column="device_type_name" property="deviceTypeName"/>
-            <result column="device_type_model" property="deviceTypeModel"/>
-            <result column="device_type_spec" property="deviceTypeSpec"/>
-            <result column="device_type_supplier" property="deviceTypeSupplier"/>
-            <result column="device_type_producer" property="deviceTypeProducer"/>
-            <result column="device_type_quantity" property="deviceTypeQuantity"/>
-            <result column="device_type_warranty" property="deviceTypeWarranty"/>
-        </association>
-
-    </resultMap>
-
-    <select id="findAllDevice" resultMap="deviceMap">
+    <select id="findAllDevice" resultType="device">
         SELECT
-            *
-        FROM device d inner JOIN device_type dt on d.device_type_id = dt.device_type_id
+            device_id AS deviceId,
+            device_name AS deviceName,
+            d.device_type_id AS deviceTypeId,
+            device_status_id AS deviceStatusId,
+            device_status AS deviceStatus,
+            device_purchase_date AS devicePurchaseDate,
+            device_purchase_price AS devicePurchasePrice,
+            device_manufacture_date AS deviceManufactureDate,
+            device_service_life AS deviceServiceLife,
+            d.device_keeper_id AS deviceKeeperId,
+            note AS note,
+            emp_name AS deviceKeeper,
+            device_type_name deviceTypeName
+        FROM
+            (device d LEFT  JOIN device_type dt ON d.device_type_id = dt.device_type_id) LEFT JOIN employee e ON d.device_keeper_id = e.emp_id
     </select>
 
     <insert id="insertDevice">
@@ -137,4 +125,24 @@
         WHERE device_name like '%${name}%'
     </select>
 
+    <select id="findDeviceByTypeName" resultType="device">
+        SELECT
+            device_id AS deviceId,
+            device_name AS deviceName,
+            d.device_type_id AS deviceTypeId,
+            device_status_id AS deviceStatusId,
+            device_status AS deviceStatus,
+            device_purchase_date AS devicePurchaseDate,
+            device_purchase_price AS devicePurchasePrice,
+            device_manufacture_date AS deviceManufactureDate,
+            device_service_life AS deviceServiceLife,
+            d.device_keeper_id AS deviceKeeperId,
+            note AS note,
+            emp_name AS deviceKeeper,
+            device_type_name deviceTypeName
+        FROM
+            (device d LEFT  JOIN device_type dt ON d.device_type_id = dt.device_type_id) LEFT JOIN employee e ON d.device_keeper_id = e.emp_id
+        WHERE
+            device_type_name like '%${name}%'
+    </select>
 </mapper>

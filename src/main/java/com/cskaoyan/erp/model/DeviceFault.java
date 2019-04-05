@@ -1,7 +1,9 @@
 package com.cskaoyan.erp.model;
 
-import java.util.Date;
+import org.springframework.stereotype.Component;
 
+import java.util.Date;
+@Component
 public class DeviceFault {
     private String deviceFaultId;
 
@@ -14,6 +16,8 @@ public class DeviceFault {
     private Date deviceFaultDate;
 
     private String deviceFaultMaintenance;
+
+    private String deviceName;
 
     public String getDeviceFaultId() {
         return deviceFaultId;
@@ -63,6 +67,26 @@ public class DeviceFault {
         this.deviceFaultMaintenance = deviceFaultMaintenance == null ? null : deviceFaultMaintenance.trim();
     }
 
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
+    public DeviceFault() {
+    }
+
+    public DeviceFault(String deviceFaultId, String deviceId, String deviceFaultCause, String deviceFaultDetail, Date deviceFaultDate, String deviceFaultMaintenance) {
+        this.deviceFaultId = deviceFaultId;
+        this.deviceId = deviceId;
+        this.deviceFaultCause = deviceFaultCause;
+        this.deviceFaultDetail = deviceFaultDetail;
+        this.deviceFaultDate = deviceFaultDate;
+        this.deviceFaultMaintenance = deviceFaultMaintenance;
+    }
+
     @Override
     public String toString() {
         return "DeviceFault{" +
@@ -72,6 +96,7 @@ public class DeviceFault {
                 ", deviceFaultDetail='" + deviceFaultDetail + '\'' +
                 ", deviceFaultDate=" + deviceFaultDate +
                 ", deviceFaultMaintenance='" + deviceFaultMaintenance + '\'' +
+                ", deviceName='" + deviceName + '\'' +
                 '}';
     }
 }
