@@ -8,22 +8,14 @@ import com.cskaoyan.erp.model.*;
 import com.cskaoyan.erp.model.Process;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import net.sf.json.JSONObject;
-import org.apache.ibatis.annotations.Param;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.rmi.runtime.Log;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -407,8 +399,7 @@ public class TechnologyController {
     @RequestMapping("technologyPlan/get/{id}")
     @ResponseBody
     public TechnologyPlan testcase40(@PathVariable("id") String id){
-        TechnologyPlan technologyById = technologyPlanDao.findTechnologyPlanById(id);
-        return technologyById;
+        return technologyPlanDao.findTechnologyPlanById(id);
     }
 
     //删除工序信息
