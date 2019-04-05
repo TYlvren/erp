@@ -42,4 +42,5 @@ public interface EmployeeDao {
 
  int deleteEmployee(String[] ids);
 
+ Employee findEmployeeById(@Param("id") String empId);
 }

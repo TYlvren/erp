@@ -36,4 +36,16 @@
     <update id="updateNotePMeasureCheckDao" parameterType="string">
                 update  process_measure_check set  note=#{note} where p_measure_check_id= #{id}
     </update>
+
+    <!--查询-->
+    <select id="searchPMeasureCheckDao" resultType="ProcessMeasureCheck">
+        select
+        <include refid="PMeasureCheckColumns"/>
+        from process_measure_check as pmc left join employee as e on pmc.emp_id=e.emp_id
+        <where>
+            <if test="class1=='pMeasureCheckId'">
+                p_measure_check_id like CONCAT('%',#{value1},'%')
+            </if>
+        </where>
+    </select>
 </mapper>

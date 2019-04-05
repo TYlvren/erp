@@ -12,4 +12,5 @@ public interface FinalCountCheckDao {
     int updateFCountCheckDao(FinalCountCheck finalCountCheck);
     int deleteFCountCheckDao(String[] ids);
     int updateNoteFCountCheckDao(@Param("id") String fCountCheckId, @Param("note") String note);
+    List<FinalCountCheck> searchFCountCheckDao(@Param("class1")String searchname,@Param("value1") String searchValue);
 }

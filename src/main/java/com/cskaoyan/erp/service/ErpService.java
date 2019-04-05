@@ -185,26 +185,28 @@ public interface ErpService {
     int updateUnqualifyService(UnQualifyApply unQualifyApply);
     int deleteUnqualifyService(String[] ids);
     int updateNoteUnqualifyService(String unqualifyApplyId,String note);
+    List<UnQualifyApply>searchUnqualifyService(String searchname,String searchValue);
     //成品计量质检模块相关方法
      List<FinalMeasureCheck>findFMeasureCheck();
     int  addFMeasureCheckService(FinalMeasureCheck finalMeasureCheck);
     int  updateFMeasureCheckService(FinalMeasureCheck finalMeasureCheck);
     int deleteFMeasureCheckService(String[] ids);
     int updateNoteFMeasureCheckService(String fMeasureCheckId,String note);
+    List<FinalMeasureCheck> searchFMeasureCheckService(String searchname,String searchValue);
     //成品计数质检模块相关方法
     List<FinalCountCheck>findFCountCheck();
     int  addFCountCheckService(FinalCountCheck finalCountCheck);
     int  updateFCountCheckService(FinalCountCheck finalCountCheck);
     int deleteFCountCheckService(String[] ids);
     int updateNoteFCountCheckService(String fCountCheckId,String note);
-
+    List<FinalCountCheck>searchFCountCheckService(String searchname,String searchValue);
     //工序计量质检模块相关方法
     List<ProcessMeasureCheck>findPMeasureCheck();
     int  addPMeasureCheckService(ProcessMeasureCheck processMeasureCheck);
     int  updatePMeasureCheckService(ProcessMeasureCheck processMeasureCheck);
     int deletePMeasureCheckService(String[] ids);
     int updateNotePMeasureCheckService(String pMeasureCheckId,String note);
-
+    List<ProcessMeasureCheck>searchPMeasureCheckService(String searchname,String searchValue);
     //工序计数质检模块相关方法
 
     List<ProcessCountCheck>findPCountCheckService();
@@ -212,8 +214,7 @@ public interface ErpService {
     int  updatePCountCheckService(ProcessCountCheck processCountCheck);
     int deletePCountCheckService(String[] ids);
     int updateNotePCountCheckService(String pCountCheckId,String note);
-
-
+    List<ProcessCountCheck>searchPCountCheckService(String searchname,String searchValue);
     /*****************人员监控接口实现*************************************/
     //部门管理
     List<Department> findDepartment();
@@ -233,6 +234,7 @@ public interface ErpService {
     int deleteEmployee(String[] ids);
 
     List<Employee>  queryByEmployeeId(String empId);
+    Employee  findEmployeeById(String empId);
 
     List<Employee>  queryByEmployeeName(String empName);
 

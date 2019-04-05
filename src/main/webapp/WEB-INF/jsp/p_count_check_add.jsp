@@ -70,9 +70,8 @@
 	            <td>检验人:</td>
 	            <td>
 	            	<input class="easyui-combobox" name="empId" panelHeight="auto" data-options="required:true,
-	            		editable:false,valueField:'empId',textField:'empName',url:'employee/get_data'" value="001"/>
+	            		editable:false,valueField:'empId',textField:'empName',url:'employee/get_data'" />
 	            </td>
-				<%--自定义数据--%>
 	        </tr>
 	        <tr>
 	            <td>检验结果:</td>

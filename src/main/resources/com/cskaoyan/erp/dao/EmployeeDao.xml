@@ -246,4 +246,25 @@
       department_id = #{departmentId,jdbcType=VARCHAR}
     where emp_id = #{empId,jdbcType=VARCHAR}
   </update>
+
+    <select id="findEmployeeById" resultType="employee">
+        SELECT
+            employee.emp_id AS empId,
+            employee.emp_name AS empName,
+            employee.sex AS sex,
+            employee.id_code AS idCode,
+            employee.birthday AS birthday,
+            employee.join_date AS joinDate,
+            employee.`status` AS `status`,
+            employee.education AS education,
+            employee.degree AS degree,
+            employee.major AS major,
+            employee.graduate_school AS graduateSchool,
+            employee.education_form AS educationForm,
+            employee.department_id AS departmentId
+        FROM
+            employee
+        WHERE
+            employee.emp_id=#{id}
+    </select>
 </mapper>

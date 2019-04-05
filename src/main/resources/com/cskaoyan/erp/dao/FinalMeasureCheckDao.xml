@@ -39,4 +39,18 @@
     <update id="updateNoteFMeasureCheckDao" parameterType="string">
                 update  final_measuret_check set  note=#{note} where f_measure_check_id= #{id}
     </update>
+    <!--查询-->
+    <select id="searchFMeasureCheckDao" resultType="FinalMeasureCheck">
+        select
+        <include refid="FMeasureCheckColumns"/>
+        from final_measuret_check as fmc left join employee as e on fmc.emp_id=e.emp_id
+        <where>
+            <if test="class1=='fMeasureCheckId'">
+                f_measure_check_id like CONCAT('%',#{value1},'%')
+            </if>
+            <if test="class1=='orderId'">
+                order_id like CONCAT('%',#{value1},'%')
+            </if>
+        </where>
+    </select>
 </mapper>
