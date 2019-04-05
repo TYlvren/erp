@@ -243,7 +243,34 @@ public class TechnologyController {
         map.put("status", "200");
         return map;
     }
+    /*-----------------工艺要求的条件查询操作------------------------------*/
 
+    @RequestMapping("technologyRequirement/search_technologyRequirement_by_technologyRequirementId")
+    @ResponseBody
+    public Object findPage_SearchByTechnologyRequirementId(@RequestParam String searchValue,int page,int rows){
+        List<TechnologyRequirement> list =
+                requirementDao.searchTechnologyRequirementByTechnologyRequirementIdOrTechnologyName(null,searchValue);
+
+        for (TechnologyRequirement t :list
+        ) {
+            t.setTechnologyName(t.getTechnology().getTechnologyName());
+            t.setTechnologyId(t.getTechnology().getTechnologyId());
+        }
+        return list;
+    }
+
+    @RequestMapping("technologyRequirement/search_technologyRequirement_by_technologyName")
+    @ResponseBody
+    public Object findPage_SearchByTechnologyRequirementName(@RequestParam String searchValue,int page,int rows){
+        List<TechnologyRequirement> list =
+                requirementDao.searchTechnologyRequirementByTechnologyRequirementIdOrTechnologyName(searchValue,null);
+        for (TechnologyRequirement t :list
+        ) {
+            t.setTechnologyName(t.getTechnology().getTechnologyName());
+            t.setTechnologyId(t.getTechnology().getTechnologyId());
+        }
+        return list;
+    }
 
     //模块三
     /********************工艺计划模块****************************************************************/
