@@ -254,17 +254,17 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
-    public List<DeviceType> findDeviceById(String searchValue) {
+    public List<Device> findDeviceById(String searchValue) {
         return deviceDao.findDeviceById(searchValue);
     }
 
     @Override
-    public List<DeviceType> findServiceDeviceById(String id) {
+    public Device findServiceDeviceById(String id) {
         return deviceDao.findServiceDeviceById(id);
     }
 
     @Override
-    public List<DeviceType> findDeviceByName(String searchValue) {
+    public List<Device> findDeviceByName(String searchValue) {
         return deviceDao.findDeviceByName(searchValue);
     }
 
@@ -280,6 +280,17 @@ public class ErpServiceImpl implements ErpService {
     public List<DeviceCheck> findDeviceeCheckByPage() {
         return deviceCheckDao.findAllDeviceCheck();
     }
+
+    @Override
+    public int insertDeviceCheck(DeviceCheck deviceCheck) {
+        return deviceCheckDao.insertDeviceCheck(deviceCheck);
+    }
+
+    @Override
+    public int updateDeviceCheck(DeviceCheck deviceCheck) {
+        return deviceCheckDao.updateDeviceCheck(deviceCheck);
+    }
+
     /*-------------设备故障模块------------------------------------------------*/
     @Override
     public List<DeviceFault> findAllDeviceFaultByPage() {

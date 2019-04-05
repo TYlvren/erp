@@ -85,6 +85,18 @@ public class TechnologyRequirement {
         this.reviseTime = reviseTime;
     }
 
+    /*@Override
+    public String toString() {
+        return "TechnologyRequirement{" +
+                "technologyRequirementId='" + technologyRequirementId + '\'' +
+                ", technologyId='" + technologyId + '\'' +
+                ", requirement='" + requirement + '\'' +
+                ", addTime=" + addTime +
+                ", reviseTime=" + reviseTime +
+                ", technologyName='" + technologyName + '\'' +
+                '}';
+    }*/
+
     @Override
     public String toString() {
         return "TechnologyRequirement{" +

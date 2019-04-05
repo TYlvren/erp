@@ -24,4 +24,9 @@ public interface TechnologyDao {
     Technology findTechnologyById(@Param("id") String id);
 
     List<Process> selectProcess();
+
+    List<Technology> findTechnologyNameById(@Param("technology_id") String id);
+
+    Technology selectTechnologyNameisExist(@Param("technologyName") String technologyName);
+
 }

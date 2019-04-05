@@ -97,12 +97,14 @@ public interface ErpService {
     int insertDevice(Device device);
     int updateDevice(Device device);
     int deleteDevice(String id);
-    List<DeviceType> findDeviceById(String searchValue);
-    List<DeviceType> findServiceDeviceById(String id);
-    List<DeviceType> findDeviceByName(String searchValue);
+    List<Device> findDeviceById(String searchValue);
+    Device findServiceDeviceById(String id);
+    List<Device> findDeviceByName(String searchValue);
     int updateDeviceNote(Device device);
     /*-------------设备例检模块------------------------------------------------*/
     List<DeviceCheck> findDeviceeCheckByPage();
+    int insertDeviceCheck(DeviceCheck deviceCheck);
+    int updateDeviceCheck(DeviceCheck deviceCheck);
     /*-------------设备故障模块------------------------------------------------*/
     List<DeviceFault> findAllDeviceFaultByPage();
     /*-------------设备维修模块------------------------------------------------*/

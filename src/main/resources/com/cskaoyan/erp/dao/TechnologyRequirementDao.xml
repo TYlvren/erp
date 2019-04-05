@@ -28,6 +28,29 @@
 	te.`technology_id` = t.`technology_id`
     </select>
 
+    <resultMap id="tRequirement" type="technologyRequirement">
+        <result column="technology_requirement_id" property="technologyRequirementId"/>
+        <result column="technology_id" property="technologyId"/>
+        <result column="requirement" property="requirement"/>
+        <result column="add_time" property="addTime"/>
+        <result column="revise_time" property="reviseTime"/>
+        <association property="technology" column="technology_id" javaType="technology"
+                     select="com.cskaoyan.erp.dao.TechnologyDao.findTechnologyNameById"/>
+    </resultMap>
+
+<!--使用多次查询-->
+    <select id="selectTechnologyRequirement2" resultMap="tRequirement">
+    select
+    technology_requirement_id ,
+    technology_id,
+    requirement,
+    add_time,
+    revise_time
+    FROM
+	technology_requirement
+    </select>
+
+
    <!--查询总数-->
     <select id="selectCountOfTechnologyRequirement" resultType="integer">
             select count(*) from technology_requirement
