@@ -286,6 +286,11 @@ public class ErpServiceImpl implements ErpService {
         return deviceCheckDao.insertDeviceCheck(deviceCheck);
     }
 
+    @Override
+    public int updateDeviceCheck(DeviceCheck deviceCheck) {
+        return deviceCheckDao.updateDeviceCheck(deviceCheck);
+    }
+
     /*-------------设备故障模块------------------------------------------------*/
     @Override
     public List<DeviceFault> findAllDeviceFaultByPage() {

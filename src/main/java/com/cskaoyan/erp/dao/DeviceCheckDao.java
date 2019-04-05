@@ -11,4 +11,6 @@ public interface DeviceCheckDao {
     List<DeviceCheck> findAllDeviceCheck();
 
     int insertDeviceCheck(@Param("deviceCheck") DeviceCheck deviceCheck);
+
+    int updateDeviceCheck(@Param("deviceCheck") DeviceCheck deviceCheck);
 }

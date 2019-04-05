@@ -30,7 +30,7 @@ public class DeviceController {
     ErpService erpService;
 
     /*---------设备模块------------------------------------------------------------------------*/
-    @RequestMapping("device/get_data")
+    @RequestMapping("deviceList/get_data")
     public @ResponseBody List<Device> findAllDevice() {
         List<Device> deviceByPage = erpService.findDeviceByPage();
         return deviceByPage;
@@ -429,12 +429,12 @@ public class DeviceController {
 
     @RequestMapping("deviceCheck/add_judge")
     public String add1DeviceCheck() {
-        return "deviceCheck";
+        return "deviceCheck_add";
     }
 
     @RequestMapping("deviceCheck/add")
     public String add2DeviceCheck() {
-        return "deviceCheck";
+        return "deviceCheck_add";
     }
 
     @RequestMapping("deviceCheck/insert")
@@ -448,6 +448,39 @@ public class DeviceController {
         }
         return map;
     }
+
+    @RequestMapping("deviceCheck/edit_judge")
+    public String edit1DeviceCheck() {
+        return "deviceCheck_edit";
+    }
+    /**
+     * 对前端的请求进行映射，修改设备类别信息
+     * @return
+     */
+    @RequestMapping("deviceCheck/edit")
+    public String edit2DeviceCheck() {
+        return "deviceCheck_edit";
+    }
+
+    @RequestMapping("deviceCheck/update")
+    public @ResponseBody Map<String, String> updateDeviceCheck(DeviceCheck deviceCheck) {
+        Map<String, String> map = new HashMap<>();
+        int i = erpService.updateDeviceCheck(deviceCheck);
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "修改失败");
+        }
+        return map;
+    }
+
+
+
+
+
+
+
+
 
 
 

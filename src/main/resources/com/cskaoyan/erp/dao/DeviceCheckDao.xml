@@ -26,4 +26,19 @@
             #{deviceCheck.deviceCheckResult},
             #{deviceCheck.deviceCheckFaultId})
       </insert>
+
+      <update id="updateDeviceCheck">
+            UPDATE device_check
+            <set>
+                  device_id=#{deviceCheck.deviceId},
+                  device_check_emp_id=#{deviceCheck.deviceCheckEmpId},
+                  device_check_date=#{deviceCheck.deviceCheckDate},
+                  device_check_result=#{deviceCheck.deviceCheckResult},
+                  device_check_fault_id=#{deviceCheck.deviceCheckFaultId}
+            </set>
+			WHERE
+			      device_check_id=#{deviceCheck.deviceCheckId}
+      </update>
+
+
 </mapper>

@@ -104,6 +104,7 @@ public interface ErpService {
     /*-------------设备例检模块------------------------------------------------*/
     List<DeviceCheck> findDeviceeCheckByPage();
     int insertDeviceCheck(DeviceCheck deviceCheck);
+    int updateDeviceCheck(DeviceCheck deviceCheck);
     /*-------------设备故障模块------------------------------------------------*/
     List<DeviceFault> findAllDeviceFaultByPage();
     /*-------------设备维修模块------------------------------------------------*/
@@ -158,6 +159,7 @@ public interface ErpService {
     int addDepartment( Department department);
     int editDepartment(Department department);
     int deleteDepartment(String[] ids);
+
 
 
 
