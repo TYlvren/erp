@@ -13,4 +13,10 @@ public interface DeviceCheckDao {
     int insertDeviceCheck(@Param("deviceCheck") DeviceCheck deviceCheck);
 
     int updateDeviceCheck(@Param("deviceCheck") DeviceCheck deviceCheck);
+
+    int deleteDeviceCheck(@Param("id")String id);
+
+    List<DeviceCheck> findDeviceCheckById(@Param("id") String id);
+
+    DeviceCheck getDeviceCheckById(@Param("id") String id);
 }

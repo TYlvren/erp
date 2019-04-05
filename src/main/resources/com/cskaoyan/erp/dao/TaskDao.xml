@@ -9,26 +9,26 @@
 
     <select id="selectAllTask" resultType="task">
         select <include refid="taskColumns"/>
-        from task;
+        from task
     </select>
 
     <select id="selectTaskById" resultType="task">
         select <include refid="taskColumns"/>
         from task
-        where task_id=#{id};
+        where task_id=#{id}
     </select>
 
     <insert id="insertTask">
         insert into task
         (task_id,manufacture_sn,work_id,task_quantity,working_hours)
-        value (#{taskId},#{manufactureSn},#{workId},#{taskQuantity},#{workingHours});
+        value (#{taskId},#{manufactureSn},#{workId},#{taskQuantity},#{workingHours})
     </insert>
 
     <update id="updateTask">
         update task
         set manufacture_sn=#{manufactureSn},work_id=#{workId},task_quantity=#{taskQuantity}
         ,working_hours = #{workingHours}
-        where task_id=#{taskId};
+        where task_id=#{taskId}
     </update>
 
     <delete id="deleteTaskByIds">

@@ -2,11 +2,10 @@ package com.cskaoyan.erp.controller;
 
 import com.cskaoyan.erp.model.*;
 import com.cskaoyan.erp.service.ErpService;
+import com.cskaoyan.erp.util.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class PlanProgressController {
 
     @ResponseBody
     @RequestMapping("order/list")
-    public List<COrder> findOrder() {
+    public Object findOrder(@RequestParam int page, @RequestParam int rows) {
         return erpService.findCOrder();
     }
 
@@ -343,6 +342,12 @@ public class PlanProgressController {
     @RequestMapping("work/list")
     @ResponseBody
     public List<Work> findWork() {
+        return erpService.findWork();
+    }
+
+    @RequestMapping("work/get_data")
+    @ResponseBody
+    public List<Work> getWorkData() {
         return erpService.findWork();
     }
 

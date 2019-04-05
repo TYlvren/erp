@@ -67,7 +67,9 @@ public class DeviceController {
     @RequestMapping("/deviceList/list")
     public @ResponseBody   Map<String, Object> findAllDeviceByPageData(@RequestParam int page, int rows) {
         PageHelper.startPage(page, rows, true);
+
         List<Device> list = erpService.findDeviceByPage();
+
         PageInfo pageInfo = new PageInfo(list);
         list = pageInfo.getList();
         long total = pageInfo.getTotal();
@@ -474,8 +476,39 @@ public class DeviceController {
         return map;
     }
 
+    @RequestMapping("deviceCheck/delete_judge")
+    public String delete1DeviceCheck() {
+        return "deviceCheck";
+    }
 
+    @RequestMapping("deviceCheck/delete_batch")
+    public @ResponseBody Map<String, String> deleteDeviceCheck(String ids) {
+        Map<String, String> map = new HashMap<>();
+        String[] split = ids.split(",");
+        int i = 0;
+        for (String id : split) {
+            i = erpService.deleteDeviceCheck(id);
+        }
+        if (i > 0) {
+            map.put("status", "200");
+        } else {
+            map.put("msg", "删除失败");
+        }
+        return map;
+    }
 
+    @RequestMapping("deviceCheck/search_deviceCheck_by_deviceCheckId")
+    public @ResponseBody Map<String, Object> searchDeviceCheckByIdData(@RequestParam int page, int rows, String searchValue) {
+        PageHelper.startPage(page, rows, true);
+        List<DeviceCheck> list = erpService.findDeviceCheckById(searchValue);
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
+    }
 
 
 
