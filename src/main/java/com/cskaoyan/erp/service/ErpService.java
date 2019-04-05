@@ -54,6 +54,7 @@ public interface ErpService {
     List<Custom> findCustom();
     Custom findCustomById(String id);
 
+    List<COrder> findCustomBySearch(String condition, String searchValue);
     int addCustom(Custom custom);
 
     int editCustom(Custom custom);

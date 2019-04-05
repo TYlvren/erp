@@ -93,6 +93,11 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
+    public List<COrder> findCustomBySearch(String condition, String searchValue) {
+        return customDao.selectCustomBySearch(condition,searchValue);
+    }
+
+    @Override
     public int addCustom(Custom custom) {
         return customDao.insertCustom(custom);
     }

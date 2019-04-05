@@ -19,6 +19,24 @@
         where custom_id=#{id}
     </select>
 
+    <select id="selectCustomBySearch" resultType="custom">
+        <bind name="searchValue" value="'%' + searchValue + '%'" />
+        select <include refid="customColumns"/>
+        from custom
+        <where>
+            <choose>
+                <when test="condition == 'Id'">
+                    custom_id like #{searchValue}
+                </when>
+
+                <when test="condition == 'Name'">
+                    custom_name like #{searchValue}
+                </when>
+            </choose>
+        </where>
+    </select>
+
+
     <delete id="deleteCustomByIds">
         delete from custom
         <where>

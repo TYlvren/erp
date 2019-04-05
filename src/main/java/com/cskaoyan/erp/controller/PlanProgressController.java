@@ -149,7 +149,7 @@ public class PlanProgressController {
 
     @ResponseBody
     @RequestMapping("custom/list")
-    public Object findPageCustom() {
+    public Object findPageCustom(@RequestParam int page,@RequestParam int rows) {
         return erpService.findCustom();
     }
 
@@ -159,6 +159,14 @@ public class PlanProgressController {
         return erpService.findCustom();
     }
 
+
+    /**Custom的模糊查找*/
+    @RequestMapping("custom/search_custom_by_custom{condition}")
+    @ResponseBody
+    public Object findPageCustomBySearch(@RequestParam int page,@RequestParam int rows,
+                                        String searchValue,@PathVariable String condition){
+        return erpService.findCustomBySearch(condition,searchValue);
+    }
 
     /**
      * 添加Custom的controller
@@ -254,7 +262,7 @@ public class PlanProgressController {
 
     @RequestMapping("product/list")
     @ResponseBody
-    public Object findPageProduct() {
+    public Object findPageProduct(@RequestParam int page,@RequestParam int rows) {
         return erpService.findProduct();
     }
 
@@ -354,7 +362,7 @@ public class PlanProgressController {
 
     @RequestMapping("work/list")
     @ResponseBody
-    public Object findPageWork() {
+    public Object findPageWork(@RequestParam int page,@RequestParam int rows) {
         return erpService.findWork();
     }
 
@@ -448,7 +456,7 @@ public class PlanProgressController {
 
     @RequestMapping("manufacture/list")
     @ResponseBody
-    public Object findPageManufacture() {
+    public Object findPageManufacture(@RequestParam int page,@RequestParam int rows) {
         return erpService.findManufacture();
     }
 
@@ -481,7 +489,7 @@ public class PlanProgressController {
 
     @ResponseBody
     @RequestMapping("task/list")
-    public Object findPageTask() {
+    public Object findPageTask(@RequestParam int page,@RequestParam int rows) {
         return erpService.findTask();
     }
 
