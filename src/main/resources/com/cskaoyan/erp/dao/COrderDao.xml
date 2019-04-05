@@ -33,8 +33,10 @@
         from c_order
     </select>
 
-    <select id="selectCOrderById" resultType="corder">
-        select <include refid="COrderColumns"/>
+    <select id="selectCOrderById" resultMap="corderMap">
+        select
+        order_id ,custom_id,product_id ,order_date,request_date,
+        note,quantity ,unit_price,unit ,image,file ,status
         from c_order
         where order_id=#{id}
     </select>
