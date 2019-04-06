@@ -1,7 +1,10 @@
 package com.cskaoyan.erp.util;
 
 
+import com.github.pagehelper.PageInfo;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -9,9 +12,9 @@ import java.util.Map;
  * Date 2019/4/6 0006 Time 9:23
  */
 
-public class DiveceUtils {
+public class DeviceUtils {
 
-    private DiveceUtils() {
+    private DeviceUtils() {
     }
 
 
@@ -25,8 +28,19 @@ public class DiveceUtils {
         if (i > 0) {
             map.put("status", "200");
         } else {
-            map.put("msg", "添加失败");
+            map.put("msg", "操作失败");
         }
         return map;
+    }
+
+    public static Map<String, Object> returnPageInfo(List list) {
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
+
     }
 }
