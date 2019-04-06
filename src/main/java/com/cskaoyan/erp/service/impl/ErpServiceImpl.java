@@ -14,6 +14,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -705,9 +708,8 @@ public class ErpServiceImpl implements ErpService {
 
     //**********删除不合格品(可为多条)
     @Override
-    public int deleteUnqualifyService(String[] ids) {
-        return unQualifyApplyDao.deleteUnqualifyDao(ids);
-    }
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.REPEATABLE_READ)
+    public int deleteUnqualifyService(String[] ids)  { return  unQualifyApplyDao.deleteUnqualifyDao(ids); }
 
     //*************修改不合格品备注功能
     @Override
@@ -746,6 +748,7 @@ public class ErpServiceImpl implements ErpService {
 
     //*********删除成品计量质检记录
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.REPEATABLE_READ)
     public int deleteFMeasureCheckService(String[] ids) {
         return finalMeasureCheckDao.deleteFMeasureCheckDao(ids);
     }
@@ -789,6 +792,7 @@ public class ErpServiceImpl implements ErpService {
 //    //*********删除成品计数质检记录
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.REPEATABLE_READ)
     public int deleteFCountCheckService(String[] ids) {
         return finalCountCheckDao.deleteFCountCheckDao(ids);
     }
@@ -832,6 +836,7 @@ public class ErpServiceImpl implements ErpService {
     //*********删除工序计量质检记录
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.REPEATABLE_READ)
     public int deletePMeasureCheckService(String[] ids) {
         return processMeasureCheckDao.deletePMeasureCheckDao(ids);
     }
@@ -878,6 +883,7 @@ public class ErpServiceImpl implements ErpService {
 //    //*********删除工序计数质检记录
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.REPEATABLE_READ)
     public int deletePCountCheckService(String[] ids) {
         return processCountCheckDao.deletePCountCheckDao(ids);
     }
