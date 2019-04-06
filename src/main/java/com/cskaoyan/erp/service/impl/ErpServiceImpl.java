@@ -505,13 +505,30 @@ public class ErpServiceImpl implements ErpService {
     }
 
     @Override
-    public List<Material> selectMaterialById(String searchValue) {
-        return materialDao.selectByID(searchValue);
+    public Map<String, Object> selectMaterialById(String searchValue,Integer pageNum, Integer pageSize) {
+
+        Integer num = pageNum != null ? pageNum : 1;
+        Integer size = pageSize != null ? pageSize : 10;
+        Page onePage = PageHelper.startPage(num, size, true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<Material> materials = materialDao.selectByID(searchValue);
+        map.put("total", onePage.getTotal());
+        map.put("rows", materials);
+        return map;
     }
 
-    @Override
-    public List<Material> selectMaterialByType(String searchValue) {
-        return materialDao.selectByType(searchValue);
+    public Map<String, Object> selectMaterialByType(String searchValue,Integer pageNum, Integer pageSize) {
+
+        Integer num = pageNum != null ? pageNum : 1;
+        Integer size = pageSize != null ? pageSize : 10;
+        Page onePage = PageHelper.startPage(num, size, true);
+
+        Map<String, Object> map = new HashMap<>();
+        List<Material> materials = materialDao.selectByType(searchValue);
+        map.put("total", onePage.getTotal());
+        map.put("rows", materials);
+        return map;
     }
 
 

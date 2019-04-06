@@ -33,6 +33,11 @@ public class DeviceUtils {
         return map;
     }
 
+    /**
+     * 这是一个返回分页信息的方法
+     * @param list
+     * @return
+     */
     public static Map<String, Object> returnPageInfo(List list) {
         PageInfo pageInfo = new PageInfo(list);
         list = pageInfo.getList();
