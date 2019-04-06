@@ -37,54 +37,41 @@ public class MaterialController {
      * @param
      */
     @RequestMapping("material/find")//进入物料信息
-    public String findMaterial(HttpSession session) {
-        List<String> sysPermissionList = new ArrayList<>();
-        sysPermissionList.add("material:add");
-        sysPermissionList.add("material:edit");
-        sysPermissionList.add("material:delete");
-        session.setAttribute("sysPermissionList", sysPermissionList);
+    public String findMaterial(HttpSession httpSession) {
+        List<String> sysPermissionList = (ArrayList<String>) httpSession.getAttribute("sysPermissionList");
+        if (sysPermissionList == null) {
+            sysPermissionList = new ArrayList<>();
+        }
+        if (!sysPermissionList.contains("material:add")) {
+            sysPermissionList.add("material:add");
+            sysPermissionList.add("material:edit");
+            sysPermissionList.add("material:delete");
+            httpSession.setAttribute("sysPermissionList", sysPermissionList);
+        }
         return "material_list";
     }
 
     @RequestMapping("material/list")
-    public void selectMaterial(HttpServletResponse response, HttpServletRequest request) throws IOException {
-        response.setContentType("text/html;charset=utf-8");
+    @ResponseBody
+    public Object findPageMaterial(@RequestParam int page, int rows)  {
+
         List<Material> materialList = erpService.selectMaterial();
-        int total = erpService.selectCountOfMaterial();
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("total", total);
-        hashMap.put("rows", materialList);
-        JSONObject jsonObject = JSONObject.fromObject(hashMap);
-        response.getWriter().println(jsonObject);
+       return materialList;
 
     }
 
     @RequestMapping("material/search_material_by_{name}")
     @ResponseBody
-    public void search(String searchValue, @PathVariable("name") String name, HttpServletResponse response) throws IOException {
-        if ("materialId".equals(name)) {
-            Map<String, Object> map = null;
-            response.setContentType("text/html;charset=utf-8");
-            List<Material> materialList = erpService.selectMaterialById(searchValue);
-            int total = erpService.selectCountOfMaterial();
-            HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("total", total);
-            hashMap.put("rows", materialList);
-            JSONObject jsonObject = JSONObject.fromObject(hashMap);
-            response.getWriter().println(jsonObject);
-        }
-        if ("materialType".equals(name)) {
-            Map<String, Object> map = null;
-            response.setContentType("text/html;charset=utf-8");
-            List<Material> materialList = erpService.selectMaterialByType(searchValue);
-            int total = erpService.selectCountOfMaterial();
-            HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("total", total);
-            hashMap.put("rows", materialList);
-            JSONObject jsonObject = JSONObject.fromObject(hashMap);
-            response.getWriter().println(jsonObject);
-        }
+    public Map<String, Object> search(String searchValue, @PathVariable("name") String name, @RequestParam("page") Integer pageNum, @RequestParam("rows") Integer pageSize){
+        Map<String, Object> map = null;
+        if("materialId".equals(name)) {
 
+            map=  erpService.selectMaterialById(searchValue,pageNum, pageSize);
+        }
+        if("materialType".equals(name)) {
+            map = erpService.selectMaterialByType(searchValue,pageNum,pageSize);
+        }
+        return map;
     }
 
 
@@ -107,8 +94,9 @@ public class MaterialController {
 
     @RequestMapping("material/insert")
     public String addMaterial(Material material) {
-        System.out.println("material:" + material);
+        Map<String, String> map = new HashMap<>();
         erpService.addMaterial(material);
+        map.put("status", "200");
         return "material_add";
     }
 
@@ -127,7 +115,6 @@ public class MaterialController {
     @RequestMapping("material/delete_batch")
     public String removeMaterial(String ids, HttpServletRequest request) {
         String[] split = ids.split(",");
-        System.out.println(split);
         for (String s : split) {
             erpService.removeMaterialById(s);
         }
