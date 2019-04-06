@@ -2,6 +2,7 @@ package com.cskaoyan.erp.controller;
 
 import com.cskaoyan.erp.model.*;
 import com.cskaoyan.erp.service.ErpService;
+import com.cskaoyan.erp.util.DiveceUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -474,14 +475,15 @@ public class DeviceController {
 
     @RequestMapping("deviceCheck/insert")
     public @ResponseBody Map<String, String> insertDeviceCheck(DeviceCheck deviceCheck) {
-        Map<String, String> map = new HashMap<>();
         int i = erpService.insertDeviceCheck(deviceCheck);
+        return DiveceUtils.returnStatus(i);
+        /*Map<String, String> map = new HashMap<>();
         if (i > 0) {
             map.put("status", "200");
         } else {
             map.put("msg", "添加失败");
         }
-        return map;
+        return map;*/
     }
 
     @RequestMapping("deviceCheck/edit_judge")
