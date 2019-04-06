@@ -41,9 +41,22 @@ public class SystemManagementController {
             map.put("msg","authentication_error");
             return map;
         }
-        session.setAttribute("user",sysUser);
+        session.setAttribute("activeUser",sysUser);
         map.put("msg","ok");
         return map;
+    }
+
+    @RequestMapping("home")
+    public String toHome(){
+        return "home";
+    }
+
+    @RequestMapping("logout")
+    public String logout(HttpSession session){
+        if(session != null){
+            session.invalidate();
+        }
+        return "index";
     }
 
     @RequestMapping("user/find")
