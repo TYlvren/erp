@@ -247,21 +247,28 @@ public class TechnologyController {
 
     @RequestMapping("technologyRequirement/search_technologyRequirement_by_technologyRequirementId")
     @ResponseBody
-    public Object findPage_SearchByTechnologyRequirementId(@RequestParam String searchValue,int page,int rows){
+    public Map<String, Object> SearchByTechnologyRequirementId(@RequestParam String searchValue, int page, int rows){
+        PageHelper.startPage(page, rows, true);
         List<TechnologyRequirement> list =
                 requirementDao.searchTechnologyRequirementByTechnologyRequirementIdOrTechnologyName(null,searchValue);
-
         for (TechnologyRequirement t :list
         ) {
             t.setTechnologyName(t.getTechnology().getTechnologyName());
             t.setTechnologyId(t.getTechnology().getTechnologyId());
         }
-        return list;
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
     }
 
     @RequestMapping("technologyRequirement/search_technologyRequirement_by_technologyName")
     @ResponseBody
-    public Object findPage_SearchByTechnologyRequirementName(@RequestParam String searchValue,int page,int rows){
+    public Object SearchByTechnologyRequirementName(@RequestParam String searchValue,int page,int rows){
+        PageHelper.startPage(page, rows, true);
         List<TechnologyRequirement> list =
                 requirementDao.searchTechnologyRequirementByTechnologyRequirementIdOrTechnologyName(searchValue,null);
         for (TechnologyRequirement t :list
@@ -269,7 +276,13 @@ public class TechnologyController {
             t.setTechnologyName(t.getTechnology().getTechnologyName());
             t.setTechnologyId(t.getTechnology().getTechnologyId());
         }
-        return list;
+        PageInfo pageInfo = new PageInfo(list);
+        list = pageInfo.getList();
+        long total = pageInfo.getTotal();
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
+        map.put("rows", list);
+        return map;
     }
 
     //模块三
