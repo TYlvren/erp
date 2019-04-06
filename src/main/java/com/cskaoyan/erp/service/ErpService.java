@@ -245,7 +245,7 @@ public interface ErpService {
 
     /*****************系统管理接口实现*************************************/
 
-
+    /**------------------------------User--------------------------------*/
     SysUser findUserById(String id);
 
     int addUser(SysUser sysUser);
@@ -259,4 +259,20 @@ public interface ErpService {
     SysUser findUserByUsernameAndPassword(String username, String password);
 
     SysUser findUserByUsername(String username);
+
+
+
+    /**------------------------------Role--------------------------------*/
+
+    List<Role> findRole();
+
+    Role findRoleById(String id);
+
+    int addRole(Role role);
+
+    int editRole(Role role);
+
+    int deleteRole(String[] ids);
+
+    List<Role> findRoleBySearch(String condition, String searchValue);
 }

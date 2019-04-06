@@ -3,17 +3,35 @@
 <mapper namespace="com.cskaoyan.erp.dao.SysUserDao">
 
     <sql id="sysuserColumns">
-        id,username,password,locked
+        id,role_id,username,password,locked
     </sql>
 
+    <resultMap id="userMap" type="sysuser">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="locked" column="locked"/>
+        <association property="role" column="role_id" javaType="role"
+                     select="com.cskaoyan.erp.dao.RoleDao.selectRoleById"/>
+    </resultMap>
+
     <select id="selectUserByUsername" resultType="sysuser">
-      select <include refid="sysuserColumns"/>
-      from sys_user where username = #{username}
+        select
+        <include refid="sysuserColumns"/>
+        from sys_user
+        where username = #{username}
     </select>
 
-    <select id="selectUserByUsernameAndPassword" resultType="sysuser">
-        select <include refid="sysuserColumns"/>
+    <select id="selectUserByUsernameAndPassword" resultMap="userMap">
+        select
+        <include refid="sysuserColumns"/>
         from sys_user
         where username = #{username} and password = #{password}
+    </select>
+
+    <select id="selectAllUser" resultMap="userMap">
+        select
+        <include refid="sysuserColumns"/>
+        from sys_user
     </select>
 </mapper>
