@@ -41,14 +41,14 @@
               material_type As materialType,
               status,
               remaining,
-              note from material where material_id=#{materialId}
+              note from material where material_id like CONCAT('%',#{materialId},'%')
     </select>
     <select id="selectByType" resultType="material">
         select material_id As materialID,
               material_type As materialType,
               status,
               remaining,
-              note from material where material_type=#{materialType}
+              note from material where material_type like CONCAT('%',#{materialType},'%')
     </select>
     <insert id="addMaterial" parameterType="material">
         insert into material ( material_id,material_type,status,remaining,note)

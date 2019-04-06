@@ -156,8 +156,8 @@ public interface ErpService {
     int removeMaterialById(String id);
     int modifyMaterial(Material material);
     int addMaterial(Material material) ;
-    List<Material> selectMaterialById(String searchValue);
-    List<Material> selectMaterialByType(String searchValue);
+    Map<String, Object> selectMaterialById(String searchValue,Integer pageNum, Integer pageSize);
+    Map<String, Object> selectMaterialByType(String searchValue,Integer pageNum, Integer pageSize);
     int modifyNote(Material material);
     /*-------------物料收入模块------------------------------------------------*/
     Map<String, Object> listMaterialReceiveByPage(Integer pageNum, Integer pageSize);
