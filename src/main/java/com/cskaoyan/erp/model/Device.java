@@ -18,7 +18,7 @@ public class Device {
 
     private Date devicePurchaseDate;
 
-    private String devicePurchasePrice;
+    private BigDecimal devicePurchasePrice;
 
     private Date deviceManufactureDate;
 
@@ -96,11 +96,11 @@ public class Device {
         this.deviceStatus = deviceStatus;
     }
 
-    public String getDevicePurchasePrice() {
+    public BigDecimal getDevicePurchasePrice() {
         return devicePurchasePrice;
     }
 
-    public void setDevicePurchasePrice(String devicePurchasePrice) {
+    public void setDevicePurchasePrice(BigDecimal devicePurchasePrice) {
         this.devicePurchasePrice = devicePurchasePrice;
     }
 
@@ -139,7 +139,7 @@ public class Device {
     public Device() {
     }
 
-    public Device(String deviceId, String deviceName, String deviceTypeId, String deviceStatusId, String deviceStatus, Date devicePurchaseDate, String devicePurchasePrice, Date deviceManufactureDate, Date deviceServiceLife, String deviceKeeperId, String note) {
+    public Device(String deviceId, String deviceName, String deviceTypeId, String deviceStatusId, String deviceStatus, Date devicePurchaseDate, BigDecimal devicePurchasePrice, Date deviceManufactureDate, Date deviceServiceLife, String deviceKeeperId, String note) {
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.deviceTypeId = deviceTypeId;
