@@ -980,6 +980,7 @@ public class ErpServiceImpl implements ErpService {
 
 
     /*****************系统管理接口实现*************************************/
+    /**------------------------------User--------------------------------*/
     @Autowired
     private SysUserDao sysUserDao;
 
@@ -1021,5 +1022,41 @@ public class ErpServiceImpl implements ErpService {
     @Override
     public SysUser findUserByUsername(String username) {
         return sysUserDao.selectUserByUsername(username);
+    }
+
+    /**------------------------------Role--------------------------------*/
+
+    @Autowired
+    private RoleDao roleDao;
+
+    @Override
+    public List<Role> findRole() {
+        return roleDao.selectAllRole();
+    }
+
+    @Override
+    public Role findRoleById(String id) {
+        return roleDao.selectRoleById(id);
+    }
+
+
+    @Override
+    public int addRole(Role role) {
+        return roleDao.insertRole(role);
+    }
+
+    @Override
+    public int editRole(Role role) {
+        return roleDao.updateRole(role);
+    }
+
+    @Override
+    public int deleteRole(String[] ids) {
+        return roleDao.deleteRoleByIds(ids);
+    }
+
+    @Override
+    public List<Role> findRoleBySearch(String condition, String searchValue) {
+        return roleDao.selectRoleBySearch(condition,searchValue);
     }
 }
